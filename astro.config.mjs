@@ -14,11 +14,33 @@ if (!allowedEnvironments.has(siteEnvironment)) {
 
 const site = process.env.SITE_URL ?? 'http://localhost:4321';
 const siteUrl = new URL(site);
-if (siteEnvironment !== 'development' && siteUrl.protocol !== 'https:') {
-  throw new Error('SITE_URL must use https for staging and production builds.');
+// Fail closed until the selected public production origin is explicitly changed here.
+const configuredProductionOrigin = 'https://sabiforge.digital';
+if (siteEnvironment !== 'development') {
+  if (siteUrl.protocol !== 'https:') {
+    throw new Error('SITE_URL must use https for staging and production builds.');
+  }
+  if (siteUrl.username || siteUrl.password || siteUrl.search || siteUrl.hash || siteUrl.port) {
+    throw new Error(
+      'SITE_URL must be a clean HTTPS origin without credentials, query, hash or port.',
+    );
+  }
+  if (siteUrl.pathname !== '/') {
+    throw new Error('SITE_URL must be an origin, without a path.');
+  }
+  if (
+    /(^|\.)(localhost|local|internal|test|invalid)$/i.test(siteUrl.hostname) ||
+    /^(127\.|10\.|192\.168\.|169\.254\.)/.test(siteUrl.hostname) ||
+    /^172\.(1[6-9]|2\d|3[01])\./.test(siteUrl.hostname) ||
+    siteUrl.hostname === '::1'
+  ) {
+    throw new Error('SITE_URL must not use localhost or an internal hostname/address.');
+  }
 }
-if (siteEnvironment === 'production' && /(^|\.)staging[.-]/i.test(siteUrl.hostname)) {
-  throw new Error('Production SITE_URL must not use a staging hostname.');
+if (siteEnvironment === 'production' && siteUrl.origin !== configuredProductionOrigin) {
+  throw new Error(
+    `Production SITE_URL must exactly match the configured origin ${configuredProductionOrigin}.`,
+  );
 }
 
 export default defineConfig({
@@ -26,8 +48,15 @@ export default defineConfig({
   integrations: [
     react(),
     sitemap({
-      // Draft legal pages are noindex and stay out of the sitemap until the owner approves them.
-      filter: (page) => !/\/(404|privacy|terms)\/?$/.test(page),
+      // Exclude all design studies, draft legal pages and generated error routes.
+      filter: (page) => {
+        const pathname = new URL(page).pathname;
+        return !(
+          /^\/hero-lab(?:\/|$)/i.test(pathname) ||
+          /^\/(?:privacy|terms)\/?$/i.test(pathname) ||
+          /^\/(?:404|500|error|errors)(?:\/|$)/i.test(pathname)
+        );
+      },
     }),
   ],
   vite: {

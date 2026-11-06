@@ -10,6 +10,7 @@
 const playwright = require('playwright');
 const fs = require('node:fs');
 const path = require('node:path');
+const { configureStagingAuth, stagingAuthHeaders } = require('./staging-auth.cjs');
 
 const BASE_URL = (process.env.BASE_URL ?? 'http://localhost:4321').replace(/\/$/, '');
 const OUT = process.env.OUT_DIR ?? path.join(__dirname, '..', 'screenshots');
@@ -23,7 +24,9 @@ if (!browserType || !['chromium', 'firefox', 'webkit'].includes(BROWSER)) {
 }
 
 async function discoverRoutes() {
-  const res = await fetch(`${BASE_URL}/sitemap-0.xml`).catch(() => null);
+  const res = await fetch(`${BASE_URL}/sitemap-0.xml`, { headers: stagingAuthHeaders() }).catch(
+    () => null,
+  );
   if (res?.ok) {
     const xml = await res.text();
     const routes = [...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map((m) => new URL(m[1]).pathname);
@@ -54,6 +57,7 @@ const EXTRA_ROUTES = ['/privacy', '/terms'];
         isMobile: width < 768,
         hasTouch: width < 768,
       });
+      await configureStagingAuth(context);
       const page = await context.newPage();
       const errors = [];
       page.on('console', (msg) => msg.type() === 'error' && errors.push(msg.text()));

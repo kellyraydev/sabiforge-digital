@@ -11,21 +11,21 @@ milestone documents remain useful implementation history, not current launch aut
 
 ## 1. Launch-readiness checklist
 
-| Area                          | Evidence now                                                                                                                              | Status                               | Owner / next action                                                                                                     |
-| ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | ----------------------------------------------------------------------------------------------------------------------- |
-| Visual and functional         | 21 public/draft routes plus two noindex hero studies; responsive captures and interaction tests exist                                     | Verify on final staging              | Owner reviews the private staging build; developer fixes only confirmed defects                                         |
-| Service offer                 | Four services confirmed; six are explicitly `pending` in `services.ts`                                                                    | **Launch blocker**                   | Owner decides each row in §2; pending does not mean approved                                                            |
-| Packages and commercial terms | Launch ₦120,000; Business ₦280,000; Online Catalog ₦500,000; Full E-commerce from ₦900,000. Calculations are unit-tested                  | Prices preserved; terms incomplete   | Owner/legal adviser decides revisions, payment, timing, support, refunds and IP                                         |
-| Founding offer                | 10% gives ₦108,000 / ₦252,000 / ₦450,000; Full E-commerce is ineligible                                                                   | **Launch blocker**                   | Decide 3 vs 5 places, end/eligibility conditions and any other restrictions                                             |
-| Privacy and legal             | Draft privacy and terms pages are visibly labelled, noindex and excluded from sitemap; 24 decisions are registered                        | **Launch blocker**                   | Resolve P1–P11 and T1–T13; obtain qualified Nigerian legal review                                                       |
-| Branding and provenance       | Palette is derived from approved flyer; CSS artwork is original; portrait provenance is recorded in `HERO-LAB.md`; no client/staff claims | Provisional                          | Supply original logo vector and approve licensed/commissioned replacement portrait or approve continued provisional use |
-| Domain and SEO                | Canonicals, sitemap, robots and OG image are implemented; non-development builds require HTTPS; staging is noindex/disallow               | Domain unknown                       | Approve staging and production hostnames; verify generated absolute URLs in each environment                            |
-| Enquiry delivery              | Browser-only review step; email and WhatsApp links use verified constants; the website stores/transmits nothing itself                    | Functional, no delivery confirmation | Decide whether to keep handoff or approve a provider plus retention policy                                              |
-| Cross-browser                 | Chromium evidence exists; current Firefox/WebKit results belong in §5                                                                     | Pending final evidence               | Re-run against staging and on real iOS/Safari and Android devices                                                       |
-| Performance                   | Prior local Lighthouse results are 100 on key pages after fixes; no field INP or real-network data exists                                 | Provisional                          | Re-run Lighthouse on staging and collect field data only after an approved privacy-safe plan                            |
-| Accessibility                 | Automated axe A/AA and scripted keyboard checks previously passed                                                                         | Manual verification required         | NVDA/Firefox, VoiceOver/Safari, zoom/reflow and voice/switch checks before public launch                                |
-| Credentials and third parties | No client secrets or form/analytics/payment provider is configured; browser QA rejects third-party requests                               | Ready for staging configuration      | Keep secrets in host environment only; review build logs and output before sharing                                      |
-| Rollback and operations       | Static build, immutable commit and host rollback are suitable                                                                             | Host not chosen                      | Adopt §7 runbook and record the last-known-good commit/deployment                                                       |
+| Area                          | Evidence now                                                                                                                              | Status                                | Owner / next action                                                                                                     |
+| ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| Visual and functional         | 21 public/draft routes plus two noindex hero studies; responsive captures and interaction tests exist                                     | Verify on final staging               | Owner reviews the private staging build; developer fixes only confirmed defects                                         |
+| Service offer                 | Four services confirmed; six are explicitly `pending` in `services.ts`                                                                    | **Launch blocker**                    | Owner decides each row in §2; pending does not mean approved                                                            |
+| Packages and commercial terms | Launch ₦120,000; Business ₦280,000; Online Catalog ₦500,000; Full E-commerce from ₦900,000. Calculations are unit-tested                  | Prices preserved; terms incomplete    | Owner/legal adviser decides revisions, payment, timing, support, refunds and IP                                         |
+| Founding offer                | 10% gives ₦108,000 / ₦252,000 / ₦450,000; Full E-commerce is ineligible                                                                   | **Launch blocker**                    | Decide 3 vs 5 places, end/eligibility conditions and any other restrictions                                             |
+| Privacy and legal             | Draft privacy and terms pages are visibly labelled, noindex and excluded from sitemap; 24 decisions are registered                        | **Launch blocker**                    | Resolve P1–P11 and T1–T13; obtain qualified Nigerian legal review                                                       |
+| Branding and provenance       | Palette is derived from approved flyer; CSS artwork is original; portrait provenance is recorded in `HERO-LAB.md`; no client/staff claims | Provisional                           | Supply original logo vector and approve licensed/commissioned replacement portrait or approve continued provisional use |
+| Domain and SEO                | Exact HTTPS origin validation, production preview-host rejection, sitemap exclusions and generated XML verification are prepared          | Staging origin proposed; not deployed | Approve hostnames; inspect the CI-produced production sitemap artifact/check and staging output                         |
+| Enquiry delivery              | Browser-only review step; email and WhatsApp links use verified constants; the website stores/transmits nothing itself                    | Functional, no delivery confirmation  | Decide whether to keep handoff or approve a provider plus retention policy                                              |
+| Cross-browser                 | Chromium and Firefox evidence exists; WebKit engine plus native Safari/device checks remain                                               | Pending final evidence                | Run the authenticated staging QA workflow on WebKit and complete the manual matrix in §5                                |
+| Performance                   | Prior local Lighthouse results are 100 on key pages after fixes; no field INP or real-network data exists                                 | Provisional                           | Re-run Lighthouse on staging and collect field data only after an approved privacy-safe plan                            |
+| Accessibility                 | Automated axe A/AA and scripted keyboard checks previously passed                                                                         | Manual verification required          | NVDA/Firefox, VoiceOver/Safari, zoom/reflow and voice/switch checks before public launch                                |
+| Credentials and third parties | Site has no client secrets/provider; authenticated Playwright workflow uses Cloudflare Access service-token secrets scoped to staging     | Ready for protected staging setup     | Store tokens as staging environment secrets; confirm all Pages hostnames are behind Access                              |
+| Rollback and operations       | Static build, immutable commit and host rollback are suitable                                                                             | Host not chosen                       | Adopt §7 runbook and record the last-known-good commit/deployment                                                       |
 
 ## 2. Pending service owner-approval table
 
@@ -109,6 +109,32 @@ navigation and sitemap). Generated resources: `/robots.txt`, `/sitemap-index.xml
 | Assistive technology                                                                  | NVDA + Firefox and VoiceOver + Safari required; TalkBack/voice/switch recommended                                                                                       |
 | Performance                                                                           | Lighthouse staging mobile/desktop; WebPageTest or equivalent real network; field INP later                                                                              |
 
+WebKit/Safari requirements: the automated `staging-qa.yml` workflow supports Playwright WebKit,
+but this does not replace native Safari. Verify latest Safari on macOS and Safari on a real iPhone,
+including font loading, sticky/header behaviour, reduced motion, form focus and keyboard behavior,
+history/back navigation, viewport resizing, touch targets and slow-network loading. Also test at
+least one current Android device/browser.
+
+Manual assistive-technology checklist for protected staging:
+
+- [ ] VoiceOver + Safari on macOS: landmarks, heading order, link/button names, menu state, tabs,
+      form labels/errors/focus movement and the enquiry review step.
+- [ ] VoiceOver + Safari on iPhone: rotor/navigation, swipe order, zoom, orientation changes,
+      touch targets and form completion.
+- [ ] NVDA + Firefox: same landmarks/forms/interactive controls; verify errors are announced once
+      and focus returns correctly after editing.
+- [ ] TalkBack + Chrome on Android: navigation order, menu, pricing controls and enquiry handoff.
+- [ ] Keyboard only, 200%/400% zoom, reflow at 320 CSS px, visible focus, contrast in active/error
+      states, reduced motion and no-JavaScript content visibility.
+
+### CI status
+
+`CI` is configured to run formatting, ESLint, Vitest, Astro check, production and staging builds,
+SITE_URL policy checks, a parser check against the actual generated sitemap XML, and a staging
+metadata check across every HTML page. GitHub has no CI run for these
+new workflow files until they are pushed to PR #1; local results are not remote CI evidence. Record
+the first completed GitHub Actions run and commit here after it executes.
+
 ## 6. Performance, accessibility and design findings
 
 - Local assets and self-hosted fonts avoid third-party render dependencies. The generated WebP
@@ -126,23 +152,80 @@ navigation and sitemap). Generated resources: `/robots.txt`, `/sitemap-index.xml
 - The CSS scroll-progress enhancement is allowed to disappear where scroll-driven animation is
   unsupported; content and navigation must remain complete without it.
 
-## 7. Private staging deployment plan (not executed)
+## 7. Protected staging proposal (not deployed)
 
-1. Owner selects a static host with password/team access protection and immutable deployments.
-2. Create a separate staging project/environment linked only to this branch. Do not attach the
-   production domain and do not share production environment variables.
-3. Set `SITE_ENV=staging` and the exact HTTPS staging origin in `SITE_URL`. Keep all secrets in host
-   environment storage; none are currently required by the site.
-4. Build from a pinned commit with `npm ci && npm run verify`. Inspect `dist` for the expected
-   canonical, OG, sitemap and `noindex,nofollow` output; confirm `robots.txt` disallows all crawling.
-5. Enable hosting-layer authentication. Robots directives and an unlisted URL are not privacy or
-   access controls.
-6. Deploy only after explicit owner approval, then run the complete browser, keyboard, axe, link,
-   console, third-party-request and Lighthouse suites against the protected URL.
-7. Record commit SHA, environment values (not secrets), deployment ID, test evidence and approver.
-8. Rollback by restoring the last-known-good immutable deployment/commit. Never “fix forward” on
-   production without a reviewed commit. Production later gets a separate project/environment,
-   `SITE_ENV=production`, its own URL, final legal content and an independent approval gate.
+### Recommended host and access
+
+Recommend **Cloudflare Pages + Cloudflare Access** for this static Astro site. Pages creates a
+separate immutable deployment for each build, serves HTTPS, and supports rollback to a successful
+deployment. Cloudflare Access provides real identity-gated authentication (email one-time PIN or an
+approved identity provider) and service tokens for automation. Protect both the stable project
+hostname and every deployment/preview hostname; verify unauthenticated requests are denied before
+sharing any URL. `noindex`, `robots.txt`, and an obscure URL are crawler controls only, not access
+protection.
+
+Expected cost: **$0/month** for Pages static hosting at this project's scale and Access Free for up
+to 50 users; the published Access pay-as-you-go rate above that is **$7/user/month**. Taxes, domain
+registration (not needed for the proposed `pages.dev` hostname) and any account-specific limits are
+extra. Pages Free currently allows 500 builds/month and one concurrent build, comfortably above
+this static review workflow. Sources: [Pages limits](https://developers.cloudflare.com/pages/platform/limits/),
+[Access plans](https://www.cloudflare.com/zero-trust/products/access/), and
+[Pages rollbacks](https://developers.cloudflare.com/pages/configuration/rollbacks/).
+
+Alternative: Vercel Pro is a simpler managed workflow for a small team with protected preview
+deployments, immutable deployment URLs and rollback, at a published $20 per seat/month ([pricing](https://vercel.com/pricing)). Prefer it
+if a paid seat is acceptable and built-in preview protection is more important than minimizing
+monthly cost. Recheck current pricing and which deployment-protection features are included before
+purchase.
+
+### URL and environment proposal
+
+- Proposed stable staging origin: `https://sabiforge-digital-staging.pages.dev` (already used in
+  `.env.example`). It is a proposal until the Pages project exists and its exact hostname is
+  confirmed. If an approved business domain is later selected, use a dedicated `staging.` origin.
+- Build staging with `SITE_ENV=staging` and `SITE_URL` equal to that exact HTTPS origin. The same
+  origin must appear in canonical, Open Graph and sitemap URLs. The generated robots file disallows
+  all crawlers; every page emits `noindex,nofollow`.
+- Keep production in a separate project and account environment. The production URL guard requires
+  an exact match to the current candidate `https://sabiforge.digital`, rejecting every other
+  staging, preview, internal or unapproved public origin. This candidate has not been validated as
+  an owned domain; after the owner approves a different domain, change the single allowlist value in
+  `astro.config.mjs` and the CI fixture together before building production.
+- Do not expose any project secrets to build/browser code. This site currently needs no runtime
+  secrets. Use Access service tokens only in GitHub Actions environment secrets, never in source,
+  workflow logs, URLs or artifacts.
+
+Cloudflare Pages deployment previews are public by default. Enable the Pages **access policy** for
+preview deployments, then separately secure the project's `*.pages.dev` hostname in the generated
+Access application; Cloudflare documents these as distinct protections. Test both the stable
+hostname and a hash-based immutable deployment URL without credentials before inviting reviewers.
+Sources: [Pages preview access](https://developers.cloudflare.com/pages/configuration/preview-deployments/)
+and [Pages `pages.dev` Access instructions](https://developers.cloudflare.com/pages/platform/known-issues/#enable-access-on-your-pagesdev-domain).
+
+### Verification and rollback
+
+1. After approval, create a dedicated Pages staging project from this PR branch. Disable automatic
+   production promotion and ensure the stable hostname plus generated deployment URLs are covered
+   by Access policies. Do not add DNS or production services as part of this proposal.
+2. Configure `SITE_ENV=staging`, `SITE_URL=https://sabiforge-digital-staging.pages.dev`, an Access
+   allow policy for named reviewers, and a separate Access service token for automation.
+3. Build the pinned commit. CI runs format, lint, unit tests, Astro checks, production build and
+   `scripts/check-sitemap.mjs`, which parses the built XML and rejects hero-lab, draft legal and
+   error routes or wrong-origin URLs. Staging verification also checks canonical/OG URLs, robots,
+   `noindex,nofollow`, headers, authentication and sitemap.
+4. Use the manual GitHub Actions `Authenticated staging QA` workflow. Set
+   `STAGING_BASE_URL` in the GitHub `staging` environment and store
+   `CF_ACCESS_CLIENT_ID` / `CF_ACCESS_CLIENT_SECRET` as environment secrets. Credentials are sent
+   only to the two code-allowlisted HTTPS staging hostnames and are not printed. Run Chromium,
+   Firefox and WebKit, then complete the real-device and assistive-technology matrix in §5.
+5. Record approved URL, commit SHA, Pages deployment ID, CI run, browser/AT results and reviewer.
+6. For rollback, select the previous successful staging deployment in Pages → Deployments →
+   **Rollback to this deployment**. Keep a last-known-good deployment ID and source commit in the
+   release record; verify the rolled-back URL still returns the expected content and remains Access
+   protected. Production requires its own project, approved domain and explicit release approval.
+
+No hosting project, Access policy, DNS record, secret or public deployment has been created in this
+milestone.
 
 ## 8. Consolidated owner-decision register / launch blockers
 

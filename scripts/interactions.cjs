@@ -4,6 +4,7 @@
  */
 const playwright = require('playwright');
 const assert = require('node:assert/strict');
+const { configureStagingAuth } = require('./staging-auth.cjs');
 
 const BASE_URL = (process.env.BASE_URL ?? 'http://localhost:4321').replace(/\/$/, '');
 const BROWSER = process.env.BROWSER ?? 'chromium';
@@ -19,6 +20,7 @@ const pass = (msg) => console.log(`✓ ${msg}`);
     (BROWSER === 'chromium' ? process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH : undefined);
   const browser = await browserType.launch(executablePath ? { executablePath } : undefined);
   const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
+  await configureStagingAuth(page.context());
 
   // Homepage hero links and early concept portfolio
   await page.goto(BASE_URL + '/', { waitUntil: 'networkidle' });
@@ -283,6 +285,7 @@ const pass = (msg) => console.log(`✓ ${msg}`);
     javaScriptEnabled: false,
     viewport: { width: 1280, height: 900 },
   });
+  await configureStagingAuth(noJs);
   const njp = await noJs.newPage();
   for (const route of ['/work', '/process', '/about', '/shopify']) {
     await njp.goto(BASE_URL + route);
@@ -302,6 +305,7 @@ const pass = (msg) => console.log(`✓ ${msg}`);
     reducedMotion: 'reduce',
     viewport: { width: 1280, height: 900 },
   });
+  await configureStagingAuth(reduced);
   const rp = await reduced.newPage();
   await rp.goto(BASE_URL + '/process', { waitUntil: 'networkidle' });
   const opacity = await rp.evaluate(
@@ -313,6 +317,7 @@ const pass = (msg) => console.log(`✓ ${msg}`);
 
   // Mobile menu focus cycling
   const mobile = await browser.newPage({ viewport: { width: 390, height: 844 }, isMobile: true });
+  await configureStagingAuth(mobile.context());
   await mobile.goto(BASE_URL + '/', { waitUntil: 'networkidle' });
   await mobile.evaluate(() => window.scrollTo(0, 3000));
   await mobile.waitForTimeout(300);

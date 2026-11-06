@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main, master, 'codex/**']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run format:check
+      - run: npm run lint
+      - run: npm test
+      - run: npm run check
+      - run: npm run verify:site-url
+      - name: Build production output and verify generated sitemap XML
+        env:
+          SITE_ENV: production
+          SITE_URL: https://sabiforge.digital
+        run: npm run build && npm run verify:sitemap
+      - name: Build staging output and verify crawler metadata
+        env:
+          SITE_ENV: staging
+          SITE_URL: https://sabiforge-digital-staging.pages.dev
+        run: npm run build && npm run verify:sitemap && npm run verify:staging-output
