@@ -1,5 +1,6 @@
 ---
 import SectionHead from '@/components/ui/SectionHead.astro';
+import Button from '@/components/ui/Button.astro';
 import ApproachStages from './ApproachStages';
 import { stages } from '@/data/home';
 ---
@@ -28,6 +29,11 @@ import { stages } from '@/data/home';
     </div>
     <div class="mt-14 lg:mt-20" data-reveal>
       <ApproachStages client:visible stages={stages} />
+    </div>
+    <div class="mt-12" data-reveal>
+      <Button href="/process" variant="secondary" icon="arrow-right">
+        See the full process: responsibilities, review points, handover
+      </Button>
     </div>
   </div>
 </section>

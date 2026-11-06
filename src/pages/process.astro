@@ -1,0 +1,360 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
+import HexLines from '@/components/ui/HexLines.astro';
+import StageGlyph from '@/components/process/StageGlyph.astro';
+import Icon from '@/components/ui/Icon.astro';
+import CtaPanel from '@/components/page/CtaPanel.astro';
+import ResponsibilityMatrix from '@/components/process/ResponsibilityMatrix';
+import { stages } from '@/data/home';
+import { getStageDetail, handoverItems, timelineFactors } from '@/data/process';
+
+const rows = stages.map((s) => ({
+  id: s.id,
+  name: s.name,
+  ...getStageDetail(s.id)!.responsibility,
+}));
+const n = (i: number) => String(i + 1).padStart(2, '0');
+---
+
+<BaseLayout
+  title="Process: how a project works"
+  description="SabiForge Digital’s six-stage project process: what happens in discovery, strategy, design, development, refinement and launch, what you provide, what you receive and where you approve."
+  progress
+>
+  <!-- Hero -->
+  <section class="relative isolate overflow-hidden pt-32 pb-16 lg:pt-44 lg:pb-24">
+    <div
+      class="absolute inset-0 -z-20 bg-[radial-gradient(60%_70%_at_85%_10%,rgb(18_78_71/0.5),transparent)]"
+      aria-hidden="true"
+    ></div>
+    <HexLines class="absolute -top-24 -right-40 -z-10 size-[40rem] text-mint-300/10" rings={7} />
+    <div class="container-page">
+      <Breadcrumbs items={[{ label: 'Process' }]} />
+      <div class="mt-10 grid gap-10 lg:grid-cols-[1.5fr_1fr] lg:items-end">
+        <div>
+          <p class="meta text-mint-300" data-reveal>
+            Process
+          </p>
+          <h1 class="mt-5 text-display-xl font-semibold text-ivory-50">
+            Six stages. Six decisions that stay <em class="text-mint-300">yours</em>.
+          </h1>
+        </div>
+        <div class="text-lede text-ivory-100/75">
+          <p>
+            A website is a series of decisions. We arrange the project so each one is made by the
+            right person, at the right moment, with what they need to decide well.
+          </p>
+        </div>
+      </div>
+
+      <!-- Route map -->
+      <nav aria-label="The six stages" class="mt-16 lg:mt-24">
+        <ol class="relative grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 lg:grid-cols-6">
+          <span
+            class="absolute top-[0.55rem] right-0 left-0 hidden h-px bg-ivory-100/20 lg:block"
+            aria-hidden="true"
+          ></span>
+          {stages.map((s, i) => (
+            <li data-reveal style={`--reveal-delay:${i * 80}`}>
+              <a href={`#stage-${s.id}`} class="group relative block">
+                <span
+                  class="relative z-10 block size-[1.1rem] rotate-45 border-2 border-mint-300 bg-midnight-900 transition group-hover:bg-mint-300"
+                  aria-hidden="true"
+                ></span>
+                <span class="meta mt-4 block text-mint-300">{n(i)}</span>
+                <span class="mt-1 block font-display text-xl font-semibold text-ivory-50">
+                  {s.name}
+                </span>
+                <span class="mt-1 hidden text-sm text-ivory-100/65 lg:block">{s.summary}</span>
+              </a>
+            </li>
+          ))}
+        </ol>
+      </nav>
+    </div>
+  </section>
+
+  <!-- Journey -->
+  <section
+    aria-labelledby="journey-title"
+    class="border-t border-ivory-100/10 bg-midnight-950 py-20 lg:py-32"
+  >
+    <div class="container-page">
+      <h2 id="journey-title" class="sr-only">
+        The six stages in detail
+      </h2>
+      <div class="grid gap-12 lg:grid-cols-[15rem_1fr] lg:gap-20">
+        <!-- Sticky rail (large screens). Content is fully readable without it. -->
+        <aside class="hidden lg:block" aria-label="Stage progress">
+          <div class="sticky top-32" id="rail">
+            <p class="meta text-ivory-100/60">You are here</p>
+            <ol class="relative mt-6 space-y-1">
+              <span
+                class="absolute top-3 bottom-3 left-[0.45rem] w-px bg-ivory-100/15"
+                aria-hidden="true"
+              ></span>
+              {stages.map((s, i) => (
+                <li>
+                  <a
+                    href={`#stage-${s.id}`}
+                    data-rail={s.id}
+                    class="rail-link relative flex items-center gap-4 rounded-md py-2 text-ivory-100/60 transition hover:text-ivory-50"
+                  >
+                    <span
+                      class="rail-dot relative z-10 block size-[0.95rem] rotate-45 border-2 border-ivory-100/40 bg-midnight-950 transition"
+                      aria-hidden="true"
+                    ></span>
+                    <span class="text-sm font-medium">
+                      <span class="meta mr-2" aria-hidden="true">
+                        {n(i)}
+                      </span>
+                      {s.name}
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </aside>
+
+        <div class="space-y-24 lg:space-y-36">
+          {stages.map((s, i) => {
+            const d = getStageDetail(s.id)!;
+            return (
+              <article
+                id={`stage-${s.id}`}
+                aria-labelledby={`stage-${s.id}-title`}
+                data-stage={s.id}
+                class="relative"
+              >
+                <span
+                  class="numeral absolute -top-4 right-0 text-[7rem] sm:text-[11rem] lg:-top-10"
+                  aria-hidden="true"
+                >
+                  {n(i)}
+                </span>
+                <div class="relative flex items-center gap-5" data-reveal>
+                  <StageGlyph class="size-16 text-mint-300" step={i + 1} />
+                  <p class="meta text-mint-300">Stage {n(i)} of 06</p>
+                </div>
+                <h3
+                  id={`stage-${s.id}-title`}
+                  class="relative mt-4 text-display-lg font-semibold text-ivory-50"
+                  data-reveal
+                >
+                  {s.name}
+                </h3>
+                <p class="text-lede relative mt-5 max-w-2xl text-ivory-100/80" data-reveal>
+                  {s.summary} {s.happens}
+                </p>
+
+                <div class="mt-10 grid gap-8 md:grid-cols-2" data-reveal>
+                  <div>
+                    <h4 class="meta text-ivory-100/60">What you’ll see</h4>
+                    <p class="mt-3 text-lg text-ivory-50">{d.visible}</p>
+                    <h4 class="meta mt-8 text-ivory-100/60">What happens</h4>
+                    <ol class="mt-3 space-y-3">
+                      {d.activities.map((a, k) => (
+                        <li class="flex gap-3 text-ivory-100/80">
+                          <span class="meta mt-1 text-mint-300" aria-hidden="true">
+                            {k + 1}.
+                          </span>
+                          {a}
+                        </li>
+                      ))}
+                    </ol>
+                  </div>
+                  <div class="space-y-8">
+                    <div>
+                      <h4 class="meta text-ivory-100/60">You bring</h4>
+                      <ul class="mt-3 space-y-2">
+                        {s.youBring.map((x) => (
+                          <li class="flex gap-2.5 text-ivory-100/80">
+                            <Icon name="arrow-right" class="mt-1 size-4 shrink-0 text-coral-400" />
+                            {x}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div>
+                      <h4 class="meta text-ivory-100/60">You receive</h4>
+                      <ul class="mt-3 space-y-2">
+                        {s.weDeliver.map((x) => (
+                          <li class="flex gap-2.5 text-ivory-100/80">
+                            <Icon name="check" class="mt-1 size-4 shrink-0 text-mint-300" />
+                            {x}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  class="chamfer-sm mt-10 border border-mint-300/30 bg-mint-300/[0.07] p-6 sm:p-8"
+                  data-reveal
+                >
+                  <p class="meta flex items-center gap-2 text-mint-300">
+                    <span class="block size-2.5 rotate-45 bg-mint-300" aria-hidden="true"></span>
+                    Review point {n(i)}
+                  </p>
+                  <p class="mt-3 font-display text-xl font-semibold text-ivory-50">{s.gate}</p>
+                  <p class="mt-2 text-ivory-100/75">{d.reviewHow}</p>
+                  <p class="mt-4 text-sm text-ivory-100/65">
+                    <span class="font-semibold text-ivory-100/80">What changes the length: </span>
+                    {d.affectedBy}
+                  </p>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Responsibilities -->
+  <section aria-labelledby="who-title" class="border-t border-ivory-100/10 py-20 lg:py-32">
+    <div class="container-page">
+      <div class="grid gap-10 lg:grid-cols-[minmax(0,24rem)_1fr] lg:gap-20">
+        <div data-reveal>
+          <p class="meta text-mint-300">(02) Responsibilities</p>
+          <h2 id="who-title" class="mt-5 text-display-lg font-semibold text-ivory-50">
+            Who does <em class="text-mint-300">what</em>.
+          </h2>
+          <p class="mt-6 text-lg text-ivory-100/75">
+            Projects slow down when it isn’t clear who owes what. This is the division of work at
+            every stage. Specifics for your project go into the proposal.
+          </p>
+        </div>
+        <ResponsibilityMatrix client:visible rows={rows} />
+      </div>
+    </div>
+  </section>
+
+  <!-- Feedback and timeline -->
+  <section
+    aria-labelledby="feedback-title"
+    class="on-paper notch-tr bg-ivory-100 py-20 text-midnight-900 lg:py-32"
+  >
+    <div class="container-page">
+      <div class="grid gap-14 lg:grid-cols-2 lg:gap-24">
+        <div data-reveal>
+          <p class="meta text-mint-800">(03) Feedback and revisions</p>
+          <h2 id="feedback-title" class="mt-5 text-display-md font-semibold">
+            One list, one round, <em>clear</em> decisions.
+          </h2>
+          <ol class="mt-8 space-y-5">
+            {[
+              [
+                'Review on your own devices',
+                'Open the staging link on your phone and your computer, the way your customers will.',
+              ],
+              [
+                'Send one consolidated list',
+                'Gather everyone’s comments into a single message. It is faster and avoids contradictory changes.',
+              ],
+              [
+                'We revise within the agreed rounds',
+                'The number of revision rounds is written into your proposal before work begins.',
+              ],
+              [
+                'You approve, in writing',
+                'A short message is enough. It marks the review point as passed and lets the next stage start.',
+              ],
+            ].map(([t, d], i) => (
+              <li class="grid grid-cols-[2.5rem_1fr] gap-3 border-t border-midnight-900/15 pt-4">
+                <span class="meta pt-1 text-mint-800" aria-hidden="true">
+                  {n(i)}
+                </span>
+                <span>
+                  <span class="block font-display text-lg font-semibold">{t}</span>
+                  <span class="mt-1 block text-midnight-800/80">{d}</span>
+                </span>
+              </li>
+            ))}
+          </ol>
+        </div>
+        <div data-reveal>
+          <p class="meta text-mint-800">(04) Timeline</p>
+          <h2 class="mt-5 text-display-md font-semibold">
+            What <em>changes</em> how long it takes.
+          </h2>
+          <p class="mt-5 max-w-xl text-midnight-800/80">
+            We don’t quote one-size timelines here, because they depend on scope and on how quickly
+            content and feedback arrive. Your proposal will state a timeline. These are the things
+            most likely to move it.
+          </p>
+          <ul class="mt-8 space-y-5">
+            {timelineFactors.map((f) => (
+              <li class="border-t border-midnight-900/15 pt-4">
+                <span class="block font-display text-lg font-semibold">{f.title}</span>
+                <span class="mt-1 block text-midnight-800/80">{f.detail}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Handover -->
+  <section aria-labelledby="handover-title" class="py-20 lg:py-32">
+    <div class="container-page">
+      <div class="grid gap-12 lg:grid-cols-[minmax(0,26rem)_1fr] lg:gap-20">
+        <div data-reveal>
+          <p class="meta text-mint-300">(05) Handover</p>
+          <h2 id="handover-title" class="mt-5 text-display-lg font-semibold text-ivory-50">
+            You leave able to <em class="text-mint-300">run</em> it.
+          </h2>
+          <p class="mt-6 text-lg text-ivory-100/75">
+            A launch is not the end of the work, but it should be the end of your dependence on us
+            for everyday tasks. Exact handover contents are agreed in your proposal.
+          </p>
+        </div>
+        <ul class="grid gap-px overflow-hidden rounded-2xl border border-ivory-100/12 bg-ivory-100/12 sm:grid-cols-2">
+          {handoverItems.map((h, i) => (
+            <li class="bg-midnight-900 p-6 sm:p-7" data-reveal style={`--reveal-delay:${i * 60}`}>
+              <Icon name="check" class="size-5 text-mint-300" />
+              <span class="mt-4 block font-display text-lg font-semibold text-ivory-50">
+                {h.title}
+              </span>
+              <span class="mt-2 block text-sm leading-relaxed text-ivory-100/70">{h.detail}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <CtaPanel
+    title="Start at stage <em>one</em>."
+    body="The first conversation costs nothing and commits you to nothing. You’ll leave knowing what you need, and what you don’t."
+    whatsappMessage="Hello SabiForge Digital, I've read your process and I'd like to start a project."
+  />
+</BaseLayout>
+
+<script>
+  // Progressive enhancement: mark the stage nearest the middle of the viewport in the sticky rail.
+  const rail = document.getElementById('rail');
+  const stages = [...document.querySelectorAll<HTMLElement>('[data-stage]')];
+  if (rail && stages.length && 'IntersectionObserver' in window) {
+    const links = new Map(
+      [...rail.querySelectorAll<HTMLAnchorElement>('[data-rail]')].map((a) => [a.dataset.rail!, a]),
+    );
+    const set = (id: string) =>
+      links.forEach((a, key) =>
+        key === id ? a.setAttribute('aria-current', 'step') : a.removeAttribute('aria-current'),
+      );
+    set(stages[0].dataset.stage!);
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries)
+          if (e.isIntersecting) set((e.target as HTMLElement).dataset.stage!);
+      },
+      { rootMargin: '-40% 0px -50% 0px' },
+    );
+    stages.forEach((s) => io.observe(s));
+  }
+</script>

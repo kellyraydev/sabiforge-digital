@@ -37,18 +37,19 @@ export interface NavItem {
   href: string;
   /** Path prefix that marks this item as current. */
   match?: string;
+  /** Shown in the desktop pill. Contact is reached through the "Start a project" button. */
+  primary?: boolean;
 }
 
-/**
- * Primary navigation. Work and Process point to homepage sections until their
- * dedicated pages ship (milestone D); About is added when its page exists.
- */
+/** Primary navigation. Every item is now a real page. */
 export const navigation: NavItem[] = [
-  { label: 'Work', href: '/#work' },
-  { label: 'Services', href: '/services', match: '/services' },
-  { label: 'Pricing', href: '/pricing', match: '/pricing' },
-  { label: 'Process', href: '/#approach' },
-  { label: 'Contact', href: '/contact', match: '/contact' },
+  { label: 'Work', href: '/work', match: '/work', primary: true },
+  { label: 'Services', href: '/services', match: '/services', primary: true },
+  { label: 'Shopify', href: '/shopify', match: '/shopify', primary: true },
+  { label: 'Process', href: '/process', match: '/process', primary: true },
+  { label: 'About', href: '/about', match: '/about', primary: true },
+  { label: 'Pricing', href: '/pricing', match: '/pricing', primary: true },
+  { label: 'Contact', href: '/contact', match: '/contact', primary: false },
 ];
 
 export const startProjectHref = '/contact';

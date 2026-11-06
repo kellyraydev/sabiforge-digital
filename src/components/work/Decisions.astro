@@ -1,0 +1,32 @@
+---
+/** Numbered design decisions for a concept study, themed by the chapter's own colours. */
+import type { Concept } from '@/data/concepts';
+
+interface Props {
+  concept: Concept;
+  columns?: boolean;
+}
+const { concept, columns = false } = Astro.props;
+const { theme, decisions } = concept.study;
+---
+
+<ol
+  class:list={['mt-8 gap-x-10 gap-y-8', columns ? 'grid md:grid-cols-3' : 'space-y-8']}
+  aria-label={`Design decisions for ${concept.name}`}
+>
+  {decisions.map((d, i) => (
+    <li
+      class="relative border-t pt-5"
+      style={`border-color:${theme.fg}33;--reveal-delay:${i * 90}`}
+      data-reveal
+    >
+      <span class="meta block" style={`color:${theme.accent}`} aria-hidden="true">
+        Decision {String(i + 1).padStart(2, '0')}
+      </span>
+      <h3 class="mt-2 font-display text-xl font-semibold">{d.title}</h3>
+      <p class="mt-2 leading-relaxed" style={`color:${theme.muted}`}>
+        {d.detail}
+      </p>
+    </li>
+  ))}
+</ol>

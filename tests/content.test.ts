@@ -88,8 +88,8 @@ describe('honesty rules', () => {
     ]);
   });
 
-  it('navigation only targets built pages or homepage sections', () => {
-    const built = ['/services', '/pricing', '/contact', '/#work', '/#approach'];
+  it('navigation only targets built pages', () => {
+    const built = ['/work', '/services', '/shopify', '/process', '/about', '/pricing', '/contact'];
     for (const item of navigation) expect(built).toContain(item.href);
   });
 });

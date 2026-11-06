@@ -10,7 +10,13 @@ const site = process.env.SITE_URL ?? 'http://localhost:4321';
 
 export default defineConfig({
   site,
-  integrations: [react(), sitemap({ filter: (page) => !page.includes('/404') })],
+  integrations: [
+    react(),
+    sitemap({
+      // Draft legal pages are noindex and stay out of the sitemap until the owner approves them.
+      filter: (page) => !/\/(404|privacy|terms)\/?$/.test(page),
+    }),
+  ],
   vite: {
     plugins: [tailwindcss()],
   },

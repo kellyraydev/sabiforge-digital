@@ -2,6 +2,7 @@
 import ConceptPlate from '@/components/ui/ConceptPlate.astro';
 import SectionHead from '@/components/ui/SectionHead.astro';
 import Icon from '@/components/ui/Icon.astro';
+import Button from '@/components/ui/Button.astro';
 import { concepts, CONCEPT_LABEL, CONCEPT_DISCLAIMER } from '@/data/concepts';
 
 const [adun, kora, mend, tally] = concepts;
@@ -81,6 +82,12 @@ const [adun, kora, mend, tally] = concepts;
                 ))}
               </ul>
             </details>
+            <a
+              href={`/work#${concept.id}`}
+              class="link-sweep mt-6 inline-flex items-center gap-2 text-sm font-semibold text-mint-300"
+            >
+              Read the full study <Icon name="arrow-right" class="size-4" />
+            </a>
           </div>
         </article>
       ))}
@@ -123,8 +130,20 @@ const [adun, kora, mend, tally] = concepts;
               </summary>
               <p class="mt-3 text-sm leading-relaxed text-ivory-100/75">{concept.approach}</p>
             </details>
+            <a
+              href={`/work#${concept.id}`}
+              class="link-sweep mt-5 inline-flex items-center gap-2 text-sm font-semibold text-mint-300"
+            >
+              Read the full study <Icon name="arrow-right" class="size-4" />
+            </a>
           </article>
         ))}
+      </div>
+
+      <div class="flex justify-center lg:col-span-12" data-reveal>
+        <Button href="/work" size="lg" icon="arrow-right">
+          Explore all four concept studies
+        </Button>
       </div>
     </div>
   </div>

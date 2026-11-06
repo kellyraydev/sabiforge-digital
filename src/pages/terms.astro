@@ -1,0 +1,127 @@
+---
+import LegalLayout from '@/components/legal/LegalLayout.astro';
+import DecisionNote from '@/components/legal/DecisionNote.astro';
+import { packages } from '@/data/packages';
+import { services } from '@/data/services';
+import { site } from '@/data/site';
+
+const naira = (n: number) => `₦${n.toLocaleString('en-NG')}`;
+const sections = [
+  { id: 'scope', label: 'What these terms cover' },
+  { id: 'services', label: 'Services' },
+  { id: 'proposals', label: 'Proposals and approvals' },
+  { id: 'prices', label: 'Prices and payment' },
+  { id: 'revisions', label: 'Revisions and changes' },
+  { id: 'ip', label: 'Ownership and content' },
+  { id: 'support', label: 'Support after launch' },
+  { id: 'concepts', label: 'Studio concepts' },
+  { id: 'liability', label: 'Liability, law and disputes' },
+];
+---
+
+<LegalLayout
+  title="Terms of service"
+  heading="Terms of service"
+  description="Draft terms of service for SabiForge Digital, for owner and legal review. Not an approved document."
+  document="terms"
+  sections={sections}
+>
+  <h2 id="scope">1. What these terms cover</h2>
+  <p>
+    These terms are intended to cover the use of the {site.name} website and projects the studio
+    carries out for clients. Each project is also governed by a written proposal.
+  </p>
+  <DecisionNote id="T1" />
+
+  <h2 id="services">2. Services</h2>
+  <p>The website currently describes these services:</p>
+  <ul>
+    {services.map((s) => (
+      <li>{s.name}</li>
+    ))}
+  </ul>
+  <p>
+    Whether the studio takes on a project is decided after a first conversation. The studio will
+    tell you if it believes you do not need its services.
+  </p>
+
+  <h2 id="proposals">3. Proposals and approvals</h2>
+  <p>
+    The website describes this order of work. Each project follows it unless the proposal says
+    otherwise:
+  </p>
+  <ol class="list-decimal pl-6">
+    <li>A first conversation and recommendation.</li>
+    <li>
+      A written proposal stating scope, content responsibilities, timeline, price and third-party
+      costs. It is approved before design begins.
+    </li>
+    <li>Designs are approved before development begins.</li>
+    <li>A private staging site is reviewed before launch.</li>
+    <li>Launch is approved by the client, followed by a handover.</li>
+  </ol>
+  <DecisionNote id="T13" />
+
+  <h2 id="prices">4. Prices and payment</h2>
+  <p>These are the approved package prices as shown on the website, in Nigerian naira:</p>
+  <ul>
+    {packages.map((p) => (
+      <li>
+        <strong>{p.name}:</strong> {p.id === 'ecommerce' ? 'from ' : ''}
+        {p.price === null ? 'a custom amount' : naira(p.price)} for {p.scope.toLowerCase()}.
+      </li>
+    ))}
+  </ul>
+  <p>
+    Third-party costs, such as domains, hosting, platform subscriptions, paid themes and apps,
+    payment-gateway fees and licensed images or fonts, are quoted separately. Studio Partnership
+    work is always quoted individually.
+  </p>
+  <p>
+    A founding-client rate of 10% is shown for the Launch, Business and Online Catalog packages. It
+    does not apply to Full E-commerce. The number of founding places has not been decided.
+  </p>
+  <DecisionNote id="T12" />
+  <DecisionNote id="T2" />
+  <DecisionNote id="T8" />
+
+  <h2 id="revisions">5. Revisions and changes</h2>
+  <p>
+    The website says revision rounds and timelines are written into each proposal. No number of
+    rounds has been approved for any package.
+  </p>
+  <DecisionNote id="T3" />
+  <DecisionNote id="T4" />
+
+  <h2 id="ip">6. Ownership and content</h2>
+  <p>
+    Ownership of the finished website, licences for third-party materials, and the studio’s right to
+    show completed work have not been decided.
+  </p>
+  <DecisionNote id="T5" />
+  <DecisionNote id="T6" />
+  <DecisionNote id="T11" />
+
+  <h2 id="support">7. Support after launch</h2>
+  <p>
+    The website says ongoing care is optional and defined per agreement. No post-launch fix period,
+    response time or care-plan price has been approved.
+  </p>
+  <DecisionNote id="T7" />
+
+  <h2 id="concepts">8. Studio concepts</h2>
+  <p>
+    The brands shown on the Work page (Àdùn Table, Kòrà Home, Mend Physio Studio and Tallyhouse) are
+    fictional concepts created by the studio. They are not client projects, and the prices, people,
+    invoices and health wording in them are invented for illustration.
+  </p>
+
+  <h2 id="liability">9. Liability, law and disputes</h2>
+  <p>
+    The studio makes no promise on this website about traffic, search rankings, sales or other
+    business results, which depend on many factors beyond a website. Binding wording on liability
+    and the governing law has not been drafted.
+  </p>
+  <DecisionNote id="T9" />
+  <DecisionNote id="T10" />
+</LegalLayout>

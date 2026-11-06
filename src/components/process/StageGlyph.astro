@@ -1,0 +1,33 @@
+---
+/**
+ * Six concentric hexagons; the first `step` are drawn solid, the rest faint.
+ * Reads as "the structure builds up" from stage 1 to stage 6. Decorative.
+ */
+interface Props {
+  step: number;
+  class?: string;
+}
+const { step, class: className } = Astro.props;
+const hex = (r: number) =>
+  Array.from({ length: 6 }, (_, i) => {
+    const a = (Math.PI / 3) * i - Math.PI / 2;
+    return `${(50 + r * Math.cos(a)).toFixed(1)},${(50 + r * Math.sin(a)).toFixed(1)}`;
+  }).join(' ');
+---
+
+<svg
+  viewBox="0 0 100 100"
+  class={className}
+  fill="none"
+  stroke="currentColor"
+  aria-hidden="true"
+  focusable="false"
+>
+  {Array.from({ length: 6 }, (_, i) => (
+    <polygon
+      points={hex(8 + i * 7.6)}
+      stroke-width={i === step - 1 ? 2.2 : 1.1}
+      opacity={i < step ? 1 : 0.18}
+    />
+  ))}
+</svg>

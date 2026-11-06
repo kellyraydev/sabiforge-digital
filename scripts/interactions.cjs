@@ -120,17 +120,171 @@ const pass = (msg) => console.log(`✓ ${msg}`);
   pass('edit returns to the form with details kept');
 
   // Header current state and keyboard skip link
+  await page.goto(BASE_URL + '/services', { waitUntil: 'networkidle' });
   assert.equal(
     await page.locator('nav[aria-label="Primary"] a[aria-current="page"]').innerText(),
-    'Contact',
+    'Services',
   );
-  await page.goto(BASE_URL + '/services', { waitUntil: 'networkidle' });
   await page.keyboard.press('Tab');
   assert.equal(
     await page.evaluate(() => document.activeElement?.textContent?.trim()),
     'Skip to content',
   );
   pass('skip link is first in tab order; nav marks the current page');
+
+  // ---------- Milestone D ----------
+  // Primary navigation points at real pages
+  await page.goto(BASE_URL + '/', { waitUntil: 'networkidle' });
+  const navHrefs = await page
+    .locator('nav[aria-label="Primary"] a')
+    .evaluateAll((els) => els.map((a) => a.getAttribute('href')));
+  assert.deepEqual(navHrefs, ['/work', '/services', '/shopify', '/process', '/about', '/pricing']);
+  pass('primary navigation links to Work, Services, Shopify, Process, About and Pricing pages');
+
+  // Work: concept demos
+  await page.goto(BASE_URL + '/work', { waitUntil: 'networkidle' });
+  assert.equal(
+    await page.locator('nav[aria-label="Primary"] a[aria-current="page"]').innerText(),
+    'Work',
+  );
+  await page.locator('#adun-table').scrollIntoViewIfNeeded();
+  await page.locator('astro-island:not([ssr])').first().waitFor();
+  await page.getByRole('button', { name: /Before: a forwarded image/ }).click();
+  assert.ok(await page.getByText('Text is not selectable').isVisible());
+  await page.getByRole('button', { name: /After: an editorial menu/ }).click();
+  assert.ok(await page.getByText('Smoked jollof, party style · Serves 10').isVisible());
+  pass('work: menu demo toggles before and after');
+
+  const kora = page.locator('#kora-home');
+  await kora.scrollIntoViewIfNeeded();
+  await page.waitForTimeout(500);
+  await kora.getByRole('radio', { name: 'Ochre' }).check({ force: true });
+  await kora.getByRole('radio', { name: 'Double' }).check({ force: true });
+  assert.ok(await kora.getByText('₦52,000').first().isVisible());
+  assert.ok(await kora.getByText('Ochre', { exact: true }).first().isVisible());
+  await kora.getByRole('button', { name: 'Add to bag' }).click();
+  assert.equal(await kora.locator('span[aria-live]').innerText(), 'Bag (1)');
+  pass('work: product demo changes colour, size, price and bag count');
+
+  const mend = page.locator('#mend-physio');
+  await mend.scrollIntoViewIfNeeded();
+  await page.waitForTimeout(500);
+  await mend.getByRole('radio', { name: 'Sports injury' }).click();
+  assert.ok(await mend.getByText('shoes or kit').isVisible());
+  await mend.getByRole('button', { name: 'Wed 14:30' }).click();
+  assert.ok(await mend.getByText('Request noted for Wed 14:30').isVisible());
+  pass('work: first-visit demo updates guidance and records a requested slot');
+
+  const tally = page.locator('#tallyhouse');
+  await tally.scrollIntoViewIfNeeded();
+  await page.waitForTimeout(500);
+  await tally.getByRole('button', { name: 'Overdue', exact: true }).click();
+  assert.equal(await tally.locator('ul[aria-live] li').count(), 2);
+  await tally.getByRole('button', { name: 'Paid', exact: true }).click();
+  assert.equal(await tally.locator('ul[aria-live] li').count(), 1);
+  pass('work: invoice demo filters by status');
+
+  // Process: responsibilities filter + rail marker
+  await page.goto(BASE_URL + '/process', { waitUntil: 'networkidle' });
+  await page.locator('#stage-design').scrollIntoViewIfNeeded();
+  await page.waitForTimeout(600);
+  assert.equal(
+    await page.locator('#rail [aria-current="step"]').getAttribute('data-rail'),
+    'design',
+  );
+  pass('process: the sticky rail marks the stage in view');
+  const who = page.locator('section[aria-labelledby="who-title"]');
+  await who.scrollIntoViewIfNeeded();
+  await page.waitForTimeout(500);
+  await who.getByRole('radio', { name: 'Your part' }).click();
+  assert.equal(await who.getByText('SabiForge', { exact: true }).count(), 0);
+  await page.keyboard.press('ArrowRight');
+  assert.equal(await who.getByRole('radio', { checked: true }).innerText(), 'Our part');
+  pass('process: responsibility filter works with click and arrow keys');
+
+  // About: triad
+  await page.goto(BASE_URL + '/about', { waitUntil: 'networkidle' });
+  const triad = page.locator('#triad-title').locator('xpath=ancestor::section');
+  await triad.scrollIntoViewIfNeeded();
+  await page.waitForTimeout(500);
+  await triad.getByRole('button', { name: 'Technology' }).click();
+  assert.ok(await triad.getByText('load quickly').isVisible());
+  pass('about: triad diagram switches discipline');
+
+  // Shopify: anatomy tabs
+  await page.goto(BASE_URL + '/shopify', { waitUntil: 'networkidle' });
+  const anatomy = page.locator('#anatomy-title').locator('xpath=ancestor::section');
+  await anatomy.scrollIntoViewIfNeeded();
+  await page.waitForTimeout(500);
+  await anatomy.getByRole('tab', { name: 'Navigation' }).focus();
+  await page.keyboard.press('ArrowRight');
+  assert.match(await anatomy.getByRole('tabpanel').innerText(), /Collection pages and filters/);
+  await page.keyboard.press('End');
+  assert.match(await anatomy.getByRole('tabpanel').innerText(), /Performance/);
+  pass('shopify: store anatomy tabs respond to arrow keys and End');
+
+  // Legal drafts: noindex, banner, decision register
+  for (const route of ['/privacy', '/terms']) {
+    await page.goto(BASE_URL + route, { waitUntil: 'networkidle' });
+    assert.equal(await page.locator('meta[name="robots"]').getAttribute('content'), 'noindex');
+    assert.ok(await page.getByText('not an approved legal document').isVisible());
+    assert.ok((await page.locator('table tbody tr').count()) >= 11);
+  }
+  pass('legal drafts: noindex, draft banner and owner-decision register present');
+
+  // Keyboard: every new page shows a visible focus indicator on its first 14 tab stops
+  for (const route of ['/work', '/process', '/about', '/shopify', '/privacy', '/terms']) {
+    await page.goto(BASE_URL + route, { waitUntil: 'networkidle' });
+    let lacking = [];
+    for (let i = 0; i < 14; i++) {
+      await page.keyboard.press('Tab');
+      const ok = await page.evaluate(() => {
+        const el = document.activeElement;
+        if (!el || el === document.body) return true;
+        const cs = getComputedStyle(el);
+        return (
+          (cs.outlineStyle !== 'none' && parseFloat(cs.outlineWidth) > 0) || cs.boxShadow !== 'none'
+        );
+      });
+      if (!ok)
+        lacking.push(await page.evaluate(() => document.activeElement?.outerHTML.slice(0, 80)));
+    }
+    assert.deepEqual(lacking, [], `${route}: focus indicator missing`);
+  }
+  pass('keyboard: visible focus indicator on the first 14 tab stops of every new page');
+
+  // Reduced motion + no JavaScript: content visible
+  const noJs = await browser.newContext({
+    javaScriptEnabled: false,
+    viewport: { width: 1280, height: 900 },
+  });
+  const njp = await noJs.newPage();
+  for (const route of ['/work', '/process', '/about', '/shopify']) {
+    await njp.goto(BASE_URL + route);
+    const hidden = await njp.evaluate(
+      () =>
+        [...document.querySelectorAll('h1, h2, h3')].filter((h) => {
+          const cs = getComputedStyle(h);
+          return cs.visibility === 'hidden' || parseFloat(cs.opacity) < 1;
+        }).length,
+    );
+    assert.equal(hidden, 0, `${route}: headings hidden without JavaScript`);
+  }
+  await noJs.close();
+  pass('no JavaScript: headings on every new page remain visible');
+
+  const reduced = await browser.newContext({
+    reducedMotion: 'reduce',
+    viewport: { width: 1280, height: 900 },
+  });
+  const rp = await reduced.newPage();
+  await rp.goto(BASE_URL + '/process', { waitUntil: 'networkidle' });
+  const opacity = await rp.evaluate(
+    () => getComputedStyle(document.querySelector('[data-reveal]')).opacity,
+  );
+  assert.equal(opacity, '1');
+  await reduced.close();
+  pass('reduced motion: reveal content is fully visible');
 
   // Mobile menu focus cycling
   const mobile = await browser.newPage({ viewport: { width: 390, height: 844 }, isMobile: true });

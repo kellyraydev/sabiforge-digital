@@ -1,0 +1,27 @@
+---
+import Icon from '@/components/ui/Icon.astro';
+import { getDecision } from '@/data/legal';
+
+interface Props {
+  id: string;
+}
+const d = getDecision(Astro.props.id);
+---
+
+<aside
+  class="my-6 rounded-xl border-2 border-dashed border-coral-700/60 bg-coral-500/[0.08] p-5 text-midnight-900"
+  aria-label={`Owner decision ${d.id}: ${d.topic}`}
+>
+  <p class="meta flex items-center gap-2 text-coral-800">
+    <Icon name="flag" class="size-4" /> Owner decision {d.id} · {d.topic}
+  </p>
+  <p class="mt-2 font-semibold">{d.question}</p>
+  <p class="mt-1 text-sm text-midnight-800/85">{d.why}</p>
+  {d.options && (
+    <ul class="mt-2 flex flex-wrap gap-2">
+      {d.options.map((o) => (
+        <li class="meta rounded-full border border-midnight-900/25 px-3 py-1">{o}</li>
+      ))}
+    </ul>
+  )}
+</aside>

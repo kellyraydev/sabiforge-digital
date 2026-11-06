@@ -1,0 +1,349 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
+import HexLines from '@/components/ui/HexLines.astro';
+import LogoMark from '@/components/ui/LogoMark.astro';
+import Icon from '@/components/ui/Icon.astro';
+import CtaPanel from '@/components/page/CtaPanel.astro';
+import Triad from '@/components/about/Triad';
+
+const positions = [
+  {
+    title: 'The business comes before the layout.',
+    detail:
+      'We ask what the website must achieve before we open a design tool. Every major decision can then be traced back to something you said you wanted.',
+  },
+  {
+    title: 'Design is an argument, not decoration.',
+    detail:
+      'A headline, an image and a button are each a claim about what matters. We make them deliberately, and we can explain them.',
+  },
+  {
+    title: 'Engineering is part of the design.',
+    detail:
+      'Speed, accessibility and maintainability decide whether a good design survives contact with real phones and real networks. We treat them as design decisions.',
+  },
+  {
+    title: 'Scope is written down, honestly.',
+    detail:
+      'What is included, what isn’t, what depends on third parties and what it costs, all before work starts. If you don’t need us yet, we’ll say so.',
+  },
+];
+
+const audiences = [
+  {
+    who: 'Founders launching',
+    fit: 'You need to look credible and be easy to contact, without over-investing on day one.',
+  },
+  {
+    who: 'Owner-run businesses',
+    fit: 'Customers find you through referrals and social media and you need somewhere proper to send them.',
+  },
+  {
+    who: 'Merchants and sellers',
+    fit: 'You sell products and want customers to browse, compare and buy more easily, on mobile first.',
+  },
+  {
+    who: 'Growing brands',
+    fit: 'The business has momentum, but the brand and website feel generic and need sharpening.',
+  },
+];
+
+const standards = [
+  ['Phones first', 'Layouts are designed and checked on small screens before large ones.'],
+  [
+    'Checked, not assumed',
+    'Automated accessibility scans, keyboard walk-throughs and speed tests before launch, with the results written down.',
+  ],
+  [
+    'Works without JavaScript animation',
+    'Content is readable with scripts off and with reduced motion on. Animation is never the only way to understand a page.',
+  ],
+  [
+    'Honest content',
+    'No invented testimonials, clients, numbers or credentials. Speculative work is labelled as such.',
+  ],
+  [
+    'Maintainable by someone else',
+    'Clear structure and notes, so you are never locked to us for everyday changes.',
+  ],
+  [
+    'Written scope',
+    'Pages, features, responsibilities and third-party costs in writing before work begins.',
+  ],
+];
+
+const collaboration = [
+  [
+    'One conversation to start',
+    'A first call, WhatsApp chat or email thread about your business. No pitch.',
+  ],
+  [
+    'A person on the other end',
+    'You deal directly with the people doing the work, not a layer of account management.',
+  ],
+  ['Where you already are', 'WhatsApp, email or a call, whichever you actually answer.'],
+  [
+    'Staging, not surprises',
+    'A private link lets you watch the site take shape on your own devices.',
+  ],
+  [
+    'Decisions in writing',
+    'Approvals are short written messages, so everyone remembers what was agreed.',
+  ],
+];
+
+const wont = [
+  'Invent testimonials, client logos, awards or results.',
+  'Promise rankings, sales or traffic. They depend on much more than a website.',
+  'Hide third-party costs inside our price.',
+  'Resell an unmodified template as custom design.',
+  'Make you dependent on us for everyday changes.',
+];
+---
+
+<BaseLayout
+  title="About"
+  description="SabiForge Digital is an independent creative digital studio in Nigeria. Our philosophy, our standards of craft and how we work with clients."
+  progress
+>
+  <!-- Hero: typographic -->
+  <section class="relative isolate overflow-hidden pt-32 pb-24 lg:pt-44 lg:pb-36">
+    <div
+      class="absolute inset-0 -z-20 bg-[radial-gradient(60%_70%_at_20%_20%,rgb(18_78_71/0.5),transparent)]"
+      aria-hidden="true"
+    ></div>
+    <HexLines
+      class="absolute top-1/2 -right-40 -z-10 size-[52rem] -translate-y-1/2 text-mint-300/[0.09]"
+      rings={8}
+    />
+    <div class="container-page">
+      <Breadcrumbs items={[{ label: 'About' }]} />
+      <p class="meta mt-12 text-mint-300">About SabiForge Digital</p>
+      <h1 class="mt-6 text-display-xl font-semibold text-ivory-50">
+        <span class="block">
+          <em class="text-mint-300">Sabi</em> is to know.
+        </span>
+        <span class="block">Forge is to make.</span>
+      </h1>
+      <p class="text-lede mt-10 max-w-2xl text-ivory-100/80">
+        SabiForge Digital is an independent creative digital studio. We design and build websites,
+        online stores and digital experiences for businesses in Nigeria, with the idea that you
+        should understand a thing properly before you make it.
+      </p>
+    </div>
+  </section>
+
+  <!-- Why we exist -->
+  <section
+    aria-labelledby="why-title"
+    class="on-paper notch-tr bg-ivory-100 py-24 text-midnight-900 lg:py-36"
+  >
+    <div class="container-page grid gap-14 lg:grid-cols-12 lg:gap-10">
+      <div class="lg:col-span-5" data-reveal>
+        <p class="meta text-mint-800">(01) Why SabiForge exists</p>
+        <h2 id="why-title" class="mt-5 text-display-lg font-semibold">
+          Good websites shouldn’t need a <em>big</em> agency, or a template.
+        </h2>
+      </div>
+      <div
+        class="space-y-6 text-lg leading-relaxed text-midnight-800/85 lg:col-span-6 lg:col-start-7"
+        data-reveal
+      >
+        <p>
+          Many businesses are offered one of two things: a template with their logo on it, or an
+          agency process built for much larger budgets. Neither starts from the question that
+          matters: what is this business trying to do, and who is it trying to reach?
+        </p>
+        <p>
+          SabiForge exists to be the third option: a small, independent studio that brings editorial
+          design, careful engineering and plain-spoken advice to businesses at every stage, from a
+          founder’s first website to an established brand’s redesign, sized to what you actually
+          need.
+        </p>
+        <p class="border-t border-midnight-900/15 pt-6 font-display text-2xl font-semibold text-midnight-900">
+          We are a new studio, and we’d rather say so than borrow a history we don’t have.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- What is different -->
+  <section aria-labelledby="different-title" class="py-24 lg:py-36">
+    <div class="container-page">
+      <div class="max-w-3xl" data-reveal>
+        <p class="meta text-mint-300">(02) What makes the approach different</p>
+        <h2 id="different-title" class="mt-5 text-display-lg font-semibold text-ivory-50">
+          Four <em class="text-mint-300">positions</em> we hold.
+        </h2>
+      </div>
+      <ol class="mt-16 grid gap-px overflow-hidden rounded-2xl border border-ivory-100/12 bg-ivory-100/12 md:grid-cols-2">
+        {positions.map((p, i) => (
+          <li
+            class="relative bg-midnight-900 p-8 sm:p-12"
+            data-reveal
+            style={`--reveal-delay:${i * 80}`}
+          >
+            <span
+              class="numeral absolute top-6 right-6 text-[3.75rem] sm:text-[5.5rem]"
+              aria-hidden="true"
+            >
+              {String(i + 1).padStart(2, '0')}
+            </span>
+            <h3 class="relative max-w-sm pr-16 font-display sm:pr-0 text-display-sm font-semibold text-ivory-50">
+              {p.title}
+            </h3>
+            <p class="relative mt-5 max-w-md leading-relaxed text-ivory-100/75">{p.detail}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- Design x Technology x Business -->
+  <section
+    aria-labelledby="triad-title"
+    class="on-paper bg-ivory-50 py-24 text-midnight-900 lg:py-36"
+  >
+    <div class="container-page">
+      <div class="max-w-3xl" data-reveal>
+        <p class="meta text-mint-800">(03) Design, technology and business</p>
+        <h2 id="triad-title" class="mt-5 text-display-lg font-semibold">
+          A website is where three disciplines <em>meet</em>.
+        </h2>
+        <p class="mt-6 text-lg text-midnight-800/80">
+          Strong sites hold up in all three. Select a discipline to see the question it answers and
+          what goes missing without it.
+        </p>
+      </div>
+      <div class="mt-14" data-reveal>
+        <Triad client:visible />
+        <noscript>
+          <ul class="mt-6 space-y-3">
+            <li>
+              <strong>Design</strong> asks whether people will understand and trust it.
+            </li>
+            <li>
+              <strong>Technology</strong> asks whether it will be fast, accessible and maintainable.
+            </li>
+            <li>
+              <strong>Business</strong> asks what it must achieve, and how you will know.
+            </li>
+          </ul>
+        </noscript>
+      </div>
+    </div>
+  </section>
+
+  <!-- Who we serve -->
+  <section aria-labelledby="serve-title" class="py-24 lg:py-36">
+    <div class="container-page grid gap-12 lg:grid-cols-[minmax(0,26rem)_1fr] lg:gap-20">
+      <div data-reveal>
+        <p class="meta text-mint-300">(04) Who we serve</p>
+        <h2 id="serve-title" class="mt-5 text-display-lg font-semibold text-ivory-50">
+          Businesses at <em class="text-mint-300">every</em> stage.
+        </h2>
+        <p class="mt-6 text-lg text-ivory-100/75">
+          Our work is for people who run businesses in Nigeria and want their website to carry real
+          weight. We’d rather tell you early if we’re not the right fit.
+        </p>
+      </div>
+      <ul class="divide-y divide-ivory-100/12 border-y border-ivory-100/12">
+        {audiences.map((a, i) => (
+          <li
+            class="grid gap-3 py-7 sm:grid-cols-[13rem_1fr]"
+            data-reveal
+            style={`--reveal-delay:${i * 70}`}
+          >
+            <span class="font-display text-xl font-semibold text-ivory-50">{a.who}</span>
+            <span class="text-ivory-100/75">{a.fit}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Standards -->
+  <section
+    aria-labelledby="craft-title"
+    class="relative isolate overflow-hidden border-t border-ivory-100/10 bg-midnight-950 py-24 lg:py-36"
+  >
+    <LogoMark class="absolute top-1/2 -right-24 -z-10 h-[34rem] w-auto -translate-y-1/2 opacity-[0.05]" />
+    <div class="container-page">
+      <div class="max-w-3xl" data-reveal>
+        <p class="meta text-mint-300">(05) Standards of craft</p>
+        <h2 id="craft-title" class="mt-5 text-display-lg font-semibold text-ivory-50">
+          What “well made” means <em class="text-mint-300">here</em>.
+        </h2>
+        <p class="mt-6 text-lg text-ivory-100/75">
+          These are the standards we hold our own work to. This website is built to them, and you
+          can inspect it.
+        </p>
+      </div>
+      <ul class="mt-14 grid gap-x-12 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
+        {standards.map(([t, d], i) => (
+          <li
+            class="border-t border-ivory-100/15 pt-5"
+            data-reveal
+            style={`--reveal-delay:${i * 60}`}
+          >
+            <span class="meta text-mint-300" aria-hidden="true">
+              {String(i + 1).padStart(2, '0')}
+            </span>
+            <h3 class="mt-2 font-display text-xl font-semibold text-ivory-50">{t}</h3>
+            <p class="mt-2 leading-relaxed text-ivory-100/75">{d}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Collaboration + won't -->
+  <section
+    aria-labelledby="collab-title"
+    class="on-paper notch-bl bg-ivory-100 py-24 text-midnight-900 lg:py-36"
+  >
+    <div class="container-page grid gap-16 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal>
+        <p class="meta text-mint-800">(06) How we work with you</p>
+        <h2 id="collab-title" class="mt-5 text-display-md font-semibold">
+          Collaboration, <em>without</em> the theatre.
+        </h2>
+        <ul class="mt-8 space-y-5">
+          {collaboration.map(([t, d]) => (
+            <li class="border-t border-midnight-900/15 pt-4">
+              <span class="block font-display text-lg font-semibold">{t}</span>
+              <span class="mt-1 block text-midnight-800/80">{d}</span>
+            </li>
+          ))}
+        </ul>
+        <a
+          href="/process"
+          class="link-sweep mt-8 inline-flex items-center gap-2 font-semibold text-midnight-900"
+        >
+          See the six-stage process <Icon name="arrow-right" class="size-4" />
+        </a>
+      </div>
+      <div data-reveal>
+        <p class="meta text-mint-800">(07) What we won’t do</p>
+        <h2 class="mt-5 text-display-md font-semibold">
+          Promises we <em>don’t</em> make.
+        </h2>
+        <ul class="mt-8 space-y-4">
+          {wont.map((w) => (
+            <li class="flex gap-3 border-t border-midnight-900/15 pt-4">
+              <Icon name="close" class="mt-1 size-5 shrink-0 text-coral-700" />
+              <span>{w}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <CtaPanel
+    title="Let’s find out if we’re a <em>fit</em>."
+    body="Tell us about your business. We’ll give you an honest view of what you need, and whether it’s us."
+    whatsappMessage="Hello SabiForge Digital, I read your About page and I'd like to talk about a project."
+  />
+</BaseLayout>

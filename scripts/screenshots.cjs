@@ -27,9 +27,14 @@ async function discoverRoutes() {
   return ['/', '/services', '/pricing', '/contact'];
 }
 
+// Noindex draft pages are deliberately kept out of the sitemap but must still be checked.
+const EXTRA_ROUTES = ['/privacy', '/terms'];
+
 (async () => {
   fs.mkdirSync(OUT, { recursive: true });
-  const routes = process.env.ROUTES ? process.env.ROUTES.split(',') : await discoverRoutes();
+  const routes = process.env.ROUTES
+    ? process.env.ROUTES.split(',')
+    : [...new Set([...(await discoverRoutes()), ...EXTRA_ROUTES])];
   routes.push('/404');
   const browser = await browser_launch();
   const problems = [];
@@ -48,6 +53,13 @@ async function discoverRoutes() {
       const errors = [];
       page.on('console', (msg) => msg.type() === 'error' && errors.push(msg.text()));
       page.on('pageerror', (err) => errors.push(err.message));
+      // Privacy claim: pages make no requests to any other origin.
+      const external = [];
+      page.on('request', (req) => {
+        const u = req.url();
+        if (!u.startsWith(BASE_URL) && !u.startsWith('data:') && !u.startsWith('blob:'))
+          external.push(u);
+      });
       const tag = `[${route} @${width}]`;
 
       await page.goto(BASE_URL + route, { waitUntil: 'networkidle' });
@@ -119,6 +131,12 @@ async function discoverRoutes() {
             .querySelectorAll('[data-reveal]')
             .forEach((el) => el.classList.add('is-revealed')),
         );
+        // Capture artefacts: let reveal transitions finish and render deferred sections.
+        await page.addStyleTag({
+          content:
+            '*{content-visibility:visible!important}[data-reveal]{transition:none!important}',
+        });
+        await page.waitForTimeout(500);
         await page.screenshot({ path: path.join(OUT, `${name}.png`), fullPage: true });
       }
 
@@ -133,6 +151,8 @@ async function discoverRoutes() {
           problems.push(`${tag} menu did not close on Escape`);
       }
 
+      if (external.length)
+        problems.push(`${tag} third-party requests: ${[...new Set(external)].join(', ')}`);
       if (errors.length) problems.push(`${tag} console errors: ${errors.join(' | ')}`);
       checks += 1;
       await context.close();

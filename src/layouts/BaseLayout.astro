@@ -14,6 +14,8 @@ interface Props {
   noindex?: boolean;
   /** Hide the footer's project CTA (e.g. on the contact page itself). */
   footerCta?: boolean;
+  /** Show a reading-progress bar (long pages). */
+  progress?: boolean;
 }
 
 const {
@@ -22,6 +24,7 @@ const {
   structuredData = [],
   noindex = false,
   footerCta = true,
+  progress = false,
 } = Astro.props;
 const pageTitle = title ? `${title} — ${site.name}` : `${site.name} — Design & development studio`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
@@ -80,6 +83,7 @@ const organization = {
     >
       Skip to content
     </a>
+    {progress && <div class="scroll-progress" aria-hidden="true"></div>}
     <Header />
     <main id="main" tabindex="-1" class="outline-none">
       <slot />

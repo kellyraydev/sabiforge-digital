@@ -1,0 +1,113 @@
+---
+import LegalLayout from '@/components/legal/LegalLayout.astro';
+import DecisionNote from '@/components/legal/DecisionNote.astro';
+import { site } from '@/data/site';
+
+const sections = [
+  { id: 'who', label: 'Who this is about' },
+  { id: 'website', label: 'What this website does' },
+  { id: 'enquiries', label: 'When you contact us' },
+  { id: 'projects', label: 'Client project information' },
+  { id: 'tools', label: 'Third-party tools' },
+  { id: 'rights', label: 'Your choices and rights' },
+  { id: 'changes', label: 'Changes to this policy' },
+];
+---
+
+<LegalLayout
+  title="Privacy policy"
+  heading="Privacy policy"
+  description="Draft privacy policy for SabiForge Digital, for owner and legal review. Not an approved document."
+  document="privacy"
+  sections={sections}
+>
+  <h2 id="who">1. Who this is about</h2>
+  <p>
+    This policy concerns the website of {site.name} and the information you share with the studio
+    when you contact it. You can reach the studio at
+    <a class="font-semibold underline" href={`mailto:${site.contact.email}`}>
+      {site.contact.email}
+    </a>
+    or on WhatsApp at {site.contact.whatsappDisplay}.
+  </p>
+  <DecisionNote id="P1" />
+  <DecisionNote id="P2" />
+
+  <h2 id="website">2. What this website does</h2>
+  <p>These statements were checked against the website’s code at the time of drafting:</p>
+  <ul>
+    <li>The website is a set of static pages. It has no user accounts, logins or payments.</li>
+    <li>It sets no cookies and stores nothing in your browser’s local storage.</li>
+    <li>It runs no analytics, advertising or tracking scripts.</li>
+    <li>
+      Fonts and images are served from the site itself. Pages make no requests to third-party
+      services while you read them.
+    </li>
+    <li>
+      The project brief builder on the contact page runs entirely in your browser. It does not send
+      what you type to the studio or to any server.
+    </li>
+  </ul>
+  <p>
+    These statements stop being true if a tool is added later. They must be re-checked before every
+    launch.
+  </p>
+  <DecisionNote id="P7" />
+
+  <h2 id="enquiries">3. When you contact us</h2>
+  <p>
+    The brief builder helps you prepare a message. To send it you choose one of three actions: open
+    it in your email app, open it in WhatsApp, or copy it. Sending is your action.
+  </p>
+  <ul>
+    <li>
+      If you use email or WhatsApp, the message is handled by your email provider or by WhatsApp and
+      then received by the studio. Those services have their own privacy policies.
+    </li>
+    <li>
+      The studio receives what you choose to include, which may be your name, email address,
+      business details and project description.
+    </li>
+    <li>If you call or message the studio directly, it receives your number and what you say.</li>
+  </ul>
+  <p>
+    <strong>
+      How the studio uses it, how long it keeps it, and whether it is shared are not yet decided.
+    </strong>
+  </p>
+  <DecisionNote id="P3" />
+  <DecisionNote id="P8" />
+  <DecisionNote id="P9" />
+
+  <h2 id="projects">4. Client project information</h2>
+  <p>
+    Working on a project involves receiving client information, such as content, product data,
+    customer lists and account access. The rules for storing, sharing and deleting it are not yet
+    decided.
+  </p>
+  <DecisionNote id="P5" />
+
+  <h2 id="tools">5. Third-party tools</h2>
+  <p>
+    Today the website itself uses no third-party tools that run in your browser. The studio uses
+    email and WhatsApp to communicate. Any hosting, analytics, form, CRM, scheduling or payment tool
+    added later must be listed here.
+  </p>
+  <DecisionNote id="P6" />
+
+  <h2 id="rights">6. Your choices and rights</h2>
+  <p>
+    You can choose not to use the brief builder and to contact the studio in another way. The rights
+    you have over your information, the law that applies, and how to exercise them have not yet been
+    confirmed.
+  </p>
+  <DecisionNote id="P4" />
+  <DecisionNote id="P10" />
+  <DecisionNote id="P11" />
+
+  <h2 id="changes">7. Changes to this policy</h2>
+  <p>
+    Once approved, the policy should show a version and date. This draft is version 0.1 of 6
+    November 2026.
+  </p>
+</LegalLayout>
