@@ -15,7 +15,7 @@ permissions:
 
 jobs:
   qa:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     environment: staging
     env:
       BASE_URL: ${{ vars.STAGING_BASE_URL }}
@@ -23,11 +23,11 @@ jobs:
       CF_ACCESS_CLIENT_ID: ${{ secrets.CF_ACCESS_CLIENT_ID }}
       CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
-          cache: npm
+          package-manager-cache: false
       - run: npm ci
       - name: Require protected staging URL and Access service token
         shell: bash

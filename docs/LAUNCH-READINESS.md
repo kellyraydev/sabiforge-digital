@@ -131,9 +131,14 @@ Manual assistive-technology checklist for protected staging:
 
 `CI` is configured to run formatting, ESLint, Vitest, Astro check, production and staging builds,
 SITE_URL policy checks, a parser check against the actual generated sitemap XML, and a staging
-metadata check across every HTML page. GitHub has no CI run for these
-new workflow files until they are pushed to PR #1; local results are not remote CI evidence. Record
-the first completed GitHub Actions run and commit here after it executes.
+metadata check across every HTML page. The first GitHub push and PR runs on `874b59e` both passed
+(runs [42202620136](https://github.com/kellyraydev/sabiforge-digital/actions/runs/42202620136) and
+[42202626361](https://github.com/kellyraydev/sabiforge-digital/actions/runs/42202626361)). Those runs
+reported non-blocking Node 20 action-runtime and `ubuntu-latest` migration notices; the workflow
+now pins Node 24-compatible actions and Ubuntu 24.04. The updated workflow must pass on its new head
+commit before the CI gate is considered current. The authenticated staging workflow has not run:
+the host, Access policies, environment secrets and staging URL remain unconfigured pending approval.
+Local results are not remote CI evidence.
 
 ## 6. Performance, accessibility and design findings
 
@@ -213,7 +218,9 @@ and [Pages `pages.dev` Access instructions](https://developers.cloudflare.com/pa
    `scripts/check-sitemap.mjs`, which parses the built XML and rejects hero-lab, draft legal and
    error routes or wrong-origin URLs. Staging verification also checks canonical/OG URLs, robots,
    `noindex,nofollow`, headers, authentication and sitemap.
-4. Use the manual GitHub Actions `Authenticated staging QA` workflow. Set
+4. Use the manual GitHub Actions `Authenticated staging QA` workflow. Protect the GitHub `staging`
+   environment with branch restrictions and a required reviewer so modified test code cannot
+   receive service-token secrets without review. Set
    `STAGING_BASE_URL` in the GitHub `staging` environment and store
    `CF_ACCESS_CLIENT_ID` / `CF_ACCESS_CLIENT_SECRET` as environment secrets. Credentials are sent
    only to the two code-allowlisted HTTPS staging hostnames and are not printed. Run Chromium,
