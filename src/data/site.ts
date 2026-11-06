@@ -45,7 +45,6 @@ export interface NavItem {
 export const navigation: NavItem[] = [
   { label: 'Work', href: '/work', match: '/work', primary: true },
   { label: 'Services', href: '/services', match: '/services', primary: true },
-  { label: 'Shopify', href: '/shopify', match: '/shopify', primary: true },
   { label: 'Process', href: '/process', match: '/process', primary: true },
   { label: 'About', href: '/about', match: '/about', primary: true },
   { label: 'Pricing', href: '/pricing', match: '/pricing', primary: true },
