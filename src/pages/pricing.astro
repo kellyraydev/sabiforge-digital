@@ -1,0 +1,330 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/page/PageHero.astro';
+import CtaPanel from '@/components/page/CtaPanel.astro';
+import Icon from '@/components/ui/Icon.astro';
+import PricingExplorer, { type PackageCard } from '@/components/pricing/PricingExplorer';
+import {
+  packages,
+  foundingPrice,
+  engagementModels,
+  comparisonRows,
+  thirdPartyCosts,
+  commonExclusions,
+  addOns,
+  AGREED,
+} from '@/data/packages';
+import { pricingFaq } from '@/data/faq';
+import { discountPercentLabel, formatNaira, foundingSlotsLabel } from '@/lib/pricing';
+
+const modelName = (id: string) => engagementModels.find((m) => m.id === id)?.name ?? '';
+const cards: PackageCard[] = packages.map((pkg) => {
+  const founding = foundingPrice(pkg);
+  return {
+    id: pkg.id,
+    name: pkg.name,
+    modelName: modelName(pkg.model),
+    scope: pkg.scope,
+    bestFor: pkg.bestFor,
+    objective: pkg.objective,
+    standard: pkg.price === null ? null : formatNaira(pkg.price),
+    founding: founding === null ? null : formatNaira(founding),
+    fromPrice: pkg.fromPrice,
+    foundingEligible: pkg.foundingEligible,
+    typically: pkg.typically,
+    enquiryHref: `/contact?package=${pkg.id}`,
+  };
+});
+
+const priceRow = Object.fromEntries(
+  packages.map((p) => [p.id, `${p.fromPrice ? 'From ' : ''}${formatNaira(p.price ?? 0)}`]),
+);
+const foundingRow = Object.fromEntries(
+  packages.map((p) => [
+    p.id,
+    p.foundingEligible
+      ? `${formatNaira(foundingPrice(p) ?? 0)} (−${discountPercentLabel()})`
+      : 'Not eligible',
+  ]),
+);
+const rows = [
+  { label: 'Standard price', values: priceRow },
+  { label: 'Founding-client rate', values: foundingRow },
+  ...comparisonRows,
+];
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: pricingFaq.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+
+<BaseLayout
+  title="Pricing"
+  description="Website packages from ₦120,000. Compare Launch, Business, Online Catalog and Full E-commerce, see what’s included and what is quoted separately."
+  structuredData={[faqLd]}
+>
+  <PageHero
+    label="Pricing"
+    title="Transparent pricing for <em class='text-mint-300'>right-sized</em> work."
+    crumbs={[{ label: 'Pricing' }]}
+  >
+    <p>
+      All prices are in Nigerian naira. Fixed prices are marked as fixed, starting prices as
+      starting prices, and anything not yet defined is agreed in your written proposal — never
+      assumed.
+    </p>
+  </PageHero>
+
+  <section aria-labelledby="packages-title" class="pb-20 lg:pb-28">
+    <div class="container-page">
+      <h2 id="packages-title" class="sr-only">
+        Packages
+      </h2>
+      <PricingExplorer client:load cards={cards} discountLabel={discountPercentLabel()} />
+
+      <div class="chamfer mt-6 grid gap-6 rounded-[var(--radius-card)] bg-mint-300 p-7 text-midnight-900 sm:p-9 lg:grid-cols-[1fr_auto] lg:items-center">
+        <div>
+          <p class="meta text-midnight-800">Studio Partnership</p>
+          <h3 class="mt-2 font-display text-3xl font-semibold">Custom quote</h3>
+          <p class="mt-2 max-w-2xl text-midnight-900/80">
+            For tailored strategy, brand and design work, complex builds, integrations or ongoing
+            engagements. Scoped after a discovery conversation.
+          </p>
+        </div>
+        <a
+          href="/contact?package=partnership"
+          class="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-midnight-900 px-6 font-semibold text-ivory-50 transition hover:bg-midnight-700"
+        >
+          Discuss a custom project <Icon name="arrow-up-right" class="size-5" />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section
+    id="compare"
+    aria-labelledby="compare-title"
+    class="on-paper bg-ivory-100 py-20 text-midnight-900 lg:py-28"
+  >
+    <div class="container-page">
+      <p class="meta text-mint-800" data-reveal>
+        Compare
+      </p>
+      <h2 id="compare-title" class="mt-4 text-display-md font-semibold" data-reveal>
+        Package comparison
+      </h2>
+      <p class="mt-4 max-w-2xl text-midnight-800/80" data-reveal>
+        “{AGREED}” means the detail is set for your project in writing before work starts, rather
+        than promised generically here.
+      </p>
+
+      <!-- Desktop / tablet table -->
+      <div
+        class="mt-12 hidden overflow-x-auto rounded-[var(--radius-card)] border border-midnight-900/12 bg-ivory-50 md:block"
+        role="region"
+        aria-label="Package comparison table"
+        tabindex="0"
+      >
+        <table class="w-full min-w-[56rem] border-collapse text-left text-sm">
+          <caption class="sr-only">Comparison of SabiForge website packages</caption>
+          <thead>
+            <tr class="border-b border-midnight-900/12">
+              <th scope="col" class="w-[20%] p-5 align-bottom">
+                <span class="meta text-midnight-800">Feature</span>
+              </th>
+              {packages.map((p) => (
+                <th scope="col" class="p-5 align-bottom">
+                  <span class="meta block text-mint-800">{modelName(p.model)}</span>
+                  <span class="mt-1 block font-display text-xl font-semibold">{p.name}</span>
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((row) => (
+              <tr class="border-b border-midnight-900/10 last:border-0 even:bg-ivory-100/60">
+                <th scope="row" class="p-5 font-semibold">
+                  {row.label}
+                </th>
+                {packages.map((p) => {
+                  const v = row.values[p.id];
+                  return (
+                    <td class="p-5 align-top text-midnight-800">
+                      {v === true ? (
+                        <span class="inline-flex items-center gap-2">
+                          <Icon name="check" class="size-4 text-mint-800" strokeWidth={2.5} />
+                          Included
+                        </span>
+                      ) : v === false ? (
+                        <span class="text-midnight-800/70">Not included</span>
+                      ) : v === AGREED ? (
+                        <span class="text-midnight-800/75 italic">{v}</span>
+                      ) : (
+                        v
+                      )}
+                    </td>
+                  );
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Mobile: one package at a time -->
+      <div class="mt-10 grid gap-3 md:hidden">
+        {packages.map((p, index) => (
+          <details
+            class="group rounded-[var(--radius-card)] border border-midnight-900/12 bg-ivory-50"
+            open={index === 0}
+          >
+            <summary class="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 rounded-[var(--radius-card)] p-5 [&::-webkit-details-marker]:hidden">
+              <span>
+                <span class="meta block text-mint-800">{modelName(p.model)}</span>
+                <span class="font-display text-xl font-semibold">{p.name}</span>
+              </span>
+              <Icon name="plus" class="size-5 transition group-open:rotate-45" />
+            </summary>
+            <dl class="border-t border-midnight-900/10 px-5 pb-5">
+              {rows.map((row) => {
+                const v = row.values[p.id];
+                return (
+                  <div class="grid grid-cols-[42%_1fr] gap-3 border-b border-midnight-900/10 py-3 text-sm last:border-0">
+                    <dt class="font-semibold">{row.label}</dt>
+                    <dd class="text-midnight-800">
+                      {v === true ? 'Included' : v === false ? 'Not included' : v}
+                    </dd>
+                  </div>
+                );
+              })}
+            </dl>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="costs-title" class="py-20 lg:py-28">
+    <div class="container-page grid gap-6 lg:grid-cols-3">
+      <div class="lg:col-span-3" data-reveal>
+        <p class="meta text-mint-300">The fine print, in plain language</p>
+        <h2 id="costs-title" class="mt-4 text-display-md font-semibold text-ivory-50">
+          What’s <em class="text-mint-300">outside</em> the package price
+        </h2>
+      </div>
+      {[
+        {
+          title: 'Third-party costs',
+          items: thirdPartyCosts,
+          icon: 'tag' as const,
+          note: 'Quoted separately, paid to the provider or passed through at cost.',
+        },
+        {
+          title: 'Common exclusions',
+          items: commonExclusions,
+          icon: 'info' as const,
+          note: 'Available on request and quoted individually.',
+        },
+      ].map((block) => (
+        <div class="rounded-[var(--radius-card)] border border-ivory-100/12 p-7" data-reveal>
+          <h3 class="flex items-center gap-3 text-xl font-semibold text-ivory-50">
+            <Icon name={block.icon} class="size-5 text-mint-300" />
+            {block.title}
+          </h3>
+          <ul class="mt-5 space-y-2.5 text-ivory-100/80">
+            {block.items.map((item) => (
+              <li class="flex gap-3">
+                <span class="mt-3 h-px w-3 shrink-0 bg-coral-400" aria-hidden="true" />
+                {item}
+              </li>
+            ))}
+          </ul>
+          <p class="mt-5 text-sm text-ivory-100/65">{block.note}</p>
+        </div>
+      ))}
+      <div class="rounded-[var(--radius-card)] bg-midnight-800/70 p-7" data-reveal>
+        <h3 class="flex items-center gap-3 text-xl font-semibold text-ivory-50">
+          <Icon name="plus" class="size-5 text-mint-300" /> Add-ons
+        </h3>
+        <ul class="mt-5 space-y-4">
+          {addOns.map((item) => (
+            <li>
+              <p class="font-semibold text-ivory-50">{item.name}</p>
+              <p class="text-sm text-ivory-100/70">{item.detail}</p>
+            </li>
+          ))}
+        </ul>
+        <p class="mt-5 text-sm text-ivory-100/65">Quoted per project.</p>
+      </div>
+    </div>
+  </section>
+
+  <section
+    id="founding-offer"
+    aria-labelledby="offer-title"
+    class="border-t border-ivory-100/10 py-20 lg:py-24"
+  >
+    <div class="container-page grid gap-10 lg:grid-cols-[minmax(0,24rem)_1fr] lg:gap-20">
+      <div data-reveal>
+        <p class="meta text-mint-300">Founding-client offer</p>
+        <h2 id="offer-title" class="mt-4 text-display-sm font-semibold text-ivory-50">
+          {discountPercentLabel()} off for {foundingSlotsLabel()}
+        </h2>
+      </div>
+      <ul class="space-y-3 text-ivory-100/80" data-reveal>
+        <li class="flex gap-3">
+          <Icon name="check" class="mt-1 size-4 shrink-0 text-mint-300" strokeWidth={2.5} />
+          Applies to the Launch, Business and Online Catalog packages.
+        </li>
+        <li class="flex gap-3">
+          <Icon name="check" class="mt-1 size-4 shrink-0 text-mint-300" strokeWidth={2.5} />
+          Full E-commerce, custom projects and third-party costs are not discounted.
+        </li>
+        <li class="flex gap-3">
+          <Icon name="check" class="mt-1 size-4 shrink-0 text-mint-300" strokeWidth={2.5} />
+          Available to a limited number of early clients; eligibility is confirmed in writing in
+          your proposal.
+        </li>
+        <li class="flex gap-3">
+          <Icon name="check" class="mt-1 size-4 shrink-0 text-mint-300" strokeWidth={2.5} />
+          No countdowns or pressure — if places are filled, we’ll tell you before you commit.
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section aria-labelledby="faq-title" class="border-t border-ivory-100/10 py-20 lg:py-28">
+    <div class="container-page grid gap-10 lg:grid-cols-[minmax(0,24rem)_1fr] lg:gap-20">
+      <div data-reveal>
+        <p class="meta text-mint-300">Questions</p>
+        <h2 id="faq-title" class="mt-4 text-display-md font-semibold text-ivory-50">
+          Before you <em class="text-mint-300">ask</em>
+        </h2>
+      </div>
+      <div class="border-t border-ivory-100/12">
+        {pricingFaq.map((item) => (
+          <details class="group border-b border-ivory-100/12">
+            <summary class="flex min-h-16 cursor-pointer list-none items-center justify-between gap-6 rounded-sm py-5 text-lg font-semibold text-ivory-50 hover:text-mint-300 [&::-webkit-details-marker]:hidden">
+              {item.q}
+              <Icon name="plus" class="size-5 shrink-0 transition group-open:rotate-45" />
+            </summary>
+            <p class="max-w-2xl pb-6 leading-relaxed text-ivory-100/75">{item.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaPanel
+    title="Have a project that doesn’t fit a <em>package</em>?"
+    body="Tell us what you need. We’ll scope it properly and give you a clear, written quote."
+    primaryHref="/contact?package=partnership"
+    primaryLabel="Request a custom quote"
+  />
+</BaseLayout>

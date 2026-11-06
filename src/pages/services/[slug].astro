@@ -1,0 +1,236 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/page/PageHero.astro';
+import CtaPanel from '@/components/page/CtaPanel.astro';
+import ConceptPlate from '@/components/ui/ConceptPlate.astro';
+import Icon from '@/components/ui/Icon.astro';
+import { services, serviceFamilies, getService, serviceHref, type Service } from '@/data/services';
+import { getConcept, CONCEPT_LABEL, CONCEPT_DISCLAIMER } from '@/data/concepts';
+import { site } from '@/data/site';
+
+export function getStaticPaths() {
+  return services.map((service) => ({ params: { slug: service.slug }, props: { service } }));
+}
+
+const { service } = Astro.props as { service: Service };
+const family = serviceFamilies.find((f) => f.id === service.family)!;
+const concept = service.conceptId ? getConcept(service.conceptId) : undefined;
+const related = service.related.map((slug) => getService(slug)!).filter(Boolean);
+
+const serviceLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: service.name,
+  description: service.summary,
+  serviceType: service.name,
+  areaServed: { '@type': 'Country', name: 'Nigeria' },
+  provider: { '@type': 'ProfessionalService', name: site.name, url: new URL('/', Astro.site).href },
+};
+---
+
+<BaseLayout title={service.name} description={service.summary} structuredData={[serviceLd]}>
+  <PageHero
+    label={`${family.name} · Service`}
+    title={service.headline.replace('<em>', "<em class='text-mint-300'>")}
+    crumbs={[{ label: 'Services', href: '/services' }, { label: service.shortName }]}
+  >
+    <p>{service.summary}</p>
+    <div slot="after" class="mt-10 flex flex-wrap gap-3">
+      <a
+        href={`/contact?service=${service.slug}`}
+        class="group inline-flex min-h-12 items-center gap-2 rounded-full bg-coral-500 px-6 font-semibold text-midnight-950 transition hover:bg-coral-400"
+      >
+        Discuss this service <Icon name="arrow-up-right" class="size-5" />
+      </a>
+      <a
+        href="#included"
+        class="inline-flex min-h-12 items-center gap-2 rounded-full border border-ivory-100/25 px-6 font-semibold text-ivory-50 hover:border-mint-300"
+      >
+        What’s included <Icon name="arrow-down" class="size-5" />
+      </a>
+    </div>
+  </PageHero>
+
+  <!-- Problem and audience -->
+  <section aria-labelledby="problem-title" class="border-t border-ivory-100/10 py-20 lg:py-28">
+    <div class="container-page grid gap-14 lg:grid-cols-[1.2fr_1fr] lg:gap-20">
+      <div data-reveal>
+        <p class="meta text-mint-300">(01) The problem</p>
+        <h2 id="problem-title" class="sr-only">
+          The problem this service addresses
+        </h2>
+        <p class="mt-6 font-display text-[clamp(1.45rem,1.1rem+1.2vw,2.15rem)] leading-snug font-medium text-ivory-50">
+          {service.problem}
+        </p>
+      </div>
+      <div data-reveal style="--reveal-delay:120">
+        <h2 class="meta text-mint-300">(02) Who it’s for</h2>
+        <ul class="mt-6 border-t border-ivory-100/12">
+          {service.idealFor.map((item) => (
+            <li class="border-b border-ivory-100/12 py-5">
+              <p class="font-semibold text-ivory-50">{item.stage}</p>
+              <p class="mt-1 text-ivory-100/75">{item.detail}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Included and deliverables -->
+  <section
+    id="included"
+    aria-labelledby="included-title"
+    class="on-paper bg-ivory-100 py-20 text-midnight-900 lg:py-28"
+  >
+    <div class="container-page grid gap-12 lg:grid-cols-[1.4fr_1fr] lg:gap-16">
+      <div data-reveal>
+        <p class="meta text-mint-800">(03) What’s included</p>
+        <h2 id="included-title" class="mt-4 text-display-md font-semibold">
+          The work, <em class="text-coral-700">specifically</em>.
+        </h2>
+        <ul class="mt-10 grid gap-x-10 sm:grid-cols-2">
+          {service.includes.map((item) => (
+            <li class="flex gap-3 border-t border-midnight-900/15 py-4">
+              <Icon name="check" class="mt-1 size-4 shrink-0 text-mint-800" strokeWidth={2.5} />
+              <span class="leading-relaxed text-midnight-800">{item}</span>
+            </li>
+          ))}
+        </ul>
+        <p class="mt-6 text-sm text-midnight-800/75">
+          Exact inclusions are confirmed in your written proposal.
+        </p>
+      </div>
+      <aside
+        aria-labelledby="deliverables-title"
+        class="chamfer self-start rounded-[var(--radius-card)] bg-midnight-900 p-7 text-ivory-50 sm:p-9"
+        data-reveal
+        style="--reveal-delay:120"
+      >
+        <h3 id="deliverables-title" class="meta text-mint-300">
+          Typical deliverables
+        </h3>
+        <ol class="mt-6 space-y-4">
+          {service.deliverables.map((item, i) => (
+            <li class="flex gap-4">
+              <span class="meta pt-1 text-ivory-100/60">{String(i + 1).padStart(2, '0')}</span>
+              <span class="text-lg font-medium">{item}</span>
+            </li>
+          ))}
+        </ol>
+        <div class="mt-8 border-t border-ivory-100/12 pt-6">
+          <p class="meta text-ivory-100/65">Investment</p>
+          <p class="mt-2 text-ivory-100/85">{service.pricing}</p>
+          <a
+            href="/pricing"
+            class="mt-3 inline-flex items-center gap-1.5 rounded-sm text-sm font-semibold text-mint-300 hover:text-mint-200"
+          >
+            See pricing <Icon name="arrow-right" class="size-4" />
+          </a>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- Approach -->
+  <section aria-labelledby="approach-title" class="py-20 lg:py-28">
+    <div class="container-page">
+      <p class="meta text-mint-300" data-reveal>
+        (04) How we approach it
+      </p>
+      <h2
+        id="approach-title"
+        class="mt-4 max-w-3xl text-display-md font-semibold text-ivory-50"
+        data-reveal
+      >
+        Four steps, each with <em class="text-mint-300">your</em> sign-off.
+      </h2>
+      <ol class="mt-12 grid gap-px overflow-hidden rounded-[var(--radius-card)] bg-ivory-100/12 sm:grid-cols-2 lg:grid-cols-4">
+        {service.approach.map((step, i) => (
+          <li class="bg-midnight-900 p-7" data-reveal style={`--reveal-delay:${i * 70}`}>
+            <p class="font-display text-5xl font-semibold text-mint-300/90">
+              {String(i + 1).padStart(2, '0')}
+            </p>
+            <h3 class="mt-6 text-xl font-semibold text-ivory-50">{step.title}</h3>
+            <p class="mt-2 leading-relaxed text-ivory-100/75">{step.detail}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- Limits and concept -->
+  <section aria-labelledby="limits-title" class="border-t border-ivory-100/10 py-20 lg:py-28">
+    <div class="container-page grid gap-14 lg:grid-cols-[1fr_1.2fr] lg:gap-20">
+      <div data-reveal>
+        <p class="meta text-mint-300">(05) Good to know</p>
+        <h2 id="limits-title" class="mt-4 text-display-sm font-semibold text-ivory-50">
+          Dependencies, limits and exclusions
+        </h2>
+        <ul class="mt-8 space-y-4">
+          {service.limitations.map((item) => (
+            <li class="flex gap-3 text-ivory-100/80">
+              <Icon name="info" class="mt-1 size-4 shrink-0 text-coral-400" />
+              <span class="leading-relaxed">{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      {concept && (
+        <figure data-reveal style="--reveal-delay:120">
+          <div class="rounded-[var(--radius-card)] bg-midnight-800/70 p-6 sm:p-10">
+            <ConceptPlate
+              variant={concept.plate}
+              class={concept.plate === 'product' ? 'mx-auto w-[55%] max-w-64' : 'w-full'}
+            />
+          </div>
+          <figcaption class="mt-5">
+            <p class="meta text-mint-300">
+              {CONCEPT_LABEL} · {concept.category}
+            </p>
+            <p class="mt-2 font-semibold text-ivory-50">{concept.name}</p>
+            <p class="mt-1 text-sm leading-relaxed text-ivory-100/70">{concept.approach}</p>
+            <p class="mt-3 text-xs text-ivory-100/60">{CONCEPT_DISCLAIMER}</p>
+          </figcaption>
+        </figure>
+      )}
+    </div>
+  </section>
+
+  <!-- Related -->
+  <section aria-labelledby="related-title" class="border-t border-ivory-100/10 pt-20 lg:pt-28">
+    <div class="container-page">
+      <h2 id="related-title" class="meta text-mint-300">
+        (06) Related services
+      </h2>
+      <ul class="mt-8 grid gap-4 md:grid-cols-3">
+        {related.map((item) => (
+          <li data-reveal>
+            <a
+              href={serviceHref(item.slug)}
+              class="group flex h-full flex-col rounded-[var(--radius-card)] border border-ivory-100/12 p-6 transition hover:border-mint-300/60 hover:bg-midnight-800/50"
+            >
+              <Icon name={item.icon} class="size-6 text-mint-300" />
+              <span class="mt-6 font-display text-xl font-semibold text-ivory-50">{item.name}</span>
+              <span class="mt-2 line-clamp-3 text-sm leading-relaxed text-ivory-100/70">
+                {item.summary}
+              </span>
+              <span class="mt-auto flex items-center gap-1.5 pt-6 text-sm font-semibold text-mint-300">
+                View service{' '}
+                <Icon name="arrow-right" class="size-4 transition group-hover:translate-x-1" />
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <CtaPanel
+    title={`Talk to us about <em>${service.shortName.toLowerCase()}</em>.`}
+    body="Tell us where things stand today. We’ll suggest a sensible scope — and be honest if a smaller first step makes more sense."
+    primaryLabel="Start a project"
+    primaryHref={`/contact?service=${service.slug}`}
+    whatsappMessage={`Hello SabiForge Digital, I'd like to discuss ${service.name}.`}
+  />
+</BaseLayout>

@@ -1,0 +1,154 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/page/PageHero.astro';
+import Icon from '@/components/ui/Icon.astro';
+import ProjectEnquiry from '@/components/contact/ProjectEnquiry';
+import { services } from '@/data/services';
+import { packages } from '@/data/packages';
+import { site, whatsappLink, mailtoLink } from '@/data/site';
+
+const serviceOptions = services.map((s) => ({ value: s.slug, label: s.name }));
+const packageOptions = [
+  ...packages.map((p) => ({ value: p.id, label: p.name })),
+  { value: 'partnership', label: 'Studio Partnership (custom)' },
+];
+const expectations = [
+  { title: 'A personal reply', detail: 'From a person, with questions or suggested next steps.' },
+  {
+    title: 'A short conversation',
+    detail: 'On WhatsApp, a call or by email — whichever suits you.',
+  },
+  {
+    title: 'A written proposal',
+    detail: 'Scope, timeline, price and third-party costs, if we’re a fit.',
+  },
+];
+---
+
+<BaseLayout
+  footerCta={false}
+  title="Start a project"
+  description="Tell SabiForge Digital about your website, store or digital project. A short brief, sent from your own email or WhatsApp."
+>
+  <PageHero
+    label="Start a project"
+    title="Tell us what you’re <em class='text-mint-300'>building</em>."
+    crumbs={[{ label: 'Contact' }]}
+  >
+    <p>
+      First website or complex redesign, the brief is the same: a few details and a few sentences
+      about what you want to achieve. It takes about three minutes.
+    </p>
+  </PageHero>
+
+  <section aria-label="Project enquiry" class="pb-24 lg:pb-32">
+    <div class="container-page grid gap-10 lg:grid-cols-[1.6fr_1fr] lg:gap-14">
+      <div>
+        <ProjectEnquiry
+          client:load
+          services={serviceOptions}
+          packages={packageOptions}
+          email={site.contact.email}
+          whatsappNumber={site.contact.whatsappNumber}
+        />
+        <noscript>
+          <p class="mt-4 rounded-xl bg-ivory-50 p-5 text-midnight-900">
+            The brief builder needs JavaScript. You can email us directly at
+            <a class="font-semibold underline" href={mailtoLink()}>
+              {site.contact.email}
+            </a>
+            .
+          </p>
+        </noscript>
+      </div>
+
+      <aside
+        class="space-y-6 lg:sticky lg:top-28 lg:self-start"
+        aria-label="Other ways to reach us"
+      >
+        <div class="rounded-[var(--radius-card)] border border-ivory-100/12 p-7">
+          <h2 class="meta text-mint-300">Prefer to talk first?</h2>
+          <ul class="mt-5 space-y-4">
+            <li>
+              <a
+                href={whatsappLink()}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="group flex items-center gap-4 rounded-md"
+              >
+                <span class="flex size-11 items-center justify-center rounded-full bg-mint-300 text-midnight-900">
+                  <Icon name="whatsapp" class="size-5" />
+                </span>
+                <span>
+                  <span class="block font-semibold text-ivory-50 group-hover:text-mint-300">
+                    WhatsApp
+                  </span>
+                  <span class="block text-sm text-ivory-100/70">
+                    {site.contact.whatsappDisplay}
+                  </span>
+                </span>
+                <span class="sr-only">(opens in a new tab)</span>
+              </a>
+            </li>
+            <li>
+              <a href={site.contact.phoneHref} class="group flex items-center gap-4 rounded-md">
+                <span class="flex size-11 items-center justify-center rounded-full border border-ivory-100/20 text-ivory-50">
+                  <Icon name="phone" class="size-5" />
+                </span>
+                <span>
+                  <span class="block font-semibold text-ivory-50 group-hover:text-mint-300">
+                    Call
+                  </span>
+                  <span class="block text-sm text-ivory-100/70">
+                    {site.contact.whatsappDisplay}
+                  </span>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a href={mailtoLink()} class="group flex items-center gap-4 rounded-md">
+                <span class="flex size-11 items-center justify-center rounded-full border border-ivory-100/20 text-ivory-50">
+                  <Icon name="mail" class="size-5" />
+                </span>
+                <span class="min-w-0">
+                  <span class="block font-semibold text-ivory-50 group-hover:text-mint-300">
+                    Email
+                  </span>
+                  <span class="block text-sm break-all text-ivory-100/70">
+                    {site.contact.email}
+                  </span>
+                </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="rounded-[var(--radius-card)] bg-midnight-800/70 p-7">
+          <h2 class="meta text-mint-300">What happens next</h2>
+          <ol class="mt-5 space-y-5">
+            {expectations.map((item, i) => (
+              <li class="flex gap-4">
+                <span class="meta pt-1 text-ivory-100/60">{String(i + 1).padStart(2, '0')}</span>
+                <span>
+                  <span class="block font-semibold text-ivory-50">{item.title}</span>
+                  <span class="block text-sm text-ivory-100/70">{item.detail}</span>
+                </span>
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        <div id="privacy" class="rounded-[var(--radius-card)] border border-ivory-100/12 p-7">
+          <h2 class="meta flex items-center gap-2 text-mint-300">
+            <Icon name="shield" class="size-4" /> Your information
+          </h2>
+          <p class="mt-4 text-sm leading-relaxed text-ivory-100/75">
+            This form does not store or send anything itself. Your brief is assembled in your
+            browser and sent only when you press send in your own email or WhatsApp app. We use what
+            you send only to reply to your enquiry and prepare a proposal.
+          </p>
+        </div>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>

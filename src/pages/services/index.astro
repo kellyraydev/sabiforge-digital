@@ -1,0 +1,159 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/page/PageHero.astro';
+import CtaPanel from '@/components/page/CtaPanel.astro';
+import Icon from '@/components/ui/Icon.astro';
+import { serviceFamilies, servicesInFamily, serviceHref } from '@/data/services';
+import { whatsappLink } from '@/data/site';
+---
+
+<BaseLayout
+  title="Services"
+  description="Brand identity, UX/UI design, custom websites, Shopify and e-commerce, redesigns, optimisation, care and integrations — SabiForge Digital’s services for Nigerian businesses."
+>
+  <PageHero
+    label="Services"
+    title="Strategy, build and growth — from <em class='text-mint-300'>one</em> studio."
+    crumbs={[{ label: 'Services' }]}
+  >
+    <p>
+      Ten services in three families. Most projects combine a few of them; we help you choose only
+      what your business needs right now.
+    </p>
+    <nav aria-label="Service families" slot="after" class="mt-12">
+      <ul class="flex flex-wrap gap-2">
+        {serviceFamilies.map((family) => (
+          <li>
+            <a
+              href={`#${family.id}`}
+              class="inline-flex min-h-10 items-center gap-2 rounded-full border border-ivory-100/20 px-4 text-sm text-ivory-100/85 transition hover:border-mint-300 hover:text-ivory-50"
+            >
+              <span class="meta text-mint-300">{family.index}</span>
+              {family.name}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </PageHero>
+
+  {serviceFamilies.map((family, fi) => (
+    <section
+      id={family.id}
+      aria-labelledby={`${family.id}-title`}
+      class:list={[
+        'py-20 lg:py-28',
+        fi % 2 === 1 ? 'on-paper bg-ivory-100 text-midnight-900' : 'border-t border-ivory-100/10',
+      ]}
+    >
+      <div class="container-page grid gap-12 lg:grid-cols-[minmax(0,24rem)_1fr] lg:gap-20">
+        <div data-reveal>
+          <p class:list={['meta', fi % 2 ? 'text-mint-800' : 'text-mint-300']}>({family.index})</p>
+          <h2 id={`${family.id}-title`} class="mt-4 text-display-md font-semibold">
+            {family.name}
+          </h2>
+          <p class:list={['mt-4 text-lg', fi % 2 ? 'text-midnight-800/80' : 'text-ivory-100/75']}>
+            {family.promise}
+          </p>
+          <p
+            class:list={[
+              'mt-4 leading-relaxed',
+              fi % 2 ? 'text-midnight-800/75' : 'text-ivory-100/65',
+            ]}
+          >
+            {family.description}
+          </p>
+        </div>
+        <ul class:list={['border-t', fi % 2 ? 'border-midnight-900/15' : 'border-ivory-100/12']}>
+          {servicesInFamily(family.id).map((service, si) => (
+            <li
+              class:list={['border-b', fi % 2 ? 'border-midnight-900/15' : 'border-ivory-100/12']}
+              data-reveal
+              style={`--reveal-delay:${si * 70}`}
+            >
+              <a
+                href={serviceHref(service.slug)}
+                class="group grid gap-5 rounded-sm py-8 sm:grid-cols-[3rem_1fr_auto] sm:items-start"
+              >
+                <span
+                  class:list={[
+                    'flex size-11 items-center justify-center rounded-full',
+                    fi % 2 ? 'bg-midnight-900 text-mint-300' : 'bg-mint-300/10 text-mint-300',
+                  ]}
+                >
+                  <Icon name={service.icon} class="size-5" />
+                </span>
+                <span>
+                  <span class="block font-display text-2xl font-semibold transition group-hover:text-coral-500">
+                    {service.name}
+                  </span>
+                  <span
+                    class:list={[
+                      'mt-2 block max-w-2xl leading-relaxed',
+                      fi % 2 ? 'text-midnight-800/80' : 'text-ivory-100/75',
+                    ]}
+                  >
+                    {service.summary}
+                  </span>
+                  <span class="mt-4 flex flex-wrap gap-2">
+                    {service.deliverables.slice(0, 3).map((d) => (
+                      <span
+                        class:list={[
+                          'meta rounded-full border px-3 py-1',
+                          fi % 2
+                            ? 'border-midnight-900/20 text-midnight-800'
+                            : 'border-ivory-100/15 text-ivory-100/75',
+                        ]}
+                      >
+                        {d}
+                      </span>
+                    ))}
+                  </span>
+                </span>
+                <span class="hidden items-center gap-2 text-sm font-semibold sm:flex">
+                  Details
+                  <Icon
+                    name="arrow-up-right"
+                    class="size-4 transition group-hover:translate-x-0.5"
+                  />
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  ))}
+
+  <section aria-labelledby="partners-title" class="border-t border-ivory-100/10 py-20 lg:py-24">
+    <div class="container-page grid gap-8 lg:grid-cols-[minmax(0,24rem)_1fr] lg:gap-20">
+      <p class="meta text-mint-300">For agencies & developers</p>
+      <div data-reveal>
+        <h2 id="partners-title" class="text-display-sm font-semibold text-ivory-50">
+          Developer collaboration
+        </h2>
+        <p class="mt-4 max-w-2xl leading-relaxed text-ivory-100/75">
+          Agencies and independent developers can bring us in for frontend builds, UI implementation
+          or extra capacity on client work, with a clear hand-off at the end. Scope and terms are
+          agreed per project.
+        </p>
+        <a
+          href={whatsappLink(
+            "Hello SabiForge Digital, I'd like to discuss a developer collaboration.",
+          )}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="mt-6 inline-flex items-center gap-2 rounded-sm font-semibold text-mint-300 underline decoration-mint-300/40 underline-offset-[6px] hover:decoration-mint-300"
+        >
+          Discuss a collaboration <Icon name="arrow-up-right" class="size-4" />
+          <span class="sr-only">(opens WhatsApp in a new tab)</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <CtaPanel
+    title="Not sure which service <em>fits</em>?"
+    body="Describe what you’re trying to achieve. We’ll recommend the smallest sensible scope — and tell you if you don’t need us yet."
+  />
+</BaseLayout>
