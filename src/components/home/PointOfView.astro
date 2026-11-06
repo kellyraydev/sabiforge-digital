@@ -1,0 +1,50 @@
+---
+import { ingredients } from '@/data/home';
+---
+
+<section aria-labelledby="pov-title" class="defer-render relative py-24 lg:py-36">
+  <div class="container-page grid gap-14 lg:grid-cols-[1.1fr_1fr] lg:gap-20">
+    <div data-reveal>
+      <p class="meta flex items-center gap-3 text-mint-300">
+        <span aria-hidden="true">(02)</span>
+        <span>Point of view</span>
+      </p>
+      <h2 id="pov-title" class="mt-5 text-display-lg font-semibold text-ivory-50">
+        A website is a business decision <em class="text-coral-400">before</em> it is a design one.
+      </h2>
+      <div class="text-lede mt-8 max-w-xl space-y-5 text-ivory-100/75">
+        <p>
+          The websites that work hardest are rarely the busiest. They are clear about who they are
+          for, what those people need to know, and what should happen next.
+        </p>
+        <p>
+          So we start with your business, not a template. Every project draws on seven ingredients,
+          weighted to what your customers need.
+        </p>
+      </div>
+    </div>
+
+    <ol
+      class="self-end border-t border-ivory-100/12"
+      aria-label="Seven ingredients of a strong website"
+    >
+      {ingredients.map((item, index) => (
+        <li
+          class="group grid grid-cols-[3rem_1fr] gap-x-4 border-b border-ivory-100/12 py-5 sm:grid-cols-[3rem_14rem_1fr]"
+          data-reveal
+          style={`--reveal-delay:${index * 60}`}
+        >
+          <span class="meta pt-1.5 text-ivory-100/60" aria-hidden="true">
+            {String(index + 1).padStart(2, '0')}
+          </span>
+          <span class="font-display text-xl font-semibold text-ivory-50 transition group-hover:text-mint-300">
+            {item.name}
+          </span>
+          <span class="col-start-2 mt-1 text-sm leading-relaxed text-ivory-100/70 sm:col-start-3 sm:mt-1">
+            {item.detail}
+          </span>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>

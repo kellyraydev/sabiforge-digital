@@ -1,0 +1,33 @@
+---
+import SectionHead from '@/components/ui/SectionHead.astro';
+import ApproachStages from './ApproachStages';
+import { stages } from '@/data/home';
+---
+
+<section
+  id="approach"
+  aria-labelledby="approach-title"
+  class="defer-render relative py-24 lg:py-36"
+>
+  <div class="container-page">
+    <div class="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
+      <SectionHead
+        index="05"
+        label="Our approach"
+        id="approach-title"
+        title="Six stages, with <em>you</em> at every decision."
+      >
+        <p>
+          You always know what is happening, what we need from you and what you receive. Nothing
+          moves to the next stage without your approval.
+        </p>
+      </SectionHead>
+      <p class="meta text-ivory-100/60 lg:text-right" data-reveal>
+        Use arrow keys to move between stages
+      </p>
+    </div>
+    <div class="mt-14 lg:mt-20" data-reveal>
+      <ApproachStages client:visible stages={stages} />
+    </div>
+  </div>
+</section>

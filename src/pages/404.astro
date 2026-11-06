@@ -1,21 +1,31 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Button from '@/components/ui/Button.astro';
+import HexLines from '@/components/ui/HexLines.astro';
 ---
 
-<BaseLayout title="Page not found">
-  <section class="container-page flex min-h-[70vh] flex-col items-start justify-center pt-32 pb-20">
-    <p class="eyebrow">404</p>
-    <h1 class="mt-4 text-4xl font-semibold text-ivory-50 sm:text-6xl">
-      This page isn't built yet.
-    </h1>
-    <p class="mt-5 max-w-lg text-lg text-ivory-100/70">
-      The link may be outdated, or this page is still in progress.
-    </p>
-    <div class="mt-8">
-      <Button href="/" icon="arrow-right">
-        Back to the homepage
-      </Button>
+<BaseLayout title="Page not found" noindex>
+  <section class="relative isolate overflow-hidden">
+    <HexLines class="absolute top-1/2 right-[-10rem] -z-10 w-[40rem] -translate-y-1/2 text-mint-300/10" />
+    <div class="container-page flex min-h-[80vh] flex-col items-start justify-center pt-32 pb-20">
+      <p class="meta text-mint-300">Error 404</p>
+      <h1 class="mt-5 max-w-3xl text-display-lg font-semibold text-ivory-50">
+        This page doesn’t <em class="text-mint-300">exist</em> — or isn’t built yet.
+      </h1>
+      <p class="text-lede mt-6 max-w-xl text-ivory-100/75">
+        The link may be outdated. These are good places to continue:
+      </p>
+      <div class="mt-9 flex flex-col gap-3 sm:flex-row">
+        <Button href="/" icon="arrow-right">
+          Homepage
+        </Button>
+        <Button href="/services" variant="secondary">
+          Services
+        </Button>
+        <Button href="/contact" variant="secondary">
+          Start a project
+        </Button>
+      </div>
     </div>
   </section>
 </BaseLayout>

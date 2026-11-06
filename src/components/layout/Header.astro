@@ -2,25 +2,33 @@
 import Logo from '@/components/ui/Logo.astro';
 import Button from '@/components/ui/Button.astro';
 import MobileNav from './MobileNav';
-import { navigation, site, whatsappLink } from '@/data/site';
+import { navigation, site, startProjectHref, whatsappLink } from '@/data/site';
+
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const items = navigation.map((item) => ({
+  ...item,
+  current: Boolean(item.match && (path === item.match || path.startsWith(`${item.match}/`))),
+}));
 ---
 
 <header
   id="site-header"
-  class="fixed inset-x-0 top-0 z-50 border-b border-transparent transition-[background-color,border-color,backdrop-filter] duration-300 data-[scrolled=true]:border-ivory-100/10 data-[scrolled=true]:bg-midnight-900/85 data-[scrolled=true]:backdrop-blur-xl"
+  class="fixed inset-x-0 top-0 z-50 transition-[transform,background-color,border-color] duration-300 ease-out data-[hidden=true]:-translate-y-full data-[scrolled=true]:border-b data-[scrolled=true]:border-ivory-100/10 data-[scrolled=true]:bg-midnight-950/85 data-[scrolled=true]:backdrop-blur-xl"
 >
   <div class="container-page flex h-18 items-center justify-between gap-6 lg:h-20">
-    <a href="/" class="relative z-50 shrink-0" aria-label={`${site.name} — home`}>
+    <a href="/" class="relative z-50 shrink-0 rounded-md">
       <Logo />
+      <span class="sr-only">, home</span>
     </a>
 
     <nav aria-label="Primary" class="hidden lg:block">
-      <ul class="flex items-center gap-1">
-        {navigation.map((item) => (
+      <ul class="flex items-center gap-1 rounded-full border border-ivory-100/10 bg-midnight-950/40 p-1 backdrop-blur">
+        {items.map((item) => (
           <li>
             <a
               href={item.href}
-              class="rounded-full px-4 py-2 text-sm font-medium text-ivory-100/80 transition hover:bg-ivory-100/5 hover:text-ivory-50"
+              aria-current={item.current ? 'page' : undefined}
+              class="block rounded-full px-4 py-2 text-sm font-medium text-ivory-100/80 transition hover:text-ivory-50 aria-[current=page]:bg-ivory-50 aria-[current=page]:text-midnight-900"
             >
               {item.label}
             </a>
@@ -29,22 +37,17 @@ import { navigation, site, whatsappLink } from '@/data/site';
       </ul>
     </nav>
 
-    <div class="hidden items-center gap-3 lg:flex">
-      <a
-        href="/#contact"
-        class="text-sm font-medium text-ivory-100/80 transition hover:text-mint-300"
-      >
-        Contact
-      </a>
-      <Button href={whatsappLink()} external icon="arrow-right">
+    <div class="hidden lg:block">
+      <Button href={startProjectHref} icon="arrow-up-right">
         Start a project
       </Button>
     </div>
 
     <MobileNav
       client:media="(max-width: 1023px)"
-      items={[...navigation, { label: 'Contact', href: '/#contact' }]}
-      ctaHref={whatsappLink()}
+      items={items}
+      ctaHref={startProjectHref}
+      whatsappHref={whatsappLink()}
       email={site.contact.email}
       phoneDisplay={site.contact.whatsappDisplay}
       phoneHref={site.contact.phoneHref}
@@ -53,8 +56,33 @@ import { navigation, site, whatsappLink } from '@/data/site';
 </header>
 
 <script>
+  // Smart header: solid after scrolling, hides on scroll down, returns on scroll up.
+  // Never hides while focus is inside it or near the top of the page.
   const header = document.getElementById('site-header');
-  const update = () => header?.setAttribute('data-scrolled', String(window.scrollY > 12));
+  let lastY = window.scrollY;
+  let ticking = false;
+  const update = () => {
+    const y = window.scrollY;
+    const focusInside = header?.contains(document.activeElement);
+    const menuOpen = document.documentElement.dataset.menuOpen === 'true';
+    header?.setAttribute('data-scrolled', String(y > 12));
+    const hide = y > 320 && y > lastY + 4 && !focusInside && !menuOpen;
+    if (hide) header?.setAttribute('data-hidden', 'true');
+    else if (y < lastY - 4 || y <= 320 || focusInside || menuOpen)
+      header?.setAttribute('data-hidden', 'false');
+    lastY = y;
+    ticking = false;
+  };
   update();
-  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener(
+    'scroll',
+    () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    },
+    { passive: true },
+  );
+  header?.addEventListener('focusin', () => header.setAttribute('data-hidden', 'false'));
 </script>

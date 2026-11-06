@@ -1,0 +1,66 @@
+---
+import SectionHead from '@/components/ui/SectionHead.astro';
+import Button from '@/components/ui/Button.astro';
+import { engagementModels } from '@/data/packages';
+import { discountPercentLabel } from '@/lib/pricing';
+---
+
+<section
+  id="pricing-preview"
+  aria-labelledby="engage-title"
+  class="defer-render relative py-24 lg:py-36"
+>
+  <div class="container-page">
+    <div class="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
+      <SectionHead
+        index="07"
+        label="Working together"
+        id="engage-title"
+        title="Right-sized work, <em>clearly</em> priced."
+      >
+        <p>
+          Published starting points for the most common projects, and a tailored route for
+          everything else. Exact scope is confirmed in a written proposal.
+        </p>
+      </SectionHead>
+      <div data-reveal>
+        <Button href="/pricing" variant="secondary" icon="arrow-right">
+          Compare packages
+        </Button>
+      </div>
+    </div>
+
+    <ol class="mt-14 grid overflow-hidden rounded-[var(--radius-card)] border border-ivory-100/12 sm:grid-cols-2 xl:grid-cols-4">
+      {engagementModels.map((model, index) => (
+        <li
+          class:list={[
+            'group relative flex flex-col p-7 transition sm:p-8',
+            'border-ivory-100/12 max-xl:border-b sm:max-xl:odd:border-r xl:not-last:border-r',
+            model.id === 'partnership' ? 'bg-midnight-800/70' : 'hover:bg-midnight-800/40',
+          ]}
+          data-reveal
+          style={`--reveal-delay:${index * 70}`}
+        >
+          <p class="meta text-ivory-100/60">{String(index + 1).padStart(2, '0')}</p>
+          <h3 class="mt-6 text-display-sm font-semibold text-ivory-50">{model.name}</h3>
+          <p class="mt-3 min-h-[3.2em] text-[0.95rem] leading-relaxed text-ivory-100/75">
+            {model.forWhom}
+          </p>
+          <p class="meta mt-6 text-ivory-100/60">{model.packages.join(' · ')}</p>
+          <p class="mt-2 font-display text-2xl font-semibold text-mint-300">{model.priceLabel}</p>
+        </li>
+      ))}
+    </ol>
+    <p class="mt-6 text-sm text-ivory-100/65" data-reveal>
+      A founding-client rate of {discountPercentLabel()} off applies to selected packages for a
+      limited number of early clients.{' '}
+      <a
+        href="/pricing#founding-offer"
+        class="rounded-sm text-mint-300 underline underline-offset-4 hover:text-mint-200"
+      >
+        See terms
+      </a>
+      .
+    </p>
+  </div>
+</section>
