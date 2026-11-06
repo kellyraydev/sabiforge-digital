@@ -156,8 +156,10 @@ rollback, repeat the anonymous `curl` denial check in section 1.
 
 ## 9. Homepage mobile performance correction (owner-approved, 6 November 2026)
 
-**Status: committed on `claude/sabiforge-staging` for review; NOT yet deployed to the staging Worker**
-(live version is still `11eb2eed`). Access protection was re-checked and is unchanged. No Access
+**Status: deployed to private staging** as version `417690fd-e1b3-40a7-bdbe-42715a1a9c6e` (commit
+`06aec53`). Rollback target: `11eb2eed-520e-4a18-b336-ef3585f89852` (`npx wrangler rollback 11eb2eed-520e-4a18-b336-ef3585f89852`).
+After deploy, anonymous requests to `/`, `/robots.txt`, `/sitemap-0.xml`, the OG image and an unknown path all
+returned 302 to Cloudflare Access. Access protection was re-checked and is unchanged. No Access
 policy was modified.
 
 ### Change (three files, no visual change)
