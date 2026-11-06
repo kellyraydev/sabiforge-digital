@@ -1,0 +1,13 @@
+{
+  // Private staging only. Static Astro output served by Workers Static Assets (no Worker script).
+  // workers.dev and Preview URLs are both enabled so that Cloudflare Access can be attached to
+  // each; neither may be shared until Access is verified (docs/STAGING-DEPLOYMENT.md).
+  "name": "sabiforge-digital-staging",
+  "compatibility_date": "2026-11-06",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page",
+  },
+  "workers_dev": true,
+  "preview_urls": true,
+}

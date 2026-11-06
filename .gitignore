@@ -21,3 +21,4 @@ npm-debug.log*
 
 # local screenshot output (reviewed copies live in docs/screenshots)
 /screenshots/
+.wrangler/
