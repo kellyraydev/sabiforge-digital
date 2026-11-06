@@ -14,6 +14,23 @@ if (!browserType || !['chromium', 'firefox', 'webkit'].includes(BROWSER)) {
 }
 const pass = (msg) => console.log(`✓ ${msg}`);
 
+// Safari/WebKit does not make links tab stops by default (Playwright's WebKit matches), so
+// keyboard Tab cannot reach links there. For WebKit, move focus through the same focusable
+// elements in DOM order programmatically; Chromium and Firefox use real Tab key presses.
+const FOCUSABLE = 'a[href],button,input,select,textarea,summary,[tabindex]:not([tabindex="-1"])';
+async function tabStop(page, index) {
+  if (BROWSER !== 'webkit') return page.keyboard.press('Tab');
+  await page.evaluate(
+    ({ selector, i }) => {
+      const stops = [...document.querySelectorAll(selector)].filter(
+        (el) => !el.disabled && el.getClientRects().length > 0,
+      );
+      stops[i]?.focus();
+    },
+    { selector: FOCUSABLE, i: index },
+  );
+}
+
 (async () => {
   const executablePath =
     process.env.PLAYWRIGHT_EXECUTABLE_PATH ??
@@ -147,7 +164,7 @@ const pass = (msg) => console.log(`✓ ${msg}`);
     await page.locator('nav[aria-label="Primary"] a[aria-current="page"]').innerText(),
     'Services',
   );
-  await page.keyboard.press('Tab');
+  await tabStop(page, 0);
   assert.equal(
     await page.evaluate(() => document.activeElement?.textContent?.trim()),
     'Skip to content',
@@ -264,7 +281,7 @@ const pass = (msg) => console.log(`✓ ${msg}`);
     await page.goto(BASE_URL + route, { waitUntil: 'networkidle' });
     let lacking = [];
     for (let i = 0; i < 14; i++) {
-      await page.keyboard.press('Tab');
+      await tabStop(page, i);
       const ok = await page.evaluate(() => {
         const el = document.activeElement;
         if (!el || el === document.body) return true;

@@ -12,7 +12,7 @@ function stagingAuthHeaders() {
 
   const baseUrl = new URL(process.env.BASE_URL ?? 'http://localhost:4321');
   const allowedHosts = new Set([
-    'sabiforge-digital-staging.pages.dev',
+    'sabiforge-digital-staging.krdev.workers.dev',
     'staging.sabiforge.digital',
   ]);
   if (baseUrl.protocol !== 'https:' || !allowedHosts.has(baseUrl.hostname)) {
@@ -24,12 +24,11 @@ function stagingAuthHeaders() {
 async function configureStagingAuth(context) {
   const headers = stagingAuthHeaders();
   if (!headers['cf-access-client-id']) return;
-  const stableHost = 'sabiforge-digital-staging.pages.dev';
+  const stableHost = 'sabiforge-digital-staging.krdev.workers.dev';
   const allowedHosts = new Set([stableHost, 'staging.sabiforge.digital']);
   await context.route('**/*', (route) => {
     const url = new URL(route.request().url());
-    const isPagesDeployment = url.hostname.endsWith(`.${stableHost}`);
-    if (url.protocol === 'https:' && (allowedHosts.has(url.hostname) || isPagesDeployment)) {
+    if (url.protocol === 'https:' && allowedHosts.has(url.hostname)) {
       return route.continue({ headers: { ...route.request().headers(), ...headers } });
     }
     return route.continue();

@@ -28,6 +28,6 @@ for (const badUrl of [
 ]) {
   check('production', badUrl, false);
 }
-check('staging', 'https://sabiforge-digital-staging.pages.dev', true);
+check('staging', 'https://sabiforge-digital-staging.krdev.workers.dev', true);
 check('staging', 'http://staging.sabiforge.digital', false);
 console.log('Production and staging SITE_URL policy checks passed.');

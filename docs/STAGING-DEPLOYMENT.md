@@ -1,19 +1,41 @@
 # Private staging — independent engineering review and deployment runbook
 
 Reviewer branch: `claude/sabiforge-staging` (from `codex/sabiforge-premium-visuals` @ `1536a1c`).
-Date: 6 November 2026. **Status: staging NOT deployed.** No Cloudflare resource, Access policy,
-DNS record, secret or deployment was created. PR #1 untouched; Codex's branch not modified.
+Date: 6 November 2026. **Status: DEPLOYED to private staging, behind Cloudflare Access.**
+Not production. No DNS change, no purchase, no analytics/payment/form backend. PR #1 untouched;
+Codex's branch not modified.
 
-## 1. Blockers needing the owner (cannot be done from this session)
+## 1. Deployment record
 
-1. **Authorise the Cloudflare connector** (claude.ai connector settings → Cloudflare). This session
-   only has a deprecated Workers-bindings tool (no deploy, no Access, no Zero Trust API), so Access
-   could neither be created nor verified. Do not paste tokens in chat.
-2. **Choose Pages or Workers Static Assets** (§3). Hostname, `SITE_URL` and the CI allowlists depend on it.
-3. Name the reviewer emails for the Access allow policy.
-4. Note: the Cloudflare account already contains unrelated Workers (`kellyray-assistant*`,
-   `kr-ng-launch-review`, `amzlat-prev`, …). They were only listed, never touched. Confirm the
-   account is the intended one before anything is created.
+| Item                        | Value                                                                                       |
+| --------------------------- | ------------------------------------------------------------------------------------------- |
+| Cloudflare account          | `kr-dev` (owner-confirmed)                                                                  |
+| Host                        | Workers Static Assets, Worker `sabiforge-digital-staging` (owner-chosen)                    |
+| Staging origin              | `https://sabiforge-digital-staging.krdev.workers.dev` (`SITE_ENV=staging`, same `SITE_URL`) |
+| Live version ID             | `11eb2eed-520e-4a18-b336-ef3585f89852` (reviewed site)                                      |
+| Previous version (rollback) | `b0887766-af02-4d4b-949b-5bf9344aef05` (harmless noindex placeholder)                       |
+| Never-promoted version      | `2d8c3926-…` placeholder, used only to test Preview-URL protection                          |
+| Authentication              | Cloudflare Access (owner-configured), covers `workers.dev` and Preview URLs                 |
+| Source                      | branch `claude/sabiforge-staging` on top of Codex `1536a1c`                                 |
+
+Order followed: placeholder deployed first, Access enabled by the owner, **anonymous requests
+verified denied**, and only then the real build uploaded and re-verified.
+
+Protection evidence (anonymous `curl`, no credentials): `/`, `/robots.txt`, `/sitemap-0.xml`,
+`/assets/og-sabiforge.png` and an unknown path on the stable hostname, plus `/`, `/robots.txt` and an
+unknown path on a hash Preview URL, all returned **302 to `*.cloudflareaccess.com`**, never 200/404.
+Re-checked after the real build went live. Before the owner's fix the same requests returned 200
+(placeholder only), which is why nothing real was uploaded earlier.
+
+Still open for the owner: the reviewer list/policy is the owner's (not inspected by this session);
+no Access **service token** exists, so the `Authenticated staging QA` workflow cannot run yet.
+CI/QA allowlists now contain exactly the workers.dev staging host (no wildcard).
+
+## 1a. Former blockers (resolved)
+
+1. Cloudflare authorisation, host choice and account confirmation: done by the owner.
+2. The account contains unrelated Workers (`kellyray-assistant*`, `kr-ng-launch-review`, `amzlat-prev`):
+   listed only, never touched.
 
 ## 2. Audit findings
 
@@ -93,3 +115,41 @@ Served `dist` (staging build) through `wrangler dev`, which applies `_headers`:
 | Full 161-load `qa:visual`, Lighthouse, link crawl against live staging   | **Not run** (visual suite exceeds sandbox time limit; Lighthouse and live checks need the deployed URL)                                     |
 | Real Safari/iOS/Android, screen readers                                  | Manual, per LAUNCH-READINESS §5                                                                                                             |
 | Canonical/OG/sitemap/robots on the live staging host                     | Verified at build time only; recheck on deployed origin                                                                                     |
+
+## 7. Update: live deployment results (6 November 2026)
+
+Tests ran against the **identical built `dist`** served by `wrangler dev` (applies `_headers`), because
+the live URL is behind Access and this session has no service token. Re-run the QA workflow, or
+browse the live URL signed in, for final confirmation.
+
+| Check                                          | Result                                                                                                             |
+| ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| Format (CRLF-agnostic), ESLint, Astro check    | Pass; 36/36 unit tests; 23 pages built                                                                             |
+| Sitemap, staging-output, SITE_URL policy       | Pass: 18 sitemap URLs; 23 pages noindex,nofollow with canonical/og on the workers.dev origin; robots `Disallow: /` |
+| Interaction suite: Chromium / Firefox / WebKit | **28/28, 28/28, 28/28** (WebKit 27.2 runs on this Windows host)                                                    |
+| Route/width sweep (Chromium)                   | 21 routes x 7 widths = 147 loads: no overflow, console errors, broken anchors or axe A/AA violations               |
+| Link crawl                                     | 23 pages, 53 internal targets, 0 non-200. Only external links are `wa.me`; no third-party requests                 |
+| Lighthouse (local, throttled)                  | Accessibility 100 and Best Practices 100 on all tested pages; SEO 66-69 is expected (noindex). Performance: below  |
+| Real Safari/iOS/Android, screen readers        | **Not run** (manual, see LAUNCH-READINESS section 5)                                                               |
+
+### Test-harness change (not a site defect)
+
+WebKit (like Safari by default) does not make links tab stops, so `interactions.cjs` failed its "skip
+link is first Tab stop" assertion. For WebKit only, the script now focuses the same focusable elements
+in DOM order (`tabStop`); Chromium and Firefox still use real Tab presses. Real Safari needs Option+Tab or
+the "Press Tab to highlight each item" setting; verify the skip link manually on a Mac.
+
+### New findings
+
+| Severity | Finding                                                                                                                                                                                                                           | Action                                                                                                     |
+| -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| Medium   | Homepage mobile LCP is about 4.3 s (perf 69-77; desktop 99). LCP element is the hero `h1`, hidden until JS adds `is-revealed` (about 1.4 s render delay under 4x CPU throttle). Other pages 94-99 on mobile; `/work/` TBT is high | Not changed (approved design). Owner to decide whether the hero heading should show without waiting for JS |
+| Info     | Lighthouse is noisy on this laptop (one `/services/` desktop run failed; scores moved 60-77 on one page). Treat as indicative                                                                                                     | Re-measure on staging, signed in                                                                           |
+| Info     | Preview URLs exist for every uploaded version and are protected by Access; keep Preview-URL Access enabled                                                                                                                        | None                                                                                                       |
+
+## 8. Rollback
+
+`npx wrangler rollback b0887766-af02-4d4b-949b-5bf9344aef05` restores the placeholder; any earlier
+version works the same (`npx wrangler versions list --name sabiforge-digital-staging`). Emergency stop:
+disable the `workers.dev` route in Settings > Domains & Routes. Access remains a second lock. After any
+rollback, repeat the anonymous `curl` denial check in section 1.
