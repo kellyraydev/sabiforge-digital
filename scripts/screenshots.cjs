@@ -87,6 +87,16 @@ const EXTRA_ROUTES = ['/privacy', '/terms'];
       });
       if (overflow.length) problems.push(`${tag} horizontal overflow: ${overflow.join(' | ')}`);
 
+      // Complete the intended reveal transitions before accessibility checks so
+      // the contrast analyzer samples the rendered colors rather than opacity-zero text.
+      await page.evaluate(() =>
+        document.querySelectorAll('[data-reveal]').forEach((el) => el.classList.add('is-revealed')),
+      );
+      await page.addStyleTag({
+        content: '*{content-visibility:visible!important;transition:none!important}',
+      });
+      await page.waitForTimeout(750);
+
       const { anchors, links } = await page.evaluate(() => {
         const hrefs = [...document.querySelectorAll('a[href]')].map((a) => a.getAttribute('href'));
         const anchors = hrefs
@@ -170,5 +180,9 @@ const EXTRA_ROUTES = ['/privacy', '/terms'];
 })();
 
 function browser_launch() {
-  return chromium.launch();
+  return chromium.launch(
+    process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH
+      ? { executablePath: process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH }
+      : undefined,
+  );
 }

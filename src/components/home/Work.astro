@@ -3,9 +3,9 @@ import ConceptPlate from '@/components/ui/ConceptPlate.astro';
 import SectionHead from '@/components/ui/SectionHead.astro';
 import Icon from '@/components/ui/Icon.astro';
 import Button from '@/components/ui/Button.astro';
-import { concepts, CONCEPT_LABEL, CONCEPT_DISCLAIMER } from '@/data/concepts';
+import { concepts, CONCEPT_LABEL } from '@/data/concepts';
 
-const [adun, kora, mend, tally] = concepts;
+const [adun, kora, mend] = concepts;
 ---
 
 <section
@@ -22,14 +22,10 @@ const [adun, kora, mend, tally] = concepts;
         title="Range, explored <em>honestly</em>."
       >
         <p>
-          SabiForge is a new studio. Instead of borrowed logos, here are fictional brands we
-          designed to work through real business problems. Each is labelled for exactly what it is.
+          Selected studio concepts exploring distinct business needs through considered digital
+          design.
         </p>
       </SectionHead>
-      <p class="meta flex max-w-xs items-start gap-2 text-ivory-100/65 lg:text-right" data-reveal>
-        <Icon name="info" class="mt-0.5 size-4 shrink-0 text-mint-300" />
-        {CONCEPT_DISCLAIMER}
-      </p>
     </div>
 
     <div class="mt-16 grid gap-y-20 lg:mt-24 lg:grid-cols-12 lg:gap-x-10 lg:gap-y-28">
@@ -93,10 +89,7 @@ const [adun, kora, mend, tally] = concepts;
       ))}
 
       <div class="grid gap-16 lg:col-span-12 lg:grid-cols-12 lg:gap-10">
-        {[
-          { concept: mend, cols: 'lg:col-span-7', n: 3 },
-          { concept: tally, cols: 'lg:col-span-5', n: 4 },
-        ].map(({ concept, cols, n }) => (
+        {[{ concept: mend, cols: 'lg:col-span-7', n: 3 }].map(({ concept, cols, n }) => (
           <article
             class:list={[cols, 'flex flex-col']}
             aria-labelledby={`concept-${concept.id}`}
@@ -142,7 +135,7 @@ const [adun, kora, mend, tally] = concepts;
 
       <div class="flex justify-center lg:col-span-12" data-reveal>
         <Button href="/work" size="lg" icon="arrow-right">
-          Explore all four concept studies
+          Explore all work
         </Button>
       </div>
     </div>

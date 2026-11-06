@@ -9,22 +9,32 @@ const BASE_URL = (process.env.BASE_URL ?? 'http://localhost:4321').replace(/\/$/
 const pass = (msg) => console.log(`✓ ${msg}`);
 
 (async () => {
-  const browser = await chromium.launch();
+  const browser = await chromium.launch(
+    process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH
+      ? { executablePath: process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH }
+      : undefined,
+  );
   const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
 
-  // Hero capability selector
+  // Homepage hero links and early concept portfolio
   await page.goto(BASE_URL + '/', { waitUntil: 'networkidle' });
-  const commerce = page.getByRole('button', { name: 'Commerce', exact: true });
-  await commerce.click();
-  assert.equal(await commerce.getAttribute('aria-pressed'), 'true');
-  assert.equal(await page.locator('.hero-stage').getAttribute('data-active'), 'commerce');
-  assert.match(await page.locator('[data-caption]').innerText(), /Kòrà Home/);
-  pass('hero capability selector updates plate, pressed state and caption');
+  assert.ok(await page.getByRole('heading', { name: /Distinctive websites/ }).isVisible());
+  assert.equal(
+    await page.getByRole('link', { name: 'Explore our work' }).getAttribute('href'),
+    '/work',
+  );
+  assert.equal(await page.locator('#work article').count(), 3);
+  pass('homepage hero CTA reaches Work and features three labelled concepts');
 
   // Pathway selector (radio group, arrow keys)
   const pathway = page.getByRole('radiogroup');
-  await pathway.scrollIntoViewIfNeeded();
-  await page.locator('#services astro-island:not([ssr])').waitFor();
+  await pathway.evaluate((el) => el.scrollIntoView({ block: 'center' }));
+  await page.waitForFunction(() => {
+    const island = document.querySelector(
+      '#services astro-island[component-url*="PathwaySelector"]',
+    );
+    return island && !island.hasAttribute('ssr');
+  });
   await pathway.getByRole('radio').first().focus();
   await page.keyboard.press('ArrowDown');
   await page.keyboard.press('ArrowDown');
@@ -42,8 +52,13 @@ const pass = (msg) => console.log(`✓ ${msg}`);
 
   // Approach tabs
   const approach = page.locator('#approach');
-  await approach.scrollIntoViewIfNeeded();
-  await approach.locator('astro-island:not([ssr])').waitFor();
+  await approach.evaluate((el) => el.scrollIntoView({ block: 'center' }));
+  await page.waitForFunction(() => {
+    const island = document.querySelector(
+      '#approach astro-island[component-url*="ApproachStages"]',
+    );
+    return island && !island.hasAttribute('ssr');
+  });
   await approach.getByRole('tab', { name: /Define/ }).click();
   assert.match(await approach.getByRole('tabpanel').innerText(), /Define/);
   await page.keyboard.press('ArrowDown');
@@ -138,8 +153,8 @@ const pass = (msg) => console.log(`✓ ${msg}`);
   const navHrefs = await page
     .locator('nav[aria-label="Primary"] a')
     .evaluateAll((els) => els.map((a) => a.getAttribute('href')));
-  assert.deepEqual(navHrefs, ['/work', '/services', '/shopify', '/process', '/about', '/pricing']);
-  pass('primary navigation links to Work, Services, Shopify, Process, About and Pricing pages');
+  assert.deepEqual(navHrefs, ['/work', '/services', '/process', '/about', '/pricing']);
+  pass('primary navigation links to Work, Services, Process, About and Pricing pages');
 
   // Work: concept demos
   await page.goto(BASE_URL + '/work', { waitUntil: 'networkidle' });

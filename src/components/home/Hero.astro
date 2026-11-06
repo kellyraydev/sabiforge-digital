@@ -35,9 +35,6 @@ import { startProjectHref } from '@/data/site';
           Explore our work
         </Button>
       </div>
-      <p class="hero-note meta" data-reveal style="--reveal-delay:280">
-        <span></span> A studio concept is always labelled. Real work will be added when approved.
-      </p>
     </div>
 
     <div
@@ -151,10 +148,10 @@ import { startProjectHref } from '@/data/site';
     color: rgb(247 243 234 / 0.5);
   }
   .hero-copy h1 {
-    max-width: 10ch;
+    max-width: 12ch;
     margin-top: 1.6rem;
     font:
-      600 clamp(3.4rem, 5.5vw, 7rem)/0.88 'Bricolage Grotesque Variable',
+      600 clamp(3.2rem, 4.7vw, 5.8rem)/0.9 'Bricolage Grotesque Variable',
       sans-serif;
     letter-spacing: -0.07em;
   }
@@ -261,6 +258,7 @@ import { startProjectHref } from '@/data/site';
     filter: drop-shadow(0 2rem 2rem rgb(0 0 0 / 0.35));
   }
   .laptop-display {
+    container-type: inline-size;
     aspect-ratio: 16/10;
     overflow: hidden;
     border: 8px solid #0b3a3f;
@@ -280,11 +278,11 @@ import { startProjectHref } from '@/data/site';
     padding: 3% 4%;
     border-bottom: 1px solid rgb(24 44 49 / 0.15);
     font:
-      1.2cqw 'JetBrains Mono Variable',
+      clamp(0.55rem, 1.2cqi, 0.85rem) 'JetBrains Mono Variable',
       monospace;
   }
   .site-nav strong {
-    font: 700 2.8cqw 'Bricolage Grotesque Variable';
+    font: 700 clamp(0.8rem, 2.8cqi, 1.8rem) 'Bricolage Grotesque Variable';
   }
   .site-body {
     display: grid;
@@ -294,18 +292,23 @@ import { startProjectHref } from '@/data/site';
   }
   .site-body small {
     color: #a3301f;
-    font: 1.4cqw 'JetBrains Mono Variable';
+    font: clamp(0.55rem, 1.4cqi, 0.9rem) 'JetBrains Mono Variable';
     letter-spacing: 0.12em;
   }
   .site-body h2 {
     margin-top: 4%;
-    font: 700 6.2cqw/0.82 'Bricolage Grotesque Variable';
+    font: 700 clamp(1rem, 6.2cqi, 4rem)/0.9 'Bricolage Grotesque Variable';
     letter-spacing: -0.07em;
   }
   .site-body h2 i,
   .phone-ui p i {
-    color: #e9503a;
     font: 400 1.12em/0.8 'Instrument Serif';
+  }
+  .site-body h2 i {
+    color: #a3301f;
+  }
+  .phone-ui p i {
+    color: #031f25;
   }
   .site-body > div > span {
     display: inline-block;
@@ -313,7 +316,7 @@ import { startProjectHref } from '@/data/site';
     padding: 2.5% 4%;
     background: #031f25;
     color: #f7f3ea;
-    font: 1.4cqw 'JetBrains Mono Variable';
+    font: clamp(0.55rem, 1.4cqi, 0.9rem) 'JetBrains Mono Variable';
   }
   .site-body > div > span b {
     color: #86f0d2;
@@ -373,6 +376,7 @@ import { startProjectHref } from '@/data/site';
     background: #031f25;
   }
   .phone-ui {
+    container-type: inline-size;
     display: flex;
     height: 100%;
     flex-direction: column;
@@ -382,15 +386,15 @@ import { startProjectHref } from '@/data/site';
     color: #031f25;
   }
   .phone-ui small {
-    font: 1.6cqw 'JetBrains Mono Variable';
+    font: clamp(0.45rem, 5cqi, 0.75rem) 'JetBrains Mono Variable';
   }
   .phone-ui strong {
     align-self: center;
     margin-top: 35%;
-    font: 700 10cqw 'Bricolage Grotesque Variable';
+    font: 700 clamp(1.25rem, 28cqi, 3.5rem) 'Bricolage Grotesque Variable';
   }
   .phone-ui p {
-    font: 700 4.4cqw/0.85 'Bricolage Grotesque Variable';
+    font: 700 clamp(0.7rem, 12cqi, 1.35rem)/0.95 'Bricolage Grotesque Variable';
     letter-spacing: -0.06em;
   }
   .hero-stamp {
@@ -419,6 +423,7 @@ import { startProjectHref } from '@/data/site';
       padding-top: 7rem;
     }
     .hero-container {
+      min-height: 0;
       grid-template-columns: 1fr;
       gap: 0;
     }
@@ -426,7 +431,7 @@ import { startProjectHref } from '@/data/site';
       max-width: 38rem;
     }
     .hero-copy h1 {
-      font-size: clamp(3.5rem, 10vw, 6.5rem);
+      font-size: clamp(3rem, 8.5vw, 4.5rem);
     }
     .hero-art {
       min-height: 510px;
@@ -439,20 +444,18 @@ import { startProjectHref } from '@/data/site';
   }
   @media (max-width: 560px) {
     .flagship-hero {
-      min-height: 900px;
+      min-height: 0;
       padding-bottom: 1rem;
     }
     .hero-copy h1 {
-      font-size: clamp(3.35rem, 15vw, 5rem);
+      max-width: 13ch;
+      font-size: clamp(2.7rem, 11.5vw, 3.4rem);
     }
     .hero-lede {
       font-size: 1rem;
     }
-    .hero-note {
-      margin-top: 2.2rem;
-    }
     .hero-art {
-      min-height: 390px;
+      min-height: 320px;
       margin-top: 0.5rem;
     }
     .hero-portrait {
