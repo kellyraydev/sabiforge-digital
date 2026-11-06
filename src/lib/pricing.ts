@@ -1,6 +1,18 @@
-/** Founding-client offer: 10% off the first three eligible website packages. */
+/** Founding-client offer: 10% off eligible website packages. */
 export const FOUNDING_DISCOUNT_RATE = 0.1;
-export const FOUNDING_CLIENT_SLOTS = 3;
+
+/**
+ * Number of founding-client places. Deliberately unset: owner materials
+ * conflict (3 in the project brief, 5 on the flyer). Public copy says
+ * "a limited number" until the owner confirms a figure here.
+ */
+export const FOUNDING_CLIENT_SLOTS: number | null = null;
+
+export function foundingSlotsLabel(slots: number | null = FOUNDING_CLIENT_SLOTS): string {
+  return slots === null
+    ? 'a limited number of founding clients'
+    : `our first ${slots} founding clients`;
+}
 
 const nairaFormatter = new Intl.NumberFormat('en-NG', {
   style: 'currency',

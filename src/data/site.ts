@@ -1,13 +1,13 @@
 /**
  * Single source of truth for agency facts used across the site.
  * Only verified details belong here: no testimonials, clients, projects,
- * social accounts or registration details until they actually exist.
+ * social accounts, addresses or registration details until they exist.
  */
 export const site = {
   name: 'SabiForge Digital',
   tagline: "Built for business. Ready for what's next.",
   description:
-    'SabiForge Digital designs and builds professional websites, online stores and custom web applications for businesses in Nigeria.',
+    'SabiForge Digital is a design and development studio creating distinctive websites, online stores and digital experiences for businesses in Nigeria.',
   locale: 'en_NG',
   market: 'Nigeria',
   contact: {
@@ -16,23 +16,39 @@ export const site = {
     phoneHref: 'tel:+2349038430068',
     email: 'kellyray.dev@gmail.com',
   },
+  /** Add genuine profiles here once they exist; the footer renders only real entries. */
+  social: [] as { label: string; href: string }[],
 } as const;
 
 export function whatsappLink(
-  message = "Hello SabiForge Digital, I'd like to discuss a website.",
+  message = "Hello SabiForge Digital, I'd like to discuss a project.",
 ): string {
   return `https://wa.me/${site.contact.whatsappNumber}?text=${encodeURIComponent(message)}`;
 }
 
-export function mailtoLink(subject = 'Website enquiry'): string {
-  return `mailto:${site.contact.email}?subject=${encodeURIComponent(subject)}`;
+export function mailtoLink(subject = 'Project enquiry', body?: string): string {
+  const params = [`subject=${encodeURIComponent(subject)}`];
+  if (body) params.push(`body=${encodeURIComponent(body)}`);
+  return `mailto:${site.contact.email}?${params.join('&')}`;
 }
 
-/** Navigation targets the homepage sections until dedicated pages ship. */
-export const navigation = [
-  { label: 'Services', href: '/#services' },
-  { label: 'Why us', href: '/#why-us' },
-  { label: 'Pricing', href: '/#pricing' },
-  { label: 'Process', href: '/#process' },
-  { label: 'Shopify', href: '/#shopify' },
-] as const;
+export interface NavItem {
+  label: string;
+  href: string;
+  /** Path prefix that marks this item as current. */
+  match?: string;
+}
+
+/**
+ * Primary navigation. Work and Process point to homepage sections until their
+ * dedicated pages ship (milestone D); About is added when its page exists.
+ */
+export const navigation: NavItem[] = [
+  { label: 'Work', href: '/#work' },
+  { label: 'Services', href: '/services', match: '/services' },
+  { label: 'Pricing', href: '/pricing', match: '/pricing' },
+  { label: 'Process', href: '/#approach' },
+  { label: 'Contact', href: '/contact', match: '/contact' },
+];
+
+export const startProjectHref = '/contact';

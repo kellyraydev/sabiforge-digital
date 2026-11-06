@@ -1,14 +1,22 @@
 @import 'tailwindcss';
-@import '@fontsource-variable/outfit';
+@import '@fontsource-variable/bricolage-grotesque';
+@import '@fontsource/instrument-serif/400.css';
+@import '@fontsource/instrument-serif/400-italic.css';
 @import '@fontsource-variable/inter';
+@import '@fontsource-variable/jetbrains-mono';
+@import '@fontsource-variable/outfit';
 
 /*
- * SabiForge Digital design tokens
- * Derived from the approved brand flyer: midnight teal, mint, coral, ivory.
+ * SabiForge Digital design system
+ * Creative direction: Editorial Precision × Digital Craftsmanship
+ * Brand colours are unchanged from the approved flyer (see docs/CREATIVE-DIRECTION.md).
  */
 @theme {
-  --font-display: 'Outfit Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Bricolage Grotesque Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'Instrument Serif', ui-serif, Georgia, serif;
   --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, SFMono-Regular, monospace;
+  --font-wordmark: 'Outfit Variable', ui-sans-serif, system-ui, sans-serif;
 
   /* Midnight teal — primary surfaces */
   --color-midnight-950: #01161b;
@@ -18,7 +26,7 @@
   --color-midnight-600: #124e47;
   --color-midnight-500: #1b6157;
 
-  /* Mint — highlight / success */
+  /* Mint — precision, links, focus */
   --color-mint-50: #ecfdf7;
   --color-mint-100: #d2f9ec;
   --color-mint-200: #b0f4de;
@@ -26,8 +34,9 @@
   --color-mint-400: #5fe2bf;
   --color-mint-500: #36c9a3;
   --color-mint-700: #12715d;
+  --color-mint-800: #0d5546;
 
-  /* Coral — action / emphasis */
+  /* Coral — action and single emphatic moments */
   --color-coral-300: #ffab8c;
   --color-coral-400: #ff8a6a;
   --color-coral-500: #fe674f;
@@ -35,21 +44,33 @@
   --color-coral-700: #c23d2a;
   --color-coral-800: #a3301f;
 
-  /* Logo orange (used in the mark only) */
+  /* Logo orange (mark only) */
   --color-ember: #fd8c55;
 
-  /* Ivory — light surfaces */
+  /* Ivory — paper surfaces */
   --color-ivory-50: #fdfbf6;
   --color-ivory-100: #f7f3ea;
   --color-ivory-200: #ece5d6;
+  --color-ivory-300: #ddd3bf;
 
   --color-ink: #0c1f22;
 
-  --radius-card: 1.5rem;
-  --shadow-glow: 0 0 0 1px rgb(134 240 210 / 0.12), 0 24px 60px -24px rgb(0 0 0 / 0.6);
+  /* Fluid type scale (375px → 1440px) */
+  --text-display-xl: clamp(2.7rem, 1.6rem + 4.9vw, 6.1rem);
+  --text-display-xl--line-height: 0.98;
+  --text-display-lg: clamp(2.2rem, 1.45rem + 3.3vw, 4.4rem);
+  --text-display-lg--line-height: 1.02;
+  --text-display-md: clamp(1.8rem, 1.35rem + 1.9vw, 3.1rem);
+  --text-display-md--line-height: 1.06;
+  --text-display-sm: clamp(1.4rem, 1.2rem + 0.9vw, 2rem);
+  --text-display-sm--line-height: 1.15;
+  --text-lede: clamp(1.08rem, 1rem + 0.35vw, 1.3rem);
+  --text-lede--line-height: 1.6;
 
-  --animate-float: float 7s ease-in-out infinite;
-  --animate-rise: rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  --radius-card: 1.25rem;
+  --radius-plate: 0.875rem;
+
+  --animate-float: float 8s ease-in-out infinite;
 
   @keyframes float {
     0%,
@@ -57,17 +78,7 @@
       transform: translateY(0);
     }
     50% {
-      transform: translateY(-10px);
-    }
-  }
-  @keyframes rise {
-    from {
-      opacity: 0;
-      transform: translateY(16px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
+      transform: translateY(-8px);
     }
   }
 }
@@ -78,25 +89,33 @@
     -webkit-text-size-adjust: 100%;
   }
   body {
-    @apply bg-midnight-900 text-ivory-100 font-sans antialiased;
+    @apply bg-midnight-900 text-ivory-100 font-sans text-[1.0625rem] leading-[1.65] antialiased;
     text-rendering: optimizeLegibility;
+    font-feature-settings: 'cv11', 'ss01';
   }
   h1,
   h2,
   h3,
   h4 {
-    @apply font-display tracking-tight text-balance;
+    @apply font-display text-balance;
+    letter-spacing: -0.025em;
+    font-variation-settings: 'opsz' 96;
+  }
+  p {
+    text-wrap: pretty;
   }
   :focus-visible {
     outline: 3px solid var(--color-mint-300);
     outline-offset: 3px;
     border-radius: 0.375rem;
   }
+  .on-paper :focus-visible {
+    outline-color: var(--color-mint-700);
+  }
   ::selection {
     background: var(--color-mint-300);
     color: var(--color-midnight-900);
   }
-  /* Offset in-page anchors for the sticky header */
   [id] {
     scroll-margin-top: 6rem;
   }
@@ -104,26 +123,70 @@
 
 @layer components {
   .container-page {
-    @apply mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10;
+    @apply mx-auto w-full max-w-[90rem] px-5 sm:px-8 lg:px-12 2xl:px-16;
   }
-  .eyebrow {
-    @apply text-mint-300 inline-flex items-center gap-2 text-xs font-semibold tracking-[0.18em] uppercase;
+  /* Editorial accent: one or two italic serif words inside a display headline */
+  .accent {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: -0.01em;
   }
-  .eyebrow::before {
-    content: '';
-    @apply bg-coral-500 h-px w-6;
+  /* Monospaced metadata label */
+  .meta {
+    @apply font-mono text-[0.72rem] font-medium tracking-[0.04em];
   }
-  .grid-texture {
-    background-image:
-      linear-gradient(rgb(134 240 210 / 0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgb(134 240 210 / 0.05) 1px, transparent 1px);
-    background-size: 56px 56px;
+  /* Signature chamfer: one 30° cut corner derived from the S-hexagon mark */
+  .chamfer {
+    clip-path: polygon(0 0, calc(100% - 2.75rem) 0, 100% 1.6rem, 100% 100%, 0 100%);
   }
+  .chamfer-sm {
+    clip-path: polygon(0 0, calc(100% - 1.5rem) 0, 100% 0.87rem, 100% 100%, 0 100%);
+  }
+  .hairline {
+    @apply border-ivory-100/12;
+  }
+  /* Long-form content on service and policy pages */
+  .prose-sf p + p {
+    @apply mt-4;
+  }
+}
+
+@layer utilities {
+  /* Skip rendering work for off-screen sections until they approach the viewport */
+  .defer-render {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 1100px;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+}
+
+/*
+ * Reveal-on-enter. Only applies once JS has marked <html class="js">,
+ * so content is always visible without JavaScript.
+ */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: calc(var(--reveal-delay, 0) * 1ms);
+}
+.js [data-reveal].is-revealed {
+  opacity: 1;
+  transform: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+  .js [data-reveal] {
+    opacity: 1;
+    transform: none;
   }
   *,
   *::before,
@@ -131,5 +194,44 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* Editorial accent inside display headings: <h2>Design that <em>earns</em> attention</h2> */
+:is(h1, h2, h3, .display) em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.06em;
+  letter-spacing: -0.01em;
+  line-height: 0.9;
+}
+
+/* Mobile menu entrance (disabled by reduced-motion rules above) */
+#mobile-menu:not([hidden]) .mobile-nav-item {
+  animation: menu-in 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.stage-panel {
+  animation: stage-in 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+@keyframes stage-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
   }
 }

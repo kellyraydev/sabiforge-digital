@@ -4,7 +4,7 @@ import type { IconKey } from '@/lib/icons';
 
 interface Props {
   href: string;
-  variant?: 'primary' | 'secondary' | 'ghost' | 'dark';
+  variant?: 'primary' | 'secondary' | 'ink' | 'outline-ink' | 'link';
   size?: 'md' | 'lg';
   icon?: IconKey;
   iconPosition?: 'start' | 'end';
@@ -24,35 +24,38 @@ const {
   ...rest
 } = Astro.props;
 
+const base =
+  'group inline-flex items-center justify-center gap-2.5 font-semibold transition duration-200 active:scale-[0.98]';
 const variants = {
-  primary:
-    'bg-coral-500 text-midnight-950 shadow-[0_12px_30px_-12px_rgb(254_103_79/0.7)] hover:bg-coral-400',
-  secondary: 'border border-mint-300/40 text-mint-100 hover:border-mint-300 hover:bg-mint-300/10',
-  ghost: 'text-ivory-100 hover:text-mint-300',
-  dark: 'bg-midnight-900 text-ivory-50 hover:bg-midnight-700',
+  // Text on coral is midnight ink (5.9:1) — white on coral fails WCAG AA.
+  primary: 'rounded-full bg-coral-500 text-midnight-950 hover:bg-coral-400',
+  secondary:
+    'rounded-full border border-ivory-100/25 text-ivory-50 hover:border-mint-300 hover:text-mint-200',
+  ink: 'rounded-full bg-midnight-900 text-ivory-50 hover:bg-midnight-700',
+  'outline-ink':
+    'rounded-full border border-midnight-900/40 text-midnight-900 hover:border-midnight-900 hover:bg-midnight-900/5',
+  link: 'rounded-sm text-mint-300 underline decoration-mint-300/40 underline-offset-[6px] hover:decoration-mint-300',
 };
 const sizes = {
-  md: 'h-11 px-5 text-sm',
-  lg: 'h-13 px-7 text-base',
+  md: variant === 'link' ? 'text-sm' : 'min-h-11 px-5 text-sm',
+  lg: variant === 'link' ? 'text-base' : 'min-h-13 px-7 text-base',
 };
 ---
 
 <a
   href={href}
-  class:list={[
-    'group inline-flex items-center justify-center gap-2 rounded-full font-semibold transition duration-200 active:scale-[0.98]',
-    variants[variant],
-    sizes[size],
-    className,
-  ]}
+  class:list={[base, variants[variant], sizes[size], className]}
   target={external ? '_blank' : undefined}
   rel={external ? 'noopener noreferrer' : undefined}
   {...rest}
 >
-  {icon && iconPosition === 'start' && <Icon name={icon} class="size-5" />}
+  {icon && iconPosition === 'start' && <Icon name={icon} class="size-[1.15em]" />}
   <slot />
   {icon && iconPosition === 'end' && (
-    <Icon name={icon} class="size-5 transition-transform group-hover:translate-x-0.5" />
+    <Icon
+      name={icon}
+      class="size-[1.15em] transition-transform duration-200 group-hover:translate-x-0.5"
+    />
   )}
   {external && <span class="sr-only">(opens in a new tab)</span>}
 </a>

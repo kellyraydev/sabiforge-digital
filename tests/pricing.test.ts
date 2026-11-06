@@ -5,13 +5,19 @@ import {
   applyDiscount,
   discountPercentLabel,
   formatNaira,
+  foundingSlotsLabel,
 } from '../src/lib/pricing';
 
-describe('founding offer constants', () => {
-  it('is 10% off for the first three eligible packages', () => {
+describe('founding offer', () => {
+  it('is 10% off', () => {
     expect(FOUNDING_DISCOUNT_RATE).toBe(0.1);
-    expect(FOUNDING_CLIENT_SLOTS).toBe(3);
     expect(discountPercentLabel()).toBe('10%');
+  });
+
+  it('does not publish a slot count until the owner resolves 3 vs 5', () => {
+    expect(FOUNDING_CLIENT_SLOTS).toBeNull();
+    expect(foundingSlotsLabel()).toBe('a limited number of founding clients');
+    expect(foundingSlotsLabel(3)).toBe('our first 3 founding clients');
   });
 });
 

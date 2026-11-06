@@ -20,4 +20,4 @@ npm-debug.log*
 .idea/
 
 # local screenshot output (reviewed copies live in docs/screenshots)
-screenshots/
+/screenshots/

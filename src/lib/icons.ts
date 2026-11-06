@@ -1,13 +1,8 @@
-import type { IconName } from '@/data/content';
-
 /**
  * Inline stroke icons (24×24 grid, round caps). Kept local so the site has
  * no runtime icon dependency. Markup is static and trusted.
  */
-export const icons: Record<
-  IconName | 'arrow-right' | 'check' | 'whatsapp' | 'mail' | 'menu' | 'close',
-  string
-> = {
+export const icons = {
   monitor: '<rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/>',
   cart: '<circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2.5 3h2.6l2.3 11.2a1.6 1.6 0 0 0 1.6 1.3h8.7a1.6 1.6 0 0 0 1.6-1.2L21 7H6"/>',
   truck:
@@ -48,6 +43,19 @@ export const icons: Record<
   mail: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/>',
   menu: '<path d="M4 7h16M4 12h16M4 17h10"/>',
   close: '<path d="M6 6l12 12M18 6 6 18"/>',
-};
+  'arrow-up-right': '<path d="M7 17 17 7M8 7h9v9"/>',
+  'arrow-down': '<path d="M12 5v14M6 13l6 6 6-6"/>',
+  plus: '<path d="M12 5v14M5 12h14"/>',
+  minus: '<path d="M5 12h14"/>',
+  copy: '<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/>',
+  alert: '<circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.5h.01"/>',
+  info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.5h.01"/>',
+  keyboard:
+    '<rect x="2.5" y="6" width="19" height="12" rx="2"/><path d="M6.5 10h.01M10 10h.01M13.5 10h.01M17 10h.01M7.5 14h9"/>',
+  contrast:
+    '<circle cx="12" cy="12" r="9"/><path d="M12 3v18a9 9 0 0 0 0-18z" fill="currentColor"/>',
+  flag: '<path d="M5 21V4M5 4h11l-2 4 2 4H5"/>',
+  hexagon: '<path d="M12 2.5 20.5 7.4v9.2L12 21.5l-8.5-4.9V7.4z"/>',
+} as const satisfies Record<string, string>;
 
 export type IconKey = keyof typeof icons;

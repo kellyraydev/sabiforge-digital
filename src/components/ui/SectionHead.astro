@@ -1,0 +1,65 @@
+---
+/**
+ * Editorial section header: monospaced index + label, display heading
+ * (may contain one <em> accent), optional lede via the default slot.
+ */
+interface Props {
+  index?: string;
+  label: string;
+  title: string;
+  id?: string;
+  tone?: 'dark' | 'paper';
+  align?: 'left' | 'center';
+  as?: 'h1' | 'h2';
+  size?: 'lg' | 'md';
+  class?: string;
+}
+const {
+  index,
+  label,
+  title,
+  id,
+  tone = 'dark',
+  align = 'left',
+  as: Tag = 'h2',
+  size = 'lg',
+  class: className,
+} = Astro.props;
+const dark = tone === 'dark';
+---
+
+<div
+  class:list={[align === 'center' ? 'mx-auto max-w-3xl text-center' : 'max-w-3xl', className]}
+  data-reveal
+>
+  <p
+    class:list={[
+      'meta flex items-center gap-3',
+      align === 'center' && 'justify-center',
+      dark ? 'text-mint-300' : 'text-mint-800',
+    ]}
+  >
+    {index && <span aria-hidden="true">({index})</span>}
+    <span>{label}</span>
+  </p>
+  <Tag
+    id={id}
+    class:list={[
+      'mt-5 font-semibold',
+      size === 'lg' ? 'text-display-lg' : 'text-display-md',
+      dark ? 'text-ivory-50' : 'text-midnight-900',
+    ]}
+    set:html={title}
+  />
+  {Astro.slots.has('default') && (
+    <div
+      class:list={[
+        'text-lede mt-6 max-w-2xl',
+        align === 'center' && 'mx-auto',
+        dark ? 'text-ivory-100/75' : 'text-midnight-800/80',
+      ]}
+    >
+      <slot />
+    </div>
+  )}
+</div>
