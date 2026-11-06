@@ -1,0 +1,89 @@
+---
+import Logo from '@/components/ui/Logo.astro';
+import Icon from '@/components/ui/Icon.astro';
+import { navigation, site, whatsappLink, mailtoLink } from '@/data/site';
+import { services } from '@/data/content';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-ivory-100/10 bg-midnight-950">
+  <div class="container-page grid gap-12 py-16 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
+    <div>
+      <a href="/" aria-label={`${site.name} — home`}>
+        <Logo />
+      </a>
+      <p class="mt-6 max-w-xs text-sm leading-relaxed text-ivory-100/65">
+        {site.tagline} Websites, online stores and web applications for businesses in {site.market}.
+      </p>
+    </div>
+
+    <nav aria-label="Footer">
+      <h2 class="font-display text-sm font-semibold tracking-wide text-ivory-50">Explore</h2>
+      <ul class="mt-5 space-y-3 text-sm">
+        {navigation.map((item) => (
+          <li>
+            <a class="text-ivory-100/65 transition hover:text-mint-300" href={item.href}>
+              {item.label}
+            </a>
+          </li>
+        ))}
+        <li>
+          <a class="text-ivory-100/65 transition hover:text-mint-300" href="/#contact">
+            Contact
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <div>
+      <h2 class="font-display text-sm font-semibold tracking-wide text-ivory-50">Services</h2>
+      <ul class="mt-5 space-y-3 text-sm text-ivory-100/65">
+        {services.map((service) => (
+          <li>
+            <a class="transition hover:text-mint-300" href={`/#${service.id}`}>
+              {service.title}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div>
+      <h2 class="font-display text-sm font-semibold tracking-wide text-ivory-50">Get in touch</h2>
+      <ul class="mt-5 space-y-4 text-sm">
+        <li>
+          <a
+            class="inline-flex items-center gap-3 text-ivory-100/80 transition hover:text-mint-300"
+            href={whatsappLink()}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Icon name="whatsapp" class="size-5 text-mint-300" />
+            {site.contact.whatsappDisplay}
+            <span class="sr-only">(WhatsApp, opens in a new tab)</span>
+          </a>
+        </li>
+        <li>
+          <a
+            class="inline-flex items-center gap-3 break-all text-ivory-100/80 transition hover:text-mint-300"
+            href={mailtoLink()}
+          >
+            <Icon name="mail" class="size-5 shrink-0 text-mint-300" />
+            {site.contact.email}
+          </a>
+        </li>
+      </ul>
+      <p class="mt-6 text-xs text-ivory-100/60">Social pages coming soon.</p>
+    </div>
+  </div>
+
+  <div class="border-t border-ivory-100/10">
+    <div class="container-page flex flex-col gap-2 py-6 text-xs text-ivory-100/60 sm:flex-row sm:items-center sm:justify-between">
+      <p>
+        &copy; {year} {site.name}. All rights reserved.
+      </p>
+      <p>Introductory prices. Final scope and third-party costs are quoted separately.</p>
+    </div>
+  </div>
+</footer>

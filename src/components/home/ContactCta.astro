@@ -1,0 +1,74 @@
+---
+import Icon from '@/components/ui/Icon.astro';
+import Button from '@/components/ui/Button.astro';
+import { site, whatsappLink, mailtoLink } from '@/data/site';
+---
+
+<section id="contact" aria-labelledby="contact-title" class="pb-24 lg:pb-32">
+  <div class="container-page">
+    <div class="relative isolate overflow-hidden rounded-[2rem] bg-coral-500 px-6 py-14 text-midnight-950 sm:px-12 lg:px-16 lg:py-20">
+      <div class="grid gap-12 lg:grid-cols-[1.3fr_1fr] lg:items-end">
+        <div>
+          <p class="text-sm font-semibold tracking-[0.18em] uppercase">Let's build it</p>
+          <h2
+            id="contact-title"
+            class="mt-4 text-4xl leading-[1.05] font-semibold sm:text-5xl lg:text-6xl"
+          >
+            Let's bring your business online.
+          </h2>
+          <p class="mt-5 max-w-xl text-lg text-midnight-950/90">
+            Tell us what you sell and who you serve. We'll recommend the right package and send a
+            clear proposal — no obligation.
+          </p>
+          <div class="mt-9 flex flex-col gap-3 sm:flex-row">
+            <Button
+              href={whatsappLink()}
+              external
+              variant="dark"
+              size="lg"
+              icon="whatsapp"
+              iconPosition="start"
+            >
+              Chat on WhatsApp
+            </Button>
+            <a
+              href={mailtoLink('Project enquiry')}
+              class="inline-flex h-13 items-center justify-center gap-2 rounded-full border-2 border-midnight-950/70 px-7 font-semibold text-midnight-950 transition hover:bg-midnight-950/10"
+            >
+              <Icon name="mail" class="size-5" /> Send an email
+            </a>
+          </div>
+        </div>
+
+        <div class="rounded-2xl bg-midnight-900 p-6 text-ivory-50 sm:p-8">
+          <dl class="grid gap-5">
+            <div>
+              <dt class="text-xs font-semibold tracking-[0.18em] text-mint-300 uppercase">
+                WhatsApp & phone
+              </dt>
+              <dd class="mt-1.5">
+                <a
+                  href={site.contact.phoneHref}
+                  class="font-display text-2xl font-semibold hover:text-mint-300"
+                >
+                  {site.contact.whatsappDisplay}
+                </a>
+              </dd>
+            </div>
+            <div class="border-t border-ivory-100/10 pt-5">
+              <dt class="text-xs font-semibold tracking-[0.18em] text-mint-300 uppercase">Email</dt>
+              <dd class="mt-1.5">
+                <a href={mailtoLink()} class="text-lg font-medium break-all hover:text-mint-300">
+                  {site.contact.email}
+                </a>
+              </dd>
+            </div>
+          </dl>
+          <p class="mt-5 border-t border-ivory-100/10 pt-5 text-sm text-ivory-100/70">
+            Serving businesses across Nigeria, remotely and on WhatsApp.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

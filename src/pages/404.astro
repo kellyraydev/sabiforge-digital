@@ -1,0 +1,21 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Button from '@/components/ui/Button.astro';
+---
+
+<BaseLayout title="Page not found">
+  <section class="container-page flex min-h-[70vh] flex-col items-start justify-center pt-32 pb-20">
+    <p class="eyebrow">404</p>
+    <h1 class="mt-4 text-4xl font-semibold text-ivory-50 sm:text-6xl">
+      This page isn't built yet.
+    </h1>
+    <p class="mt-5 max-w-lg text-lg text-ivory-100/70">
+      The link may be outdated, or this page is still in progress.
+    </p>
+    <div class="mt-8">
+      <Button href="/" icon="arrow-right">
+        Back to the homepage
+      </Button>
+    </div>
+  </section>
+</BaseLayout>

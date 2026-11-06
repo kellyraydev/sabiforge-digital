@@ -1,0 +1,61 @@
+---
+/** Decorative Lagos-inspired skyline with a cable-stayed bridge. */
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+const towers = [
+  [0, 120, 46],
+  [52, 80, 34],
+  [92, 150, 40],
+  [138, 104, 28],
+  [172, 176, 44],
+  [222, 128, 30],
+  [258, 92, 38],
+  [560, 112, 34],
+  [600, 168, 46],
+  [652, 132, 30],
+  [688, 196, 40],
+  [734, 140, 52],
+  [792, 102, 32],
+  [830, 160, 44],
+  [880, 120, 40],
+];
+const cablesLeft = [0, 1, 2, 3, 4, 5, 6];
+---
+
+<svg
+  viewBox="0 0 920 240"
+  class={className}
+  preserveAspectRatio="xMidYMax slice"
+  aria-hidden="true"
+  fill="currentColor"
+>
+  {towers.map(([x, h, w]) => (
+    <rect x={x} y={240 - h} width={w} height={h} rx="2" />
+  ))}
+  <!-- Bridge pylon and deck -->
+  <path d="M424 40 L432 40 L440 200 L416 200 Z" />
+  <rect x="300" y="196" width="260" height="8" rx="2" />
+  {cablesLeft.map((i) => (
+    <>
+      <line
+        x1="428"
+        y1={52 + i * 8}
+        x2={310 + i * 16}
+        y2="198"
+        stroke="currentColor"
+        stroke-width="2"
+      />
+      <line
+        x1="428"
+        y1={52 + i * 8}
+        x2={546 - i * 16}
+        y2="198"
+        stroke="currentColor"
+        stroke-width="2"
+      />
+    </>
+  ))}
+  <rect x="0" y="232" width="920" height="8" />
+</svg>

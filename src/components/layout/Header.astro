@@ -1,0 +1,60 @@
+---
+import Logo from '@/components/ui/Logo.astro';
+import Button from '@/components/ui/Button.astro';
+import MobileNav from './MobileNav';
+import { navigation, site, whatsappLink } from '@/data/site';
+---
+
+<header
+  id="site-header"
+  class="fixed inset-x-0 top-0 z-50 border-b border-transparent transition-[background-color,border-color,backdrop-filter] duration-300 data-[scrolled=true]:border-ivory-100/10 data-[scrolled=true]:bg-midnight-900/85 data-[scrolled=true]:backdrop-blur-xl"
+>
+  <div class="container-page flex h-18 items-center justify-between gap-6 lg:h-20">
+    <a href="/" class="relative z-50 shrink-0" aria-label={`${site.name} — home`}>
+      <Logo />
+    </a>
+
+    <nav aria-label="Primary" class="hidden lg:block">
+      <ul class="flex items-center gap-1">
+        {navigation.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class="rounded-full px-4 py-2 text-sm font-medium text-ivory-100/80 transition hover:bg-ivory-100/5 hover:text-ivory-50"
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="hidden items-center gap-3 lg:flex">
+      <a
+        href="/#contact"
+        class="text-sm font-medium text-ivory-100/80 transition hover:text-mint-300"
+      >
+        Contact
+      </a>
+      <Button href={whatsappLink()} external icon="arrow-right">
+        Start a project
+      </Button>
+    </div>
+
+    <MobileNav
+      client:media="(max-width: 1023px)"
+      items={[...navigation, { label: 'Contact', href: '/#contact' }]}
+      ctaHref={whatsappLink()}
+      email={site.contact.email}
+      phoneDisplay={site.contact.whatsappDisplay}
+      phoneHref={site.contact.phoneHref}
+    />
+  </div>
+</header>
+
+<script>
+  const header = document.getElementById('site-header');
+  const update = () => header?.setAttribute('data-scrolled', String(window.scrollY > 12));
+  update();
+  window.addEventListener('scroll', update, { passive: true });
+</script>
