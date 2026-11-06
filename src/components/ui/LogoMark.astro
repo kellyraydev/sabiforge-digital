@@ -1,0 +1,47 @@
+---
+/**
+ * SabiForge "S" hexagon mark — SVG reconstruction of the approved logo.
+ * Replace with the original vector artwork when it is supplied.
+ */
+interface Props {
+  class?: string;
+  title?: string;
+}
+const { class: className = 'h-10 w-auto', title } = Astro.props;
+const uid = `sf-${Math.random().toString(36).slice(2, 8)}`;
+---
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 100 116"
+  class={className}
+  role={title ? 'img' : undefined}
+  aria-label={title}
+  aria-hidden={title ? undefined : 'true'}
+>
+  <defs>
+    <mask id={`${uid}-m`} maskUnits="userSpaceOnUse" x="-10" y="-10" width="120" height="136">
+      <polygon fill="#fff" points="50,0 100,29 100,87 50,116 0,87 0,29"></polygon>
+      <path
+        d="M112 58 L50 22 L28 34.7 L72 81.3 L50 94 L-12 58"
+        fill="none"
+        stroke="#000"
+        stroke-width="7"
+      ></path>
+    </mask>
+    <clipPath id={`${uid}-c`}>
+      <polygon points="-10,-10 112,-10 112,58 50,22 28,34.7 72,81.3 50,94 -12,58"></polygon>
+    </clipPath>
+  </defs>
+  <g mask={`url(#${uid}-m)`}>
+    <rect x="-10" y="-10" width="120" height="136" fill="#FD8C55"></rect>
+    <rect
+      x="-10"
+      y="-10"
+      width="120"
+      height="136"
+      fill="#86F0D2"
+      clip-path={`url(#${uid}-c)`}
+    ></rect>
+  </g>
+</svg>
