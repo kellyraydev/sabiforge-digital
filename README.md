@@ -5,9 +5,12 @@ Agency website for **SabiForge Digital** — _Built for business. Ready for what
 Built with [Astro](https://astro.build) (static output), TypeScript (strict), Tailwind CSS v4 and
 React islands for interactive components.
 
-> Status: **homepage milestone — awaiting visual approval.** Not deployed anywhere.
-> See [`docs/HOMEPAGE-MILESTONE.md`](docs/HOMEPAGE-MILESTONE.md) for results, screenshots and the
-> plan for the remaining pages.
+> Status: **milestones B and C (homepage, services, pricing, contact) are ready for review.** The
+> site is not deployed anywhere.
+>
+> - Creative direction and audit: [`docs/CREATIVE-DIRECTION.md`](docs/CREATIVE-DIRECTION.md)
+> - Results, test evidence, open questions: [`docs/MILESTONE-B-C.md`](docs/MILESTONE-B-C.md)
+> - Earlier homepage milestone (superseded): [`docs/HOMEPAGE-MILESTONE.md`](docs/HOMEPAGE-MILESTONE.md)
 
 ## Requirements
 
@@ -23,18 +26,18 @@ npm run dev          # http://localhost:4321
 
 ## Scripts
 
-| Script                    | What it does                                                         |
-| ------------------------- | -------------------------------------------------------------------- |
-| `npm run dev`             | Astro dev server with hot reload                                     |
-| `npm run build`           | Type-checks (`astro check`) then builds static files into `dist/`    |
-| `npm run preview`         | Serves the production build locally                                  |
-| `npm run check`           | Astro + TypeScript diagnostics                                       |
-| `npm run lint`            | ESLint (TypeScript + Astro rules)                                    |
-| `npm run format`          | Prettier (with Astro and Tailwind class sorting)                     |
-| `npm run test`            | Vitest unit tests (pricing maths, content, contact links)            |
-| `npm run qa:visual`       | Browser QA: screenshots, overflow, anchors, console errors, axe a11y |
-| `npm run qa:interactions` | Browser smoke test of the pricing toggle, process tabs and links     |
-| `npm run verify`          | format check → lint → tests → type-check + build                     |
+| Script                    | What it does                                                        |
+| ------------------------- | ------------------------------------------------------------------- |
+| `npm run dev`             | Astro dev server with hot reload                                    |
+| `npm run build`           | Type-checks (`astro check`) then builds static files into `dist/`   |
+| `npm run preview`         | Serves the production build locally                                 |
+| `npm run check`           | Astro + TypeScript diagnostics                                      |
+| `npm run lint`            | ESLint (TypeScript + Astro rules)                                   |
+| `npm run format`          | Prettier (with Astro and Tailwind class sorting)                    |
+| `npm run test`            | Vitest unit tests (pricing, packages, services, enquiry validation) |
+| `npm run qa:visual`       | Every route × 7 widths: overflow, links, console, axe; screenshots  |
+| `npm run qa:interactions` | Keyboard and interaction tests for every interactive component      |
+| `npm run verify`          | format check → lint → tests → type-check + build                    |
 
 The two `qa:*` scripts drive Chromium through Playwright and need a running server, e.g.
 `npm run build && npm run preview` in one terminal and
@@ -46,19 +49,26 @@ The two `qa:*` scripts drive Chromium through Playwright and need a running serv
 ```
 src/
   components/
-    home/        Homepage sections (Hero, Services, Benefits, Pricing, Process, Shopify, Contact)
-    layout/      Header, MobileNav (React), Footer
-    ui/          Design-system primitives: Button, Icon, Logo, LogoMark, SectionHeading
+    home/        Homepage sections and islands (PathwaySelector, ApproachStages)
+    page/        PageHero, CtaPanel (inner pages)
+    pricing/     PricingExplorer (standard / founding-rate switch)
+    contact/     ProjectEnquiry (brief composer)
+    layout/      Header (smart sticky), MobileNav, Footer
+    ui/          Button, Icon, Logo, LogoMark, SectionHead, HexLines, Breadcrumbs, ConceptPlate
   data/
     site.ts      Verified agency facts, contact links, navigation
-    content.ts   Services, benefits, packages, process steps
-  layouts/       BaseLayout (SEO meta, JSON-LD, skip link)
-  lib/           pricing.ts (naira formatting, founding discount), icons.ts
-  pages/         index.astro, 404.astro
-  styles/        global.css — Tailwind v4 theme tokens (colours, fonts, radii, motion)
+    services.ts  10 services in 3 families (with approval status)
+    packages.ts  Approved packages, engagement models, comparison matrix, costs
+    concepts.ts  Fictional studio concepts (always labelled as such)
+    home.ts      Point of view, approach stages, differentiators, audience pathways
+    faq.ts       Pricing FAQ
+  layouts/       BaseLayout (SEO meta, JSON-LD, font preload, reveal motion)
+  lib/           pricing.ts, enquiry.ts (validation + brief), icons.ts
+  pages/         index, services/index, services/[slug], pricing, contact, 404, robots.txt
+  styles/        global.css — design tokens and utilities
 tests/           Vitest unit tests
 scripts/         Playwright QA scripts
-docs/            Milestone notes and reviewed screenshots
+docs/            Direction, milestone reports, reviewed screenshots
 ```
 
 ## Design system
@@ -74,8 +84,9 @@ Colours come from the approved flyer and live as Tailwind tokens in `src/styles/
 | `ivory-100`    | `#F7F3EA` | Light sections and pricing cards |
 | `ember`        | `#FD8C55` | Logo mark only                   |
 
-Typography: **Outfit** (display) and **Inter** (body), both self-hosted variable fonts via
-Fontsource — no third-party font requests.
+Typography: **Bricolage Grotesque** (display), **Instrument Serif** (italic accents),
+**Inter** (body) and **JetBrains Mono** (metadata), with **Outfit** for the wordmark only. All are
+self-hosted through Fontsource, so there are no third-party font requests.
 
 Text on coral uses midnight ink rather than white: white on `#FE674F` is 2.9:1 and fails WCAG AA,
 while midnight on coral is 5.9:1.
@@ -84,10 +95,14 @@ while midnight on coral is 5.9:1.
 
 - Contact details, navigation and offer constants live in one place (`src/data/site.ts`,
   `src/lib/pricing.ts`). Change them there, not in components.
-- Founding offer: **10% off the first three eligible website packages** (Launch, Business, Online
-  Catalog). `FOUNDING_CLIENT_SLOTS = 3`, `FOUNDING_DISCOUNT_RATE = 0.1` — covered by unit tests.
+- Founding offer: **10% off** Launch, Business and Online Catalog for a limited number of early
+  clients. `FOUNDING_CLIENT_SLOTS` is `null` until the owner settles the conflict between 3 and 5;
+  set it in `src/lib/pricing.ts` and the copy updates everywhere. Covered by unit tests.
+- New services from the expanded brief are marked `approval: 'pending'` in `src/data/services.ts`.
+- The contact form doesn't store or send data; it hands the brief to the visitor's own email or
+  WhatsApp app. Connect a backend only after a provider and retention policy are approved.
 - No testimonials, clients, portfolio projects, social accounts or registration details are shown.
-  The hero mockup is labelled as an illustrative concept.
+  All work is labelled "Studio concept" (fictional brands).
 
 ## Environment
 

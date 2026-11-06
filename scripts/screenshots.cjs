@@ -1,106 +1,154 @@
 /**
- * Browser QA: captures desktop / tablet / mobile screenshots and checks for
- * horizontal overflow, console errors, broken in-page anchors and the mobile
- * menu. Usage: BASE_URL=http://localhost:4321 node scripts/screenshots.cjs
+ * Browser QA across every route and seven viewport widths.
+ * Checks: horizontal overflow, console/page errors, broken in-page anchors,
+ * internal link status, axe-core WCAG 2.x A/AA rules, mobile menu behaviour.
+ * Saves full-page screenshots for 390px and 1440px.
+ *
+ * Usage: BASE_URL=http://localhost:4321 node scripts/screenshots.cjs
  * Uses the system Playwright install (require('playwright')).
  */
-const { chromium, devices } = require('playwright');
+const { chromium } = require('playwright');
 const fs = require('node:fs');
 const path = require('node:path');
 
-const BASE_URL = process.env.BASE_URL ?? 'http://localhost:4321';
+const BASE_URL = (process.env.BASE_URL ?? 'http://localhost:4321').replace(/\/$/, '');
 const OUT = process.env.OUT_DIR ?? path.join(__dirname, '..', 'screenshots');
 const SCALE = Number(process.env.SCALE ?? 1);
+const WIDTHS = [375, 390, 430, 768, 1280, 1440, 1920];
+const SHOT_WIDTHS = new Set([390, 1440]);
 
-const viewports = [
-  {
-    name: 'desktop',
-    options: { viewport: { width: 1440, height: 900 }, deviceScaleFactor: SCALE },
-  },
-  { name: 'tablet', options: { viewport: { width: 820, height: 1180 }, deviceScaleFactor: SCALE } },
-  { name: 'mobile', options: { ...devices['iPhone 13'] } },
-];
+async function discoverRoutes() {
+  const res = await fetch(`${BASE_URL}/sitemap-0.xml`).catch(() => null);
+  if (res?.ok) {
+    const xml = await res.text();
+    const routes = [...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map((m) => new URL(m[1]).pathname);
+    if (routes.length) return routes;
+  }
+  return ['/', '/services', '/pricing', '/contact'];
+}
 
 (async () => {
   fs.mkdirSync(OUT, { recursive: true });
-  const browser = await chromium.launch();
+  const routes = process.env.ROUTES ? process.env.ROUTES.split(',') : await discoverRoutes();
+  routes.push('/404');
+  const browser = await browser_launch();
   const problems = [];
+  const linkStatus = new Map();
+  let checks = 0;
 
-  for (const { name, options } of viewports) {
-    const context = await browser.newContext(options);
-    const page = await context.newPage();
-    const errors = [];
-    page.on('console', (msg) => msg.type() === 'error' && errors.push(msg.text()));
-    page.on('pageerror', (err) => errors.push(err.message));
+  for (const route of routes) {
+    for (const width of WIDTHS) {
+      const context = await browser.newContext({
+        viewport: { width, height: width < 768 ? 844 : 900 },
+        deviceScaleFactor: SHOT_WIDTHS.has(width) ? SCALE : 1,
+        isMobile: width < 768,
+        hasTouch: width < 768,
+      });
+      const page = await context.newPage();
+      const errors = [];
+      page.on('console', (msg) => msg.type() === 'error' && errors.push(msg.text()));
+      page.on('pageerror', (err) => errors.push(err.message));
+      const tag = `[${route} @${width}]`;
 
-    await page.goto(BASE_URL, { waitUntil: 'networkidle' });
-    // Scroll through so client:visible islands hydrate before capture.
-    await page.evaluate(async () => {
-      for (let y = 0; y < document.body.scrollHeight; y += 600) {
-        window.scrollTo(0, y);
-        await new Promise((r) => setTimeout(r, 60));
+      await page.goto(BASE_URL + route, { waitUntil: 'networkidle' });
+      await page.evaluate(async () => {
+        for (let y = 0; y < document.body.scrollHeight; y += 600) {
+          window.scrollTo(0, y);
+          await new Promise((r) => setTimeout(r, 40));
+        }
+        window.scrollTo(0, 0);
+      });
+      await page.waitForTimeout(700);
+
+      const overflow = await page.evaluate(() => {
+        const w = document.documentElement.clientWidth;
+        if (document.documentElement.scrollWidth > w + 1) {
+          return [...document.querySelectorAll('body *')]
+            .filter((el) => {
+              const r = el.getBoundingClientRect();
+              return r.width > 0 && r.right > w + 1 && !el.closest('[aria-hidden="true"]');
+            })
+            .slice(0, 4)
+            .map((el) => `${el.tagName.toLowerCase()}.${String(el.className).slice(0, 50)}`);
+        }
+        return [];
+      });
+      if (overflow.length) problems.push(`${tag} horizontal overflow: ${overflow.join(' | ')}`);
+
+      const { anchors, links } = await page.evaluate(() => {
+        const hrefs = [...document.querySelectorAll('a[href]')].map((a) => a.getAttribute('href'));
+        const anchors = hrefs
+          .filter((h) => h.startsWith('#') && h.length > 1)
+          .map((h) => h.slice(1))
+          .filter((id) => !document.getElementById(id));
+        const links = hrefs.filter((h) => h.startsWith('/'));
+        const empty = hrefs.filter((h) => h === '' || h === '#');
+        return { anchors: [...anchors, ...empty.map(() => '(empty href)')], links };
+      });
+      if (anchors.length)
+        problems.push(`${tag} broken anchors: ${[...new Set(anchors)].join(', ')}`);
+      for (const link of links) {
+        const [p, hash] = link.split('#');
+        const key = p || '/';
+        if (!linkStatus.has(key)) {
+          const r = await fetch(BASE_URL + key);
+          linkStatus.set(key, { status: r.status, html: r.ok ? await r.text() : '' });
+        }
+        const { status, html } = linkStatus.get(key);
+        if (status !== 200) problems.push(`${tag} link ${link} → ${status}`);
+        else if (hash && !html.includes(`id="${hash}"`))
+          problems.push(`${tag} link ${link} → missing #${hash}`);
       }
-      window.scrollTo(0, 0);
-    });
-    await page.waitForTimeout(500);
 
-    const overflow = await page.evaluate(() => {
-      const width = document.documentElement.clientWidth;
-      return [...document.querySelectorAll('body *')]
-        .filter((el) => {
-          const r = el.getBoundingClientRect();
-          return (
-            r.width > 0 &&
-            (r.right > width + 1 || r.left < -1) &&
-            !el.closest('[aria-hidden="true"]')
-          );
-        })
-        .slice(0, 5)
-        .map((el) => `${el.tagName.toLowerCase()}.${String(el.className).slice(0, 60)}`);
-    });
-    if (overflow.length)
-      problems.push(`[${name}] elements overflow viewport: ${overflow.join(' | ')}`);
+      await page.addScriptTag({ path: require.resolve('axe-core/axe.min.js') });
+      const violations = await page.evaluate(async () => {
+        // eslint-disable-next-line no-undef
+        const result = await axe.run(document, {
+          runOnly: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'],
+        });
+        return result.violations.map(
+          (v) => `${v.id} (${v.nodes.length}): ${v.nodes[0].target.join(' ')}`,
+        );
+      });
+      if (violations.length) problems.push(`${tag} axe: ${violations.join(' | ')}`);
 
-    const missingAnchors = await page.evaluate(() =>
-      [...document.querySelectorAll('a[href^="/#"], a[href^="#"]')]
-        .map((a) => a.getAttribute('href').replace(/^\/?#/, ''))
-        .filter((id) => id && id !== 'main' && !document.getElementById(id)),
-    );
-    if (missingAnchors.length)
-      problems.push(`[${name}] broken anchors: ${[...new Set(missingAnchors)].join(', ')}`);
+      if (SHOT_WIDTHS.has(width)) {
+        const name = `${route === '/' ? 'home' : route.slice(1).replace(/\//g, '_')}-${width}`;
+        await page.evaluate(() =>
+          document
+            .querySelectorAll('[data-reveal]')
+            .forEach((el) => el.classList.add('is-revealed')),
+        );
+        await page.screenshot({ path: path.join(OUT, `${name}.png`), fullPage: true });
+      }
 
-    // Automated accessibility scan (WCAG 2.x A/AA rules) with axe-core.
-    await page.addScriptTag({ path: require.resolve('axe-core/axe.min.js') });
-    const violations = await page.evaluate(async () => {
-      // eslint-disable-next-line no-undef
-      const result = await axe.run(document, { runOnly: ['wcag2a', 'wcag2aa', 'wcag21aa'] });
-      return result.violations.map(
-        (v) => `${v.id} (${v.nodes.length}): ${v.nodes[0].target.join(' ')}`,
-      );
-    });
-    if (violations.length) problems.push(`[${name}] axe: ${violations.join(' | ')}`);
+      if (width === 390 && route === '/') {
+        await page.getByRole('button', { name: 'Menu' }).click();
+        await page.waitForTimeout(400);
+        await page.screenshot({ path: path.join(OUT, 'menu-390.png') });
+        const focused = await page.evaluate(() => document.activeElement?.textContent?.trim());
+        if (!focused?.includes('Work')) problems.push(`${tag} menu did not focus first link`);
+        await page.keyboard.press('Escape');
+        if (!(await page.locator('#mobile-menu').isHidden()))
+          problems.push(`${tag} menu did not close on Escape`);
+      }
 
-    await page.screenshot({ path: path.join(OUT, `home-${name}-full.png`), fullPage: true });
-    await page.screenshot({ path: path.join(OUT, `home-${name}-hero.png`) });
-
-    if (name === 'mobile') {
-      await page.getByRole('button', { name: 'Open menu' }).click();
-      await page.waitForTimeout(300);
-      await page.screenshot({ path: path.join(OUT, 'home-mobile-menu.png') });
-      await page.keyboard.press('Escape');
-      const closed = await page.locator('#mobile-menu').isHidden();
-      if (!closed) problems.push('[mobile] menu did not close on Escape');
+      if (errors.length) problems.push(`${tag} console errors: ${errors.join(' | ')}`);
+      checks += 1;
+      await context.close();
     }
-
-    if (errors.length) problems.push(`[${name}] console errors: ${errors.join(' | ')}`);
-    await context.close();
   }
 
   await browser.close();
+  console.log(`Checked ${routes.length} routes × ${WIDTHS.length} widths = ${checks} page loads.`);
   if (problems.length) {
-    console.error('QA problems found:\n- ' + problems.join('\n- '));
+    console.error(`QA problems found (${problems.length}):\n- ` + problems.join('\n- '));
     process.exitCode = 1;
   } else {
     console.log(`QA passed. Screenshots written to ${OUT}`);
   }
 })();
+
+function browser_launch() {
+  return chromium.launch();
+}

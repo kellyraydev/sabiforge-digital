@@ -1,3 +1,5 @@
+> **Superseded** by [`MILESTONE-B-C.md`](MILESTONE-B-C.md). The homepage described here was redesigned in milestone B, and its screenshots were never committed (see the correction in MILESTONE-B-C §9).
+
 # Milestone 1 — Homepage (for visual approval)
 
 Date: 2026-11-06 · Branch: `claude/sabiforge-digital-init-kxar7l`
