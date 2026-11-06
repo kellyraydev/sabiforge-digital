@@ -6,9 +6,12 @@ import Services from '@/components/home/Services.astro';
 import Approach from '@/components/home/Approach.astro';
 import Engagement from '@/components/home/Engagement.astro';
 import Closing from '@/components/home/Closing.astro';
+import serifItalicFont from '@fontsource/instrument-serif/files/instrument-serif-latin-400-italic.woff2?url';
 ---
 
 <BaseLayout description="SabiForge Digital is a design and development studio in Nigeria creating distinctive websites, online stores and digital experiences for businesses at every stage.">
+  {/* The H1 emphasis uses this face; preloading avoids a late discovery and font swap. */}
+  <link slot="head" rel="preload" href={serifItalicFont} as="font" type="font/woff2" crossorigin />
   <Hero />
   <Work />
   <Services />

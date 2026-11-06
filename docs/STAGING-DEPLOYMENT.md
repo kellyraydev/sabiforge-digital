@@ -141,11 +141,11 @@ the "Press Tab to highlight each item" setting; verify the skip link manually on
 
 ### New findings
 
-| Severity | Finding                                                                                                                                                                                                                           | Action                                                                                                     |
-| -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| Medium   | Homepage mobile LCP is about 4.3 s (perf 69-77; desktop 99). LCP element is the hero `h1`, hidden until JS adds `is-revealed` (about 1.4 s render delay under 4x CPU throttle). Other pages 94-99 on mobile; `/work/` TBT is high | Not changed (approved design). Owner to decide whether the hero heading should show without waiting for JS |
-| Info     | Lighthouse is noisy on this laptop (one `/services/` desktop run failed; scores moved 60-77 on one page). Treat as indicative                                                                                                     | Re-measure on staging, signed in                                                                           |
-| Info     | Preview URLs exist for every uploaded version and are protected by Access; keep Preview-URL Access enabled                                                                                                                        | None                                                                                                       |
+| Severity | Finding                                                                                                                                                                                                                           | Action                                                                                                                                                                   |
+| -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Medium   | Homepage mobile LCP is about 4.3 s (perf 69-77; desktop 99). LCP element is the hero `h1`, hidden until JS adds `is-revealed` (about 1.4 s render delay under 4x CPU throttle). Other pages 94-99 on mobile; `/work/` TBT is high | Owner approved a targeted fix, see section 9. (Original note: not changed, approved design.) Owner to decide whether the hero heading should show without waiting for JS |
+| Info     | Lighthouse is noisy on this laptop (one `/services/` desktop run failed; scores moved 60-77 on one page). Treat as indicative                                                                                                     | Re-measure on staging, signed in                                                                                                                                         |
+| Info     | Preview URLs exist for every uploaded version and are protected by Access; keep Preview-URL Access enabled                                                                                                                        | None                                                                                                                                                                     |
 
 ## 8. Rollback
 
@@ -153,3 +153,90 @@ the "Press Tab to highlight each item" setting; verify the skip link manually on
 version works the same (`npx wrangler versions list --name sabiforge-digital-staging`). Emergency stop:
 disable the `workers.dev` route in Settings > Domains & Routes. Access remains a second lock. After any
 rollback, repeat the anonymous `curl` denial check in section 1.
+
+## 9. Homepage mobile performance correction (owner-approved, 6 November 2026)
+
+**Status: committed on `claude/sabiforge-staging` for review; NOT yet deployed to the staging Worker**
+(live version is still `11eb2eed`). Access protection was re-checked and is unchanged. No Access
+policy was modified.
+
+### Change (three files, no visual change)
+
+1. `src/components/home/Hero.astro`: removed `data-reveal` from the primary `h1#hero-title`. It was
+   `opacity:0` until an end-of-body script's IntersectionObserver fired, so the LCP element waited
+   for JavaScript. The kicker, lede, buttons and hero art keep their reveal motion.
+2. `src/layouts/BaseLayout.astro`: added an optional named `head` slot (empty on all other pages).
+3. `src/pages/index.astro`: preloads the Instrument Serif italic face used by the H1 `<em>`. It was
+   discovered only after CSS parsing, so the emphasis rendered in a fallback serif first, then swapped.
+
+Verified unchanged between the original and final builds (computed style and geometry, Chromium):
+H1 rect, font family/size/weight/line-height/letter-spacing/colour and `<em>` styling are identical at
+390 px, 1440 px and with JavaScript disabled; the H1 is `opacity:1; transform:none` in all three.
+
+### Method
+
+Same machine and server for every run (`wrangler dev` over the staging `dist`), Lighthouse mobile
+preset (simulated Slow 4G, 4x CPU), homepage only, performance category. "Before" is the original
+build. Medians shown; ranges in brackets. Lighthouse here is noisy (over a third of runs in the
+final two batches failed or timed out in the harness and were excluded), so treat as indicative.
+
+| Metric (mobile Lighthouse, median) | Before (5/5 runs)      | H1 fix only (5/5)      | Final: fix + preload (7 of 11 attempted) |
+| ---------------------------------- | ---------------------- | ---------------------- | ---------------------------------------- |
+| Performance score                  | 74 (70-80)             | 72 (65-78)             | 81 (75-97)                               |
+| LCP                                | 4,353 ms (4,347-4,389) | 3,772 ms (2,975-4,359) | 1,569 ms (1,106-3,809)                   |
+| FCP                                | 1,127 ms               | 1,136 ms               | 1,127 ms                                 |
+| CLS                                | 0                      | 0 (one run 0.011)      | 0 in every run                           |
+| TBT                                | 450 ms                 | 1,086 ms (noisy)       | 386 ms                                   |
+| LCP element render delay           | 1,493 ms (1,322-1,617) | 655 ms (509-794)       | 646 ms (479-952)                         |
+| LCP element                        | `h1#hero-title`        | `h1#hero-title`        | `h1#hero-title`                          |
+
+Second, closer-to-reality probe (Chromium DevTools throttling: 150 ms RTT, 1.6 Mbps, 4x CPU, 412 px
+mobile viewport; logs every LCP entry):
+
+| Build       | FCP / LCP entries                                                          | H1 italic font arrives |
+| ----------- | -------------------------------------------------------------------------- | ---------------------- |
+| Before      | FCP 2.6-2.8 s on a small element; **H1 LCP 3.2-3.4 s** (about 0.6 s later) | about 2.3 s            |
+| H1 fix only | single LCP = FCP = 2.5-3.0 s on the H1                                     | about 2.3 s            |
+| Final       | single LCP = FCP = **2.4-2.5 s** on the H1                                 | **about 1.0 s**        |
+
+Reading: the H1 now paints with the first frame, saving roughly 0.8-1.0 s of LCP in the throttled
+probe and removing the 1.3-1.6 s JS-dependent render delay in Lighthouse. The preload does not change
+LCP much on its own but makes the final italic typeface present at first paint.
+
+### Remaining LCP bottlenecks and font review (not changed; need owner decision)
+
+- **Lighthouse LCP is bimodal** (1.1-1.6 s in most final runs, 3.0-3.8 s in the rest). The slow runs
+  are the simulator re-reporting the H1 as a later LCP when the web-font swap enlarges it. The
+  throttled probe never showed this because both H1 fonts are preloaded and arrive before first
+  paint. A robust fix is metric-adjusted fallback fonts (`size-adjust`/`ascent-override`) for
+  Bricolage Grotesque, or `font-display: optional` for it. Both touch typography rendering, so they
+  need approval and a visual check.
+- **Render-blocking CSS**: two stylesheets (about 19 KB + 3 KB, est. 340 ms). Inlining critical CSS
+  would help FCP but is a larger build change.
+- **Fonts loaded on the homepage**: Bricolage, Inter latin, Instrument Serif italic (now preloaded);
+  Outfit, JetBrains Mono and Instrument Serif regular are discovered late but not on the LCP path;
+  Inter latin-ext (84 KB) is fetched because the page contains the Naira sign, and an Inter
+  vietnamese subset (11 KB) also loads. Subsetting Inter to the glyphs actually used would save about
+  95 KB. All faces use `font-display: swap` (no invisible text).
+- **JavaScript**: about 64 KB `client.js` plus React chunks for the islands drives TBT (172-987 ms
+  across runs); the hero portrait is 96 KB WebP and is no longer the LCP element.
+- Conditions are local, not a live edge/field measurement. Re-measure on staging signed in.
+
+### Regression results on the final build
+
+| Check                                                      | Result                                                                                                                                            |
+| ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Prettier, ESLint, Astro check, 36/36 unit tests            | Pass                                                                                                                                              |
+| Sitemap, staging-output and SITE_URL policy                | Pass (18 URLs; 23 pages; staging origin)                                                                                                          |
+| Interactions: Chromium / Firefox / WebKit                  | 28/28, 28/28, 28/28 (WebKit once failed at the contact-form radio, a click-before-hydration timing flake on an untouched page; 3/3 reruns passed) |
+| 21 routes x 7 widths, axe A/AA, overflow, console, anchors | Pass, 147 loads, no problems                                                                                                                      |
+| No JavaScript / reduced motion                             | Covered by the interaction suite; H1 verified visible with JS disabled                                                                            |
+
+## 10. Cloudflare Access policy: review pending owner confirmation
+
+Reported by the owner; **no policy was changed by this session**: the Allow policy currently admits all
+account members (broader than a named-reviewer list), and a full Gmail address was entered as an
+email-domain rule instead of an individual email. Needed from the owner: the exact reviewer email
+addresses. Then replace both with an Allow rule of type Emails (exact addresses). Preserve protection
+while editing: edit the existing application, do not delete it, and re-run the anonymous `curl` denial
+check (section 1) afterwards.
