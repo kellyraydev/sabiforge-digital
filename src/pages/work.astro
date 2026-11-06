@@ -9,6 +9,7 @@ import Decisions from '@/components/work/Decisions.astro';
 import Specimen from '@/components/work/Specimen.astro';
 import { MenuDemo, ProductDemo, ExpectDemo, InvoiceDemo } from '@/components/work/ConceptDemos';
 import { concepts, CONCEPT_LABEL, CONCEPT_DISCLAIMER, getConcept } from '@/data/concepts';
+import EditorialSignal from '@/components/ui/EditorialSignal.astro';
 
 const adun = getConcept('adun-table')!;
 const kora = getConcept('kora-home')!;
@@ -64,6 +65,12 @@ const tag = (c: (typeof concepts)[number]) =>
             </li>
           </ul>
         </aside>
+      </div>
+      <div class="mt-12 max-w-2xl lg:ml-auto lg:-mt-16 lg:w-[36rem]">
+        <EditorialSignal
+          variant="work"
+          label="Portfolio index visual showing four interface studies"
+        />
       </div>
 
       <!-- Contact-sheet index -->

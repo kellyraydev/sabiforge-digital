@@ -16,6 +16,7 @@ import {
 } from '@/data/packages';
 import { pricingFaq } from '@/data/faq';
 import { discountPercentLabel, formatNaira, foundingSlotsLabel } from '@/lib/pricing';
+import EditorialSignal from '@/components/ui/EditorialSignal.astro';
 
 const modelName = (id: string) => engagementModels.find((m) => m.id === id)?.name ?? '';
 const cards: PackageCard[] = packages.map((pkg) => {
@@ -79,6 +80,9 @@ const faqLd = {
       starting prices, and anything not yet defined is agreed in your written proposal — never
       assumed.
     </p>
+    <div slot="visual">
+      <EditorialSignal variant="pricing" label="Editorial pricing system visual" />
+    </div>
   </PageHero>
 
   <section aria-labelledby="packages-title" class="pb-20 lg:pb-28">

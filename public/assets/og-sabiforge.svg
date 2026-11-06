@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" fill="none">
+  <rect width="1200" height="630" fill="#031F25"/>
+  <path d="M0 494 368 230 830 630H0V494Z" fill="#06292F"/>
+  <path d="M744 0h456v630H972L744 0Z" fill="#124E47" opacity=".62"/>
+  <g opacity=".35" stroke="#86F0D2"><path d="M0 120h1200M0 220h1200M0 320h1200M0 420h1200M0 520h1200"/><path d="M100 0v630M300 0v630M500 0v630M700 0v630M900 0v630M1100 0v630"/></g>
+  <circle cx="1010" cy="142" r="118" stroke="#FE674F" stroke-width="2" opacity=".7"/><circle cx="1010" cy="142" r="70" stroke="#86F0D2" opacity=".7"/>
+  <rect x="684" y="178" width="354" height="232" rx="12" transform="rotate(-7 684 178)" fill="#F7F3EA"/>
+  <rect x="714" y="222" width="180" height="14" transform="rotate(-7 714 222)" fill="#124E47"/>
+  <rect x="714" y="256" width="112" height="9" transform="rotate(-7 714 256)" fill="#FE674F"/>
+  <circle cx="938" cy="322" r="58" fill="#86F0D2"/><circle cx="982" cy="284" r="42" fill="#FE674F"/>
+  <text x="70" y="112" fill="#86F0D2" font-family="monospace" font-size="18" letter-spacing="3">SABIFORGE DIGITAL / NIGERIA</text>
+  <text x="64" y="278" fill="#F7F3EA" font-family="Arial, sans-serif" font-size="80" font-weight="700">Distinctive websites.</text>
+  <text x="66" y="366" fill="#86F0D2" font-family="Georgia, serif" font-size="86" font-style="italic">Designed to stand out.</text>
+  <text x="70" y="530" fill="#F7F3EA" font-family="monospace" font-size="18" letter-spacing="2">STRATEGY / ART DIRECTION / BUILD</text>
+</svg>

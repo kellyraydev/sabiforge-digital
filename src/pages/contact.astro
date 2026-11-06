@@ -6,6 +6,7 @@ import ProjectEnquiry from '@/components/contact/ProjectEnquiry';
 import { services } from '@/data/services';
 import { packages } from '@/data/packages';
 import { site, whatsappLink, mailtoLink } from '@/data/site';
+import EditorialSignal from '@/components/ui/EditorialSignal.astro';
 
 const serviceOptions = services.map((s) => ({ value: s.slug, label: s.name }));
 const packageOptions = [
@@ -39,6 +40,9 @@ const expectations = [
       First website or complex redesign, the brief is the same: a few details and a few sentences
       about what you want to achieve. It takes about three minutes.
     </p>
+    <div slot="visual">
+      <EditorialSignal variant="contact" label="Editorial project brief visual" />
+    </div>
   </PageHero>
 
   <section aria-label="Project enquiry" class="pb-24 lg:pb-32">
