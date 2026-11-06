@@ -131,14 +131,13 @@ Manual assistive-technology checklist for protected staging:
 
 `CI` is configured to run formatting, ESLint, Vitest, Astro check, production and staging builds,
 SITE_URL policy checks, a parser check against the actual generated sitemap XML, and a staging
-metadata check across every HTML page. The first GitHub push and PR runs on `874b59e` both passed
-(runs [42202620136](https://github.com/kellyraydev/sabiforge-digital/actions/runs/42202620136) and
-[42202626361](https://github.com/kellyraydev/sabiforge-digital/actions/runs/42202626361)). Those runs
-reported non-blocking Node 20 action-runtime and `ubuntu-latest` migration notices; the workflow
-now pins Node 24-compatible actions and Ubuntu 24.04. The updated workflow must pass on its new head
-commit before the CI gate is considered current. The authenticated staging workflow has not run:
-the host, Access policies, environment secrets and staging URL remain unconfigured pending approval.
-Local results are not remote CI evidence.
+metadata check across every HTML page. On the current code head `e0a78b0`, both GitHub push and PR
+runs passed all steps: [42203023565](https://github.com/kellyraydev/sabiforge-digital/actions/runs/42203023565)
+and [42203031995](https://github.com/kellyraydev/sabiforge-digital/actions/runs/42203031995). The
+earlier successful run on `874b59e` reported non-blocking Node 20 action-runtime and `ubuntu-latest`
+migration notices; the workflow now pins Node 24-compatible actions and Ubuntu 24.04. The separate
+authenticated staging workflow has not run because the host, Access policies, environment secrets
+and staging URL remain unconfigured pending approval. Local results are not remote CI evidence.
 
 ## 6. Performance, accessibility and design findings
 
