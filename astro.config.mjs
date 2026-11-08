@@ -61,5 +61,9 @@ export default defineConfig({
   ],
   vite: {
     plugins: [tailwindcss()],
+    server: {
+      // Accept the external preview/tunnel host (*.e2b.app) in development.
+      allowedHosts: true,
+    },
   },
 });
