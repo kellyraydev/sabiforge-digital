@@ -1,0 +1,193 @@
+{
+  "generatedAt": "2026-11-06T05:16:47.995Z",
+  "viewports": [
+    {
+      "width": 390,
+      "hiddenReveal": 26,
+      "heroHeight": 1023,
+      "pageHeight": 14018,
+      "headline": {
+        "x": 20,
+        "y": 157,
+        "w": 350,
+        "h": 202,
+        "bottom": 358
+      },
+      "portrait": {
+        "x": 211,
+        "y": 667,
+        "w": 129,
+        "h": 157,
+        "bottom": 824
+      },
+      "laptop": {
+        "x": -13,
+        "y": 720,
+        "w": 347,
+        "h": 246,
+        "bottom": 967
+      },
+      "phone": {
+        "x": 287,
+        "y": 827,
+        "w": 95,
+        "h": 159,
+        "bottom": 986
+      },
+      "cta": [
+        {
+          "label": "Start a project",
+          "y": 546,
+          "bottom": 598
+        },
+        {
+          "label": "Explore our work",
+          "y": 611,
+          "bottom": 663
+        }
+      ],
+      "conceptCount": 3
+    },
+    {
+      "width": 768,
+      "hiddenReveal": 26,
+      "heroHeight": 1171,
+      "pageHeight": 12178,
+      "headline": {
+        "x": 32,
+        "y": 157,
+        "w": 518,
+        "h": 295,
+        "bottom": 451
+      },
+      "portrait": {
+        "x": 438,
+        "y": 619,
+        "w": 229,
+        "h": 278,
+        "bottom": 897
+      },
+      "laptop": {
+        "x": 17,
+        "y": 682,
+        "w": 608,
+        "h": 422,
+        "bottom": 1104
+      },
+      "phone": {
+        "x": 598,
+        "y": 853,
+        "w": 157,
+        "h": 265,
+        "bottom": 1118
+      },
+      "cta": [
+        {
+          "label": "Start a project",
+          "y": 590,
+          "bottom": 642
+        },
+        {
+          "label": "Explore our work",
+          "y": 590,
+          "bottom": 642
+        }
+      ],
+      "conceptCount": 3
+    },
+    {
+      "width": 1280,
+      "hiddenReveal": 26,
+      "heroHeight": 900,
+      "pageHeight": 9669,
+      "headline": {
+        "x": 48,
+        "y": 275,
+        "w": 477,
+        "h": 271,
+        "bottom": 545
+      },
+      "portrait": {
+        "x": 969,
+        "y": 177,
+        "w": 202,
+        "h": 246,
+        "bottom": 423
+      },
+      "laptop": {
+        "x": 596,
+        "y": 364,
+        "w": 537,
+        "h": 375,
+        "bottom": 739
+      },
+      "phone": {
+        "x": 1110,
+        "y": 526,
+        "w": 139,
+        "h": 234,
+        "bottom": 760
+      },
+      "cta": [
+        {
+          "label": "Start a project",
+          "y": 684,
+          "bottom": 736
+        },
+        {
+          "label": "Explore our work",
+          "y": 684,
+          "bottom": 736
+        }
+      ],
+      "conceptCount": 3
+    },
+    {
+      "width": 1440,
+      "hiddenReveal": 26,
+      "heroHeight": 900,
+      "pageHeight": 9794,
+      "headline": {
+        "x": 48,
+        "y": 241,
+        "w": 537,
+        "h": 306,
+        "bottom": 547
+      },
+      "portrait": {
+        "x": 1093,
+        "y": 176,
+        "w": 231,
+        "h": 280,
+        "bottom": 456
+      },
+      "laptop": {
+        "x": 668,
+        "y": 317,
+        "w": 612,
+        "h": 425,
+        "bottom": 742
+      },
+      "phone": {
+        "x": 1253,
+        "y": 494,
+        "w": 158,
+        "h": 267,
+        "bottom": 761
+      },
+      "cta": [
+        {
+          "label": "Start a project",
+          "y": 718,
+          "bottom": 770
+        },
+        {
+          "label": "Explore our work",
+          "y": 718,
+          "bottom": 770
+        }
+      ],
+      "conceptCount": 3
+    }
+  ]
+}

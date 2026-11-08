@@ -22,7 +22,7 @@ const { label, title, crumbs, class: className } = Astro.props;
   />
   <div class="container-page">
     <Breadcrumbs items={crumbs} />
-    <div class="mt-10 grid gap-10 lg:grid-cols-[1.5fr_1fr] lg:items-end">
+    <div class="mt-10 grid gap-10 lg:grid-cols-[1.3fr_minmax(20rem,0.7fr)] lg:items-end">
       <div>
         <p class="meta text-mint-300" data-reveal>
           {label}
@@ -35,6 +35,11 @@ const { label, title, crumbs, class: className } = Astro.props;
         </div>
       )}
     </div>
+    {Astro.slots.has('visual') && (
+      <div class="mt-10 lg:mt-14 lg:ml-auto lg:w-[min(100%,34rem)]">
+        <slot name="visual" />
+      </div>
+    )}
     <slot name="after" />
   </div>
 </section>

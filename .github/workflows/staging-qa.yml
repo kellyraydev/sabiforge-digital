@@ -1,0 +1,40 @@
+name: Authenticated staging QA
+
+on:
+  workflow_dispatch:
+    inputs:
+      browser:
+        description: Browser engine to test
+        type: choice
+        options: [chromium, firefox, webkit]
+        default: chromium
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  qa:
+    runs-on: ubuntu-24.04
+    environment: staging
+    env:
+      BASE_URL: ${{ vars.STAGING_BASE_URL }}
+      BROWSER: ${{ inputs.browser }}
+      CF_ACCESS_CLIENT_ID: ${{ secrets.CF_ACCESS_CLIENT_ID }}
+      CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          package-manager-cache: false
+      - run: npm ci
+      - name: Require protected staging URL and Access service token
+        shell: bash
+        run: |
+          test -n "$BASE_URL" || { echo 'Set STAGING_BASE_URL in the staging environment.'; exit 1; }
+          test -n "$CF_ACCESS_CLIENT_ID" || { echo 'Set the staging Access service token secrets.'; exit 1; }
+          test -n "$CF_ACCESS_CLIENT_SECRET" || { echo 'Set the staging Access service token secrets.'; exit 1; }
+      - run: npx playwright install --with-deps "$BROWSER"
+      - run: npm run qa:interactions
+      - run: npm run qa:visual

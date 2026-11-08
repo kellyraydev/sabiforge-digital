@@ -9,6 +9,7 @@ import CtaPanel from '@/components/page/CtaPanel.astro';
 import StoreAnatomy from '@/components/shopify/StoreAnatomy';
 import { offerings, platformRealities } from '@/data/commerce';
 import { CONCEPT_LABEL } from '@/data/concepts';
+import EditorialSignal from '@/components/ui/EditorialSignal.astro';
 ---
 
 <BaseLayout
@@ -69,6 +70,9 @@ import { CONCEPT_LABEL } from '@/data/concepts';
             </a>
           </figcaption>
         </figure>
+      </div>
+      <div class="mt-12 max-w-2xl lg:ml-auto lg:-mt-10 lg:w-[34rem]">
+        <EditorialSignal variant="commerce" label="Commerce interface visual study" />
       </div>
     </div>
   </section>

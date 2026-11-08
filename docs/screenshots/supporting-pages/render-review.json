@@ -1,0 +1,165 @@
+{
+  "generatedAt": "2026-11-06T08:29:26.350Z",
+  "routes": [
+    {
+      "route": "/work",
+      "width": 390,
+      "title": "Work: studio concepts — SabiForge Digital",
+      "scrollHeight": 18687,
+      "hidden": 0,
+      "signal": 1,
+      "bodyText": 10630,
+      "errors": []
+    },
+    {
+      "route": "/work",
+      "width": 1440,
+      "title": "Work: studio concepts — SabiForge Digital",
+      "scrollHeight": 11231,
+      "hidden": 0,
+      "signal": 1,
+      "bodyText": 10795,
+      "errors": []
+    },
+    {
+      "route": "/about",
+      "width": 390,
+      "title": "About — SabiForge Digital",
+      "scrollHeight": 11331,
+      "hidden": 0,
+      "signal": 1,
+      "bodyText": 5736,
+      "errors": []
+    },
+    {
+      "route": "/about",
+      "width": 1440,
+      "title": "About — SabiForge Digital",
+      "scrollHeight": 7774,
+      "hidden": 0,
+      "signal": 1,
+      "bodyText": 5783,
+      "errors": []
+    },
+    {
+      "route": "/services",
+      "width": 390,
+      "title": "Services — SabiForge Digital",
+      "scrollHeight": 9483,
+      "hidden": 0,
+      "signal": 1,
+      "bodyText": 4810,
+      "errors": []
+    },
+    {
+      "route": "/services",
+      "width": 1440,
+      "title": "Services — SabiForge Digital",
+      "scrollHeight": 5583,
+      "hidden": 0,
+      "signal": 1,
+      "bodyText": 4937,
+      "errors": []
+    },
+    {
+      "route": "/pricing",
+      "width": 390,
+      "title": "Pricing — SabiForge Digital",
+      "scrollHeight": 11646,
+      "hidden": 0,
+      "signal": 1,
+      "bodyText": 5756,
+      "errors": []
+    },
+    {
+      "route": "/pricing",
+      "width": 1440,
+      "title": "Pricing — SabiForge Digital",
+      "scrollHeight": 6732,
+      "hidden": 0,
+      "signal": 1,
+      "bodyText": 6583,
+      "errors": []
+    },
+    {
+      "route": "/contact",
+      "width": 390,
+      "title": "Start a project — SabiForge Digital",
+      "scrollHeight": 5530,
+      "hidden": 0,
+      "signal": 1,
+      "bodyText": 3278,
+      "errors": []
+    },
+    {
+      "route": "/contact",
+      "width": 1440,
+      "title": "Start a project — SabiForge Digital",
+      "scrollHeight": 3092,
+      "hidden": 0,
+      "signal": 1,
+      "bodyText": 3325,
+      "errors": []
+    },
+    {
+      "route": "/process",
+      "width": 390,
+      "title": "Process: how a project works — SabiForge Digital",
+      "scrollHeight": 18909,
+      "hidden": 0,
+      "signal": 1,
+      "bodyText": 10758,
+      "errors": []
+    },
+    {
+      "route": "/process",
+      "width": 1440,
+      "title": "Process: how a project works — SabiForge Digital",
+      "scrollHeight": 12430,
+      "hidden": 0,
+      "signal": 1,
+      "bodyText": 11125,
+      "errors": []
+    },
+    {
+      "route": "/shopify",
+      "width": 390,
+      "title": "Shopify & e-commerce — SabiForge Digital",
+      "scrollHeight": 15041,
+      "hidden": 0,
+      "signal": 1,
+      "bodyText": 8979,
+      "errors": []
+    },
+    {
+      "route": "/shopify",
+      "width": 1440,
+      "title": "Shopify & e-commerce — SabiForge Digital",
+      "scrollHeight": 8655,
+      "hidden": 0,
+      "signal": 1,
+      "bodyText": 9026,
+      "errors": []
+    },
+    {
+      "route": "/services/website-strategy-ux-ui-design",
+      "width": 390,
+      "title": "Website Strategy & UX/UI Design — SabiForge Digital",
+      "scrollHeight": 8918,
+      "hidden": 0,
+      "signal": 1,
+      "bodyText": 4321,
+      "errors": []
+    },
+    {
+      "route": "/services/website-strategy-ux-ui-design",
+      "width": 1440,
+      "title": "Website Strategy & UX/UI Design — SabiForge Digital",
+      "scrollHeight": 5577,
+      "hidden": 0,
+      "signal": 1,
+      "bodyText": 4368,
+      "errors": []
+    }
+  ]
+}

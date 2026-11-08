@@ -5,12 +5,14 @@ Agency website for **SabiForge Digital** — _Built for business. Ready for what
 Built with [Astro](https://astro.build) (static output), TypeScript (strict), Tailwind CSS v4 and
 React islands for interactive components.
 
-> Status: **milestones B and C (homepage, services, pricing, contact) are ready for review.** The
-> site is not deployed anywhere.
+> Status: **pre-launch readiness review in progress.** The site is not deployed anywhere. Six
+> services, the founding-offer conditions, package terms and the legal drafts still require owner
+> decisions before public launch.
 >
 > - Creative direction and audit: [`docs/CREATIVE-DIRECTION.md`](docs/CREATIVE-DIRECTION.md)
 > - Results, test evidence, open questions: [`docs/MILESTONE-B-C.md`](docs/MILESTONE-B-C.md)
 > - Earlier homepage milestone (superseded): [`docs/HOMEPAGE-MILESTONE.md`](docs/HOMEPAGE-MILESTONE.md)
+> - Authoritative current status: [`docs/LAUNCH-READINESS.md`](docs/LAUNCH-READINESS.md)
 
 ## Requirements
 
@@ -42,7 +44,8 @@ npm run dev          # http://localhost:4321
 The two `qa:*` scripts drive Chromium through Playwright and need a running server, e.g.
 `npm run build && npm run preview` in one terminal and
 `BASE_URL=http://localhost:4321 npm run qa:visual` in another. Output goes to `screenshots/`
-(git-ignored).
+(git-ignored). Set `BROWSER=firefox` or `BROWSER=webkit` to run either suite in those engines;
+Chromium is the default.
 
 ## Project structure
 
@@ -106,8 +109,10 @@ while midnight on coral is 5.9:1.
 
 ## Environment
 
-Copy `.env.example` to `.env` and set `SITE_URL` once a staging/production domain is confirmed. It
-is used for canonical URLs and Open Graph tags (defaults to `http://localhost:4321`).
+Copy `.env.example` to `.env` and set both `SITE_ENV` and `SITE_URL` for the target environment.
+`SITE_URL` supplies canonical, sitemap and Open Graph URLs. Staging builds emit `noindex,nofollow`
+and a disallowing `robots.txt`; production indexing requires `SITE_ENV=production`. HTTPS is
+required for both staging and production builds.
 
 ## Deployment
 

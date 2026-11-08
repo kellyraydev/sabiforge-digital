@@ -2,29 +2,45 @@
  * Keyboard and interaction smoke tests for every interactive component.
  * Usage: BASE_URL=http://localhost:4321 node scripts/interactions.cjs
  */
-const { chromium } = require('playwright');
+const playwright = require('playwright');
 const assert = require('node:assert/strict');
+const { configureStagingAuth } = require('./staging-auth.cjs');
 
 const BASE_URL = (process.env.BASE_URL ?? 'http://localhost:4321').replace(/\/$/, '');
+const BROWSER = process.env.BROWSER ?? 'chromium';
+const browserType = playwright[BROWSER];
+if (!browserType || !['chromium', 'firefox', 'webkit'].includes(BROWSER)) {
+  throw new Error('BROWSER must be chromium, firefox or webkit');
+}
 const pass = (msg) => console.log(`✓ ${msg}`);
 
 (async () => {
-  const browser = await chromium.launch();
+  const executablePath =
+    process.env.PLAYWRIGHT_EXECUTABLE_PATH ??
+    (BROWSER === 'chromium' ? process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH : undefined);
+  const browser = await browserType.launch(executablePath ? { executablePath } : undefined);
   const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
+  await configureStagingAuth(page.context());
 
-  // Hero capability selector
+  // Homepage hero links and early concept portfolio
   await page.goto(BASE_URL + '/', { waitUntil: 'networkidle' });
-  const commerce = page.getByRole('button', { name: 'Commerce', exact: true });
-  await commerce.click();
-  assert.equal(await commerce.getAttribute('aria-pressed'), 'true');
-  assert.equal(await page.locator('.hero-stage').getAttribute('data-active'), 'commerce');
-  assert.match(await page.locator('[data-caption]').innerText(), /Kòrà Home/);
-  pass('hero capability selector updates plate, pressed state and caption');
+  assert.ok(await page.getByRole('heading', { name: /Distinctive websites/ }).isVisible());
+  assert.equal(
+    await page.getByRole('link', { name: 'Explore our work' }).getAttribute('href'),
+    '/work',
+  );
+  assert.equal(await page.locator('#work article').count(), 3);
+  pass('homepage hero CTA reaches Work and features three labelled concepts');
 
   // Pathway selector (radio group, arrow keys)
   const pathway = page.getByRole('radiogroup');
-  await pathway.scrollIntoViewIfNeeded();
-  await page.locator('#services astro-island:not([ssr])').waitFor();
+  await pathway.evaluate((el) => el.scrollIntoView({ block: 'center' }));
+  await page.waitForFunction(() => {
+    const island = document.querySelector(
+      '#services astro-island[component-url*="PathwaySelector"]',
+    );
+    return island && !island.hasAttribute('ssr');
+  });
   await pathway.getByRole('radio').first().focus();
   await page.keyboard.press('ArrowDown');
   await page.keyboard.press('ArrowDown');
@@ -42,8 +58,13 @@ const pass = (msg) => console.log(`✓ ${msg}`);
 
   // Approach tabs
   const approach = page.locator('#approach');
-  await approach.scrollIntoViewIfNeeded();
-  await approach.locator('astro-island:not([ssr])').waitFor();
+  await approach.evaluate((el) => el.scrollIntoView({ block: 'center' }));
+  await page.waitForFunction(() => {
+    const island = document.querySelector(
+      '#approach astro-island[component-url*="ApproachStages"]',
+    );
+    return island && !island.hasAttribute('ssr');
+  });
   await approach.getByRole('tab', { name: /Define/ }).click();
   assert.match(await approach.getByRole('tabpanel').innerText(), /Define/);
   await page.keyboard.press('ArrowDown');
@@ -92,6 +113,7 @@ const pass = (msg) => console.log(`✓ ${msg}`);
   const alert = page.getByRole('alert');
   assert.ok(await alert.isVisible());
   assert.match(await alert.innerText(), /4 fields/);
+  await page.waitForFunction(() => document.activeElement?.getAttribute('role') === 'alert');
   assert.equal(await page.evaluate(() => document.activeElement?.getAttribute('role')), 'alert');
   assert.equal(await page.getByLabel(/Your name/).getAttribute('aria-invalid'), 'true');
   pass('empty submit shows error summary, focuses it and marks invalid fields');
@@ -138,8 +160,8 @@ const pass = (msg) => console.log(`✓ ${msg}`);
   const navHrefs = await page
     .locator('nav[aria-label="Primary"] a')
     .evaluateAll((els) => els.map((a) => a.getAttribute('href')));
-  assert.deepEqual(navHrefs, ['/work', '/services', '/shopify', '/process', '/about', '/pricing']);
-  pass('primary navigation links to Work, Services, Shopify, Process, About and Pricing pages');
+  assert.deepEqual(navHrefs, ['/work', '/services', '/process', '/about', '/pricing']);
+  pass('primary navigation links to Work, Services, Process, About and Pricing pages');
 
   // Work: concept demos
   await page.goto(BASE_URL + '/work', { waitUntil: 'networkidle' });
@@ -158,8 +180,10 @@ const pass = (msg) => console.log(`✓ ${msg}`);
   const kora = page.locator('#kora-home');
   await kora.scrollIntoViewIfNeeded();
   await page.waitForTimeout(500);
-  await kora.getByRole('radio', { name: 'Ochre' }).check({ force: true });
-  await kora.getByRole('radio', { name: 'Double' }).check({ force: true });
+  // Click the visible implicit labels: Firefox does not reliably toggle a
+  // visually-hidden controlled radio when Playwright force-clicks the input.
+  await kora.locator('label', { hasText: 'Ochre' }).click();
+  await kora.locator('label', { hasText: 'Double' }).click();
   assert.ok(await kora.getByText('₦52,000').first().isVisible());
   assert.ok(await kora.getByText('Ochre', { exact: true }).first().isVisible());
   await kora.getByRole('button', { name: 'Add to bag' }).click();
@@ -226,7 +250,10 @@ const pass = (msg) => console.log(`✓ ${msg}`);
   // Legal drafts: noindex, banner, decision register
   for (const route of ['/privacy', '/terms']) {
     await page.goto(BASE_URL + route, { waitUntil: 'networkidle' });
-    assert.equal(await page.locator('meta[name="robots"]').getAttribute('content'), 'noindex');
+    assert.equal(
+      await page.locator('meta[name="robots"]').getAttribute('content'),
+      'noindex,nofollow',
+    );
     assert.ok(await page.getByText('not an approved legal document').isVisible());
     assert.ok((await page.locator('table tbody tr').count()) >= 11);
   }
@@ -258,6 +285,7 @@ const pass = (msg) => console.log(`✓ ${msg}`);
     javaScriptEnabled: false,
     viewport: { width: 1280, height: 900 },
   });
+  await configureStagingAuth(noJs);
   const njp = await noJs.newPage();
   for (const route of ['/work', '/process', '/about', '/shopify']) {
     await njp.goto(BASE_URL + route);
@@ -277,6 +305,7 @@ const pass = (msg) => console.log(`✓ ${msg}`);
     reducedMotion: 'reduce',
     viewport: { width: 1280, height: 900 },
   });
+  await configureStagingAuth(reduced);
   const rp = await reduced.newPage();
   await rp.goto(BASE_URL + '/process', { waitUntil: 'networkidle' });
   const opacity = await rp.evaluate(
@@ -288,11 +317,12 @@ const pass = (msg) => console.log(`✓ ${msg}`);
 
   // Mobile menu focus cycling
   const mobile = await browser.newPage({ viewport: { width: 390, height: 844 }, isMobile: true });
+  await configureStagingAuth(mobile.context());
   await mobile.goto(BASE_URL + '/', { waitUntil: 'networkidle' });
   await mobile.evaluate(() => window.scrollTo(0, 3000));
   await mobile.waitForTimeout(300);
   assert.equal(await mobile.locator('#site-header').getAttribute('data-hidden'), 'true');
-  await mobile.mouse.wheel(0, -200);
+  await mobile.evaluate(() => window.scrollBy(0, -200));
   await mobile.waitForTimeout(400);
   assert.equal(await mobile.locator('#site-header').getAttribute('data-hidden'), 'false');
   pass('smart header hides on scroll down and returns on scroll up');

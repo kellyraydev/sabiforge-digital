@@ -5,6 +5,7 @@ import CtaPanel from '@/components/page/CtaPanel.astro';
 import Icon from '@/components/ui/Icon.astro';
 import { serviceFamilies, servicesInFamily, serviceHref } from '@/data/services';
 import { whatsappLink } from '@/data/site';
+import EditorialSignal from '@/components/ui/EditorialSignal.astro';
 ---
 
 <BaseLayout
@@ -35,6 +36,12 @@ import { whatsappLink } from '@/data/site';
         ))}
       </ul>
     </nav>
+    <div slot="visual">
+      <EditorialSignal
+        variant="services"
+        label="Editorial service system showing strategy, build and growth"
+      />
+    </div>
   </PageHero>
 
   {serviceFamilies.map((family, fi) => (

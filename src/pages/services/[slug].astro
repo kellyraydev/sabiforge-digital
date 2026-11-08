@@ -7,6 +7,7 @@ import Icon from '@/components/ui/Icon.astro';
 import { services, serviceFamilies, getService, serviceHref, type Service } from '@/data/services';
 import { getConcept, CONCEPT_LABEL, CONCEPT_DISCLAIMER } from '@/data/concepts';
 import { site } from '@/data/site';
+import EditorialSignal from '@/components/ui/EditorialSignal.astro';
 
 export function getStaticPaths() {
   return services.map((service) => ({ params: { slug: service.slug }, props: { service } }));
@@ -48,6 +49,9 @@ const serviceLd = {
       >
         What’s included <Icon name="arrow-down" class="size-5" />
       </a>
+    </div>
+    <div slot="visual">
+      <EditorialSignal variant="service" label={`${service.name} visual study`} />
     </div>
   </PageHero>
 

@@ -1,164 +1,498 @@
 ---
 import Button from '@/components/ui/Button.astro';
-import ConceptPlate from '@/components/ui/ConceptPlate.astro';
 import HexLines from '@/components/ui/HexLines.astro';
 import { startProjectHref } from '@/data/site';
-
-const capabilities = [
-  {
-    id: 'editorial',
-    label: 'Brand-led websites',
-    concept: 'Àdùn Table',
-    kind: 'restaurant website',
-  },
-  { id: 'commerce', label: 'Commerce', concept: 'Kòrà Home', kind: 'homeware storefront' },
-  { id: 'brand', label: 'Brand systems', concept: 'Àdùn Table', kind: 'identity system' },
-  { id: 'product', label: 'Product interfaces', concept: 'Tallyhouse', kind: 'invoicing app' },
-] as const;
 ---
 
-<section
-  aria-labelledby="hero-title"
-  class="relative isolate overflow-hidden pt-28 pb-20 sm:pt-32 lg:pt-36 lg:pb-28"
->
-  <div
-    class="absolute inset-0 -z-20 bg-[radial-gradient(70%_60%_at_80%_20%,rgb(18_78_71/0.55),transparent),radial-gradient(40%_40%_at_10%_90%,rgb(254_103_79/0.08),transparent)]"
-    aria-hidden="true"
-  ></div>
-
-  <div class="container-page grid items-center gap-14 lg:grid-cols-[1fr_1.08fr] lg:gap-10">
-    <div class="relative z-10">
-      <p class="meta flex items-center gap-3 text-mint-300" data-reveal>
-        <span aria-hidden="true">(01)</span>
-        <span>Design & development studio — Nigeria</span>
+<section aria-labelledby="hero-title" class="flagship-hero relative isolate overflow-hidden">
+  <div class="hero-wash" aria-hidden="true"></div>
+  <HexLines
+    class="hero-hex absolute right-[-14rem] top-[8rem] -z-10 w-[48rem] text-mint-300/15"
+    rings={8}
+  />
+  <div class="container-page hero-container">
+    <div class="hero-copy">
+      <p class="meta hero-kicker" data-reveal>
+        <span aria-hidden="true">(01)</span> SabiForge Digital · Nigeria
       </p>
-      <h1 id="hero-title" class="mt-6 text-display-xl font-semibold text-ivory-50">
-        Distinctive websites, built to <em class="text-mint-300">do&nbsp;business.</em>
+      <h1 id="hero-title" data-reveal>
+        Distinctive websites.
+        <br />
+        <em>Designed to stand out.</em>
+        <br />
+        Built to move business forward.
       </h1>
-      <p class="text-lede mt-7 max-w-xl text-ivory-100/75">
-        SabiForge Digital designs and builds websites, online stores and digital experiences for
-        businesses at every stage — from a founder’s first site to an established brand’s redesign.
-        Strategy, art direction and careful engineering, sized to what you actually need.
+      <p class="hero-lede" data-reveal style="--reveal-delay:100">
+        We create thoughtfully designed websites, online stores and digital experiences for founders
+        and growing businesses — combining strategy, original creative direction and modern
+        development.
       </p>
-      <div
-        class="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center"
-        data-reveal
-        style="--reveal-delay:240"
-      >
+      <div class="hero-actions" data-reveal style="--reveal-delay:180">
         <Button href={startProjectHref} size="lg" icon="arrow-up-right">
           Start a project
         </Button>
         <Button href="/work" variant="secondary" size="lg" icon="arrow-right">
-          Explore our concepts
+          Explore our work
         </Button>
-      </div>
-
-      <div class="mt-12 lg:mt-16" data-reveal style="--reveal-delay:320">
-        <p id="capability-label" class="meta text-ivory-100/60">
-          Capabilities — select to preview
-        </p>
-        <div
-          class="mt-3 flex flex-wrap gap-2"
-          role="group"
-          aria-labelledby="capability-label"
-          data-capabilities
-        >
-          {capabilities.map((cap, index) => (
-            <button
-              type="button"
-              data-capability={cap.id}
-              data-concept={cap.concept}
-              data-kind={cap.kind}
-              aria-pressed={index === 0 ? 'true' : 'false'}
-              class="min-h-10 rounded-full border border-ivory-100/15 px-4 text-sm text-ivory-100/80 transition hover:border-mint-300/60 hover:text-ivory-50 aria-pressed:border-mint-300 aria-pressed:bg-mint-300 aria-pressed:text-midnight-900"
-            >
-              {cap.label}
-            </button>
-          ))}
-        </div>
       </div>
     </div>
 
-    <figure class="relative" data-reveal style="--reveal-delay:200">
-      <HexLines
-        class="absolute top-1/2 left-1/2 -z-10 w-[120%] -translate-x-1/2 -translate-y-1/2 text-mint-300/15"
-        rings={7}
-      />
-      <div
-        class="hero-stage relative aspect-[1/1.02] w-full sm:aspect-[1.12/1]"
-        data-active="editorial"
-      >
-        <div class="hero-plate" data-plate="brand" style="--x:52%;--y:0%;--w:48%">
-          <ConceptPlate variant="brand" />
+    <div
+      class="hero-art"
+      data-reveal
+      style="--reveal-delay:120"
+      aria-label="A provisional editorial portrait and coded commerce website concept shown on a laptop and phone"
+    >
+      <div class="hero-art-grid" aria-hidden="true"></div>
+      <div class="hero-index meta" aria-hidden="true">
+        LAGOS / 06°31'N / 03°22'E
+      </div>
+      <figure class="hero-portrait">
+        <img
+          src="/assets/hero-lab/editorial-portrait.webp"
+          width="1200"
+          height="1500"
+          alt="AI-generated editorial portrait study used as provisional art direction, not a SabiForge employee"
+          fetchpriority="high"
+        />
+        <figcaption class="meta">Editorial image study / provisional</figcaption>
+      </figure>
+      <div class="hero-laptop" aria-hidden="true">
+        <div class="laptop-display">
+          <div class="site-nav">
+            <strong>kòrà</strong>
+            <span>Objects&nbsp;&nbsp; Stories&nbsp;&nbsp; Bag (1)</span>
+          </div>
+          <div class="site-body">
+            <div>
+              <small>OBJECTS FOR SLOW LIVING</small>
+              <h2>
+                Make room
+                <br />
+                <i>for ritual.</i>
+              </h2>
+              <span>
+                Explore collection <b>↗</b>
+              </span>
+            </div>
+            <div class="site-image">
+              <i></i>
+              <b></b>
+              <small>02 / 06</small>
+            </div>
+          </div>
         </div>
-        <div class="hero-plate" data-plate="editorial" style="--x:0%;--y:8%;--w:68%">
-          <ConceptPlate variant="editorial" />
-        </div>
-        <div class="hero-plate" data-plate="commerce" style="--x:30%;--y:46%;--w:66%">
-          <ConceptPlate variant="commerce" />
-        </div>
-        <div class="hero-plate" data-plate="product" style="--x:4%;--y:42%;--w:27%">
-          <ConceptPlate variant="product" />
+        <div class="laptop-chin"></div>
+      </div>
+      <div class="hero-phone" aria-hidden="true">
+        <div class="phone-camera"></div>
+        <div class="phone-ui">
+          <small>Sabi / 09:41</small>
+          <strong>S</strong>
+          <p>
+            Small details,
+            <br />
+            <i>felt deeply.</i>
+          </p>
+          <small>Scroll to enter ↓</small>
         </div>
       </div>
-      <figcaption class="mt-6 flex items-start gap-3 text-xs text-ivory-100/65 sm:mt-4">
-        <span class="meta shrink-0 rounded-full border border-ivory-100/20 px-2 py-0.5 text-ivory-100/80">
-          Studio concept
-        </span>
-        <span aria-live="polite" data-caption>
-          Àdùn Table — restaurant website. Fictional brand, not a client project.
-        </span>
-      </figcaption>
-    </figure>
+      <span class="hero-stamp meta" aria-hidden="true">
+        Digital craft
+        <br />
+        <b>01—03</b>
+      </span>
+    </div>
+  </div>
+  <div class="container-page hero-bottom meta" aria-hidden="true">
+    <span>Strategy / Art direction / Build</span>
+    <span class="hero-rule"></span>
+    <span>Built for business. Ready for what’s next.</span>
   </div>
 </section>
 
 <style>
-  .hero-plate {
+  .flagship-hero {
+    min-height: min(920px, 100svh);
+    padding: 8rem 0 2rem;
+    background: #031f25;
+    color: #f7f3ea;
+  }
+  .hero-wash {
     position: absolute;
-    left: var(--x);
-    top: var(--y);
-    width: var(--w);
-    transition:
-      transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1),
-      filter 0.6s ease;
-    filter: brightness(0.55) saturate(0.55);
-    z-index: 1;
+    inset: 0;
+    z-index: -2;
+    background:
+      radial-gradient(circle at 75% 45%, rgb(18 78 71 / 0.72), transparent 37%),
+      radial-gradient(circle at 12% 94%, rgb(254 103 79 / 0.13), transparent 30%);
   }
-  .hero-plate[data-plate='product'] {
+  .hero-container {
+    display: grid;
+    min-height: 710px;
+    grid-template-columns: 0.92fr 1.08fr;
+    align-items: center;
+    gap: 2rem;
+  }
+  .hero-copy {
+    position: relative;
     z-index: 3;
+    max-width: 42rem;
   }
-  .hero-plate[data-plate='commerce'] {
+  .hero-kicker {
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+    color: #86f0d2;
+  }
+  .hero-kicker span {
+    color: rgb(247 243 234 / 0.5);
+  }
+  .hero-copy h1 {
+    max-width: 12ch;
+    margin-top: 1.6rem;
+    font:
+      600 clamp(3.2rem, 4.7vw, 5.8rem)/0.9 'Bricolage Grotesque Variable',
+      sans-serif;
+    letter-spacing: -0.07em;
+  }
+  .hero-copy h1 em {
+    color: #86f0d2;
+    font:
+      400 1.08em/0.78 'Instrument Serif',
+      serif;
+    letter-spacing: -0.035em;
+  }
+  .hero-lede {
+    max-width: 32rem;
+    margin-top: 2rem;
+    color: rgb(247 243 234 / 0.72);
+    font-size: clamp(1rem, 1.2vw, 1.2rem);
+    line-height: 1.55;
+  }
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-top: 2rem;
+  }
+  .hero-note {
+    display: flex;
+    gap: 0.6rem;
+    align-items: flex-start;
+    max-width: 24rem;
+    margin-top: 3.4rem;
+    color: rgb(247 243 234 / 0.48);
+    line-height: 1.45;
+  }
+  .hero-note span {
+    width: 2.5rem;
+    margin-top: 0.45rem;
+    border-top: 1px solid #fe674f;
+  }
+  .hero-art {
+    position: relative;
+    min-height: 600px;
+    transform: translateX(3vw);
+  }
+  .hero-art-grid {
+    position: absolute;
+    inset: 6% 3% 4% 0;
+    border: 1px solid rgb(134 240 210 / 0.24);
+    clip-path: polygon(0 8%, 88% 0, 100% 88%, 12% 100%);
+    background: linear-gradient(135deg, rgb(134 240 210 / 0.04), transparent 55%);
+  }
+  .hero-art-grid::before,
+  .hero-art-grid::after {
+    position: absolute;
+    inset: 10%;
+    border: 1px solid rgb(247 243 234 / 0.08);
+    border-radius: 50%;
+    content: '';
+  }
+  .hero-art-grid::after {
+    inset: 20% -5% -5% 20%;
+    border-style: dashed;
+    border-color: rgb(254 103 79 / 0.28);
+  }
+  .hero-index {
+    position: absolute;
+    top: 6%;
+    left: 2%;
+    color: rgb(134 240 210 / 0.7);
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+  }
+  .hero-portrait {
+    position: absolute;
+    top: 0;
+    right: 11%;
+    width: 30%;
+    min-width: 150px;
+    aspect-ratio: 4/5;
+    overflow: hidden;
+    border: 1px solid rgb(247 243 234 / 0.38);
+    background: #124e47;
+    transform: rotate(4deg);
+    box-shadow: 0 2rem 4rem rgb(0 0 0 / 0.3);
+  }
+  .hero-portrait img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .hero-portrait figcaption {
+    position: absolute;
+    right: 0.5rem;
+    bottom: 0.5rem;
+    padding: 0.3rem 0.4rem;
+    background: #031f25;
+    color: #86f0d2;
+  }
+  .hero-laptop {
+    position: absolute;
     z-index: 2;
+    bottom: 11%;
+    left: 0;
+    width: 82%;
+    transform: rotate(-5deg);
+    filter: drop-shadow(0 2rem 2rem rgb(0 0 0 / 0.35));
   }
-  .hero-stage[data-active='editorial'] [data-plate='editorial'],
-  .hero-stage[data-active='commerce'] [data-plate='commerce'],
-  .hero-stage[data-active='brand'] [data-plate='brand'],
-  .hero-stage[data-active='product'] [data-plate='product'] {
-    filter: none;
-    z-index: 5;
-    transform: translateY(-6px) scale(1.03);
+  .laptop-display {
+    container-type: inline-size;
+    aspect-ratio: 16/10;
+    overflow: hidden;
+    border: 8px solid #0b3a3f;
+    border-radius: 0.75rem 0.75rem 0.2rem 0.2rem;
+    background: #efe7da;
+    color: #182c31;
+  }
+  .laptop-chin {
+    height: 0.8rem;
+    margin: 0 -5%;
+    border-radius: 0 0 50% 50%;
+    background: #0b3a3f;
+  }
+  .site-nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 3% 4%;
+    border-bottom: 1px solid rgb(24 44 49 / 0.15);
+    font:
+      clamp(0.55rem, 1.2cqi, 0.85rem) 'JetBrains Mono Variable',
+      monospace;
+  }
+  .site-nav strong {
+    font: 700 clamp(0.8rem, 2.8cqi, 1.8rem) 'Bricolage Grotesque Variable';
+  }
+  .site-body {
+    display: grid;
+    grid-template-columns: 1.08fr 0.92fr;
+    gap: 4%;
+    padding: 8% 6%;
+  }
+  .site-body small {
+    color: #a3301f;
+    font: clamp(0.55rem, 1.4cqi, 0.9rem) 'JetBrains Mono Variable';
+    letter-spacing: 0.12em;
+  }
+  .site-body h2 {
+    margin-top: 4%;
+    font: 700 clamp(1rem, 6.2cqi, 4rem)/0.9 'Bricolage Grotesque Variable';
+    letter-spacing: -0.07em;
+  }
+  .site-body h2 i,
+  .phone-ui p i {
+    font: 400 1.12em/0.8 'Instrument Serif';
+  }
+  .site-body h2 i {
+    color: #a3301f;
+  }
+  .phone-ui p i {
+    color: #031f25;
+  }
+  .site-body > div > span {
+    display: inline-block;
+    margin-top: 18%;
+    padding: 2.5% 4%;
+    background: #031f25;
+    color: #f7f3ea;
+    font: clamp(0.55rem, 1.4cqi, 0.9rem) 'JetBrains Mono Variable';
+  }
+  .site-body > div > span b {
+    color: #86f0d2;
+  }
+  .site-image {
+    position: relative;
+    min-height: 100%;
+    overflow: hidden;
+    background: #124e47;
+  }
+  .site-image i {
+    position: absolute;
+    top: 12%;
+    right: 8%;
+    width: 45%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: #fe674f;
+  }
+  .site-image b {
+    position: absolute;
+    bottom: 10%;
+    left: 14%;
+    width: 64%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #86f0d2, #124e47 68%);
+  }
+  .site-image small {
+    position: absolute;
+    bottom: 5%;
+    left: 5%;
+    color: #f7f3ea;
+  }
+  .hero-phone {
+    position: absolute;
+    z-index: 4;
+    right: 0;
+    bottom: 5%;
+    width: 17%;
+    min-width: 94px;
+    aspect-ratio: 0.48;
+    padding: 2%;
+    border: 5px solid #06292f;
+    border-radius: 1.6rem;
+    background: #06292f;
+    box-shadow: 0 1.5rem 3rem rgb(0 0 0 / 0.3);
+    transform: rotate(9deg);
+  }
+  .phone-camera {
+    position: absolute;
+    top: 1.5%;
+    left: 32%;
+    width: 36%;
+    height: 2%;
+    border-radius: 0 0 1rem 1rem;
+    background: #031f25;
+  }
+  .phone-ui {
+    container-type: inline-size;
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 12% 9%;
+    background: #fe674f;
+    color: #031f25;
+  }
+  .phone-ui small {
+    font: clamp(0.45rem, 5cqi, 0.75rem) 'JetBrains Mono Variable';
+  }
+  .phone-ui strong {
+    align-self: center;
+    margin-top: 35%;
+    font: 700 clamp(1.25rem, 28cqi, 3.5rem) 'Bricolage Grotesque Variable';
+  }
+  .phone-ui p {
+    font: 700 clamp(0.7rem, 12cqi, 1.35rem)/0.95 'Bricolage Grotesque Variable';
+    letter-spacing: -0.06em;
+  }
+  .hero-stamp {
+    position: absolute;
+    right: 3%;
+    top: 12%;
+    color: rgb(247 243 234 / 0.52);
+    transform: rotate(4deg);
+  }
+  .hero-stamp b {
+    color: #86f0d2;
+  }
+  .hero-bottom {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: rgb(247 243 234 / 0.5);
+  }
+  .hero-rule {
+    flex: 1;
+    max-width: 18rem;
+    border-top: 1px solid rgb(247 243 234 / 0.2);
+  }
+  @media (max-width: 900px) {
+    .flagship-hero {
+      padding-top: 7rem;
+    }
+    .hero-container {
+      min-height: 0;
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+    .hero-copy {
+      max-width: 38rem;
+    }
+    .hero-copy h1 {
+      font-size: clamp(3rem, 8.5vw, 4.5rem);
+    }
+    .hero-art {
+      min-height: 510px;
+      margin-top: -1rem;
+      transform: none;
+    }
+    .hero-bottom {
+      margin-top: -1rem;
+    }
+  }
+  @media (max-width: 560px) {
+    .flagship-hero {
+      min-height: 0;
+      padding-bottom: 1rem;
+    }
+    .hero-copy h1 {
+      max-width: 13ch;
+      font-size: clamp(2.7rem, 11.5vw, 3.4rem);
+    }
+    .hero-lede {
+      font-size: 1rem;
+    }
+    .hero-art {
+      min-height: 320px;
+      margin-top: 0.5rem;
+    }
+    .hero-portrait {
+      right: 10%;
+      width: 34%;
+      min-width: 105px;
+    }
+    .hero-laptop {
+      bottom: 12%;
+      left: -7%;
+      width: 94%;
+    }
+    .hero-phone {
+      right: 0;
+      bottom: 3%;
+      width: 20%;
+      min-width: 72px;
+      border-width: 4px;
+    }
+    .hero-index {
+      left: -2%;
+      font-size: 0.56rem;
+    }
+    .hero-stamp {
+      display: none;
+    }
+    .hero-bottom {
+      margin-top: 0;
+      font-size: 0.6rem;
+    }
+    .hero-bottom span:last-child {
+      display: none;
+    }
   }
   @media (prefers-reduced-motion: reduce) {
-    .hero-plate {
-      transition: none;
+    .hero-art * {
+      transition: none !important;
     }
   }
 </style>
-
-<script>
-  const group = document.querySelector<HTMLElement>('[data-capabilities]');
-  const stage = document.querySelector<HTMLElement>('.hero-stage');
-  const caption = document.querySelector<HTMLElement>('[data-caption]');
-  group?.addEventListener('click', (event) => {
-    const button = (event.target as HTMLElement).closest<HTMLButtonElement>('[data-capability]');
-    if (!button || !stage) return;
-    group.querySelectorAll('[data-capability]').forEach((el) => {
-      el.setAttribute('aria-pressed', String(el === button));
-    });
-    stage.dataset.active = button.dataset.capability;
-    if (caption) {
-      caption.textContent = `${button.dataset.concept} — ${button.dataset.kind}. Fictional brand, not a client project.`;
-    }
-  });
-</script>

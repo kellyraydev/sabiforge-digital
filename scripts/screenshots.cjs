@@ -7,18 +7,26 @@
  * Usage: BASE_URL=http://localhost:4321 node scripts/screenshots.cjs
  * Uses the system Playwright install (require('playwright')).
  */
-const { chromium } = require('playwright');
+const playwright = require('playwright');
 const fs = require('node:fs');
 const path = require('node:path');
+const { configureStagingAuth, stagingAuthHeaders } = require('./staging-auth.cjs');
 
 const BASE_URL = (process.env.BASE_URL ?? 'http://localhost:4321').replace(/\/$/, '');
 const OUT = process.env.OUT_DIR ?? path.join(__dirname, '..', 'screenshots');
 const SCALE = Number(process.env.SCALE ?? 1);
 const WIDTHS = [375, 390, 430, 768, 1280, 1440, 1920];
 const SHOT_WIDTHS = new Set([390, 1440]);
+const BROWSER = process.env.BROWSER ?? 'chromium';
+const browserType = playwright[BROWSER];
+if (!browserType || !['chromium', 'firefox', 'webkit'].includes(BROWSER)) {
+  throw new Error('BROWSER must be chromium, firefox or webkit');
+}
 
 async function discoverRoutes() {
-  const res = await fetch(`${BASE_URL}/sitemap-0.xml`).catch(() => null);
+  const res = await fetch(`${BASE_URL}/sitemap-0.xml`, { headers: stagingAuthHeaders() }).catch(
+    () => null,
+  );
   if (res?.ok) {
     const xml = await res.text();
     const routes = [...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map((m) => new URL(m[1]).pathname);
@@ -49,6 +57,7 @@ const EXTRA_ROUTES = ['/privacy', '/terms'];
         isMobile: width < 768,
         hasTouch: width < 768,
       });
+      await configureStagingAuth(context);
       const page = await context.newPage();
       const errors = [];
       page.on('console', (msg) => msg.type() === 'error' && errors.push(msg.text()));
@@ -86,6 +95,16 @@ const EXTRA_ROUTES = ['/privacy', '/terms'];
         return [];
       });
       if (overflow.length) problems.push(`${tag} horizontal overflow: ${overflow.join(' | ')}`);
+
+      // Complete the intended reveal transitions before accessibility checks so
+      // the contrast analyzer samples the rendered colors rather than opacity-zero text.
+      await page.evaluate(() =>
+        document.querySelectorAll('[data-reveal]').forEach((el) => el.classList.add('is-revealed')),
+      );
+      await page.addStyleTag({
+        content: '*{content-visibility:visible!important;transition:none!important}',
+      });
+      await page.waitForTimeout(750);
 
       const { anchors, links } = await page.evaluate(() => {
         const hrefs = [...document.querySelectorAll('a[href]')].map((a) => a.getAttribute('href'));
@@ -170,5 +189,8 @@ const EXTRA_ROUTES = ['/privacy', '/terms'];
 })();
 
 function browser_launch() {
-  return chromium.launch();
+  const executablePath =
+    process.env.PLAYWRIGHT_EXECUTABLE_PATH ??
+    (BROWSER === 'chromium' ? process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH : undefined);
+  return browserType.launch(executablePath ? { executablePath } : undefined);
 }

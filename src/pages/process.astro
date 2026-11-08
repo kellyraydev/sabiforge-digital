@@ -8,6 +8,7 @@ import CtaPanel from '@/components/page/CtaPanel.astro';
 import ResponsibilityMatrix from '@/components/process/ResponsibilityMatrix';
 import { stages } from '@/data/home';
 import { getStageDetail, handoverItems, timelineFactors } from '@/data/process';
+import EditorialSignal from '@/components/ui/EditorialSignal.astro';
 
 const rows = stages.map((s) => ({
   id: s.id,
@@ -46,6 +47,9 @@ const n = (i: number) => String(i + 1).padStart(2, '0');
             right person, at the right moment, with what they need to decide well.
           </p>
         </div>
+      </div>
+      <div class="mt-12 max-w-2xl lg:ml-auto lg:-mt-4 lg:w-[34rem]">
+        <EditorialSignal variant="process" label="Six-stage project process visual" />
       </div>
 
       <!-- Route map -->
