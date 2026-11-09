@@ -18,31 +18,31 @@
   --font-mono: 'JetBrains Mono Variable', ui-monospace, SFMono-Regular, monospace;
   --font-wordmark: 'Outfit Variable', ui-sans-serif, system-ui, sans-serif;
 
-  /* Midnight teal — primary surfaces */
-  --color-midnight-950: #01161b;
-  --color-midnight-900: #031f25;
-  --color-midnight-800: #06292f;
-  --color-midnight-700: #0b3a3f;
-  --color-midnight-600: #124e47;
-  --color-midnight-500: #1b6157;
+  /* Obsidian — primary surfaces */
+  --color-midnight-950: #070a10;
+  --color-midnight-900: #0b0f19;
+  --color-midnight-800: #121824;
+  --color-midnight-700: #1a2230;
+  --color-midnight-600: #273244;
+  --color-midnight-500: #3a4659;
 
-  /* Mint — precision, links, focus */
-  --color-mint-50: #ecfdf7;
-  --color-mint-100: #d2f9ec;
-  --color-mint-200: #b0f4de;
-  --color-mint-300: #86f0d2;
-  --color-mint-400: #5fe2bf;
-  --color-mint-500: #36c9a3;
-  --color-mint-700: #12715d;
-  --color-mint-800: #0d5546;
+  /* Champagne — precision, links, focus */
+  --color-mint-50: #fffdf5;
+  --color-mint-100: #f8edc9;
+  --color-mint-200: #ead69a;
+  --color-mint-300: #d4af37;
+  --color-mint-400: #e2c765;
+  --color-mint-500: #b89020;
+  --color-mint-700: #806315;
+  --color-mint-800: #624b12;
 
-  /* Coral — action and single emphatic moments */
-  --color-coral-300: #ffab8c;
-  --color-coral-400: #ff8a6a;
-  --color-coral-500: #fe674f;
-  --color-coral-600: #e9503a;
-  --color-coral-700: #c23d2a;
-  --color-coral-800: #a3301f;
+  /* Warm highlight */
+  --color-coral-300: #f1d98b;
+  --color-coral-400: #e7c65d;
+  --color-coral-500: #d4af37;
+  --color-coral-600: #b89020;
+  --color-coral-700: #806315;
+  --color-coral-800: #624b12;
 
   /* Logo orange (mark only) */
   --color-ember: #fd8c55;
@@ -145,6 +145,15 @@
   }
   .hairline {
     @apply border-ivory-100/12;
+  }
+  .glass-panel {
+    background: rgb(18 24 36 / 0.68);
+    border: 1px solid rgb(212 175 55 / 0.16);
+    box-shadow: 0 1.5rem 4rem rgb(0 0 0 / 0.22);
+    backdrop-filter: blur(18px);
+  }
+  .gold-rule {
+    background: linear-gradient(90deg, var(--color-mint-300), transparent);
   }
   /* Long-form content on service and policy pages */
   .prose-sf p + p {
