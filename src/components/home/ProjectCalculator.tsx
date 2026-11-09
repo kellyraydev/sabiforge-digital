@@ -21,7 +21,7 @@ export default function ProjectCalculator() {
           <h2 id="estimate-title" className="mt-4 max-w-lg text-display-lg font-semibold text-ivory-50">A clearer first conversation.</h2>
           <p className="mt-5 max-w-md text-lg leading-relaxed text-ivory-100/70">Shape a rough scope in under a minute. This is a starting point, not a quote — every SabiForge engagement is refined in discovery.</p>
         </div>
-        <div className="glass-panel rounded-[var(--radius-card)] p-6 sm:p-10" data-reveal style={{ '--reveal-delay': '120ms' } as React.CSSProperties}>
+        <div className="glass-panel rounded-[var(--radius-card)] p-6 sm:p-10" data-reveal style={{ '--reveal-delay': '120ms' } as CSSProperties}>
           <div className="flex items-end justify-between gap-4 border-b border-ivory-100/12 pb-6">
             <div><p className="meta text-ivory-100/55">Indicative range</p><p className="mt-2 font-display text-4xl font-semibold text-ivory-50 sm:text-5xl">₦{estimate.toLocaleString('en-NG')}</p></div>
             <span className="mb-1 rounded-full border border-mint-300/30 px-3 py-1 text-xs text-mint-200">From</span>
