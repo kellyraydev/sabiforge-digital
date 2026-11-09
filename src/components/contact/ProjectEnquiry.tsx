@@ -1,4 +1,4 @@
-import { useEffect, useId, useRef, useState, type FormEvent, type ReactNode } from 'react';
+import { useEffect, useId, useRef, useState, type SubmitEvent, type ReactNode } from 'react';
 import Icon from '@/components/ui/Icon';
 import { composeBrief, validateEnquiry, type Enquiry, type EnquiryErrors } from '@/lib/enquiry';
 
@@ -100,7 +100,7 @@ export default function ProjectEnquiry({ services, packages, email, whatsappNumb
 
   const showCommerce = commerceKeys.includes(data.service) || commerceKeys.includes(data.package);
 
-  const onSubmit = (event: FormEvent) => {
+  const onSubmit = (event: SubmitEvent) => {
     event.preventDefault();
     const result = validateEnquiry(data);
     setErrors(result);
