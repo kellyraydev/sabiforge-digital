@@ -6,6 +6,7 @@ import Icon from '@/components/ui/Icon.astro';
 import { serviceFamilies, servicesInFamily, serviceHref } from '@/data/services';
 import EditorialSignal from '@/components/ui/EditorialSignal.astro';
 const publicFamilies = serviceFamilies.filter((family) => servicesInFamily(family.id).length > 0);
+const num = (index: number) => String(index + 1).padStart(2, '0');
 ---
 
 <BaseLayout
@@ -23,13 +24,13 @@ const publicFamilies = serviceFamilies.filter((family) => servicesInFamily(famil
     </p>
     <nav aria-label="Service families" slot="after" class="mt-12">
       <ul class="flex flex-wrap gap-2">
-        {publicFamilies.map((family) => (
+        {publicFamilies.map((family, fi) => (
           <li>
             <a
               href={`#${family.id}`}
               class="inline-flex min-h-10 items-center gap-2 rounded-full border border-ivory-100/20 px-4 text-sm text-ivory-100/85 transition hover:border-mint-300 hover:text-ivory-50"
             >
-              <span class="meta text-mint-300">{family.index}</span>
+              <span class="meta text-mint-300">{num(fi)}</span>
               {family.name}
             </a>
           </li>
@@ -55,7 +56,7 @@ const publicFamilies = serviceFamilies.filter((family) => servicesInFamily(famil
     >
       <div class="container-page grid gap-12 lg:grid-cols-[minmax(0,24rem)_1fr] lg:gap-20">
         <div data-reveal>
-          <p class:list={['meta', fi % 2 ? 'text-mint-800' : 'text-mint-300']}>({family.index})</p>
+          <p class:list={['meta', fi % 2 ? 'text-mint-800' : 'text-mint-300']}>({num(fi)})</p>
           <h2 id={`${family.id}-title`} class="mt-4 text-display-md font-semibold">
             {family.name}
           </h2>

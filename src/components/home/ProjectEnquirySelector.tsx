@@ -23,7 +23,7 @@ export default function ProjectEnquirySelector({ services }: Props) {
     >
       <div className="container-page grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
         <div data-reveal>
-          <p className="meta text-mint-300">04 / Project enquiry</p>
+          <p className="meta text-mint-300">Project enquiry</p>
           <h2
             id="project-enquiry-title"
             className="text-display-lg text-ivory-50 mt-4 max-w-lg font-semibold"

@@ -7,7 +7,7 @@ import Icon from '@/components/ui/Icon.astro';
 import {
   approvedServices,
   serviceFamilies,
-  getService,
+  approvedRelated,
   serviceHref,
   type Service,
 } from '@/data/services';
@@ -25,9 +25,7 @@ export function getStaticPaths() {
 const { service } = Astro.props as { service: Service };
 const family = serviceFamilies.find((f) => f.id === service.family)!;
 const concept = service.conceptId ? getConcept(service.conceptId) : undefined;
-const related = service.related
-  .map((slug) => getService(slug))
-  .filter((item): item is Service => item?.approval === 'confirmed');
+const related = approvedRelated(service);
 
 const serviceLd = {
   '@context': 'https://schema.org',
@@ -227,33 +225,37 @@ const serviceLd = {
   </section>
 
   <!-- Related -->
-  <section aria-labelledby="related-title" class="border-t border-ivory-100/10 pt-20 lg:pt-28">
-    <div class="container-page">
-      <h2 id="related-title" class="meta text-mint-300">
-        (06) Related services
-      </h2>
-      <ul class="mt-8 grid gap-4 md:grid-cols-3">
-        {related.map((item) => (
-          <li data-reveal>
-            <a
-              href={serviceHref(item.slug)}
-              class="group flex h-full flex-col rounded-[var(--radius-card)] border border-ivory-100/12 p-6 transition hover:border-mint-300/60 hover:bg-midnight-800/50"
-            >
-              <Icon name={item.icon} class="size-6 text-mint-300" />
-              <span class="mt-6 font-display text-xl font-semibold text-ivory-50">{item.name}</span>
-              <span class="mt-2 line-clamp-3 text-sm leading-relaxed text-ivory-100/70">
-                {item.summary}
-              </span>
-              <span class="mt-auto flex items-center gap-1.5 pt-6 text-sm font-semibold text-mint-300">
-                View service{' '}
-                <Icon name="arrow-right" class="size-4 transition group-hover:translate-x-1" />
-              </span>
-            </a>
-          </li>
-        ))}
-      </ul>
-    </div>
-  </section>
+  {related.length > 0 && (
+    <section aria-labelledby="related-title" class="border-t border-ivory-100/10 pt-20 lg:pt-28">
+      <div class="container-page">
+        <h2 id="related-title" class="meta text-mint-300">
+          (06) Related services
+        </h2>
+        <ul class="mt-8 grid gap-4 md:grid-cols-3">
+          {related.map((item) => (
+            <li data-reveal>
+              <a
+                href={serviceHref(item.slug)}
+                class="group flex h-full flex-col rounded-[var(--radius-card)] border border-ivory-100/12 p-6 transition hover:border-mint-300/60 hover:bg-midnight-800/50"
+              >
+                <Icon name={item.icon} class="size-6 text-mint-300" />
+                <span class="mt-6 font-display text-xl font-semibold text-ivory-50">
+                  {item.name}
+                </span>
+                <span class="mt-2 line-clamp-3 text-sm leading-relaxed text-ivory-100/70">
+                  {item.summary}
+                </span>
+                <span class="mt-auto flex items-center gap-1.5 pt-6 text-sm font-semibold text-mint-300">
+                  View service{' '}
+                  <Icon name="arrow-right" class="size-4 transition group-hover:translate-x-1" />
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
 
   <CtaPanel
     title={`Talk to us about <em>${service.shortName.toLowerCase()}</em>.`}

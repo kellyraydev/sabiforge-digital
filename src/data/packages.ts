@@ -140,7 +140,7 @@ export const engagementModels: EngagementModelInfo[] = [
   {
     id: 'partnership',
     name: 'Custom scope',
-    forWhom: 'One of the approved services when a published package is not a fit.',
+    forWhom: 'One of our services when a published package is not a fit.',
     packages: ['Custom scope'],
     priceLabel: 'Custom quote',
   },

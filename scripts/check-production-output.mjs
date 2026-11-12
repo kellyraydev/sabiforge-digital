@@ -118,6 +118,12 @@ for (const file of htmlFiles) {
   for (const slug of pendingSlugs) {
     assert.ok(!html.includes(slug), `${relativeFile} must not link to pending service ${slug}`);
   }
+  for (const segment of html.split('Related services').slice(1)) {
+    assert.ok(
+      segment.split('</ul>')[0].includes('<li'),
+      `${relativeFile} must not render an empty related-services list`,
+    );
+  }
   const searchableHtml = html.replaceAll('&amp;', '&').toLowerCase();
   for (const name of pendingServiceNames) {
     assert.ok(

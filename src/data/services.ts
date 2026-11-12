@@ -668,6 +668,13 @@ export function getService(slug: string): Service | undefined {
   return services.find((service) => service.slug === slug);
 }
 
+/** Related services that are approved for public pages; pending ones are never linked. */
+export function approvedRelated(service: Service): Service[] {
+  return service.related
+    .map((slug) => getService(slug))
+    .filter((item): item is Service => item?.approval === 'confirmed');
+}
+
 export function servicesInFamily(family: ServiceFamilyId): Service[] {
   return approvedServices.filter((service) => service.family === family);
 }

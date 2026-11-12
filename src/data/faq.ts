@@ -3,7 +3,7 @@ import { FOUNDING_DISCOUNT_RATE } from '@/lib/pricing';
 export const pricingFaq: { q: string; a: string }[] = [
   {
     q: 'Are these prices fixed?',
-    a: 'Launch, Business and Online Catalog are fixed package prices for the scope described. Full E-commerce shows a starting price; the final figure follows a discovery conversation. Custom scopes for approved services are quoted individually.',
+    a: 'Launch, Business and Online Catalog are fixed package prices for the scope described. Full E-commerce shows a starting price; the final figure follows a discovery conversation. Custom scopes for our services are quoted individually.',
   },
   {
     q: 'What is not included in the price?',
