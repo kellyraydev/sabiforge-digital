@@ -4,11 +4,13 @@
  * labelled as concepts wherever they appear.
  */
 export type PlateVariant = 'editorial' | 'commerce' | 'service' | 'product' | 'brand';
+export type ConceptFilterCategory = 'Business websites' | 'E-commerce' | 'Product interfaces';
 
 export interface Concept {
   id: string;
   name: string;
   category: string;
+  filterCategory: ConceptFilterCategory;
   plate: PlateVariant;
   challenge: string;
   approach: string;
@@ -46,6 +48,7 @@ export const concepts: Concept[] = [
     id: 'adun-table',
     name: 'Àdùn Table',
     category: 'Brand-led business website',
+    filterCategory: 'Business websites',
     plate: 'editorial',
     challenge:
       'A restaurant and events caterer whose menus circulate as blurry WhatsApp images, with catering enquiries arriving without dates, guest numbers or budgets.',
@@ -98,6 +101,7 @@ export const concepts: Concept[] = [
     id: 'kora-home',
     name: 'Kòrà Home',
     category: 'E-commerce storefront',
+    filterCategory: 'E-commerce',
     plate: 'commerce',
     challenge:
       'A homeware brand selling hand-dyed textiles, where customers on mobile struggle to compare colours, sizes and care details before buying.',
@@ -150,6 +154,7 @@ export const concepts: Concept[] = [
     id: 'mend-physio',
     name: 'Mend Physio Studio',
     category: 'Service-business experience',
+    filterCategory: 'Business websites',
     plate: 'service',
     challenge:
       'A physiotherapy clinic where first-time patients are anxious, unsure which treatment they need and hesitant to call.',
@@ -200,14 +205,15 @@ export const concepts: Concept[] = [
     id: 'tallyhouse',
     name: 'Tallyhouse',
     category: 'Product interface',
+    filterCategory: 'Product interfaces',
     plate: 'product',
     challenge:
       'An invoicing tool for small businesses whose owners mostly work from their phones, between customers.',
     approach:
-      'A dashboard that leads with what needs attention today, large touch targets and a design system that keeps dense financial data readable.',
+      'A dashboard that leads with what needs attention today, large touch targets and reusable interface patterns for dense financial data.',
     explores: ['Dashboard hierarchy', 'Responsive data', 'Design-system components'],
     study: {
-      capability: 'Product interface and design systems',
+      capability: 'Product interface and reusable patterns',
       headline: 'What needs you today, <em>first</em>.',
       brief:
         'Tallyhouse is a fictional invoicing app. Owners check it between customers on a phone. Existing tools open on a wall of totals and make them hunt for the one overdue invoice.',

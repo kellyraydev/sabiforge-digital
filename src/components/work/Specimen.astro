@@ -1,13 +1,16 @@
 ---
 /** Palette, type roles, limits and related services for a concept: the "spec sheet". */
 import type { Concept } from '@/data/concepts';
-import { getService, serviceHref } from '@/data/services';
+import { approvedServices, serviceHref } from '@/data/services';
 
 interface Props {
   concept: Concept;
 }
 const { concept } = Astro.props;
-const { theme, palette, type, limits, services: related } = concept.study;
+const { theme, palette, type, limits, services: relatedSlugs } = concept.study;
+const related = relatedSlugs
+  .map((slug) => approvedServices.find((service) => service.slug === slug))
+  .filter((service) => service !== undefined);
 const line = `border-color:${theme.fg}33`;
 ---
 
@@ -54,11 +57,10 @@ const line = `border-color:${theme.fg}33`;
       Related services
     </h3>
     <ul class="mt-3 space-y-2">
-      {related.map((slug) => {
-        const s = getService(slug)!;
+      {related.map((s) => {
         return (
           <li>
-            <a href={serviceHref(slug)} class="link-sweep font-semibold">
+            <a href={serviceHref(s.slug)} class="link-sweep font-semibold">
               {s.name}
             </a>
           </li>

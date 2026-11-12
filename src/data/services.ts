@@ -31,10 +31,10 @@ export const serviceFamilies: ServiceFamily[] = [
   {
     id: 'growth',
     index: '03',
-    name: 'Optimization & Growth',
-    promise: 'Keep improving what you have after launch.',
+    name: 'Website Care',
+    promise: 'Keep your website maintained after launch.',
     description:
-      'Conversion, performance, accessibility, care and integrations: the practical work that keeps a website useful as the business grows.',
+      'Practical website care and maintenance, with service levels and response times agreed for each project.',
   },
 ];
 
@@ -562,7 +562,7 @@ export const services: Service[] = [
     slug: 'website-care-maintenance',
     family: 'growth',
     icon: 'support',
-    name: 'Website Care, Maintenance & Retainers',
+    name: 'Website Care & Maintenance',
     shortName: 'Care & maintenance',
     headline: 'Someone <em>reliable</em> looking after your website after launch.',
     summary:
@@ -661,12 +661,15 @@ export const services: Service[] = [
   },
 ];
 
+/** Services approved for public pages. Pending definitions remain available for internal review. */
+export const approvedServices = services.filter((service) => service.approval === 'confirmed');
+
 export function getService(slug: string): Service | undefined {
   return services.find((service) => service.slug === slug);
 }
 
 export function servicesInFamily(family: ServiceFamilyId): Service[] {
-  return services.filter((service) => service.family === family);
+  return approvedServices.filter((service) => service.family === family);
 }
 
 export const serviceHref = (slug: string) => `/services/${slug}`;
