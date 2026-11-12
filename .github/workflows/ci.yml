@@ -27,8 +27,8 @@ jobs:
       - name: Build production output and verify generated sitemap XML
         env:
           SITE_ENV: production
-          SITE_URL: https://sabiforge.digital
-        run: npm run build && npm run verify:sitemap
+          SITE_URL: https://sabiforge-digital.vercel.app
+        run: npm run build && npm run verify:sitemap && npm run verify:production-output
       - name: Build staging output and verify crawler metadata
         env:
           SITE_ENV: staging
