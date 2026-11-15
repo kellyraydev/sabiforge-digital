@@ -41,6 +41,7 @@ import { startProjectHref } from '@/data/site';
       class="hero-art"
       data-reveal
       style="--reveal-delay:120"
+      role="group"
       aria-label="A provisional editorial portrait and coded commerce website concept shown on a laptop and phone"
     >
       <div class="hero-art-grid" aria-hidden="true"></div>
@@ -115,16 +116,24 @@ import { startProjectHref } from '@/data/site';
   .flagship-hero {
     min-height: min(920px, 100svh);
     padding: 8rem 0 2rem;
-    background: #0b0f19;
-    color: #f9f9f9;
+    background: var(--color-midnight-900);
+    color: var(--color-ivory-100);
   }
   .hero-wash {
     position: absolute;
     inset: 0;
     z-index: -2;
     background:
-      radial-gradient(circle at 75% 45%, rgb(212 175 55 / 0.14), transparent 37%),
-      radial-gradient(circle at 12% 94%, rgb(80 99 130 / 0.18), transparent 30%);
+      radial-gradient(
+        circle at 75% 45%,
+        color-mix(in srgb, var(--color-mint-300) 14%, transparent),
+        transparent 37%
+      ),
+      radial-gradient(
+        circle at 12% 94%,
+        color-mix(in srgb, var(--color-midnight-500) 35%, transparent),
+        transparent 30%
+      );
   }
   .hero-container {
     display: grid;
@@ -142,10 +151,10 @@ import { startProjectHref } from '@/data/site';
     display: flex;
     gap: 0.8rem;
     align-items: center;
-    color: #d4af37;
+    color: var(--color-mint-300);
   }
   .hero-kicker span {
-    color: rgb(247 243 234 / 0.5);
+    color: color-mix(in srgb, var(--color-ivory-100) 50%, transparent);
   }
   .hero-copy h1 {
     max-width: 12ch;
@@ -156,7 +165,7 @@ import { startProjectHref } from '@/data/site';
     letter-spacing: -0.07em;
   }
   .hero-copy h1 em {
-    color: #d4af37;
+    color: var(--color-mint-300);
     font:
       400 1.08em/0.78 'Instrument Serif',
       serif;
@@ -165,7 +174,7 @@ import { startProjectHref } from '@/data/site';
   .hero-lede {
     max-width: 32rem;
     margin-top: 2rem;
-    color: rgb(247 243 234 / 0.72);
+    color: color-mix(in srgb, var(--color-ivory-100) 72%, transparent);
     font-size: clamp(1rem, 1.2vw, 1.2rem);
     line-height: 1.55;
   }
@@ -181,13 +190,13 @@ import { startProjectHref } from '@/data/site';
     align-items: flex-start;
     max-width: 24rem;
     margin-top: 3.4rem;
-    color: rgb(247 243 234 / 0.48);
+    color: color-mix(in srgb, var(--color-ivory-100) 48%, transparent);
     line-height: 1.45;
   }
   .hero-note span {
     width: 2.5rem;
     margin-top: 0.45rem;
-    border-top: 1px solid #fe674f;
+    border-top: 1px solid var(--color-ember);
   }
   .hero-art {
     position: relative;
@@ -197,28 +206,32 @@ import { startProjectHref } from '@/data/site';
   .hero-art-grid {
     position: absolute;
     inset: 6% 3% 4% 0;
-    border: 1px solid rgb(134 240 210 / 0.24);
+    border: 1px solid color-mix(in srgb, var(--color-mint-300) 28%, transparent);
     clip-path: polygon(0 8%, 88% 0, 100% 88%, 12% 100%);
-    background: linear-gradient(135deg, rgb(134 240 210 / 0.04), transparent 55%);
+    background: linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--color-mint-300) 6%, transparent),
+      transparent 55%
+    );
   }
   .hero-art-grid::before,
   .hero-art-grid::after {
     position: absolute;
     inset: 10%;
-    border: 1px solid rgb(247 243 234 / 0.08);
+    border: 1px solid color-mix(in srgb, var(--color-ivory-100) 8%, transparent);
     border-radius: 50%;
     content: '';
   }
   .hero-art-grid::after {
     inset: 20% -5% -5% 20%;
     border-style: dashed;
-    border-color: rgb(254 103 79 / 0.28);
+    border-color: color-mix(in srgb, var(--color-ember) 40%, transparent);
   }
   .hero-index {
     position: absolute;
     top: 6%;
     left: 2%;
-    color: rgb(134 240 210 / 0.7);
+    color: color-mix(in srgb, var(--color-mint-300) 72%, transparent);
     writing-mode: vertical-rl;
     transform: rotate(180deg);
   }
@@ -230,8 +243,8 @@ import { startProjectHref } from '@/data/site';
     min-width: 150px;
     aspect-ratio: 4/5;
     overflow: hidden;
-    border: 1px solid rgb(247 243 234 / 0.38);
-    background: #124e47;
+    border: 1px solid color-mix(in srgb, var(--color-ivory-100) 38%, transparent);
+    background: var(--color-midnight-700);
     transform: rotate(4deg);
     box-shadow: 0 2rem 4rem rgb(0 0 0 / 0.3);
   }
@@ -245,8 +258,8 @@ import { startProjectHref } from '@/data/site';
     right: 0.5rem;
     bottom: 0.5rem;
     padding: 0.3rem 0.4rem;
-    background: #031f25;
-    color: #d4af37;
+    background: var(--color-midnight-950);
+    color: var(--color-mint-300);
   }
   .hero-laptop {
     position: absolute;
@@ -261,22 +274,22 @@ import { startProjectHref } from '@/data/site';
     container-type: inline-size;
     aspect-ratio: 16/10;
     overflow: hidden;
-    border: 8px solid #0b3a3f;
+    border: 8px solid var(--color-midnight-800);
     border-radius: 0.75rem 0.75rem 0.2rem 0.2rem;
-    background: #efe7da;
-    color: #182c31;
+    background: var(--color-ivory-100);
+    color: var(--color-ink);
   }
   .laptop-chin {
     height: 0.8rem;
     margin: 0 -5%;
     border-radius: 0 0 50% 50%;
-    background: #0b3a3f;
+    background: var(--color-midnight-800);
   }
   .site-nav {
     display: flex;
     justify-content: space-between;
     padding: 3% 4%;
-    border-bottom: 1px solid rgb(24 44 49 / 0.15);
+    border-bottom: 1px solid color-mix(in srgb, var(--color-ink) 15%, transparent);
     font:
       clamp(0.55rem, 1.2cqi, 0.85rem) 'JetBrains Mono Variable',
       monospace;
@@ -291,7 +304,7 @@ import { startProjectHref } from '@/data/site';
     padding: 8% 6%;
   }
   .site-body small {
-    color: #a3301f;
+    color: var(--color-mint-700);
     font: clamp(0.55rem, 1.4cqi, 0.9rem) 'JetBrains Mono Variable';
     letter-spacing: 0.12em;
   }
@@ -305,27 +318,27 @@ import { startProjectHref } from '@/data/site';
     font: 400 1.12em/0.8 'Instrument Serif';
   }
   .site-body h2 i {
-    color: #a3301f;
+    color: var(--color-mint-700);
   }
   .phone-ui p i {
-    color: #031f25;
+    color: var(--color-ink);
   }
   .site-body > div > span {
     display: inline-block;
     margin-top: 18%;
     padding: 2.5% 4%;
-    background: #031f25;
-    color: #f7f3ea;
+    background: var(--color-midnight-900);
+    color: var(--color-ivory-100);
     font: clamp(0.55rem, 1.4cqi, 0.9rem) 'JetBrains Mono Variable';
   }
   .site-body > div > span b {
-    color: #d4af37;
+    color: var(--color-mint-300);
   }
   .site-image {
     position: relative;
     min-height: 100%;
     overflow: hidden;
-    background: #124e47;
+    background: var(--color-midnight-700);
   }
   .site-image i {
     position: absolute;
@@ -334,7 +347,7 @@ import { startProjectHref } from '@/data/site';
     width: 45%;
     aspect-ratio: 1;
     border-radius: 50%;
-    background: #fe674f;
+    background: var(--color-ember);
   }
   .site-image b {
     position: absolute;
@@ -343,13 +356,17 @@ import { startProjectHref } from '@/data/site';
     width: 64%;
     aspect-ratio: 1;
     border-radius: 50%;
-    background: radial-gradient(circle at 35% 30%, #86f0d2, #124e47 68%);
+    background: radial-gradient(
+      circle at 35% 30%,
+      var(--color-mint-300),
+      var(--color-midnight-700) 68%
+    );
   }
   .site-image small {
     position: absolute;
     bottom: 5%;
     left: 5%;
-    color: #f7f3ea;
+    color: var(--color-ivory-100);
   }
   .hero-phone {
     position: absolute;
@@ -360,9 +377,9 @@ import { startProjectHref } from '@/data/site';
     min-width: 94px;
     aspect-ratio: 0.48;
     padding: 2%;
-    border: 5px solid #06292f;
+    border: 5px solid var(--color-midnight-800);
     border-radius: 1.6rem;
-    background: #06292f;
+    background: var(--color-midnight-800);
     box-shadow: 0 1.5rem 3rem rgb(0 0 0 / 0.3);
     transform: rotate(9deg);
   }
@@ -373,7 +390,7 @@ import { startProjectHref } from '@/data/site';
     width: 36%;
     height: 2%;
     border-radius: 0 0 1rem 1rem;
-    background: #031f25;
+    background: var(--color-midnight-950);
   }
   .phone-ui {
     container-type: inline-size;
@@ -382,8 +399,8 @@ import { startProjectHref } from '@/data/site';
     flex-direction: column;
     justify-content: space-between;
     padding: 12% 9%;
-    background: #fe674f;
-    color: #031f25;
+    background: var(--color-ember);
+    color: var(--color-ink);
   }
   .phone-ui small {
     font: clamp(0.45rem, 5cqi, 0.75rem) 'JetBrains Mono Variable';
@@ -401,22 +418,22 @@ import { startProjectHref } from '@/data/site';
     position: absolute;
     right: 3%;
     top: 12%;
-    color: rgb(247 243 234 / 0.52);
+    color: color-mix(in srgb, var(--color-ivory-100) 52%, transparent);
     transform: rotate(4deg);
   }
   .hero-stamp b {
-    color: #d4af37;
+    color: var(--color-mint-300);
   }
   .hero-bottom {
     display: flex;
     align-items: center;
     gap: 1rem;
-    color: rgb(247 243 234 / 0.5);
+    color: color-mix(in srgb, var(--color-ivory-100) 50%, transparent);
   }
   .hero-rule {
     flex: 1;
     max-width: 18rem;
-    border-top: 1px solid rgb(247 243 234 / 0.2);
+    border-top: 1px solid color-mix(in srgb, var(--color-ivory-100) 20%, transparent);
   }
   @media (max-width: 900px) {
     .flagship-hero {
