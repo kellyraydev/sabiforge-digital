@@ -1,7 +1,14 @@
 # Cloudflare Workers preview plan
 
-Status: **prepared, not deployed.** No Worker version, preview, DNS record, custom domain, or paid
-product has been created from this branch.
+Status: **preview uploaded, not promoted to production.** The `kr-dev` account had no `sabiforge`
+Worker, so the preview command created that Worker with `workers.dev` production disabled.
+`https://sabiforge.krdev.workers.dev/` returns 404. No DNS record, custom domain, or paid product
+was added.
+
+Stable preview: `https://codex-cloudflare-preview-readiness-sabiforge.krdev.workers.dev`  
+Latest unique deployment: `https://216c357d-sabiforge.krdev.workers.dev`
+
+Both URLs are public. `noindex` does not restrict who can open them.
 
 This plan serves the existing static Astro build from the connected Worker named `sabiforge`. It
 does not change the approved production origin in `astro.config.mjs`.
@@ -61,24 +68,26 @@ origin and is unchanged.
 `dist/_headers` is written only by the preview build. It is not in `public/`, so the Vercel
 production build does not gain a Cloudflare header rule.
 
-## Upload sequence (do not run until the owner approves)
+## Upload sequence
 
-1. Confirm the authenticated Cloudflare account owns the existing `sabiforge` Worker and that this
-   upload will not change its production version, routes, or custom domains.
-2. Build with the real Preview `SITE_URL` and require `npm run verify:preview-output` to pass.
-3. Upload with the pinned local CLI: `npx wrangler preview`. Do not run `wrangler deploy`.
-4. Open the returned Preview URL and the unique deployment URL while logged out. Both must require
-   whatever access control the owner chooses. `noindex` is not access control. Preview URLs are
-   public unless Access or an equivalent control is added.
-5. Confirm `/` is 200, an unknown path is 404 and shows the site 404 page, canonical and Open Graph
-   URLs use the preview origin, and the production origin is absent.
-6. Rollback by deleting or rolling back that Preview in the Cloudflare dashboard. Do not promote it
-   to production.
+The owner approved a preview upload on 17 November 2026. It was run with the pinned Wrangler
+`preview` command, not `wrangler deploy`.
+
+Checked after the second upload, which used
+`SITE_URL=https://codex-cloudflare-preview-readiness-sabiforge.krdev.workers.dev`:
+
+- `/` returns 200, `noindex,nofollow`, and canonical and Open Graph URLs on that origin.
+- A browser navigation to an unknown path returns 404 and the site's "Page not found" page.
+- `robots.txt` disallows every crawler. The production Vercel origin is absent.
+- `https://sabiforge.krdev.workers.dev/` returns 404, so this upload did not publish the production
+  workers.dev hostname.
+
+Rollback: delete the Preview `codex/cloudflare-preview-readiness` in the Cloudflare dashboard, or
+run `npx wrangler preview delete --name codex/cloudflare-preview-readiness`. Do not promote it to
+production.
 
 ## Remaining blockers
 
-- The real `*.workers.dev` account subdomain is assigned by Cloudflare and is not in this
-  repository. The first upload has to use that hostname as `SITE_URL`.
 - Preview URLs are public by default. Access, reviewer list, and a protected GitHub environment
   are still owner decisions.
 - `workers_dev: false` keeps a production hostname out of the config. A dashboard route or custom
