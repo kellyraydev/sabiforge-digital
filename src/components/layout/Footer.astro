@@ -4,13 +4,14 @@ import Logo from '@/components/ui/Logo.astro';
 import Icon from '@/components/ui/Icon.astro';
 import HexLines from '@/components/ui/HexLines.astro';
 import { navigation, site, whatsappLink, mailtoLink, startProjectHref } from '@/data/site';
-import { serviceFamilies, servicesInFamily, serviceHref } from '@/data/services';
+import { publicServiceFamilies, servicesInFamily, serviceHref } from '@/data/services';
 
 interface Props {
   showCta?: boolean;
 }
 const { showCta = true } = Astro.props;
 const year = new Date().getFullYear();
+const families = publicServiceFamilies();
 ---
 
 <footer class="relative isolate overflow-hidden border-t border-ivory-100/10 bg-midnight-950">
@@ -45,7 +46,10 @@ const year = new Date().getFullYear();
 
     <div
       class:list={[
-        'grid gap-12 sm:grid-cols-2 lg:grid-cols-[1.3fr_repeat(5,1fr)]',
+        'grid gap-12 sm:grid-cols-2',
+        families.length > 2
+          ? 'lg:grid-cols-[1.3fr_repeat(5,1fr)]'
+          : 'lg:grid-cols-[1.3fr_repeat(4,1fr)]',
         showCta && 'mt-16 border-t border-ivory-100/10 pt-12',
       ]}
     >
@@ -74,7 +78,7 @@ const year = new Date().getFullYear();
         </ul>
       </nav>
 
-      {serviceFamilies.map((family) => (
+      {families.map((family) => (
         <nav aria-labelledby={`footer-${family.id}`}>
           <h2 id={`footer-${family.id}`} class="meta text-mint-300">
             {family.name}

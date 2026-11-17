@@ -3,33 +3,37 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/page/PageHero.astro';
 import CtaPanel from '@/components/page/CtaPanel.astro';
 import Icon from '@/components/ui/Icon.astro';
-import { serviceFamilies, servicesInFamily, serviceHref } from '@/data/services';
+import { publicServiceFamilies, servicesInFamily, serviceHref } from '@/data/services';
 import { whatsappLink } from '@/data/site';
 import EditorialSignal from '@/components/ui/EditorialSignal.astro';
+
+const families = publicServiceFamilies();
 ---
 
 <BaseLayout
   title="Services"
-  description="Brand identity, UX/UI design, custom websites, Shopify and e-commerce, redesigns, optimisation, care and integrations — SabiForge Digital’s services for Nigerian businesses."
+  description="Custom websites, Shopify and e-commerce, website redesign, and website care from SabiForge Digital."
 >
   <PageHero
     label="Services"
-    title="Strategy, build and growth — from <em class='text-mint-300'>one</em> studio."
+    title="Build and care — from <em class='text-mint-300'>one</em> studio."
     crumbs={[{ label: 'Services' }]}
   >
     <p>
-      Ten services in three families. Most projects combine a few of them; we help you choose only
+      Four services in two families. Most projects combine a few of them; we help you choose only
       what your business needs right now.
     </p>
     <nav aria-label="Service families" slot="after" class="mt-12">
       <ul class="flex flex-wrap gap-2">
-        {serviceFamilies.map((family) => (
+        {families.map((family) => (
           <li>
             <a
               href={`#${family.id}`}
               class="inline-flex min-h-10 items-center gap-2 rounded-full border border-ivory-100/20 px-4 text-sm text-ivory-100/85 transition hover:border-mint-300 hover:text-ivory-50"
             >
-              <span class="meta text-mint-300">{family.index}</span>
+              <span class="meta text-mint-300">
+                {String(families.indexOf(family) + 1).padStart(2, '0')}
+              </span>
               {family.name}
             </a>
           </li>
@@ -44,7 +48,7 @@ import EditorialSignal from '@/components/ui/EditorialSignal.astro';
     </div>
   </PageHero>
 
-  {serviceFamilies.map((family, fi) => (
+  {families.map((family, fi) => (
     <section
       id={family.id}
       aria-labelledby={`${family.id}-title`}
@@ -55,7 +59,9 @@ import EditorialSignal from '@/components/ui/EditorialSignal.astro';
     >
       <div class="container-page grid gap-12 lg:grid-cols-[minmax(0,24rem)_1fr] lg:gap-20">
         <div data-reveal>
-          <p class:list={['meta', fi % 2 ? 'text-mint-800' : 'text-mint-300']}>({family.index})</p>
+          <p class:list={['meta', fi % 2 ? 'text-mint-800' : 'text-mint-300']}>
+            ({String(fi + 1).padStart(2, '0')})
+          </p>
           <h2 id={`${family.id}-title`} class="mt-4 text-display-md font-semibold">
             {family.name}
           </h2>

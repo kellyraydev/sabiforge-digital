@@ -1,4 +1,5 @@
 import type { IconKey } from '@/lib/icons';
+import { getService } from '@/data/services';
 
 /** Section 03 — the ingredients of a strong website. */
 export const ingredients = [
@@ -211,3 +212,17 @@ export const pathways: Pathway[] = [
     ],
   },
 ];
+
+/**
+ * Pathways for public pages. Pending service links are removed.
+ * A pathway with no confirmed service is omitted so it cannot advertise one.
+ * Labels, situations and recommendations in `pathways` are left unchanged.
+ */
+export function publicPathways(): Pathway[] {
+  return pathways
+    .map((pathway) => ({
+      ...pathway,
+      services: pathway.services.filter((slug) => getService(slug)?.approval === 'confirmed'),
+    }))
+    .filter((pathway) => pathway.services.length > 0);
+}
