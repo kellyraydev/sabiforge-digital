@@ -34,3 +34,8 @@ jobs:
           SITE_ENV: staging
           SITE_URL: https://sabiforge-digital-staging.pages.dev
         run: npm run build && npm run verify:sitemap && npm run verify:staging-output
+      - name: Build Cloudflare preview output and verify it cannot publish production SEO
+        env:
+          SITE_ENV: preview
+          SITE_URL: https://codex-sabiforge.preview.workers.dev
+        run: node scripts/build-preview.mjs

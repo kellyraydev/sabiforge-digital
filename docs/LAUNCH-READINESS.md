@@ -158,6 +158,10 @@ and staging URL remain unconfigured pending approval. Local results are not remo
 
 ## 7. Protected staging proposal (not deployed)
 
+Workers preview configuration now lives in `docs/CLOUDFLARE-PREVIEW.md`. That preparation does not
+choose a hosting provider, create a deployment, change DNS, or replace the approved production
+origin `https://sabiforge-digital.vercel.app`.
+
 ### Recommended host and access
 
 Recommend **Cloudflare Pages + Cloudflare Access** for this static Astro site. Pages creates a

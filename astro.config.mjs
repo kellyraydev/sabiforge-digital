@@ -7,9 +7,9 @@ import tailwindcss from '@tailwindcss/vite';
 // Require an explicit, secure public URL for any remotely hosted environment.
 // This prevents preview builds from publishing localhost canonicals by accident.
 const siteEnvironment = process.env.SITE_ENV ?? 'development';
-const allowedEnvironments = new Set(['development', 'staging', 'production']);
+const allowedEnvironments = new Set(['development', 'staging', 'preview', 'production']);
 if (!allowedEnvironments.has(siteEnvironment)) {
-  throw new Error('SITE_ENV must be development, staging or production.');
+  throw new Error('SITE_ENV must be development, staging, preview or production.');
 }
 
 const site = process.env.SITE_URL ?? 'http://localhost:4321';
@@ -35,6 +35,18 @@ if (siteEnvironment !== 'development') {
     siteUrl.hostname === '::1'
   ) {
     throw new Error('SITE_URL must not use localhost or an internal hostname/address.');
+  }
+}
+if (siteEnvironment === 'preview') {
+  const labels = siteUrl.hostname.toLowerCase().split('.');
+  const namesThisWorker = labels[0] === 'sabiforge' || labels[0]?.endsWith('-sabiforge');
+  if (labels.length !== 4 || labels[2] !== 'workers' || labels[3] !== 'dev' || !namesThisWorker) {
+    throw new Error(
+      'Preview SITE_URL must name the sabiforge Worker on https://<name>-sabiforge.<account>.workers.dev.',
+    );
+  }
+  if (siteUrl.origin === configuredProductionOrigin) {
+    throw new Error('Preview builds must not use the production origin.');
   }
 }
 if (siteEnvironment === 'production' && siteUrl.origin !== configuredProductionOrigin) {

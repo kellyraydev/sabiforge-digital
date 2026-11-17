@@ -19,6 +19,8 @@
     "verify:site-url": "node scripts/check-site-url-policy.mjs",
     "verify:staging-output": "node scripts/check-staging-output.mjs",
     "verify:sitemap": "node scripts/check-sitemap.mjs",
+    "verify:preview-output": "node scripts/check-preview-output.mjs",
+    "build:preview": "node scripts/build-preview.mjs",
     "qa:visual": "node scripts/screenshots.cjs",
     "qa:interactions": "node scripts/interactions.cjs",
     "verify": "npm run format:check && npm run lint && npm run test && npm run build"
@@ -53,7 +55,8 @@
     "prettier-plugin-tailwindcss": "^0.8.1",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.72.1",
-    "vitest": "^5.1.0"
+    "vitest": "^5.1.0",
+    "wrangler": "4.164.0"
   },
   "overrides": {
     "minimatch": "^11.0.5"
