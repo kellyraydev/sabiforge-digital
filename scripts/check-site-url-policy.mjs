@@ -2,9 +2,9 @@ import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
 
 const configImport = "import('./astro.config.mjs')";
-function check(environment, url, expectedSuccess) {
+function check(environment, url, expectedSuccess, extraEnv = {}) {
   const result = spawnSync(process.execPath, ['--input-type=module', '-e', configImport], {
-    env: { ...process.env, SITE_ENV: environment, SITE_URL: url },
+    env: { ...process.env, SITE_ENV: environment, SITE_URL: url, ...extraEnv },
     encoding: 'utf8',
   });
   assert.equal(
@@ -30,6 +30,13 @@ for (const badUrl of [
 }
 check('staging', 'https://sabiforge-digital-staging.pages.dev', true);
 check('staging', 'http://staging.sabiforge.digital', false);
+check('production', 'https://sabiforge-digital.vercel.app', false, { VERCEL_ENV: 'preview' });
+check(
+  'staging',
+  'https://sf-digital-git-codex-gate5-production-remediation-kevennix.vercel.app',
+  true,
+  { VERCEL_ENV: 'preview' },
+);
 
 const buildEnv = { ...process.env };
 delete buildEnv.SITE_ENV;

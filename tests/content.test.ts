@@ -1,6 +1,12 @@
 import { describe, expect, it } from 'vitest';
 import { packages, foundingPrice, comparisonRows, engagementModels } from '../src/data/packages';
-import { services, approvedServices, serviceFamilies, getService } from '../src/data/services';
+import {
+  services,
+  approvedServices,
+  approvedRelated,
+  serviceFamilies,
+  getService,
+} from '../src/data/services';
 import { concepts, getConcept } from '../src/data/concepts';
 import { pathways, stages } from '../src/data/home';
 import { navigation, whatsappLink, mailtoLink, site } from '../src/data/site';
@@ -57,6 +63,13 @@ describe('services', () => {
     );
     expect(services.filter((service) => service.approval === 'pending')).toHaveLength(6);
     expect(services).toHaveLength(10);
+  });
+
+  it('links only approved related services and tolerates an empty list', () => {
+    for (const service of approvedServices) {
+      for (const related of approvedRelated(service)) expect(related.approval).toBe('confirmed');
+    }
+    expect(approvedRelated(getService('website-care-maintenance')!)).toEqual([]);
   });
 
   it('only references existing related services and concepts', () => {
