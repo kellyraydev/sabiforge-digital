@@ -1,14 +1,26 @@
 # Cloudflare Workers preview plan
 
-Status: **preview uploaded, not promoted to production.** The `kr-dev` account had no `sabiforge`
-Worker, so the preview command created that Worker with `workers.dev` production disabled.
-`https://sabiforge.krdev.workers.dev/` returns 404. No DNS record, custom domain, or paid product
-was added.
+Status (20 November 2026): **account consolidation in progress; new-account preview uploads suspended**.
 
-Stable preview: `https://codex-cloudflare-preview-readiness-sabiforge.krdev.workers.dev`  
-Latest unique deployment: `https://216c357d-sabiforge.krdev.workers.dev`
+**Authoritative Cloudflare account:** `Kellyray.dev@gmail.com's Account` 
+(`8849002c70945027fdb2e4169da6802e`, Workers subdomain `kellyray-dev`).
+The connected repository is `kellyraydev/sabiforge-digital` and the intended Worker is `sabiforge`.
+`wrangler.jsonc` pins the account ID to prevent uploads into another account.
 
-Both URLs are public. `noindex` does not restrict who can open them.
+On the authoritative account, the production `workers.dev` hostname, Worker preview URLs, and
+Workers Builds preview generation are disabled pending Cloudflare Access setup. Workers Builds'
+preview build command is `npm run build:preview`, and no preview `SITE_URL` variable is yet set:
+builds must fail closed rather than emit localhost canonicals.
+
+**Legacy `kr-dev` account — not an authorized SabiForge target:**
+An earlier preview was uploaded at
+`https://codex-cloudflare-preview-readiness-sabiforge.krdev.workers.dev` with unique deployment
+`https://216c357d-sabiforge.krdev.workers.dev`. These old URLs were reported public and
+must be disabled from the `kr-dev` account; this repository cannot disable them by itself.
+The old `https://sabiforge.krdev.workers.dev/` production host returned 404 during that check.
+
+The approved Vercel production origin remains unchanged until a separately verified hosting cutover.
+No DNS change, merge, promotion, or paid product is authorized by this preparation.
 
 This plan serves the existing static Astro build from the connected Worker named `sabiforge`. It
 does not change the approved production origin in `astro.config.mjs`.
@@ -85,6 +97,19 @@ Checked after the second upload, which used
 Rollback: delete the Preview `codex/cloudflare-preview-readiness` in the Cloudflare dashboard, or
 run `npx wrangler preview delete --name codex/cloudflare-preview-readiness`. Do not promote it to
 production.
+
+## Account-consolidation release gate
+
+1. On the old `kr-dev` account, disable legacy SabiForge GitHub build triggers and public preview
+   URLs. Do not delete other projects, credentials, or account resources.
+2. On the authoritative `kellyray-dev` account, complete Zero Trust onboarding and establish
+   Cloudflare Access for owner-only Worker previews. Do not re-enable preview URLs until policy
+   enforcement has been verified.
+3. Configure the real branch-preview `SITE_URL` on the new account, retain
+   `npm run build:preview`, and verify canonical and Open Graph URLs match the returned host.
+4. Require an anonymous request to be denied or redirected to Access before releasing review links.
+5. Keep PR #8 and PR #9 in draft; do not change the public Vercel origin or promote a Cloudflare
+   production deployment before separate release approval.
 
 ## Remaining blockers
 
