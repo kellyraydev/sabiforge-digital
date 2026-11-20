@@ -1,6 +1,7 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "sabiforge",
+  "account_id": "8849002c70945027fdb2e4169da6802e",
   "compatibility_date": "2026-11-17",
   "workers_dev": false,
   "preview_urls": true,
