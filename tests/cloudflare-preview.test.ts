@@ -9,6 +9,7 @@ const wrangler = JSON.parse(
     .replace(/,(\s*[}\]])/g, '$1'),
 ) as {
   name: string;
+  account_id: string;
   compatibility_date: string;
   workers_dev: boolean;
   preview_urls: boolean;
@@ -28,6 +29,7 @@ const wrangler = JSON.parse(
 describe('Cloudflare Workers preview configuration', () => {
   it('serves the static Astro build from the sabiforge Worker without a production route', () => {
     expect(wrangler.name).toBe('sabiforge');
+    expect(wrangler.account_id).toBe('8849002c70945027fdb2e4169da6802e');
     expect(wrangler.compatibility_date).toBe('2026-11-17');
     expect(wrangler.workers_dev).toBe(false);
     expect(wrangler.preview_urls).toBe(true);
