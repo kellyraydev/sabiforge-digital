@@ -117,6 +117,6 @@ production.
   are still owner decisions.
 - `workers_dev: false` keeps a production hostname out of the config. A dashboard route or custom
   domain already attached to `sabiforge` can still receive a production deploy. Do not deploy.
-- This does not decide between Workers and the earlier Cloudflare Pages staging proposal.
+- Decision: use the existing `sabiforge` Worker in `kellyray-dev` as SabiForge's sole Cloudflare project. The older Pages staging proposal is deferred; do not create a Pages staging project without separate approval.
 - Paid Cloudflare products stay off. No observability, logpush, or other billable bindings are
   configured.
