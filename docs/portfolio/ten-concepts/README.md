@@ -15,11 +15,12 @@
 **Image truth status:**
 - Three owner reference sets + Opeyemi standalone HTML prototype: present in the previous ZIP, but JPEG/PNG/WebP binaries not uploaded to GitHub.
 - Seven new project directions: included here.
-- One full-resolution AI-generated Maison Vale interior image: present in downloadable **review ZIP** and needs QA.
-- Two AI-generated 10-up contact boards: present in review ZIP; NOT production images.
-- Four additional individual Canva image-generation requests started in this conversation, but final images are not verified/attached to GitHub.
-- RoutePilot + Corporate Canva image-generation attempts failed due to credit quota.
-- Seven low-resolution visual crops are included in review ZIP as **reference-only**, not production assets.
+- Six original 1536×1024 AI-generated **multi-panel concept study boards** (Maison Vale, AURA, FlowDesk, CampusOne, Bloom, RoutePilot): present in updated downloadable **review v2 ZIP**; require separate image/content QA and real coded interface screenshots before publication.
+- One additional full-resolution Maison Vale single-scene image: present, still unapproved.
+- Corporate Digital Modernization: **no independent full-size image**; only visible in comparison moodboards.
+- Three owner-provided reference projects and the Opeyemi standalone HTML prototype: present in ZIP, not uploaded as binaries to GitHub.
+- Three ten-concept contact/overview boards and seven low-res crop references: useful for direction **only**; not final portfolio covers.
+- Some Canva image requests started but results were not verified or attached. Later Canva generation attempts hit quota; do not count any unfinished jobs as deliverables.
 
 Do not infer that “generated” means “approved and published”; no ten finished independent covers, detail-hero assets, or /work integration has been verified yet.
 
