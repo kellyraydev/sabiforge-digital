@@ -1,10 +1,12 @@
+> **SUPERSEDED AS A STANDALONE TASK (2026-11-21):** This three-project handoff remains a source reference for Big Beerah Collection, Amzlat World of Beauty and Opeyemi Phones & Gadgets. **For implementation, use** `../ten-concepts/CURSOR-NEW-TASK.md` and the ten-project JSON register, not this file by itself. Original JPEG/PNG/WebP binaries remain in the downloadable ZIP, not this branch.
+
 # Cursor brief: SabiForge V2 three-concept alignment
 
 ## Owner decision — 2026-11-21
 The owner's supplied reference imagery supersedes previous generic/neon art for these identities:
 1. `big-beerah-collection` — **Big Beerah Collection**, modest fashion and accessories / e-commerce, NOT beverage; blush, burgundy, gold. Hijabs, abayas, jersey scarves, necklaces, fabric bundles, ready-to-wear.
 2. `amzlat-world-of-beauty` — **Amzlat World of Beauty**, beauty, cosmetics, hair, fashion retail; pink, cream, black, gold; broad product categories.
-3. `opeyemi-phones-gadgets` — **Opeyemi Phone & Gadgets**, electronics retail / buy, sell, swap; cobalt blue, white, WhatsApp green; phones, MacBooks, Apple Watches.
+3. `opeyemi-phones-gadgets` — **Opeyemi Phones & Gadgets**, electronics retail / buy, sell, swap; cobalt blue, white, WhatsApp green; phones, MacBooks, Apple Watches.
 
 These names are concept-only; never depict paying work, active services or real verified sales.
 
