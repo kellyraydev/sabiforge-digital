@@ -14,18 +14,18 @@ describe('founding offer', () => {
     expect(discountPercentLabel()).toBe('10%');
   });
 
-  it('does not publish a slot count until the owner resolves 3 vs 5', () => {
-    expect(FOUNDING_CLIENT_SLOTS).toBeNull();
-    expect(foundingSlotsLabel()).toBe('a limited number of founding clients');
-    expect(foundingSlotsLabel(3)).toBe('our first 3 founding clients');
+  it('publishes five founding client slots', () => {
+    expect(FOUNDING_CLIENT_SLOTS).toBe(5);
+    expect(foundingSlotsLabel()).toBe('5 founding client slots');
+    expect(foundingSlotsLabel(null)).toBe('a limited number of founding clients');
   });
 });
 
 describe('applyDiscount', () => {
   it('matches the approved package prices', () => {
-    expect(applyDiscount(120_000)).toBe(108_000);
-    expect(applyDiscount(280_000)).toBe(252_000);
-    expect(applyDiscount(500_000)).toBe(450_000);
+    expect(applyDiscount(150_000)).toBe(135_000);
+    expect(applyDiscount(350_000)).toBe(315_000);
+    expect(applyDiscount(750_000)).toBe(675_000);
   });
 
   it('rejects invalid rates', () => {
@@ -36,8 +36,8 @@ describe('applyDiscount', () => {
 
 describe('formatNaira', () => {
   it('uses the naira sign and thousands separators', () => {
-    expect(formatNaira(108_000)).toBe('₦108,000');
-    expect(formatNaira(900_000)).toBe('₦900,000');
+    expect(formatNaira(135_000)).toBe('₦135,000');
+    expect(formatNaira(1_500_000)).toBe('₦1,500,000');
   });
 
   it('rejects negative or non-finite values', () => {
