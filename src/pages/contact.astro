@@ -8,7 +8,9 @@ import { packages } from '@/data/packages';
 import { site, whatsappLink, mailtoLink } from '@/data/site';
 import EditorialSignal from '@/components/ui/EditorialSignal.astro';
 
-const serviceOptions = services.map((s) => ({ value: s.slug, label: s.name }));
+const serviceOptions = services
+  .filter((service) => service.approval === 'confirmed')
+  .map((service) => ({ value: service.slug, label: service.name }));
 const packageOptions = [
   ...packages.map((p) => ({ value: p.id, label: p.name })),
   { value: 'partnership', label: 'Studio Partnership (custom)' },
