@@ -19,8 +19,8 @@ import { discountPercentLabel, foundingSlotsLabel } from '@/lib/pricing';
         title="Right-sized work, <em>clearly</em> priced."
       >
         <p>
-          Published starting points for the most common projects, and a tailored route for
-          everything else. Exact scope is confirmed in a written proposal.
+          Published packages cover common projects. Custom scope is available when a package does
+          not fit one of our approved services.
         </p>
       </SectionHead>
       <div data-reveal>
@@ -36,7 +36,7 @@ import { discountPercentLabel, foundingSlotsLabel } from '@/lib/pricing';
           class:list={[
             'group relative flex flex-col p-7 transition sm:p-8',
             'border-ivory-100/12 max-xl:border-b sm:max-xl:odd:border-r xl:not-last:border-r',
-            model.id === 'partnership' ? 'bg-midnight-800/70' : 'hover:bg-midnight-800/40',
+            model.id === 'custom' ? 'bg-midnight-800/70' : 'hover:bg-midnight-800/40',
           ]}
           data-reveal
           style={`--reveal-delay:${index * 70}`}

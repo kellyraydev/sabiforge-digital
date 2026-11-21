@@ -164,7 +164,7 @@ const EXTRA_ROUTES = ['/privacy', '/terms'];
         await page.waitForTimeout(400);
         await page.screenshot({ path: path.join(OUT, 'menu-390.png') });
         const focused = await page.evaluate(() => document.activeElement?.textContent?.trim());
-        if (!focused?.includes('Work')) problems.push(`${tag} menu did not focus first link`);
+        if (!focused?.includes('Home')) problems.push(`${tag} menu did not focus first link`);
         await page.keyboard.press('Escape');
         if (!(await page.locator('#mobile-menu').isHidden()))
           problems.push(`${tag} menu did not close on Escape`);

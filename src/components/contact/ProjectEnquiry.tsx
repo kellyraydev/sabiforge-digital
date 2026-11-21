@@ -66,7 +66,7 @@ const empty: Enquiry = {
   consent: false,
 };
 
-const commerceKeys = ['shopify-ecommerce-development', 'catalog', 'ecommerce'];
+const commerceKeys = ['shopify-ecommerce-development', 'store'];
 
 export default function ProjectEnquiry({ services, packages, email, whatsappNumber }: Props) {
   const [data, setData] = useState<Enquiry>(empty);
@@ -154,7 +154,7 @@ export default function ProjectEnquiry({ services, packages, email, whatsappNumb
         <div className="mt-8 grid gap-3 sm:grid-cols-3">
           <a
             href={mailHref}
-            className="bg-coral-500 text-midnight-950 hover:bg-coral-400 flex min-h-13 items-center justify-center gap-2 rounded-full px-5 font-semibold transition"
+            className="bg-coral-600 hover:bg-coral-700 flex min-h-13 items-center justify-center gap-2 rounded-full px-5 font-semibold text-white transition"
           >
             <Icon name="mail" className="size-5" /> Send by email
           </a>
@@ -438,7 +438,7 @@ export default function ProjectEnquiry({ services, packages, email, whatsappNumb
 
       <button
         type="submit"
-        className="bg-coral-500 text-midnight-950 hover:bg-coral-400 mt-8 inline-flex min-h-13 w-full items-center justify-center gap-2 rounded-full px-8 font-semibold transition sm:w-auto"
+        className="bg-coral-600 hover:bg-coral-700 mt-8 inline-flex min-h-13 w-full items-center justify-center gap-2 rounded-full px-8 font-semibold text-white transition sm:w-auto"
       >
         Review my brief <Icon name="arrow-right" className="size-5" />
       </button>

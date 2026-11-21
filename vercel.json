@@ -1,0 +1,25 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    {
+      "source": "/services/website-care-maintenance",
+      "destination": "/services/website-redesign-modernization",
+      "permanent": true
+    },
+    {
+      "source": "/services/website-care-maintenance/",
+      "destination": "/services/website-redesign-modernization",
+      "permanent": true
+    },
+    {
+      "source": "/shopify",
+      "destination": "/services/shopify-ecommerce-development",
+      "permanent": true
+    },
+    {
+      "source": "/shopify/",
+      "destination": "/services/shopify-ecommerce-development",
+      "permanent": true
+    }
+  ]
+}

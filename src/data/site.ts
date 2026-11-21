@@ -37,18 +37,25 @@ export interface NavItem {
   href: string;
   /** Path prefix that marks this item as current. */
   match?: string;
-  /** Shown in the desktop pill. Contact is reached through the "Start a project" button. */
+  /** Shown in the desktop pill. Contact is reached through the "Start your project" button. */
   primary?: boolean;
 }
 
-/** Primary navigation. Every item is now a real page. */
+/**
+ * Primary navigation, in the order of the v2 reference (docs/references/).
+ * "Packages" keeps the /pricing URL (owner decision, 21 November 2026).
+ */
 export const navigation: NavItem[] = [
-  { label: 'Work', href: '/work', match: '/work', primary: true },
+  { label: 'Home', href: '/', match: '/', primary: true },
   { label: 'Services', href: '/services', match: '/services', primary: true },
-  { label: 'Process', href: '/process', match: '/process', primary: true },
+  { label: 'Work', href: '/work', match: '/work', primary: true },
+  { label: 'Packages', href: '/pricing', match: '/pricing', primary: true },
+  { label: 'Our Process', href: '/process', match: '/process', primary: true },
   { label: 'About', href: '/about', match: '/about', primary: true },
-  { label: 'Pricing', href: '/pricing', match: '/pricing', primary: true },
   { label: 'Contact', href: '/contact', match: '/contact', primary: false },
 ];
 
 export const startProjectHref = '/contact';
+
+/** Short location line used in the footer and contact areas. */
+export const locationLine = 'Based in Nigeria · working with clients remotely';

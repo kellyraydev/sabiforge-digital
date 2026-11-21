@@ -6,7 +6,7 @@ Build and maintain the SabiForge Digital agency website with reliable engineerin
 
 Stack verified on the repository default branch on 2026-11-20: Astro (static output), React islands, TypeScript (strict), Tailwind CSS v4, npm, Vitest, Playwright. Keep this architecture unless the owner approves a change. Use server-rendered Astro for content; add React only for interaction that requires it.
 
-This file governs *how to work*. `docs/REBUILD-BRIEF.md` records the approved visual rebuild and the authoritative owner decisions ledger, and `docs/references/` holds the two supplied reference images (`homepage-target.jpeg`, `implementation-blueprint.jpeg`), to be committed by the owner if not yet present. Reference images are design direction, **not** evidence for business claims, services, pricing, contact details, or portfolio provenance. Code work happens on `redesign/**` branches.
+This file governs _how to work_. `docs/REBUILD-BRIEF.md` records the approved visual rebuild and the authoritative owner decisions ledger, and `docs/references/` holds the two supplied reference images (`homepage-target.jpeg`, `implementation-blueprint.jpeg`), to be committed by the owner if not yet present. Reference images are design direction, **not** evidence for business claims, services, pricing, contact details, or portfolio provenance. Code work happens on `redesign/**` branches.
 
 ## 1. Reconcile state before doing work
 
@@ -21,7 +21,7 @@ This file governs *how to work*. `docs/REBUILD-BRIEF.md` records the approved vi
 - **Owner approvals and latest explicit task scope** control what changes are authorized.
 - **Current repository and deployment evidence** establish what actually exists; do not rely on an outdated status sentence in a document.
 - **The owner decisions ledger** in `docs/REBUILD-BRIEF.md` records every explicit owner approval with its date. Where older documents or older rules in this file conflict with the ledger, the ledger controls. Do not re-approve an already recorded decision, and do not block ledged work with superseded guards.
-- **`docs/REBUILD-BRIEF.md` and supplied visual references** control the intended design direction for the *rebuild*, subject to owner acceptance. The first reference image is the primary homepage visual target; the second is an implementation blueprint, not a replacement for repository facts.
+- **`docs/REBUILD-BRIEF.md` and supplied visual references** control the intended design direction for the _rebuild_, subject to owner acceptance. The first reference image is the primary homepage visual target; the second is an implementation blueprint, not a replacement for repository facts.
 - **Business data** remains in `src/data/site.ts`, `src/data/services.ts`, `src/data/packages.ts`, and `src/lib/pricing.ts`. Screenshots do not override these files. Business changes beyond the ledger require explicit owner approval; the design brief is not an implicit approval.
 - **Previous creative-direction documents** remain historical context. Where they conflict with the approved design direction, flag the conflict and migrate deliberately rather than preserving the old palette by default.
 - In an unresolved conflict, preserve existing business facts and release protections, implement only uncontroversial UI work, and make the blocked choice explicit. Do not declare an unapproved decision approved.

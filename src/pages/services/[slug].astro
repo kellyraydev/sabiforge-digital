@@ -4,19 +4,30 @@ import PageHero from '@/components/page/PageHero.astro';
 import CtaPanel from '@/components/page/CtaPanel.astro';
 import ConceptPlate from '@/components/ui/ConceptPlate.astro';
 import Icon from '@/components/ui/Icon.astro';
-import { services, serviceFamilies, getService, serviceHref, type Service } from '@/data/services';
+import {
+  approvedServices,
+  serviceFamilies,
+  getService,
+  serviceHref,
+  type Service,
+} from '@/data/services';
 import { getConcept, CONCEPT_LABEL, CONCEPT_DISCLAIMER } from '@/data/concepts';
 import { site } from '@/data/site';
 import EditorialSignal from '@/components/ui/EditorialSignal.astro';
 
 export function getStaticPaths() {
-  return services.map((service) => ({ params: { slug: service.slug }, props: { service } }));
+  return approvedServices.map((service) => ({
+    params: { slug: service.slug },
+    props: { service },
+  }));
 }
 
 const { service } = Astro.props as { service: Service };
 const family = serviceFamilies.find((f) => f.id === service.family)!;
 const concept = service.conceptId ? getConcept(service.conceptId) : undefined;
-const related = service.related.map((slug) => getService(slug)!).filter(Boolean);
+const related = service.related
+  .map((slug) => getService(slug))
+  .filter((item): item is Service => item?.approval === 'confirmed');
 
 const serviceLd = {
   '@context': 'https://schema.org',
@@ -39,7 +50,7 @@ const serviceLd = {
     <div slot="after" class="mt-10 flex flex-wrap gap-3">
       <a
         href={`/contact?service=${service.slug}`}
-        class="group inline-flex min-h-12 items-center gap-2 rounded-full bg-coral-500 px-6 font-semibold text-midnight-950 transition hover:bg-coral-400"
+        class="group inline-flex min-h-12 items-center gap-2 rounded-full bg-coral-600 px-6 font-semibold text-white transition hover:bg-coral-700"
       >
         Discuss this service <Icon name="arrow-up-right" class="size-5" />
       </a>
@@ -201,14 +212,6 @@ const serviceLd = {
             >
               Read the concept study <Icon name="arrow-right" class="size-4" />
             </a>
-            {service.slug === 'shopify-ecommerce-development' && (
-              <a
-                href="/shopify"
-                class="link-sweep mt-3 flex items-center gap-2 text-sm font-semibold text-mint-300"
-              >
-                Shopify &amp; e-commerce overview <Icon name="arrow-right" class="size-4" />
-              </a>
-            )}
           </figcaption>
         </figure>
       )}
@@ -247,7 +250,7 @@ const serviceLd = {
   <CtaPanel
     title={`Talk to us about <em>${service.shortName.toLowerCase()}</em>.`}
     body="Tell us where things stand today. We’ll suggest a sensible scope — and be honest if a smaller first step makes more sense."
-    primaryLabel="Start a project"
+    primaryLabel="Start your project"
     primaryHref={`/contact?service=${service.slug}`}
     whatsappMessage={`Hello SabiForge Digital, I'd like to discuss ${service.name}.`}
   />
