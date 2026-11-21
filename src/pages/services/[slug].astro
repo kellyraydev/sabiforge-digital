@@ -2,8 +2,10 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/page/PageHero.astro';
 import CtaPanel from '@/components/page/CtaPanel.astro';
-import ConceptPlate from '@/components/ui/ConceptPlate.astro';
+import { Image } from 'astro:assets';
 import Icon from '@/components/ui/Icon.astro';
+import { getConcept, CONCEPT_LABEL, CONCEPT_DISCLAIMER } from '@/data/concepts';
+import { conceptImage } from '@/data/concept-media';
 import {
   approvedServices,
   serviceFamilies,
@@ -11,7 +13,6 @@ import {
   serviceHref,
   type Service,
 } from '@/data/services';
-import { getConcept, CONCEPT_LABEL, CONCEPT_DISCLAIMER } from '@/data/concepts';
 import { site } from '@/data/site';
 import EditorialSignal from '@/components/ui/EditorialSignal.astro';
 
@@ -193,10 +194,13 @@ const serviceLd = {
       </div>
       {concept && (
         <figure data-reveal style="--reveal-delay:120">
-          <div class="rounded-[var(--radius-card)] bg-midnight-800/70 p-6 sm:p-10">
-            <ConceptPlate
-              variant={concept.plate}
-              class={concept.plate === 'product' ? 'mx-auto w-[55%] max-w-64' : 'w-full'}
+          <div class="overflow-hidden rounded-[var(--radius-card)] bg-midnight-800/70">
+            <Image
+              src={conceptImage(concept.id, 'desktop-ui')}
+              alt={concept.alt.desktop}
+              widths={[640, 960, 1200]}
+              sizes="(min-width: 1024px) 40vw, 100vw"
+              class="h-auto w-full"
             />
           </div>
           <figcaption class="mt-5">

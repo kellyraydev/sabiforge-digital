@@ -29,13 +29,19 @@ const pass = (msg) => console.log(`✓ ${msg}`);
     await page.getByRole('link', { name: 'Explore our work' }).getAttribute('href'),
     '/work',
   );
-  assert.equal(await page.locator('#case-studies article').count(), 4);
+  assert.equal(await page.locator('#case-studies article').count(), 10);
   const conceptFilters = page.getByRole('group', { name: 'Filter studio concepts' });
   await conceptFilters.getByRole('button', { name: 'E-commerce' }).click();
-  assert.equal(await page.locator('#case-studies article').count(), 1);
-  assert.equal(await page.locator('#case-studies article h3').innerText(), 'Kòrà Home');
+  assert.equal(await page.locator('#case-studies article:visible').count(), 4);
+  assert.equal(
+    await page.locator('#case-studies article:visible h3').first().innerText(),
+    'AURA Clothing',
+  );
+  await conceptFilters.getByRole('button', { name: 'Product interfaces' }).focus();
+  await page.keyboard.press('Enter');
+  assert.equal(await page.locator('#case-studies article:visible').count(), 3);
   await conceptFilters.getByRole('button', { name: 'All concepts' }).click();
-  assert.equal(await page.locator('#case-studies [role="tab"]').count(), 0);
+  assert.equal(await page.locator('#case-studies article').count(), 10);
   pass('homepage concept filter uses pressed buttons and shows the shared Work concept data');
 
   // Pathway selector (radio group, arrow keys)
@@ -185,48 +191,29 @@ const pass = (msg) => console.log(`✓ ${msg}`);
     await page.locator('nav[aria-label="Primary"] a[aria-current="page"]').innerText(),
     'Work',
   );
-  await page.locator('#adun-table').scrollIntoViewIfNeeded();
-  await page.locator('astro-island:not([ssr])').first().waitFor();
-  await page.getByRole('button', { name: /Before: a forwarded image/ }).click();
-  assert.ok(await page.getByText('Text is not selectable').isVisible());
-  await page.getByRole('button', { name: /After: an editorial menu/ }).click();
-  assert.ok(await page.getByText('Smoked jollof, party style · Serves 10').isVisible());
-  pass('work: menu demo toggles before and after');
-
-  const kora = page.locator('#kora-home');
-  await kora.scrollIntoViewIfNeeded();
-  await page.waitForTimeout(500);
-  // Click the visible implicit labels: Firefox does not reliably toggle a
-  // visually-hidden controlled radio when Playwright force-clicks the input.
-  await kora.locator('label', { hasText: 'Ochre' }).click();
-  await kora.locator('label', { hasText: 'Double' }).click();
-  assert.ok(await kora.getByText('₦52,000').first().isVisible());
-  assert.ok(await kora.getByText('Ochre', { exact: true }).first().isVisible());
-  await kora.getByRole('button', { name: 'Add to bag' }).click();
-  assert.equal(await kora.locator('span[aria-live]').innerText(), 'Bag (1)');
-  pass('work: product demo changes colour, size, price and bag count');
-
-  const mend = page.locator('#mend-physio');
-  await mend.scrollIntoViewIfNeeded();
-  await page.waitForTimeout(500);
-  await mend.getByRole('radio', { name: 'Sports injury' }).click();
-  assert.ok(await mend.getByText('shoes or kit').isVisible());
-  await mend.getByRole('button', { name: 'Wed 14:30' }).click();
-  assert.ok(
-    await mend
-      .getByText('Sample selection: Wed 14:30. No appointment has been booked.')
-      .isVisible(),
+  const conceptIds = [
+    'maison-vale-studios',
+    'aura-clothing',
+    'flowdesk-os',
+    'campusone-portal',
+    'bloom-wellness-studio',
+    'routepilot-logistics',
+    'big-beerah-collection',
+    'amzlat-world-of-beauty',
+    'opeyemi-phones-gadgets',
+    'corporate-digital-modernization',
+  ];
+  for (const id of conceptIds) {
+    await page.locator(`#${id}`).scrollIntoViewIfNeeded();
+    assert.equal(await page.locator(`#${id}`).count(), 1);
+  }
+  assert.equal(await page.locator('#adun-table, #kora-home, #mend-physio, #tallyhouse').count(), 0);
+  assert.match(await page.locator('body').innerText(), /Concept Project/);
+  assert.match(
+    await page.locator('body').innerText(),
+    /latest technology and modern design standards/,
   );
-  pass('work: first-visit concept labels sample times and confirms no appointment was booked');
-
-  const tally = page.locator('#tallyhouse');
-  await tally.scrollIntoViewIfNeeded();
-  await page.waitForTimeout(500);
-  await tally.getByRole('button', { name: 'Overdue', exact: true }).click();
-  assert.equal(await tally.locator('ul[aria-live] li').count(), 2);
-  await tally.getByRole('button', { name: 'Paid', exact: true }).click();
-  assert.equal(await tally.locator('ul[aria-live] li').count(), 1);
-  pass('work: invoice demo filters by status');
+  pass('work: ten concept studies are present without the retired studies');
 
   // Process: responsibilities filter + rail marker
   await page.goto(BASE_URL + '/process', { waitUntil: 'networkidle' });
@@ -312,6 +299,7 @@ const pass = (msg) => console.log(`✓ ${msg}`);
         }).length,
     );
     assert.equal(hidden, 0, `${route}: headings hidden without JavaScript`);
+    if (route === '/work') assert.equal(await njp.locator('article[id]').count(), 10);
   }
   await noJs.close();
   pass('no JavaScript: headings on every new page remain visible');
