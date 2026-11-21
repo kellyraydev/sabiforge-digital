@@ -13,7 +13,7 @@ Status: **IN PROGRESS; NOT RELEASE READY**. Prepared against `redesign/v2-bluepr
 ## Baseline and blockers verified
 
 - The starting `redesign/v2-blueprint` branch differed from `main` in documentation only, not in the production application.
-- The two primary visual reference image files were absent in `docs/references/` (only `encoding-probe.txt` was present). Do not claim image-to-design fidelity before they are present.
+- The two primary visual reference image files were absent in `docs/references/` (only `encoding-probe.txt` was present). Two likely matching originals were subsequently located in the owner's ChatGPT Library as `SabiForge Digital Agency Homepage.png` (1024×1536) and `SabiForge Digital AI Blueprint.png` (1199×1312) and visually inspected. The first shows a navy/violet/cyan agency homepage with a laptop/phone mockup, four services, six concept cards, package comparison and a six-step process. The second shows the corresponding UI/architecture blueprint. **The original image bytes are still not committed to GitHub.** The owner or an authorized coding agent must add the exact files, with a provenance note, before reference-based acceptance.
 - `src/data/services.ts`, `src/data/packages.ts`, `src/lib/pricing.ts`, `src/data/home.ts` and the associated tests still represented earlier commercial decisions at the start of this branch. A coordinated migration remains required.
 - The live URL could not be independently loaded by the available web fetcher during this review. Treat prior textual review as an issue list, not a reproduced visual or interaction test.
 - Multiple older PRs exist; reconcile each diff before cherry-picking, merging, or claiming its changes are in `main`.
