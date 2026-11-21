@@ -19,6 +19,9 @@ import { discountPercentLabel, formatNaira, foundingSlotsLabel } from '@/lib/pri
 import EditorialSignal from '@/components/ui/EditorialSignal.astro';
 
 const modelName = (id: string) => engagementModels.find((m) => m.id === id)?.name ?? '';
+const publicAddOns = addOns.filter((item) =>
+  ['Additional pages or templates', 'Website care plan'].includes(item.name),
+);
 const cards: PackageCard[] = packages.map((pkg) => {
   const founding = foundingPrice(pkg);
   return {
@@ -94,11 +97,11 @@ const faqLd = {
 
       <div class="chamfer mt-6 grid gap-6 rounded-[var(--radius-card)] bg-mint-300 p-7 text-midnight-900 sm:p-9 lg:grid-cols-[1fr_auto] lg:items-center">
         <div>
-          <p class="meta text-midnight-800">Studio Partnership</p>
+          <p class="meta text-midnight-800">Custom scope</p>
           <h3 class="mt-2 font-display text-3xl font-semibold">Custom quote</h3>
           <p class="mt-2 max-w-2xl text-midnight-900/80">
-            For tailored strategy, brand and design work, complex builds, integrations or ongoing
-            engagements. Scoped after a discovery conversation.
+            For one of our approved services when a published package is not a fit. Scope is
+            discussed before a written quote.
           </p>
         </div>
         <a
@@ -257,7 +260,7 @@ const faqLd = {
           <Icon name="plus" class="size-5 text-mint-300" /> Add-ons
         </h3>
         <ul class="mt-5 space-y-4">
-          {addOns.map((item) => (
+          {publicAddOns.map((item) => (
             <li>
               <p class="font-semibold text-ivory-50">{item.name}</p>
               <p class="text-sm text-ivory-100/70">{item.detail}</p>
@@ -326,9 +329,9 @@ const faqLd = {
   </section>
 
   <CtaPanel
-    title="Have a project that doesn’t fit a <em>package</em>?"
-    body="Tell us what you need. We’ll scope it properly and give you a clear, written quote."
-    primaryHref="/contact?package=partnership"
+    title="Need a custom scope for an <em>approved service</em>?"
+    body="Tell us which service you need. We’ll discuss the scope and provide a written quote."
+    primaryHref="/contact"
     primaryLabel="Request a custom quote"
   />
 </BaseLayout>

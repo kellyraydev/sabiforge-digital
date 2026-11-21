@@ -4,26 +4,26 @@ import PageHero from '@/components/page/PageHero.astro';
 import CtaPanel from '@/components/page/CtaPanel.astro';
 import Icon from '@/components/ui/Icon.astro';
 import { serviceFamilies, servicesInFamily, serviceHref } from '@/data/services';
-import { whatsappLink } from '@/data/site';
 import EditorialSignal from '@/components/ui/EditorialSignal.astro';
+const publicFamilies = serviceFamilies.filter((family) => servicesInFamily(family.id).length > 0);
 ---
 
 <BaseLayout
   title="Services"
-  description="Brand identity, UX/UI design, custom websites, Shopify and e-commerce, redesigns, optimisation, care and integrations — SabiForge Digital’s services for Nigerian businesses."
+  description="Custom website design and development, Shopify and e-commerce, website redesign, and website care and maintenance from SabiForge Digital."
 >
   <PageHero
     label="Services"
-    title="Strategy, build and growth — from <em class='text-mint-300'>one</em> studio."
+    title="Website and store experiences, shaped around <em class='text-mint-300'>your business</em>."
     crumbs={[{ label: 'Services' }]}
   >
     <p>
-      Ten services in three families. Most projects combine a few of them; we help you choose only
-      what your business needs right now.
+      Approved services for businesses building, improving, or maintaining a website or online
+      store.
     </p>
     <nav aria-label="Service families" slot="after" class="mt-12">
       <ul class="flex flex-wrap gap-2">
-        {serviceFamilies.map((family) => (
+        {publicFamilies.map((family) => (
           <li>
             <a
               href={`#${family.id}`}
@@ -39,12 +39,12 @@ import EditorialSignal from '@/components/ui/EditorialSignal.astro';
     <div slot="visual">
       <EditorialSignal
         variant="services"
-        label="Editorial service system showing strategy, build and growth"
+        label="Editorial overview of website design, e-commerce, redesign and care"
       />
     </div>
   </PageHero>
 
-  {serviceFamilies.map((family, fi) => (
+  {publicFamilies.map((family, fi) => (
     <section
       id={family.id}
       aria-labelledby={`${family.id}-title`}
@@ -131,33 +131,6 @@ import EditorialSignal from '@/components/ui/EditorialSignal.astro';
       </div>
     </section>
   ))}
-
-  <section aria-labelledby="partners-title" class="border-t border-ivory-100/10 py-20 lg:py-24">
-    <div class="container-page grid gap-8 lg:grid-cols-[minmax(0,24rem)_1fr] lg:gap-20">
-      <p class="meta text-mint-300">For agencies & developers</p>
-      <div data-reveal>
-        <h2 id="partners-title" class="text-display-sm font-semibold text-ivory-50">
-          Developer collaboration
-        </h2>
-        <p class="mt-4 max-w-2xl leading-relaxed text-ivory-100/75">
-          Agencies and independent developers can bring us in for frontend builds, UI implementation
-          or extra capacity on client work, with a clear hand-off at the end. Scope and terms are
-          agreed per project.
-        </p>
-        <a
-          href={whatsappLink(
-            "Hello SabiForge Digital, I'd like to discuss a developer collaboration.",
-          )}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="mt-6 inline-flex items-center gap-2 rounded-sm font-semibold text-mint-300 underline decoration-mint-300/40 underline-offset-[6px] hover:decoration-mint-300"
-        >
-          Discuss a collaboration <Icon name="arrow-up-right" class="size-4" />
-          <span class="sr-only">(opens WhatsApp in a new tab)</span>
-        </a>
-      </div>
-    </div>
-  </section>
 
   <CtaPanel
     title="Not sure which service <em>fits</em>?"

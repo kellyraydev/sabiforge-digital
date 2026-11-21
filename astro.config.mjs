@@ -6,6 +6,10 @@ import tailwindcss from '@tailwindcss/vite';
 
 // Require an explicit, secure public URL for any remotely hosted environment.
 // This prevents preview builds from publishing localhost canonicals by accident.
+const isAstroBuild = process.argv.includes('build');
+if (isAstroBuild && (!process.env.SITE_ENV || !process.env.SITE_URL)) {
+  throw new Error('Astro builds require explicit SITE_ENV and SITE_URL values.');
+}
 const siteEnvironment = process.env.SITE_ENV ?? 'development';
 const allowedEnvironments = new Set(['development', 'staging', 'production']);
 if (!allowedEnvironments.has(siteEnvironment)) {
@@ -14,8 +18,7 @@ if (!allowedEnvironments.has(siteEnvironment)) {
 
 const site = process.env.SITE_URL ?? 'http://localhost:4321';
 const siteUrl = new URL(site);
-// Fail closed until the selected public production origin is explicitly changed here.
-const configuredProductionOrigin = 'https://sabiforge.digital';
+const configuredProductionOrigin = 'https://sabiforge-digital.vercel.app';
 if (siteEnvironment !== 'development') {
   if (siteUrl.protocol !== 'https:') {
     throw new Error('SITE_URL must use https for staging and production builds.');

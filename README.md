@@ -5,9 +5,10 @@ Agency website for **SabiForge Digital** — _Built for business. Ready for what
 Built with [Astro](https://astro.build) (static output), TypeScript (strict), Tailwind CSS v4 and
 React islands for interactive components.
 
-> Status: **pre-launch readiness review in progress.** The site is not deployed anywhere. Six
-> services, the founding-offer conditions, package terms and the legal drafts still require owner
-> decisions before public launch.
+> Status: **pre-launch readiness review in progress.** A public deployment is reachable at
+> `https://sabiforge-digital.vercel.app`; hosting settings are managed outside this repository.
+> Four approved services are public. Six pending service definitions are retained but unpublished.
+> Package terms, founding-offer conditions and the legal drafts still require review.
 >
 > - Creative direction and audit: [`docs/CREATIVE-DIRECTION.md`](docs/CREATIVE-DIRECTION.md)
 > - Results, test evidence, open questions: [`docs/MILESTONE-B-C.md`](docs/MILESTONE-B-C.md)
@@ -28,18 +29,20 @@ npm run dev          # http://localhost:4321
 
 ## Scripts
 
-| Script                    | What it does                                                        |
-| ------------------------- | ------------------------------------------------------------------- |
-| `npm run dev`             | Astro dev server with hot reload                                    |
-| `npm run build`           | Type-checks (`astro check`) then builds static files into `dist/`   |
-| `npm run preview`         | Serves the production build locally                                 |
-| `npm run check`           | Astro + TypeScript diagnostics                                      |
-| `npm run lint`            | ESLint (TypeScript + Astro rules)                                   |
-| `npm run format`          | Prettier (with Astro and Tailwind class sorting)                    |
-| `npm run test`            | Vitest unit tests (pricing, packages, services, enquiry validation) |
-| `npm run qa:visual`       | Every route × 7 widths: overflow, links, console, axe; screenshots  |
-| `npm run qa:interactions` | Keyboard and interaction tests for every interactive component      |
-| `npm run verify`          | format check → lint → tests → type-check + build                    |
+| Script                             | What it does                                                                              |
+| ---------------------------------- | ----------------------------------------------------------------------------------------- |
+| `npm run dev`                      | Astro dev server with hot reload                                                          |
+| `npm run build`                    | Type-checks (`astro check`) then builds static files into `dist/`                         |
+| `npm run preview`                  | Serves the production build locally                                                       |
+| `npm run check`                    | Astro + TypeScript diagnostics                                                            |
+| `npm run lint`                     | ESLint (TypeScript + Astro rules)                                                         |
+| `npm run format`                   | Prettier (with Astro and Tailwind class sorting)                                          |
+| `npm run test`                     | Vitest unit tests (pricing, packages, services, enquiry validation)                       |
+| `npm run verify:sitemap`           | Check generated sitemap origin and approved service routes.                               |
+| `npm run verify:production-output` | Check production SEO origins, structured data, local links/assets and service visibility. |
+| `npm run qa:visual`                | Every route × 7 widths: overflow, links, console, axe; screenshots                        |
+| `npm run qa:interactions`          | Keyboard and interaction tests for every interactive component                            |
+| `npm run verify`                   | format check → lint → tests → type-check + build                                          |
 
 The two `qa:*` scripts drive Chromium through Playwright and need a running server, e.g.
 `npm run build && npm run preview` in one terminal and
@@ -52,7 +55,7 @@ Chromium is the default.
 ```
 src/
   components/
-    home/        Homepage sections and islands (PathwaySelector, ApproachStages)
+    home/        Homepage sections and islands (concept filter, enquiry selector, PathwaySelector, ApproachStages)
     page/        PageHero, CtaPanel (inner pages)
     pricing/     PricingExplorer (standard / founding-rate switch)
     contact/     ProjectEnquiry (brief composer)
@@ -60,9 +63,9 @@ src/
     ui/          Button, Icon, Logo, LogoMark, SectionHead, HexLines, Breadcrumbs, ConceptPlate
   data/
     site.ts      Verified agency facts, contact links, navigation
-    services.ts  10 services in 3 families (with approval status)
+    services.ts  10 retained service definitions; 4 approved services are public
     packages.ts  Approved packages, engagement models, comparison matrix, costs
-    concepts.ts  Fictional studio concepts (always labelled as such)
+    concepts.ts  Four fictional studio concepts shared by Home and Work
     home.ts      Point of view, approach stages, differentiators, audience pathways
     faq.ts       Pricing FAQ
   layouts/       BaseLayout (SEO meta, JSON-LD, font preload, reveal motion)
@@ -101,20 +104,20 @@ while midnight on coral is 5.9:1.
 - Founding offer: **10% off** Launch, Business and Online Catalog for a limited number of early
   clients. `FOUNDING_CLIENT_SLOTS` is `null` until the owner settles the conflict between 3 and 5;
   set it in `src/lib/pricing.ts` and the copy updates everywhere. Covered by unit tests.
-- New services from the expanded brief are marked `approval: 'pending'` in `src/data/services.ts`.
+- Six services remain marked `approval: 'pending'` and are excluded from public pages, generated routes, enquiry options and sitemaps.
 - The contact form doesn't store or send data; it hands the brief to the visitor's own email or
   WhatsApp app. Connect a backend only after a provider and retention policy are approved.
-- No testimonials, clients, portfolio projects, social accounts or registration details are shown.
-  All work is labelled "Studio concept" (fictional brands).
+- The four Work concepts are fictional demonstrations, not client projects. No testimonials or social profiles are published.
 
 ## Environment
 
-Copy `.env.example` to `.env` and set both `SITE_ENV` and `SITE_URL` for the target environment.
-`SITE_URL` supplies canonical, sitemap and Open Graph URLs. Staging builds emit `noindex,nofollow`
-and a disallowing `robots.txt`; production indexing requires `SITE_ENV=production`. HTTPS is
-required for both staging and production builds.
+Set both `SITE_ENV` and `SITE_URL` explicitly for every Astro build. Production must use
+`SITE_ENV=production` and `SITE_URL=https://sabiforge-digital.vercel.app`; the build rejects missing
+values and unapproved origins. `SITE_URL` supplies canonical, Open Graph, structured-data and
+sitemap origins. Staging uses `https://sabiforge-digital-staging.pages.dev`, emits
+`noindex,nofollow`, and disallows crawling. Production and staging both require HTTPS.
 
 ## Deployment
 
-The build is a plain static site in `dist/` and can be hosted on any static host. Nothing has been
-deployed, no DNS has been changed and no paid services have been configured.
+The build is a plain static site in `dist/`. The approved public URL is hosted on Vercel; this
+repository does not control Vercel or Cloudflare account settings, DNS, or deployment actions.

@@ -139,8 +139,8 @@ export const engagementModels: EngagementModelInfo[] = [
   },
   {
     id: 'partnership',
-    name: 'Studio Partnership',
-    forWhom: 'Tailored strategy, design and development, or ongoing work together.',
+    name: 'Custom scope',
+    forWhom: 'One of the approved services when a published package is not a fit.',
     packages: ['Custom scope'],
     priceLabel: 'Custom quote',
   },

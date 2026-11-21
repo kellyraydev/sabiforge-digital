@@ -13,10 +13,12 @@ const options: PathwayOption[] = pathways.map((p) => ({
   packageHint: p.packageHint,
   services: p.services.map((slug) => {
     const service = getService(slug);
-    if (!service) throw new Error(`Unknown service in pathway: ${slug}`);
+    if (!service || service.approval !== 'confirmed')
+      throw new Error(`Unknown or unapproved public service in pathway: ${slug}`);
     return { name: service.name, href: serviceHref(slug) };
   }),
 }));
+const publicFamilies = serviceFamilies.filter((family) => servicesInFamily(family.id).length > 0);
 ---
 
 <section
@@ -30,16 +32,13 @@ const options: PathwayOption[] = pathways.map((p) => ({
       label="Services"
       id="services-title"
       tone="paper"
-      title="Three ways we help a business <em class='text-coral-700'>move forward</em>."
+      title="Four approved ways to <em class='text-coral-700'>move forward</em>."
     >
-      <p>
-        One studio across strategy, build and growth — so the thinking behind your brand carries
-        through to the code, and keeps improving after launch.
-      </p>
+      <p>Choose website design and development, e-commerce, a redesign, or ongoing website care.</p>
     </SectionHead>
 
     <div class="mt-16 grid gap-px overflow-hidden rounded-[var(--radius-card)] border border-midnight-900/12 bg-midnight-900/12 lg:grid-cols-3">
-      {serviceFamilies.map((family, fi) => (
+      {publicFamilies.map((family, fi) => (
         <div
           class="flex flex-col bg-ivory-50 p-7 sm:p-9"
           data-reveal
