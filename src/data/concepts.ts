@@ -90,7 +90,7 @@ export const concepts: Concept[] = [
       ],
       limits:
         'Photography is represented by a graphic plate. A real project would be built around real food photography, which a concept cannot supply.',
-      services: ['brand-identity-creative-direction', 'custom-website-design-development'],
+      services: ['business-websites'],
       theme: { bg: '#2a1a14', fg: '#f6efe4', accent: '#e8a24a', muted: '#d8c9b6', tone: 'dark' },
     },
   },
@@ -142,7 +142,7 @@ export const concepts: Concept[] = [
       ],
       limits:
         'The demonstration runs on sample data. It shows product-page design, not a connected checkout, payment provider or stock system.',
-      services: ['shopify-ecommerce-development', 'conversion-experience-optimization'],
+      services: ['online-stores'],
       theme: { bg: '#1d2240', fg: '#efe7da', accent: '#d79a2b', muted: '#c9c4d6', tone: 'dark' },
     },
   },
@@ -192,7 +192,7 @@ export const concepts: Concept[] = [
       ],
       limits:
         'The wording is illustrative. Health information on a real clinic site must come from the clinic’s qualified practitioners, and a concept supplies none.',
-      services: ['website-strategy-ux-ui-design', 'custom-website-design-development'],
+      services: ['business-websites', 'website-redesign-and-support'],
       theme: { bg: '#e4ece6', fg: '#173a31', accent: '#8a3b18', muted: '#2f5c4f', tone: 'light' },
     },
   },
@@ -243,7 +243,7 @@ export const concepts: Concept[] = [
       ],
       limits:
         'The demonstration filters sample invoices only. A real product also needs accounting rules, tax handling and security work that a concept does not attempt.',
-      services: ['design-systems', 'website-strategy-ux-ui-design'],
+      services: ['custom-software-and-business-platforms'],
       theme: { bg: '#0b1020', fg: '#f4f6fb', accent: '#c6f36b', muted: '#b9c2d9', tone: 'dark' },
     },
   },
@@ -252,3 +252,64 @@ export const concepts: Concept[] = [
 export function getConcept(id: string): Concept | undefined {
   return concepts.find((concept) => concept.id === id);
 }
+
+/**
+ * Homepage selected-work records for the v2 rebuild.
+ * These are not the /work studies. The four studies in `concepts` stay published.
+ * Every record is fictional and must keep the "Concept Project" label.
+ */
+export const HOMEPAGE_CONCEPT_LABEL = 'Concept Project';
+
+export interface HomepageConceptProject {
+  id: string;
+  name: string;
+  label: typeof HOMEPAGE_CONCEPT_LABEL;
+  conceptOnly: true;
+  /** What kind of fictional project this is. Not a client, result or metric. */
+  summary: string;
+}
+
+export const homepageConcepts: HomepageConceptProject[] = [
+  {
+    id: 'maison-vale-studios',
+    name: 'Maison Valé Studios',
+    label: HOMEPAGE_CONCEPT_LABEL,
+    conceptOnly: true,
+    summary: 'Fictional studio website concept. Not a client project.',
+  },
+  {
+    id: 'aura-clothing',
+    name: 'AURA Clothing',
+    label: HOMEPAGE_CONCEPT_LABEL,
+    conceptOnly: true,
+    summary: 'Fictional clothing-store concept. Not a client project.',
+  },
+  {
+    id: 'flowdesk-os',
+    name: 'FlowDesk OS',
+    label: HOMEPAGE_CONCEPT_LABEL,
+    conceptOnly: true,
+    summary: 'Fictional business-software concept. Not a client project.',
+  },
+  {
+    id: 'campusone-portal',
+    name: 'CampusOne Portal',
+    label: HOMEPAGE_CONCEPT_LABEL,
+    conceptOnly: true,
+    summary: 'Fictional portal concept. Not a client project.',
+  },
+  {
+    id: 'bloom-wellness-studio',
+    name: 'Bloom Wellness Studio',
+    label: HOMEPAGE_CONCEPT_LABEL,
+    conceptOnly: true,
+    summary: 'Fictional wellness-studio website concept. Not a client project.',
+  },
+  {
+    id: 'routepilot-logistics',
+    name: 'RoutePilot Logistics',
+    label: HOMEPAGE_CONCEPT_LABEL,
+    conceptOnly: true,
+    summary: 'Fictional logistics-platform concept. Not a client project.',
+  },
+];

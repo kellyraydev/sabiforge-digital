@@ -83,10 +83,10 @@ const pass = (msg) => console.log(`✓ ${msg}`);
   await page.goto(BASE_URL + '/pricing', { waitUntil: 'networkidle' });
   await page.locator('astro-island:not([ssr])').first().waitFor();
   const cards = page.locator('section[aria-labelledby="packages-title"]');
-  assert.ok(await cards.getByText('₦120,000').first().isVisible(), 'standard price default');
-  assert.equal(await cards.getByText('₦108,000').count(), 0);
+  assert.ok(await cards.getByText('₦150,000').first().isVisible(), 'standard price default');
+  assert.equal(await cards.getByText('₦135,000').count(), 0);
   await page.getByText('Founding rate', { exact: false }).first().click();
-  assert.ok(await cards.getByText('₦108,000').isVisible());
+  assert.ok(await cards.getByText('₦135,000').isVisible());
   assert.ok(await cards.getByText('Not part of the founding offer').isVisible());
   pass('pricing defaults to standard prices; founding toggle shows eligible discounts only');
 
@@ -97,15 +97,12 @@ const pass = (msg) => console.log(`✓ ${msg}`);
   pass('pricing FAQ expands');
 
   // Contact form: validation, focus, preselect, conditional fields, review
-  await page.goto(BASE_URL + '/contact?service=shopify-ecommerce-development', {
+  await page.goto(BASE_URL + '/contact?service=online-stores', {
     waitUntil: 'networkidle',
   });
   await page.locator('form').waitFor();
   await page.waitForTimeout(300);
-  assert.equal(
-    await page.getByLabel('Service you’re interested in').inputValue(),
-    'shopify-ecommerce-development',
-  );
+  assert.equal(await page.getByLabel('Service you’re interested in').inputValue(), 'online-stores');
   assert.ok(await page.getByLabel('Where do you sell today?').isVisible(), 'commerce field shown');
   pass('contact form preselects service from URL and shows commerce field');
 

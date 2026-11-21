@@ -9,7 +9,7 @@ const valid: Enquiry = {
   hasWebsite: 'yes',
   website: 'adaandco.ng',
   businessType: 'small-business',
-  service: 'custom-website-design-development',
+  service: 'business-websites',
   package: 'business',
   platform: '',
   description: 'We need a website that explains our tailoring services and takes enquiries.',
