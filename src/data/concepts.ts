@@ -1,8 +1,11 @@
 /**
  * Ten studio concepts. One register feeds the homepage and /work.
- * Every record is fictional and stays labelled "Concept Project".
+ * Seven records invent a brand. Three are uncommissioned concepts based on existing
+ * businesses. Every record stays labelled "Concept Project".
  */
 export type ConceptFilterCategory = 'Business websites' | 'E-commerce' | 'Product interfaces';
+
+export type ConceptBasis = 'fictional' | 'reference';
 
 export interface Concept {
   id: string;
@@ -11,6 +14,8 @@ export interface Concept {
   filterCategory: ConceptFilterCategory;
   label: typeof CONCEPT_LABEL;
   conceptOnly: true;
+  /** fictional = invented brand. reference = existing business, uncommissioned concept site. */
+  basis: ConceptBasis;
   summary: string;
   challenge: string;
   approach: string;
@@ -42,10 +47,15 @@ export const CONCEPT_LABEL = 'Concept Project';
 export const CONCEPT_DISCLAIMER =
   'Fictional design concept. Not completed client work. Not a live business or client result. Not a client project.';
 
+export const REFERENCE_CONCEPT_DISCLAIMER =
+  'Independent design concept based on an existing business. Not commissioned work, not an official website, and not a client project.';
+
 export const TECHNOLOGY_POSITIONING =
   'At SabiForge, we do not just build websites. We build with the latest technology and modern design standards: fast, responsive, accessible, and conversion-focused. We never ship outdated or legacy design.';
 
 const fictional = 'Fictional studio concept. Not a client project.';
+const reference =
+  'Independent design concept based on an existing business. Not commissioned work. Not a client project.';
 
 export const concepts: Concept[] = [
   {
@@ -55,6 +65,7 @@ export const concepts: Concept[] = [
     filterCategory: 'Business websites',
     label: CONCEPT_LABEL,
     conceptOnly: true,
+    basis: 'fictional',
     summary: fictional,
     challenge:
       'An interior studio needs a site that feels as considered as the rooms, without burying the work under a generic template.',
@@ -119,6 +130,7 @@ export const concepts: Concept[] = [
     filterCategory: 'E-commerce',
     label: CONCEPT_LABEL,
     conceptOnly: true,
+    basis: 'fictional',
     summary: fictional,
     challenge:
       'A clothing label needs a shop that feels editorial on a phone, with categories that are easy to scan before anyone asks about a piece.',
@@ -181,6 +193,7 @@ export const concepts: Concept[] = [
     filterCategory: 'Product interfaces',
     label: CONCEPT_LABEL,
     conceptOnly: true,
+    basis: 'fictional',
     summary: fictional,
     challenge:
       'A small team needs software that shows what to do next, without opening on a wall of totals.',
@@ -242,6 +255,7 @@ export const concepts: Concept[] = [
     filterCategory: 'Product interfaces',
     label: CONCEPT_LABEL,
     conceptOnly: true,
+    basis: 'fictional',
     summary: fictional,
     challenge:
       'A student portal is often a list of links. Learners need to see the current module and the next step without hunting.',
@@ -304,6 +318,7 @@ export const concepts: Concept[] = [
     filterCategory: 'Business websites',
     label: CONCEPT_LABEL,
     conceptOnly: true,
+    basis: 'fictional',
     summary: fictional,
     challenge:
       'A wellness studio site should explain the kinds of visits and how to ask for a time, without pretending a booking has been confirmed.',
@@ -355,7 +370,7 @@ export const concepts: Concept[] = [
       limits:
         'No appointment is created. Treatments, practitioners and availability are not verified because this is a design concept.',
       services: ['custom-website-design-development'],
-      theme: { bg: '#3e5c45', fg: '#f7f3ec', accent: '#e2b49a', muted: '#d7e4d4', tone: 'dark' },
+      theme: { bg: '#3e5c45', fg: '#f7f3ec', accent: '#f3e6da', muted: '#d7e4d4', tone: 'dark' },
     },
   },
   {
@@ -365,6 +380,7 @@ export const concepts: Concept[] = [
     filterCategory: 'Product interfaces',
     label: CONCEPT_LABEL,
     conceptOnly: true,
+    basis: 'fictional',
     summary: fictional,
     challenge:
       'Dispatch teams need a board of lanes and statuses they can scan, without a screen full of guarantees.',
@@ -426,7 +442,8 @@ export const concepts: Concept[] = [
     filterCategory: 'E-commerce',
     label: CONCEPT_LABEL,
     conceptOnly: true,
-    summary: fictional,
+    basis: 'reference',
+    summary: reference,
     challenge:
       'A modest-fashion collection needs categories people already use — hijabs, abayas, scarves, jewellery and fabric — presented without turning the brand into something else.',
     approach:
@@ -438,21 +455,21 @@ export const concepts: Concept[] = [
       detail:
         'Provisional generated art-direction image for the Big Beerah Collection concept project: folded fabrics and scarves with a coded mobile shop preview.',
       desktop:
-        'Coded desktop interface preview for the fictional Big Beerah Collection concept project, a modest fashion shop.',
+        'Coded desktop interface preview for the Big Beerah Collection concept project, a modest fashion shop.',
       mobile:
-        'Coded mobile interface preview for the fictional Big Beerah Collection concept project, a modest fashion shop.',
+        'Coded mobile interface preview for the Big Beerah Collection concept project, a modest fashion shop.',
     },
     study: {
       capability: 'Modest fashion storefront',
       headline: 'Hijabs, abayas and accessories, <em>sorted</em> the way shoppers ask for them.',
       brief:
-        'Big Beerah Collection is shown as a fictional modest-fashion shop. Categories follow the owner’s visual reference: hijabs, abayas, jersey scarves, necklaces and fabrics. It is not a beverage brand.',
+        'Big Beerah Collection is an existing modest-fashion business. This study is an uncommissioned shop concept. It keeps hijabs, abayas, jersey scarves, fabrics and necklaces, and also shows ready-to-wear, gift boxes and everyday essentials from the supplied flyer. It is not a beverage brand, and it does not publish the flyer’s contact details.',
       audience: 'Shoppers looking for modest clothing and accessories on a phone.',
       decisions: [
         {
           title: 'Use the reference categories',
           detail:
-            'The shop leads with hijabs, abayas, jersey scarves, necklaces and fabrics. Those are the products the reference describes.',
+            'The shop leads with hijabs, abayas, jersey scarves, necklaces and fabrics, then ready-to-wear, gift boxes and everyday essentials from the supplied flyer.',
         },
         {
           title: 'Keep the reference palette',
@@ -478,7 +495,7 @@ export const concepts: Concept[] = [
       limits:
         'Nothing is for sale. The owner’s flyer is visual direction only. Stock, prices and contact details are not published here.',
       services: ['shopify-ecommerce-development'],
-      theme: { bg: '#6e2438', fg: '#fbf6f2', accent: '#c4a265', muted: '#f4d6d8', tone: 'dark' },
+      theme: { bg: '#6e2438', fg: '#fbf6f2', accent: '#e6c98a', muted: '#f4d6d8', tone: 'dark' },
     },
   },
   {
@@ -488,7 +505,8 @@ export const concepts: Concept[] = [
     filterCategory: 'E-commerce',
     label: CONCEPT_LABEL,
     conceptOnly: true,
-    summary: fictional,
+    basis: 'reference',
+    summary: reference,
     challenge:
       'A beauty and fashion shop needs makeup, skincare, hair and clothing in one structure, without copying another store’s products or claims.',
     approach:
@@ -500,21 +518,21 @@ export const concepts: Concept[] = [
       detail:
         'Provisional generated art-direction image for the Amzlat World of Beauty concept project: a pink and black beauty still life with a coded mobile shop preview.',
       desktop:
-        'Coded desktop interface preview for the fictional Amzlat World of Beauty concept project, a beauty and fashion shop.',
+        'Coded desktop interface preview for the Amzlat World of Beauty concept project, a beauty and fashion shop.',
       mobile:
-        'Coded mobile interface preview for the fictional Amzlat World of Beauty concept project, a beauty and fashion shop.',
+        'Coded mobile interface preview for the Amzlat World of Beauty concept project, a beauty and fashion shop.',
     },
     study: {
       capability: 'Beauty and fashion retail',
       headline: 'Makeup, skin, hair and fashion, <em>separated</em> before the scroll.',
       brief:
-        'Amzlat World of Beauty is a fictional retail concept based on the owner’s visual reference. It groups makeup, skincare, hair and fashion. It does not reproduce another site’s prices or contact details.',
+        'Amzlat World of Beauty is an existing beauty business. This study is an uncommissioned shop concept in pink, cream, black and gold. It groups makeup, skincare, hair and fashion, and also shows body care and manicure and pedicure from the supplied reference. It does not copy prices, addresses or contact details.',
       audience: 'Shoppers moving between beauty and fashion categories on a phone.',
       decisions: [
         {
           title: 'Follow the reference taxonomy',
           detail:
-            'Makeup, skincare, hair and fashion are the four doors. The concept does not invent a fifth department.',
+            'Makeup, skincare, hair and fashion stay first. Body care and manicure and pedicure are included because they appear on the supplied reference.',
         },
         {
           title: 'Show product types, not borrowed brands',
@@ -550,7 +568,8 @@ export const concepts: Concept[] = [
     filterCategory: 'E-commerce',
     label: CONCEPT_LABEL,
     conceptOnly: true,
-    summary: fictional,
+    basis: 'reference',
+    summary: reference,
     challenge:
       'A phone and gadget shop needs phones, laptops and watches to be obvious, with buy, sell and swap as separate paths, and no pretend checkout.',
     approach:
@@ -562,15 +581,15 @@ export const concepts: Concept[] = [
       detail:
         'Provisional generated art-direction image for the Opeyemi Phones and Gadgets concept project: devices on a blue counter with a coded mobile shop preview.',
       desktop:
-        'Coded desktop interface preview for the fictional Opeyemi Phones and Gadgets concept project, an electronics shop with buy, sell and swap.',
+        'Coded desktop interface preview for the Opeyemi Phones and Gadgets concept project, an electronics shop with buy, sell and swap.',
       mobile:
-        'Coded mobile interface preview for the fictional Opeyemi Phones and Gadgets concept project, an electronics shop with buy, sell and swap.',
+        'Coded mobile interface preview for the Opeyemi Phones and Gadgets concept project, an electronics shop with buy, sell and swap.',
     },
     study: {
       capability: 'Electronics retail',
       headline: 'Phones, laptops and watches, then <em>ask</em> before you buy.',
       brief:
-        'Opeyemi Phones & Gadgets is a concept storefront adapted from the supplied responsive prototype. It shows phones, MacBooks and watches, plus buy, sell and swap. Prices, warranties and WhatsApp numbers are not included.',
+        'Opeyemi Phones & Gadgets is an existing electronics business. This study is an uncommissioned storefront adapted from the supplied responsive prototype. It shows phones, MacBooks and watches, plus buy, sell and swap. The green WhatsApp control stays disabled. Prices, warranties and phone numbers from the earlier site are not included.',
       audience: 'People comparing device types, or describing a device they want to sell or swap.',
       decisions: [
         {
@@ -602,7 +621,7 @@ export const concepts: Concept[] = [
       limits:
         'This is not a live store. The WhatsApp control is disabled. No payment, warranty, stock check or verified phone number is connected.',
       services: ['shopify-ecommerce-development'],
-      theme: { bg: '#0a215f', fg: '#f5f7fc', accent: '#079344', muted: '#c9d4ee', tone: 'dark' },
+      theme: { bg: '#0a215f', fg: '#f5f7fc', accent: '#3dce7a', muted: '#c9d4ee', tone: 'dark' },
     },
   },
   {
@@ -612,6 +631,7 @@ export const concepts: Concept[] = [
     filterCategory: 'Business websites',
     label: CONCEPT_LABEL,
     conceptOnly: true,
+    basis: 'fictional',
     summary: fictional,
     challenge:
       'An established organisation can outgrow a website that is hard to scan, hard to use on a phone, and unclear about what happens next.',

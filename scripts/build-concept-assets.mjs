@@ -1,7 +1,16 @@
 /**
  * Builds coded concept screenshots and composites them onto photographic scenes.
+ *
  * Run: node scripts/build-concept-assets.mjs
- * Scene masters are read from SCENE_DIR (generated review photography, not the low-res collage crops).
+ * Optional ONLY=big-beerah-collection,amzlat-world-of-beauty rebuilds those ids only.
+ *
+ * Scene masters already live in src/assets/concepts/<id>/scene-cover.jpg and scene-detail.jpg.
+ * Those files are the photographic sources. cover.webp and detail-hero.webp are composites,
+ * not native-resolution photographs.
+ *
+ * Set SCENE_DIR only when importing a new set of scene masters. It must contain
+ * <prefix>-cover-scene.jpg and <prefix>-detail-scene.jpg (see sceneName below).
+ * Set PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH when Playwright's downloaded browser is not on the default path.
  */
 import { copyFile, mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
@@ -10,9 +19,7 @@ import { chromium } from 'playwright';
 import sharp from 'sharp';
 
 const root = path.resolve(import.meta.dirname, '..');
-const sceneDir =
-  process.env.SCENE_DIR ??
-  'C:/Users/Chris/.cursor/projects/c-Users-Chris-sabiforge-repo-sabiforge-digital/assets';
+const sceneDir = process.env.SCENE_DIR || '';
 const previewDir = path.join(root, 'scripts/concept-previews');
 const outRoot = path.join(root, 'src/assets/concepts');
 
@@ -177,20 +184,19 @@ const screens = {
     .brand{font-family:Georgia,serif;font-size:26px}
     main{padding:8px 32px 24px}
     h1{font-family:Georgia,serif;font-weight:500;font-size:48px;margin:0 0 8px}
-    .grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:18px}
-    .item{background:#fff;border-radius:18px;min-height:220px;padding:16px;display:flex;align-items:flex-end;border-bottom:4px solid #c4a265}
+    .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:18px}
+    .item{background:#fff;border-radius:18px;min-height:150px;padding:16px;display:flex;align-items:flex-end;border-bottom:4px solid #c4a265}
     .item:nth-child(odd){background:#f4d6d8}
     @media(max-width:700px){
       header{padding:0 16px}
       main{padding:8px 16px}
       h1{font-size:34px}
       .grid{grid-template-columns:1fr 1fr;gap:8px}
-      .item{min-height:120px}
-      .item:last-child{grid-column:span 2}
+      .item{min-height:96px}
     }`,
-    `<header><div class="brand">Big Beerah Collection</div><span>Modest fashion</span></header>
-     <main><h1>Hijabs, abayas and accessories.</h1><p>A concept shop. No prices and no stock counts.</p>
-     <div class="grid"><article class="item">Hijabs</article><article class="item">Abayas</article><article class="item">Jersey scarves</article><article class="item">Necklaces</article><article class="item">Fabrics</article></div></main>`,
+    `<header><div class="brand">Big Beerah Collection</div><span>Concept project</span></header>
+     <main><h1>Modest fashion and accessories.</h1><p>Uncommissioned concept. No prices, stock counts or contact details.</p>
+     <div class="grid"><article class="item">Hijabs</article><article class="item">Abayas</article><article class="item">Jersey scarves</article><article class="item">Necklaces</article><article class="item">Fabrics</article><article class="item">Ready to wear</article><article class="item">Gift boxes</article><article class="item">Everyday essentials</article></div></main>`,
   ),
   'amzlat-world-of-beauty': shell(
     `
@@ -199,18 +205,18 @@ const screens = {
     main{padding:28px 32px;display:grid;grid-template-columns:1fr 1fr;gap:18px;height:calc(100% - 76px)}
     h1{font-size:46px;line-height:.95;margin:0 0 10px}
     .gold{color:#c6a15b}
-    .tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-    .tile{border-radius:18px;min-height:160px;padding:16px;display:flex;align-items:flex-end;font-size:20px}
-    .p{background:#f3d5e0}.c{background:#fff;border:1px solid #f3d5e0}.b{background:#161616;color:#fff8f3}.g{background:#c6a15b}
+    .tiles{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+    .tile{border-radius:18px;min-height:150px;padding:16px;display:flex;align-items:flex-end;font-size:18px}
+    .p{background:#f3d5e0}.c{background:#fff;border:1px solid #f3d5e0}.b{background:#161616;color:#fff8f3}.g{background:#c6a15b}.s{background:#f7e7ef}.n{background:#2a2420;color:#fff8f3}
     @media(max-width:700px){
       header{padding:0 16px;height:auto;min-height:64px}
       main{padding:16px;grid-template-columns:1fr;height:auto}
       h1{font-size:34px}
       .tile{min-height:88px}
     }`,
-    `<header><strong>Amzlat World of Beauty</strong><span class="gold">Concept</span></header>
-     <main><div><h1>Beauty, hair and fashion.</h1><p>Unbranded categories for a fictional shop. No product claims.</p></div>
-     <div class="tiles"><div class="tile p">Makeup</div><div class="tile c">Skincare</div><div class="tile b">Hair</div><div class="tile g">Fashion</div></div></main>`,
+    `<header><strong>Amzlat World of Beauty</strong><span class="gold">Concept project</span></header>
+     <main><div><h1>Beauty, hair and fashion.</h1><p>Uncommissioned concept. No prices, addresses or contact details.</p></div>
+     <div class="tiles"><div class="tile p">Makeup</div><div class="tile c">Skincare</div><div class="tile b">Hair</div><div class="tile g">Fashion</div><div class="tile s">Body care</div><div class="tile n">Manicure and pedicure</div></div></main>`,
   ),
   'opeyemi-phones-gadgets': shell(
     `
@@ -220,7 +226,9 @@ const screens = {
     .logo{display:flex;gap:10px;align-items:center;font-weight:800}
     .mark{width:36px;height:36px;border:3px solid #123cc9;color:#123cc9;border-radius:50%;display:grid;place-items:center;font-family:Georgia,serif}
     .wa{background:#079344;color:#fff;border:0;border-radius:999px;padding:12px 16px;opacity:.55}
-    .hero{background:linear-gradient(110deg,#072eaf,#0d2b79);color:#fff;padding:36px 28px;display:grid;grid-template-columns:1.1fr .9fr;gap:18px;flex:1;align-items:center}
+    .hero{background:linear-gradient(110deg,#072eaf,#0d2b79);color:#fff;padding:28px;display:grid;grid-template-columns:1fr;gap:16px}
+    .benefits{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:16px 28px;background:#f5f7fc}
+    .benefit{background:#fff;border:1px solid #dde5f6;border-radius:14px;padding:12px;font-size:13px}
     .swap{background:#092975;color:#fff;display:flex;justify-content:space-between;gap:16px;align-items:center;padding:22px 28px}
     .swap p{margin:6px 0 0;color:#d5e2ff}
     h1{font-size:48px;line-height:1;margin:8px 0}
@@ -233,12 +241,14 @@ const screens = {
       h1{font-size:34px}
       .devices{grid-template-columns:1fr}
       .d{min-height:72px}
+      .benefits{grid-template-columns:1fr 1fr}
       .swap{display:block;padding:16px}
     }`,
     `<div class="bar">CONCEPT PROJECT · Illustrative devices · Not a live store</div>
      <header><div class="logo"><span class="mark">G</span><span>Opeyemi<br>Phones &amp; Gadgets</span></div><button class="wa" type="button" disabled>WhatsApp enquiry</button></header>
      <section class="hero"><div><div class="chip">Phones · MacBooks · Watches</div><h1>Quality gadgets. Simple shopping.</h1><p>Browse device types, then ask. Buy, sell and swap stay as enquiries. No price and no warranty is shown.</p></div>
      <div class="devices"><article class="d"><strong>iPhones</strong><p>Sample phone category</p></article><article class="d"><strong>MacBooks</strong><p>Sample laptop category</p></article><article class="d"><strong>Apple Watches</strong><p>Sample watch category</p></article></div></section>
+     <section class="benefits"><article class="benefit"><strong>Clear details</strong><p>Compare type and condition. No live stock.</p></article><article class="benefit"><strong>Enquire first</strong><p>No checkout in this concept.</p></article><article class="benefit"><strong>Buy, sell, swap</strong><p>Separate paths. No valuation.</p></article><article class="benefit"><strong>WhatsApp</strong><p>The green control is disabled.</p></article></section>
      <section class="swap"><div><strong>Buy, sell and swap</strong><p>Describe a device. No valuation and no transaction happens in this concept.</p></div><span>01 Current device · 02 Condition · 03 Enquiry</span></section>`,
   ),
   'corporate-digital-modernization': shell(
@@ -288,8 +298,8 @@ async function deviceFrame(uiPath, innerW, innerH, bezel, radius) {
   return { buffer: masked, width: w, height: h };
 }
 
-async function compose(sceneFile, frame, width, height, left, top, dest) {
-  const background = await sharp(path.join(sceneDir, sceneFile))
+async function compose(scenePath, frame, width, height, left, top, dest) {
+  const background = await sharp(scenePath)
     .resize(width, height, { fit: 'cover', position: 'attention' })
     .modulate({ brightness: 0.92 })
     .png()
@@ -313,9 +323,17 @@ const sceneName = {
   'corporate-digital-modernization': 'corporate',
 };
 
-const ids = Object.keys(screens);
+const only = new Set(
+  (process.env.ONLY ?? '')
+    .split(',')
+    .map((id) => id.trim())
+    .filter(Boolean),
+);
+const ids = Object.keys(screens).filter((id) => only.size === 0 || only.has(id));
+if (ids.length === 0) throw new Error('ONLY did not match any concept id.');
 
-const browser = await chromium.launch();
+const executablePath = process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH;
+const browser = await chromium.launch(executablePath ? { executablePath } : undefined);
 const page = await browser.newPage({ deviceScaleFactor: 1 });
 await mkdir(previewDir, { recursive: true });
 
@@ -324,6 +342,13 @@ for (const id of ids) {
   await writeFile(htmlPath, screens[id]);
   const dir = path.join(outRoot, id);
   await mkdir(dir, { recursive: true });
+  const localCover = path.join(dir, 'scene-cover.jpg');
+  const localDetail = path.join(dir, 'scene-detail.jpg');
+  if (sceneDir) {
+    const prefix = sceneName[id];
+    await copyFile(path.join(sceneDir, `${prefix}-cover-scene.jpg`), localCover);
+    await copyFile(path.join(sceneDir, `${prefix}-detail-scene.jpg`), localDetail);
+  }
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto(pathToFileURL(htmlPath).href);
   const desktop = path.join(dir, 'desktop-ui.png');
@@ -337,7 +362,7 @@ for (const id of ids) {
 
   const desk = await deviceFrame(desktop, 860, 538, 16, 18);
   await compose(
-    `${sceneName[id]}-cover-scene.jpg`,
+    localCover,
     desk,
     1600,
     1067,
@@ -347,7 +372,7 @@ for (const id of ids) {
   );
   const phone = await deviceFrame(mobile, 280, 520, 12, 28);
   await compose(
-    `${sceneName[id]}-detail-scene.jpg`,
+    localDetail,
     phone,
     1920,
     1080,
@@ -355,22 +380,17 @@ for (const id of ids) {
     Math.round((1080 - phone.height) / 2),
     path.join(dir, 'detail-hero.webp'),
   );
-  await copyFile(
-    path.join(sceneDir, `${sceneName[id]}-cover-scene.jpg`),
-    path.join(dir, 'scene-cover.jpg'),
-  );
-  await copyFile(
-    path.join(sceneDir, `${sceneName[id]}-detail-scene.jpg`),
-    path.join(dir, 'scene-detail.jpg'),
-  );
 }
 
 await browser.close();
 
-const og = path.join(root, 'public/assets/work-og.jpg');
-await sharp(path.join(sceneDir, 'corporate-cover-scene.jpg'))
-  .resize(1200, 630, { fit: 'cover', position: 'attention' })
-  .jpeg({ quality: 80, mozjpeg: true })
-  .toFile(og);
-
-console.log(`Wrote concept assets for ${ids.length} projects and ${og}`);
+if (only.size === 0) {
+  const og = path.join(root, 'public/assets/work-og.jpg');
+  await sharp(path.join(outRoot, 'corporate-digital-modernization/scene-cover.jpg'))
+    .resize(1200, 630, { fit: 'cover', position: 'attention' })
+    .jpeg({ quality: 80, mozjpeg: true })
+    .toFile(og);
+  console.log(`Wrote concept assets for ${ids.length} projects and ${og}`);
+} else {
+  console.log(`Updated concept assets for ${ids.join(', ')}`);
+}

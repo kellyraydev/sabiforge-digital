@@ -112,6 +112,8 @@ describe('honesty rules', () => {
       ),
     ).toBe(false);
     expect(TECHNOLOGY_POSITIONING).toMatch(/latest technology and modern design standards/);
+    expect(concepts.filter((concept) => concept.basis === 'reference')).toHaveLength(3);
+    expect(concepts.filter((concept) => concept.basis === 'fictional')).toHaveLength(7);
   });
 
   it('has no social profiles until real ones are added', () => {

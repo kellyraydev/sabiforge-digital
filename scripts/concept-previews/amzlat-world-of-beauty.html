@@ -57,16 +57,16 @@
       }
       .tiles {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
         gap: 10px;
       }
       .tile {
         border-radius: 18px;
-        min-height: 160px;
+        min-height: 150px;
         padding: 16px;
         display: flex;
         align-items: flex-end;
-        font-size: 20px;
+        font-size: 18px;
       }
       .p {
         background: #f3d5e0;
@@ -81,6 +81,13 @@
       }
       .g {
         background: #c6a15b;
+      }
+      .s {
+        background: #f7e7ef;
+      }
+      .n {
+        background: #2a2420;
+        color: #fff8f3;
       }
       @media (max-width: 700px) {
         header {
@@ -103,17 +110,21 @@
     </style>
   </head>
   <body>
-    <header><strong>Amzlat World of Beauty</strong><span class="gold">Concept</span></header>
+    <header>
+      <strong>Amzlat World of Beauty</strong><span class="gold">Concept project</span>
+    </header>
     <main>
       <div>
         <h1>Beauty, hair and fashion.</h1>
-        <p>Unbranded categories for a fictional shop. No product claims.</p>
+        <p>Uncommissioned concept. No prices, addresses or contact details.</p>
       </div>
       <div class="tiles">
         <div class="tile p">Makeup</div>
         <div class="tile c">Skincare</div>
         <div class="tile b">Hair</div>
         <div class="tile g">Fashion</div>
+        <div class="tile s">Body care</div>
+        <div class="tile n">Manicure and pedicure</div>
       </div>
     </main>
   </body>

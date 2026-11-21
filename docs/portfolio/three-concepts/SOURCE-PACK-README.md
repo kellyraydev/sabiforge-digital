@@ -21,7 +21,7 @@ This review package uses the **four images supplied by the owner** as the visual
 
 **Amzlat World of Beauty** is a mixed beauty, cosmetics, hair, fashion and accessories store according to its supplied website reference. Use the original pink/cream/black/gold visual identity rather than treating it as skincare-only.
 
-**Opeyemi Phone & Gadgets** should stay blue/white with green WhatsApp CTAs. The new concept introduces clearer category navigation, a controlled sample-device display, an enquiry-first pattern and an accessible swap section. It uses locally cropped *illustrative/generated device visuals* and must be upgraded with approved high-resolution product photography before any public use.
+**Opeyemi Phone & Gadgets** should stay blue/white with green WhatsApp CTAs. The new concept introduces clearer category navigation, a controlled sample-device display, an enquiry-first pattern and an accessible swap section. It uses locally cropped _illustrative/generated device visuals_ and must be upgraded with approved high-resolution product photography before any public use.
 
 ## Concept-only, no false claims
 

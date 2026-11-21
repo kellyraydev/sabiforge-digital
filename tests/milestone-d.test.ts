@@ -27,9 +27,21 @@ describe('studio concept studies', () => {
     }
   });
 
-  it('keeps the fictional-brand disclaimer explicit', () => {
+  it('keeps fictional and reference disclosures distinct', () => {
     expect(CONCEPT_DISCLAIMER).toMatch(/Fictional/);
     expect(CONCEPT_DISCLAIMER).toMatch(/Not a client project/);
+    const reference = concepts.filter((concept) => concept.basis === 'reference');
+    const fictional = concepts.filter((concept) => concept.basis === 'fictional');
+    expect(reference.map((concept) => concept.id)).toEqual([
+      'big-beerah-collection',
+      'amzlat-world-of-beauty',
+      'opeyemi-phones-gadgets',
+    ]);
+    expect(fictional).toHaveLength(7);
+    for (const concept of reference) {
+      expect(`${concept.summary} ${concept.study.brief}`).not.toMatch(/fictional/i);
+      expect(concept.summary).toMatch(/existing business/);
+    }
   });
 
   it('uses valid hex colours', () => {

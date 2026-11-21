@@ -2,7 +2,7 @@
 
 ## Scope and authority
 
-The owner's 2026-11-21 references in `references/` supersede any earlier AI art direction for **Big Beerah Collection**, **Amzlat World of Beauty**, and **Opeyemi Phone & Gadgets**. User-verified image direction is authoritative; generated comparison mockups are not. Keep the overall approved *ten-concept* portfolio and the project's established navigation, copy and commercial data; make no unrelated changes.
+The owner's 2026-11-21 references in `references/` supersede any earlier AI art direction for **Big Beerah Collection**, **Amzlat World of Beauty**, and **Opeyemi Phone & Gadgets**. User-verified image direction is authoritative; generated comparison mockups are not. Keep the overall approved _ten-concept_ portfolio and the project's established navigation, copy and commercial data; make no unrelated changes.
 
 Do not edit `main`, merge a PR, deploy, change live payments, create real product inventory or publish client claims. Before starting, inspect `AGENTS.md`, `docs/REBUILD-BRIEF.md`, current branch, PR #12 head/base, and current `src/data/concepts.ts` consumers. Existing references and contact information in the site are not automatically verified for the new concept brands.
 
@@ -25,7 +25,7 @@ All must be explicitly labeled **Concept Project** and never presented as paying
 7. Swap & Sell guidance: current device → condition/model → enquiry, with live integration explicitly pending.
 8. Clear concept disclosure/footer. Connect WhatsApp only after the actual number and consent are verified.
 
-Port the *semantic HTML and behavior* into reusable Astro/React components following the existing codebase patterns. Do not turn the whole page into a screenshot. The HTML provided is a reference prototype, not a production drop-in. Its generated product cutouts are small and illustrative; replace them with licensed/source-approved higher-resolution product photography for final publication.
+Port the _semantic HTML and behavior_ into reusable Astro/React components following the existing codebase patterns. Do not turn the whole page into a screenshot. The HTML provided is a reference prototype, not a production drop-in. Its generated product cutouts are small and illustrative; replace them with licensed/source-approved higher-resolution product photography for final publication.
 
 ### Asset placement
 
@@ -38,7 +38,7 @@ Port the *semantic HTML and behavior* into reusable Astro/React components follo
 
 ### Portfolio data and safeguards
 
-Keep the existing six V2 homepage concepts and four additional approved entries, with *one canonical ten-project data source* once the ten-project migration is implemented. Remove the four old legacy `/work` concept studies per user approval, only on the appropriate working branch. When updating this specific three-concept group, do not inadvertently reintroduce them.
+Keep the existing six V2 homepage concepts and four additional approved entries, with _one canonical ten-project data source_ once the ten-project migration is implemented. Remove the four old legacy `/work` concept studies per user approval, only on the appropriate working branch. When updating this specific three-concept group, do not inadvertently reintroduce them.
 
 Keep positioning, process, technology and differentiation copy in the page content, never embedded in the photographs. Preserve the approved tech-forward SabiForge positioning and current stack: Astro, TypeScript, Tailwind CSS, React islands, performance-first static architecture, original design, conversion pathways, transparent accurate pricing and after-launch support.
 

@@ -75,12 +75,24 @@
       .hero {
         background: linear-gradient(110deg, #072eaf, #0d2b79);
         color: #fff;
-        padding: 36px 28px;
+        padding: 28px;
         display: grid;
-        grid-template-columns: 1.1fr 0.9fr;
-        gap: 18px;
-        flex: 1;
-        align-items: center;
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .benefits {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        padding: 16px 28px;
+        background: #f5f7fc;
+      }
+      .benefit {
+        background: #fff;
+        border: 1px solid #dde5f6;
+        border-radius: 14px;
+        padding: 12px;
+        font-size: 13px;
       }
       .swap {
         background: #092975;
@@ -132,6 +144,9 @@
         .d {
           min-height: 72px;
         }
+        .benefits {
+          grid-template-columns: 1fr 1fr;
+        }
         .swap {
           display: block;
           padding: 16px;
@@ -170,6 +185,24 @@
           <p>Sample watch category</p>
         </article>
       </div>
+    </section>
+    <section class="benefits">
+      <article class="benefit">
+        <strong>Clear details</strong>
+        <p>Compare type and condition. No live stock.</p>
+      </article>
+      <article class="benefit">
+        <strong>Enquire first</strong>
+        <p>No checkout in this concept.</p>
+      </article>
+      <article class="benefit">
+        <strong>Buy, sell, swap</strong>
+        <p>Separate paths. No valuation.</p>
+      </article>
+      <article class="benefit">
+        <strong>WhatsApp</strong>
+        <p>The green control is disabled.</p>
+      </article>
     </section>
     <section class="swap">
       <div>

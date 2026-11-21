@@ -1,82 +1,82 @@
 path,width,height,bytes,sha256,role
-src\assets\concepts\amzlat-world-of-beauty\cover.webp,1600,1067,63130,3894c1ed06396942f76fa5841cf3cf6adffacff3c1d5715c1f4e9b1c4b679643,homepage and work card
-src\assets\concepts\amzlat-world-of-beauty\desktop-ui.png,1440,900,26574,970fe25f4b398f2584db94d611a2d9f74b93ebd5962bc21206655b9fc6fbedd9,coded desktop screenshot
-src\assets\concepts\amzlat-world-of-beauty\desktop-ui.webp,1440,900,17006,a0814661c8f5179dfa07c0090b12868a63fa11a05db85ebeee53b9ea7a6ccce1,coded desktop screenshot
-src\assets\concepts\amzlat-world-of-beauty\detail-hero.webp,1920,1080,82960,3cea19c5b8ea733c25a61f0c318c3cca32af439fc7489009f7d9070cac83643f,work detail hero
-src\assets\concepts\amzlat-world-of-beauty\mobile-ui.png,390,844,20074,ac79ab6db453597447e8abf8ad8e2fd67c4edec784740a89970fc1d41ecd884d,coded mobile screenshot
-src\assets\concepts\amzlat-world-of-beauty\mobile-ui.webp,390,844,13590,1b29ba352dbb0f8b8a4fc354e5e2e7153efa2a880c6a5096a9f8bbe585d2c6f8,coded mobile screenshot
-src\assets\concepts\amzlat-world-of-beauty\scene-cover.jpg,1152,864,281706,c402ab74e6086b8cb273ed102c08e2d12aef84bac2644ab53bcdd2b0c7a3fd33,photographic scene master
-src\assets\concepts\amzlat-world-of-beauty\scene-detail.jpg,1280,720,253597,4f870b16e2f023792fbe73be6b50d345d4be4cb137f4aa76ac82b9756e0443d3,photographic scene master
-src\assets\concepts\aura-clothing\cover.webp,1600,1067,56672,1d24f951631690b7e243ba52d7d1958f91bc982d8ba747ebf1636e3e0ec25073,homepage and work card
+src\assets\concepts\amzlat-world-of-beauty\cover.webp,1600,1067,64510,2e36a8c7dc8753643eaa8c52dcaa8b9c685f688519aca4e92fcbcbffcd484cbe,composite cover, not a native photograph
+src\assets\concepts\amzlat-world-of-beauty\desktop-ui.png,1440,900,28685,275a7f3f4c82bdd4ac61bb78457c8a2e74a24517880e893d4988d33ad4daf66d,coded desktop screenshot
+src\assets\concepts\amzlat-world-of-beauty\desktop-ui.webp,1440,900,19804,9d2d40612b80dfd4166523f6bae82b70f6299d6aee33a0899718bed6ee30cd22,coded desktop screenshot
+src\assets\concepts\amzlat-world-of-beauty\detail-hero.webp,1920,1080,85152,1efa8939747102d355e36cb1e570129d77dc1bf5afebf9196e0dd06ff071cbd5,composite detail, not a native photograph
+src\assets\concepts\amzlat-world-of-beauty\mobile-ui.png,390,844,22280,322340d26b265e329223d384b95230897671cd3c35ab582c3542009b5957fe26,coded mobile screenshot
+src\assets\concepts\amzlat-world-of-beauty\mobile-ui.webp,390,844,16538,6296232bf12d046dd2bde4a7da231ac683ed368cd6934b6883055993b1231b8b,coded mobile screenshot
+src\assets\concepts\amzlat-world-of-beauty\scene-cover.jpg,1152,864,281706,c402ab74e6086b8cb273ed102c08e2d12aef84bac2644ab53bcdd2b0c7a3fd33,photographic scene source
+src\assets\concepts\amzlat-world-of-beauty\scene-detail.jpg,1280,720,253597,4f870b16e2f023792fbe73be6b50d345d4be4cb137f4aa76ac82b9756e0443d3,photographic scene source
+src\assets\concepts\aura-clothing\cover.webp,1600,1067,56672,1d24f951631690b7e243ba52d7d1958f91bc982d8ba747ebf1636e3e0ec25073,composite cover, not a native photograph
 src\assets\concepts\aura-clothing\desktop-ui.png,1440,900,36048,bce8d77d24d6a2903545b5b8c2e50009ba15b7914dc6843c5fc6857c5b53233c,coded desktop screenshot
 src\assets\concepts\aura-clothing\desktop-ui.webp,1440,900,14014,efd9278c95871a5e2d7cd92eae4f6a139061d86d45d27974c786fe7839ab0fda,coded desktop screenshot
-src\assets\concepts\aura-clothing\detail-hero.webp,1920,1080,114182,5fb9d5e53f1ae205c6407cf9a1f426ac0d6763a5f55d0a945724a2e1205b8728,work detail hero
+src\assets\concepts\aura-clothing\detail-hero.webp,1920,1080,114182,5fb9d5e53f1ae205c6407cf9a1f426ac0d6763a5f55d0a945724a2e1205b8728,composite detail, not a native photograph
 src\assets\concepts\aura-clothing\mobile-ui.png,390,844,24459,b78ce58d087941e50bf594d7387c9986758706448d2a2e912a9d8ffae161a2e9,coded mobile screenshot
 src\assets\concepts\aura-clothing\mobile-ui.webp,390,844,11466,2e60e48011380ab6c04dc792dcd2eee39aca63c79439f610f7aff5e906488590,coded mobile screenshot
-src\assets\concepts\aura-clothing\scene-cover.jpg,1152,864,244499,9f6cd2c531de98ba6df89ace5b39cf0dc3a42c1fd2d2ab3e88685650c46f5a47,photographic scene master
-src\assets\concepts\aura-clothing\scene-detail.jpg,1280,720,280717,5f431d90e7d7077d27e0619935c2e9750b496665e3b8f908de2449afcb57fe25,photographic scene master
-src\assets\concepts\big-beerah-collection\cover.webp,1600,1067,112984,4f2c8e708b021a2d5b79d5800886c9cf7fa464c7842eb4b49a9f525cdc4f388f,homepage and work card
-src\assets\concepts\big-beerah-collection\desktop-ui.png,1440,900,31105,7650a06d3ff980957d8b3870e348f3f1dd9688fec681e3f095087564bd6f271f,coded desktop screenshot
-src\assets\concepts\big-beerah-collection\desktop-ui.webp,1440,900,19038,e12f67a4339c507ef9d937fba2d6e330c25c31a0320cf96bae248dc080b49ec8,coded desktop screenshot
-src\assets\concepts\big-beerah-collection\detail-hero.webp,1920,1080,172230,84a8377861787a3be36349c5c6c0a793878b8b69fde58e8176325a5e58a862a7,work detail hero
-src\assets\concepts\big-beerah-collection\mobile-ui.png,390,844,26338,2fe0af69113278f7527359f5bceb64ce3d6e1a8696578ff1bb73d386cacf14f6,coded mobile screenshot
-src\assets\concepts\big-beerah-collection\mobile-ui.webp,390,844,15608,4e9ab14e7d6ac47e59f767a8bcf82cdd832f03e7b1d6d2cf9cf1745401007b91,coded mobile screenshot
-src\assets\concepts\big-beerah-collection\scene-cover.jpg,1152,864,380113,f0f50a25f6dd55d078b04ed315c4de121f4305cd636e4bd66488808f91f1521a,photographic scene master
-src\assets\concepts\big-beerah-collection\scene-detail.jpg,1280,720,338545,827edac3b67e00a1329a907b9e92b7858081643655362e031ba23ff4c618e82c,photographic scene master
-src\assets\concepts\bloom-wellness-studio\cover.webp,1600,1067,91936,d5262c1e5830446dbe7bad22328e86cad64ea6bd936df740f7d722a37d3fd2f3,homepage and work card
+src\assets\concepts\aura-clothing\scene-cover.jpg,1152,864,244499,9f6cd2c531de98ba6df89ace5b39cf0dc3a42c1fd2d2ab3e88685650c46f5a47,photographic scene source
+src\assets\concepts\aura-clothing\scene-detail.jpg,1280,720,280717,5f431d90e7d7077d27e0619935c2e9750b496665e3b8f908de2449afcb57fe25,photographic scene source
+src\assets\concepts\big-beerah-collection\cover.webp,1600,1067,115578,640a60ec6c8701f32287546f14f0175615f473520bce6fe53b588f7118e17ebd,composite cover, not a native photograph
+src\assets\concepts\big-beerah-collection\desktop-ui.png,1440,900,37101,26175ac6bd683ec8828e9944ef2590f112ed42bcc708108a4e92cadaa91cfee0,coded desktop screenshot
+src\assets\concepts\big-beerah-collection\desktop-ui.webp,1440,900,24814,2c419c8a80fd69522d3df72cc5ffc9b74cedc9dbe50e5885e1c1806896108291,coded desktop screenshot
+src\assets\concepts\big-beerah-collection\detail-hero.webp,1920,1080,175280,5999756c03ff56ba71bfc059251a3eaace651f2cf21c87f4b42272652468c6f9,composite detail, not a native photograph
+src\assets\concepts\big-beerah-collection\mobile-ui.png,390,844,32895,0e1200625c6246f4759722ef9e3192f16de99f1c75f45e2382ddff2d9c9006de,coded mobile screenshot
+src\assets\concepts\big-beerah-collection\mobile-ui.webp,390,844,19686,a3d41fce925a74cb8e94b0db08fd4c7e0674d457da050597abeb895c43e11f6a,coded mobile screenshot
+src\assets\concepts\big-beerah-collection\scene-cover.jpg,1152,864,380113,f0f50a25f6dd55d078b04ed315c4de121f4305cd636e4bd66488808f91f1521a,photographic scene source
+src\assets\concepts\big-beerah-collection\scene-detail.jpg,1280,720,338545,827edac3b67e00a1329a907b9e92b7858081643655362e031ba23ff4c618e82c,photographic scene source
+src\assets\concepts\bloom-wellness-studio\cover.webp,1600,1067,91936,d5262c1e5830446dbe7bad22328e86cad64ea6bd936df740f7d722a37d3fd2f3,composite cover, not a native photograph
 src\assets\concepts\bloom-wellness-studio\desktop-ui.png,1440,900,42402,d0c3ecc8b106600e4546f7a15c9cc7e8cdf3ba752d34f6b832508400102000ee,coded desktop screenshot
 src\assets\concepts\bloom-wellness-studio\desktop-ui.webp,1440,900,20284,8bb04184cc3771600747162020b5aa65f39295f7cd8d28c7ecd957f92349ec70,coded desktop screenshot
-src\assets\concepts\bloom-wellness-studio\detail-hero.webp,1920,1080,133068,505ab54c5a03c3b086f4ff2ef15a4166a3672ff0d9d66767a651b28dc3fb82d7,work detail hero
+src\assets\concepts\bloom-wellness-studio\detail-hero.webp,1920,1080,133068,505ab54c5a03c3b086f4ff2ef15a4166a3672ff0d9d66767a651b28dc3fb82d7,composite detail, not a native photograph
 src\assets\concepts\bloom-wellness-studio\mobile-ui.png,390,844,30097,24edc1475ee332860610e44ab94b2db91d7ee074fcbcb3428f3752df8dd5f88b,coded mobile screenshot
 src\assets\concepts\bloom-wellness-studio\mobile-ui.webp,390,844,17884,6e5d70986c3583a8fe97962dd7be00f7f11501d1df9fd6bdfbe60b8289eb62d3,coded mobile screenshot
-src\assets\concepts\bloom-wellness-studio\scene-cover.jpg,1152,864,312625,9c6b55ce2a8eddb9f126b1de31bcd9611796005f8385ac68dd5af6eea36b7ddc,photographic scene master
-src\assets\concepts\bloom-wellness-studio\scene-detail.jpg,1280,720,302567,f517bbeef31cd653e380e1d0e1d7f8e79f9193c35c3c8685b9ab7638f764ae84,photographic scene master
-src\assets\concepts\campusone-portal\cover.webp,1600,1067,67038,74ec03cd74f4b6b699d00f6dfbbb5d7bd9b4120934128b3cd10f404f3b9b69b6,homepage and work card
+src\assets\concepts\bloom-wellness-studio\scene-cover.jpg,1152,864,312625,9c6b55ce2a8eddb9f126b1de31bcd9611796005f8385ac68dd5af6eea36b7ddc,photographic scene source
+src\assets\concepts\bloom-wellness-studio\scene-detail.jpg,1280,720,302567,f517bbeef31cd653e380e1d0e1d7f8e79f9193c35c3c8685b9ab7638f764ae84,photographic scene source
+src\assets\concepts\campusone-portal\cover.webp,1600,1067,67038,74ec03cd74f4b6b699d00f6dfbbb5d7bd9b4120934128b3cd10f404f3b9b69b6,composite cover, not a native photograph
 src\assets\concepts\campusone-portal\desktop-ui.png,1440,900,24113,4262ea41651e05ecf904323d1035464eed3a31a92c115e3fe9cbad059b7f9d84,coded desktop screenshot
 src\assets\concepts\campusone-portal\desktop-ui.webp,1440,900,16522,a6aa55e3c6ca8c089db9ef5e212110967afb353748ec3eae5d297799375bd047,coded desktop screenshot
-src\assets\concepts\campusone-portal\detail-hero.webp,1920,1080,127248,fb44458a5e567c7602677db3a688f121bf325c7c9b016d93f7dadda8a28d3445,work detail hero
+src\assets\concepts\campusone-portal\detail-hero.webp,1920,1080,127248,fb44458a5e567c7602677db3a688f121bf325c7c9b016d93f7dadda8a28d3445,composite detail, not a native photograph
 src\assets\concepts\campusone-portal\mobile-ui.png,390,844,22583,ede8fa734677f54bcdbd17df08db313b304ebfb6331f096a02882def1c73b359,coded mobile screenshot
 src\assets\concepts\campusone-portal\mobile-ui.webp,390,844,14546,5ddb1bbe1a0a58ac81dd504effd074b6e8ee4b4eaeda1ebe91a676a54f52bf24,coded mobile screenshot
-src\assets\concepts\campusone-portal\scene-cover.jpg,1152,864,252496,bb23e7acd243c785e67959ed4ca55ed908573f5da6f938bab9ac763948bad2ca,photographic scene master
-src\assets\concepts\campusone-portal\scene-detail.jpg,1280,720,313786,fbc4e2dcd692a86c2084be70b6edb079cec7e36d09856d9b4f532aaa35127d9c,photographic scene master
-src\assets\concepts\corporate-digital-modernization\cover.webp,1600,1067,189176,3f64471f6603b2d9ecb2f4fe3ea511c5ce5d8d02d441709c64a980d188cdabb9,homepage and work card
+src\assets\concepts\campusone-portal\scene-cover.jpg,1152,864,252496,bb23e7acd243c785e67959ed4ca55ed908573f5da6f938bab9ac763948bad2ca,photographic scene source
+src\assets\concepts\campusone-portal\scene-detail.jpg,1280,720,313786,fbc4e2dcd692a86c2084be70b6edb079cec7e36d09856d9b4f532aaa35127d9c,photographic scene source
+src\assets\concepts\corporate-digital-modernization\cover.webp,1600,1067,189176,3f64471f6603b2d9ecb2f4fe3ea511c5ce5d8d02d441709c64a980d188cdabb9,composite cover, not a native photograph
 src\assets\concepts\corporate-digital-modernization\desktop-ui.png,1440,900,37182,88bd3e1b545934b22cbee1f460d48d8be736fa8362eeb3ea9c813b14bb905f0d,coded desktop screenshot
 src\assets\concepts\corporate-digital-modernization\desktop-ui.webp,1440,900,29906,bab0126ca0432fa9fa50e976d37bee4b0f995cd85ab0cacb37ba0ad18c2ae446,coded desktop screenshot
-src\assets\concepts\corporate-digital-modernization\detail-hero.webp,1920,1080,181340,c1bd779cbe4c3ffe50f82c81cadb385063ef60f02cbbd6f1b967c8662d5f057e,work detail hero
+src\assets\concepts\corporate-digital-modernization\detail-hero.webp,1920,1080,181340,c1bd779cbe4c3ffe50f82c81cadb385063ef60f02cbbd6f1b967c8662d5f057e,composite detail, not a native photograph
 src\assets\concepts\corporate-digital-modernization\mobile-ui.png,390,844,28523,c864d869370366f6da25d2379b1687b84066ad88822fd06285767c836d32f829,coded mobile screenshot
 src\assets\concepts\corporate-digital-modernization\mobile-ui.webp,390,844,24106,8d88c2d732c121b53dd896caa2978d7ccf008b41a7d6ccf4ece0513bce802e10,coded mobile screenshot
-src\assets\concepts\corporate-digital-modernization\scene-cover.jpg,1152,864,489753,2daa579360901fd25f33d056e3758ecd1f49bf3887313ab69ab245cb41d7d89d,photographic scene master
-src\assets\concepts\corporate-digital-modernization\scene-detail.jpg,1280,720,360306,ee5985a2cb02c2dd1c42c6c4c2b979a37c5654b84460334d156e7a1729629a33,photographic scene master
-src\assets\concepts\flowdesk-os\cover.webp,1600,1067,46640,c67eda77b8c28097e846547d7360cb55cac4ef6e0bc5c03e65f4cf6cbfc4cbc8,homepage and work card
+src\assets\concepts\corporate-digital-modernization\scene-cover.jpg,1152,864,489753,2daa579360901fd25f33d056e3758ecd1f49bf3887313ab69ab245cb41d7d89d,photographic scene source
+src\assets\concepts\corporate-digital-modernization\scene-detail.jpg,1280,720,360306,ee5985a2cb02c2dd1c42c6c4c2b979a37c5654b84460334d156e7a1729629a33,photographic scene source
+src\assets\concepts\flowdesk-os\cover.webp,1600,1067,46640,c67eda77b8c28097e846547d7360cb55cac4ef6e0bc5c03e65f4cf6cbfc4cbc8,composite cover, not a native photograph
 src\assets\concepts\flowdesk-os\desktop-ui.png,1440,900,22658,128f55e3f965cd9b56389dc06d0e879119709e26b156ee2b48d2c264ec634e42,coded desktop screenshot
 src\assets\concepts\flowdesk-os\desktop-ui.webp,1440,900,14892,918b6f0b73ff258995102794c076f3de69b10f2386b666b1692c3408f6f878c8,coded desktop screenshot
-src\assets\concepts\flowdesk-os\detail-hero.webp,1920,1080,59104,da2c73e9934e800329b1777e22b389d39dae13ea0ed6dd4f945498d9b429182c,work detail hero
+src\assets\concepts\flowdesk-os\detail-hero.webp,1920,1080,59104,da2c73e9934e800329b1777e22b389d39dae13ea0ed6dd4f945498d9b429182c,composite detail, not a native photograph
 src\assets\concepts\flowdesk-os\mobile-ui.png,390,844,20636,cec4fbc515ab0135d436dbe6b5058e07a627a8b4116c4dcdf8471bf9639ade98,coded mobile screenshot
 src\assets\concepts\flowdesk-os\mobile-ui.webp,390,844,13518,1a40bd924c9d868c2e5c93ab0c56692a1ccc1465a3d0787ee582f91bddaaaca4,coded mobile screenshot
-src\assets\concepts\flowdesk-os\scene-cover.jpg,1152,864,213262,f909722e11bafb1fa95c7b136f76f54c1b917a3aae1d2022cdbb5deaaabbedbe,photographic scene master
-src\assets\concepts\flowdesk-os\scene-detail.jpg,1280,720,189623,1847e8b0595b756534515a2563a181d1cb0508348cc47bb8df52faa610c0f722,photographic scene master
-src\assets\concepts\maison-vale-studios\cover.webp,1600,1067,102662,5d7e6c6d42c9fc489c759151821180df2c53e8616cb34de1f7e0ce8efa39f309,homepage and work card
+src\assets\concepts\flowdesk-os\scene-cover.jpg,1152,864,213262,f909722e11bafb1fa95c7b136f76f54c1b917a3aae1d2022cdbb5deaaabbedbe,photographic scene source
+src\assets\concepts\flowdesk-os\scene-detail.jpg,1280,720,189623,1847e8b0595b756534515a2563a181d1cb0508348cc47bb8df52faa610c0f722,photographic scene source
+src\assets\concepts\maison-vale-studios\cover.webp,1600,1067,102662,5d7e6c6d42c9fc489c759151821180df2c53e8616cb34de1f7e0ce8efa39f309,composite cover, not a native photograph
 src\assets\concepts\maison-vale-studios\desktop-ui.png,1440,900,139284,56081e001c6e5d742716e9cec1ec2e9c66e76467c3916835942c88b92136cdac,coded desktop screenshot
 src\assets\concepts\maison-vale-studios\desktop-ui.webp,1440,900,21408,9d4105d2c094f122d317b45979c69416b46ca39b3b3738ac481a7b6af73f432a,coded desktop screenshot
-src\assets\concepts\maison-vale-studios\detail-hero.webp,1920,1080,167116,cc2202e2a4f375eee978c7751a73850ba9f9f4a10d59b83507f6b50e00adcbfd,work detail hero
+src\assets\concepts\maison-vale-studios\detail-hero.webp,1920,1080,167116,cc2202e2a4f375eee978c7751a73850ba9f9f4a10d59b83507f6b50e00adcbfd,composite detail, not a native photograph
 src\assets\concepts\maison-vale-studios\mobile-ui.png,390,844,60315,bcc2bc58719d9886d4e4d3c02873aecf3c415fb3e6377efb992f0eff56ea0155,coded mobile screenshot
 src\assets\concepts\maison-vale-studios\mobile-ui.webp,390,844,16586,b2b48d41fca225dd1c51c254f732e992db373190501affa95989fafb07e198bb,coded mobile screenshot
-src\assets\concepts\maison-vale-studios\scene-cover.jpg,1152,864,334313,8b43c8df8a38dd2fa9899223fe316bc4e257b00800732084654cd47004da8363,photographic scene master
-src\assets\concepts\maison-vale-studios\scene-detail.jpg,1280,720,345833,62ddfdf49492fafa90669224ed24317c7a7817619b5389d11c3eecb83a070553,photographic scene master
-src\assets\concepts\opeyemi-phones-gadgets\cover.webp,1600,1067,38286,bf97ffbac883cee03a0c1a7c3d2455fecc83bcd8c30446706dcc3b78bb1c2912,homepage and work card
-src\assets\concepts\opeyemi-phones-gadgets\desktop-ui.png,1440,900,302550,2e90fb6f4b2f170f98d0e6ca66704234769cdbfda1ca112007d06e85b7d6f897,coded desktop screenshot
-src\assets\concepts\opeyemi-phones-gadgets\desktop-ui.webp,1440,900,41670,819b138b251c8d487406bf21e2fb473879128b4b12bdc8d3ab30f93a71525af1,coded desktop screenshot
-src\assets\concepts\opeyemi-phones-gadgets\detail-hero.webp,1920,1080,46306,13196f53cdca31437119d6a15b2097a44606d47c7e8cd4ee7e07a1abfac2cc47,work detail hero
-src\assets\concepts\opeyemi-phones-gadgets\mobile-ui.png,390,844,89628,f41b9c8f348267ae0a033c3fe0c27b9fd9364ae5496195e85ba7f1445a53e873,coded mobile screenshot
-src\assets\concepts\opeyemi-phones-gadgets\mobile-ui.webp,390,844,36772,0eafd6658e87f02ff6d3e98c35e290ea5c7aa037f75154876d45f9a4a14bb3dc,coded mobile screenshot
-src\assets\concepts\opeyemi-phones-gadgets\scene-cover.jpg,1152,864,151297,e881b937a766a27d51a620679862e4db0c11b14981c9430f14e97a791eea20ca,photographic scene master
-src\assets\concepts\opeyemi-phones-gadgets\scene-detail.jpg,1280,720,158250,a8b625d2c14888610fffa93e264afcd2a7ad1ed20de6823d12bd827828745164,photographic scene master
-src\assets\concepts\routepilot-logistics\cover.webp,1600,1067,47176,21d8549726c58aee02a8f6d70f0d35e08f96f281cc37e079480eb7c6d6499322,homepage and work card
+src\assets\concepts\maison-vale-studios\scene-cover.jpg,1152,864,334313,8b43c8df8a38dd2fa9899223fe316bc4e257b00800732084654cd47004da8363,photographic scene source
+src\assets\concepts\maison-vale-studios\scene-detail.jpg,1280,720,345833,62ddfdf49492fafa90669224ed24317c7a7817619b5389d11c3eecb83a070553,photographic scene source
+src\assets\concepts\opeyemi-phones-gadgets\cover.webp,1600,1067,42498,20229d84a5c85583314d15a8ba0faec8793f65b121eff666ee93998f93cd97bd,composite cover, not a native photograph
+src\assets\concepts\opeyemi-phones-gadgets\desktop-ui.png,1440,900,118659,71bd43f4742fc2e34e75f0380db11660315708d4a1b7aec06969766f6ec5800b,coded desktop screenshot
+src\assets\concepts\opeyemi-phones-gadgets\desktop-ui.webp,1440,900,49398,1778f5c8471383933b0df1051f417dd39970fbb083f1be188decfaf212d7dee0,coded desktop screenshot
+src\assets\concepts\opeyemi-phones-gadgets\detail-hero.webp,1920,1080,46900,f37cf8415420e6d1c06b7836deadecbac090e4c7002c70996d08015c439a4afd,composite detail, not a native photograph
+src\assets\concepts\opeyemi-phones-gadgets\mobile-ui.png,390,844,80469,4c0d2bfb4496016a6cc9d83e9e8563aabb995f6246aac3100261a60a23369742,coded mobile screenshot
+src\assets\concepts\opeyemi-phones-gadgets\mobile-ui.webp,390,844,35674,7131d44b642a0cc09b3c2f7a7233ab3035407dd89ae0a6c09e177a0e30c3ed8f,coded mobile screenshot
+src\assets\concepts\opeyemi-phones-gadgets\scene-cover.jpg,1152,864,151297,e881b937a766a27d51a620679862e4db0c11b14981c9430f14e97a791eea20ca,photographic scene source
+src\assets\concepts\opeyemi-phones-gadgets\scene-detail.jpg,1280,720,158250,a8b625d2c14888610fffa93e264afcd2a7ad1ed20de6823d12bd827828745164,photographic scene source
+src\assets\concepts\routepilot-logistics\cover.webp,1600,1067,47176,21d8549726c58aee02a8f6d70f0d35e08f96f281cc37e079480eb7c6d6499322,composite cover, not a native photograph
 src\assets\concepts\routepilot-logistics\desktop-ui.png,1440,900,19401,bdc2dbcd1317baa66cab927165e9d7c40ecd614223e2e3502717eba14d00655a,coded desktop screenshot
 src\assets\concepts\routepilot-logistics\desktop-ui.webp,1440,900,14198,c859fa55f49c4b711a0b4cd5959953bd6ac452ef447b385d1849540431874149,coded desktop screenshot
-src\assets\concepts\routepilot-logistics\detail-hero.webp,1920,1080,99632,01a6d70e87925af28c5aa67c45238054b977c5fe8d33dbd21ffe103dc61d84fa,work detail hero
+src\assets\concepts\routepilot-logistics\detail-hero.webp,1920,1080,99632,01a6d70e87925af28c5aa67c45238054b977c5fe8d33dbd21ffe103dc61d84fa,composite detail, not a native photograph
 src\assets\concepts\routepilot-logistics\mobile-ui.png,390,844,13732,468f0175e4a57e8e7c53bd8ddf3b0bd56296218aad8d055f200443f293f0e392,coded mobile screenshot
 src\assets\concepts\routepilot-logistics\mobile-ui.webp,390,844,9498,4e018eecef70ad5b0b7d2ebae687c57dabea093ac059a3bf111479bc62c8af39,coded mobile screenshot
-src\assets\concepts\routepilot-logistics\scene-cover.jpg,1152,864,233017,7d7a200e7b89c1c22b02128a3088cf7cad4c1c162b92339ce2075b09d6f53295,photographic scene master
-src\assets\concepts\routepilot-logistics\scene-detail.jpg,1280,720,265899,86f0092a091649f42449af1d76ceca0c1fd232813882756f9df2d6269fc120e5,photographic scene master
+src\assets\concepts\routepilot-logistics\scene-cover.jpg,1152,864,233017,7d7a200e7b89c1c22b02128a3088cf7cad4c1c162b92339ce2075b09d6f53295,photographic scene source
+src\assets\concepts\routepilot-logistics\scene-detail.jpg,1280,720,265899,86f0092a091649f42449af1d76ceca0c1fd232813882756f9df2d6269fc120e5,photographic scene source
 public/assets/work-og.jpg,1200,630,137673,67fc023d4ffad9e1a9fbdd40776f59577f582a10199061f156b07988a376e4a6,shared /work social image
