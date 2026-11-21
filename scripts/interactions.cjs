@@ -29,8 +29,14 @@ const pass = (msg) => console.log(`✓ ${msg}`);
     await page.getByRole('link', { name: 'Explore our work' }).getAttribute('href'),
     '/work',
   );
-  assert.equal(await page.locator('#work article').count(), 3);
-  pass('homepage hero CTA reaches Work and features three labelled concepts');
+  assert.equal(await page.locator('#case-studies article').count(), 4);
+  const conceptFilters = page.getByRole('group', { name: 'Filter studio concepts' });
+  await conceptFilters.getByRole('button', { name: 'E-commerce' }).click();
+  assert.equal(await page.locator('#case-studies article').count(), 1);
+  assert.equal(await page.locator('#case-studies article h3').innerText(), 'Kòrà Home');
+  await conceptFilters.getByRole('button', { name: 'All concepts' }).click();
+  assert.equal(await page.locator('#case-studies [role="tab"]').count(), 0);
+  pass('homepage concept filter uses pressed buttons and shows the shared Work concept data');
 
   // Pathway selector (radio group, arrow keys)
   const pathway = page.getByRole('radiogroup');
@@ -73,11 +79,20 @@ const pass = (msg) => console.log(`✓ ${msg}`);
   assert.match(await approach.getByRole('tabpanel').innerText(), /Launch & Support/);
   pass('approach tabs respond to click, ArrowDown and End');
 
-  // Concept design notes disclosure
-  const notes = page.locator('#work details').first();
-  await notes.locator('summary').click();
-  assert.equal(await notes.evaluate((d) => d.open), true);
-  pass('concept design notes expand');
+  // Project enquiry selector uses approved services and prefills contact.
+  const selector = page.locator('#project-enquiry');
+  await selector.scrollIntoViewIfNeeded();
+  await page.waitForFunction(() => {
+    const island = document.querySelector('astro-island[component-url*="ProjectEnquirySelector"]');
+    return island && !island.hasAttribute('ssr');
+  });
+  assert.equal(await selector.getByRole('radio').count(), 5);
+  await selector.getByRole('radio', { name: 'Shopify & E-commerce Development' }).check();
+  assert.equal(
+    await selector.getByRole('link', { name: 'Continue to project enquiry' }).getAttribute('href'),
+    '/contact?service=shopify-ecommerce-development',
+  );
+  pass('homepage enquiry selector provides four approved services and service prefill');
 
   // Pricing toggle
   await page.goto(BASE_URL + '/pricing', { waitUntil: 'networkidle' });
@@ -106,6 +121,7 @@ const pass = (msg) => console.log(`✓ ${msg}`);
     await page.getByLabel('Service you’re interested in').inputValue(),
     'shopify-ecommerce-development',
   );
+  assert.equal(await page.getByLabel('Service you’re interested in').locator('option').count(), 5);
   assert.ok(await page.getByLabel('Where do you sell today?').isVisible(), 'commerce field shown');
   pass('contact form preselects service from URL and shows commerce field');
 
@@ -196,8 +212,12 @@ const pass = (msg) => console.log(`✓ ${msg}`);
   await mend.getByRole('radio', { name: 'Sports injury' }).click();
   assert.ok(await mend.getByText('shoes or kit').isVisible());
   await mend.getByRole('button', { name: 'Wed 14:30' }).click();
-  assert.ok(await mend.getByText('Request noted for Wed 14:30').isVisible());
-  pass('work: first-visit demo updates guidance and records a requested slot');
+  assert.ok(
+    await mend
+      .getByText('Sample selection: Wed 14:30. No appointment has been booked.')
+      .isVisible(),
+  );
+  pass('work: first-visit concept labels sample times and confirms no appointment was booked');
 
   const tally = page.locator('#tallyhouse');
   await tally.scrollIntoViewIfNeeded();

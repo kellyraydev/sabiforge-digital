@@ -300,7 +300,7 @@ export function ExpectDemo() {
       </div>
 
       <div className="mt-5 flex flex-wrap items-center gap-2">
-        <span className="text-sm">Request an opening:</span>
+        <span className="text-sm">Sample times · no live availability:</span>
         {slots.map((s) => (
           <button
             key={s}
@@ -316,9 +316,7 @@ export function ExpectDemo() {
         ))}
       </div>
       <p aria-live="polite" className="mt-3 min-h-5 text-sm">
-        {slot
-          ? `Request noted for ${slot}. In a real build, a name and phone number would be next.`
-          : ''}
+        {slot ? `Sample selection: ${slot}. No appointment has been booked.` : ''}
       </p>
       <p className="mt-3 border-t border-[#173a31]/20 pt-3 text-xs text-[#2f5c4f]">
         Illustrative wording for a fictional clinic. Not clinical advice.

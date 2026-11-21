@@ -1,6 +1,12 @@
 import { describe, expect, it } from 'vitest';
 import { packages, foundingPrice, comparisonRows, engagementModels } from '../src/data/packages';
-import { services, serviceFamilies, getService } from '../src/data/services';
+import {
+  services,
+  approvedServices,
+  approvedRelated,
+  serviceFamilies,
+  getService,
+} from '../src/data/services';
 import { concepts, getConcept } from '../src/data/concepts';
 import { pathways, stages } from '../src/data/home';
 import { navigation, whatsappLink, mailtoLink, site } from '../src/data/site';
@@ -46,6 +52,26 @@ describe('services', () => {
     }
   });
 
+  it('publishes only the four owner-approved services and retains six pending definitions', () => {
+    expect(approvedServices.map((service) => service.slug).sort()).toEqual(
+      [
+        'custom-website-design-development',
+        'shopify-ecommerce-development',
+        'website-care-maintenance',
+        'website-redesign-modernization',
+      ].sort(),
+    );
+    expect(services.filter((service) => service.approval === 'pending')).toHaveLength(6);
+    expect(services).toHaveLength(10);
+  });
+
+  it('links only approved related services and tolerates an empty list', () => {
+    for (const service of approvedServices) {
+      for (const related of approvedRelated(service)) expect(related.approval).toBe('confirmed');
+    }
+    expect(approvedRelated(getService('website-care-maintenance')!)).toEqual([]);
+  });
+
   it('only references existing related services and concepts', () => {
     for (const service of services) {
       for (const slug of service.related) expect(getService(slug), slug).toBeDefined();
@@ -62,7 +88,13 @@ describe('services', () => {
 
   it('pathways point to real services', () => {
     for (const pathway of pathways) {
-      for (const slug of pathway.services) expect(getService(slug), slug).toBeDefined();
+      for (const slug of pathway.services) {
+        expect(getService(slug), slug).toBeDefined();
+        expect(
+          approvedServices.some((service) => service.slug === slug),
+          slug,
+        ).toBe(true);
+      }
     }
   });
 });
@@ -70,7 +102,11 @@ describe('services', () => {
 describe('honesty rules', () => {
   it('labels every concept as fictional via the shared data', () => {
     expect(concepts.length).toBeGreaterThan(0);
-    for (const concept of concepts) expect(concept.category.length).toBeGreaterThan(0);
+    expect(concepts).toHaveLength(4);
+    for (const concept of concepts) {
+      expect(concept.category.length).toBeGreaterThan(0);
+      expect(concept.filterCategory.length).toBeGreaterThan(0);
+    }
   });
 
   it('has no social profiles until real ones are added', () => {

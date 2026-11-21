@@ -2,7 +2,7 @@
 import LegalLayout from '@/components/legal/LegalLayout.astro';
 import DecisionNote from '@/components/legal/DecisionNote.astro';
 import { packages } from '@/data/packages';
-import { services } from '@/data/services';
+import { approvedServices } from '@/data/services';
 import { site } from '@/data/site';
 
 const naira = (n: number) => `₦${n.toLocaleString('en-NG')}`;
@@ -36,7 +36,7 @@ const sections = [
   <h2 id="services">2. Services</h2>
   <p>The website currently describes these services:</p>
   <ul>
-    {services.map((s) => (
+    {approvedServices.map((s) => (
       <li>{s.name}</li>
     ))}
   </ul>
@@ -74,8 +74,8 @@ const sections = [
   </ul>
   <p>
     Third-party costs, such as domains, hosting, platform subscriptions, paid themes and apps,
-    payment-gateway fees and licensed images or fonts, are quoted separately. Studio Partnership
-    work is always quoted individually.
+    payment-gateway fees and licensed images or fonts, are quoted separately. Custom scopes for a
+    service are quoted individually.
   </p>
   <p>
     A founding-client rate of 10% is shown for the Launch, Business and Online Catalog packages. It

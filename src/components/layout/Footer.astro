@@ -74,25 +74,27 @@ const year = new Date().getFullYear();
         </ul>
       </nav>
 
-      {serviceFamilies.map((family) => (
-        <nav aria-labelledby={`footer-${family.id}`}>
-          <h2 id={`footer-${family.id}`} class="meta text-mint-300">
-            {family.name}
-          </h2>
-          <ul class="mt-5 space-y-3 text-sm">
-            {servicesInFamily(family.id).map((service) => (
-              <li>
-                <a
-                  class="text-ivory-100/75 transition hover:text-ivory-50"
-                  href={serviceHref(service.slug)}
-                >
-                  {service.shortName}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      ))}
+      {serviceFamilies
+        .filter((family) => servicesInFamily(family.id).length > 0)
+        .map((family) => (
+          <nav aria-labelledby={`footer-${family.id}`}>
+            <h2 id={`footer-${family.id}`} class="meta text-mint-300">
+              {family.name}
+            </h2>
+            <ul class="mt-5 space-y-3 text-sm">
+              {servicesInFamily(family.id).map((service) => (
+                <li>
+                  <a
+                    class="text-ivory-100/75 transition hover:text-ivory-50"
+                    href={serviceHref(service.slug)}
+                  >
+                    {service.shortName}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        ))}
 
       <div>
         <h2 class="meta text-mint-300">Contact</h2>

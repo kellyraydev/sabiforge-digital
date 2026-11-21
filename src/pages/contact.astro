@@ -3,16 +3,13 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/page/PageHero.astro';
 import Icon from '@/components/ui/Icon.astro';
 import ProjectEnquiry from '@/components/contact/ProjectEnquiry';
-import { services } from '@/data/services';
+import { approvedServices } from '@/data/services';
 import { packages } from '@/data/packages';
 import { site, whatsappLink, mailtoLink } from '@/data/site';
 import EditorialSignal from '@/components/ui/EditorialSignal.astro';
 
-const serviceOptions = services.map((s) => ({ value: s.slug, label: s.name }));
-const packageOptions = [
-  ...packages.map((p) => ({ value: p.id, label: p.name })),
-  { value: 'partnership', label: 'Studio Partnership (custom)' },
-];
+const serviceOptions = approvedServices.map((s) => ({ value: s.slug, label: s.name }));
+const packageOptions = [...packages.map((p) => ({ value: p.id, label: p.name }))];
 const expectations = [
   { title: 'A personal reply', detail: 'From a person, with questions or suggested next steps.' },
   {
