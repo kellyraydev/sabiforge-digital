@@ -1,6 +1,11 @@
 # build output
 dist/
 .astro/
+.wrangler/
+
+# local Wrangler secrets
+.dev.vars
+.dev.vars.*
 
 # dependencies
 node_modules/

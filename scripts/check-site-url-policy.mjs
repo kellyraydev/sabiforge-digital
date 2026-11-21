@@ -30,4 +30,17 @@ for (const badUrl of [
 }
 check('staging', 'https://sabiforge-digital-staging.pages.dev', true);
 check('staging', 'http://staging.sabiforge.digital', false);
-console.log('Production and staging SITE_URL policy checks passed.');
+check('preview', 'https://codex-sabiforge.preview.workers.dev', true);
+check('preview', 'https://sabiforge.account.workers.dev', true);
+for (const badPreviewUrl of [
+  'https://sabiforge-digital.vercel.app',
+  'https://sabiforge.digital',
+  'https://sabiforge-digital-staging.pages.dev',
+  'https://example.workers.dev',
+  'https://not-the-worker.preview.workers.dev',
+  'http://codex-sabiforge.preview.workers.dev',
+]) {
+  check('preview', badPreviewUrl, false);
+}
+check('production', 'https://sabiforge.account.workers.dev', false);
+console.log('Production, staging and preview SITE_URL policy checks passed.');
