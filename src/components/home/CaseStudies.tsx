@@ -201,7 +201,7 @@ export default function CaseStudies() {
       <div className="container-page">
         <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p className="meta text-mint-300">03 / Selected concepts</p>
+            <p className="meta text-mint-300">02 / Selected concepts</p>
             <h2
               id="case-studies-title"
               className="text-display-lg text-ivory-50 mt-4 max-w-2xl font-semibold"
