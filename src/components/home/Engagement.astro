@@ -2,7 +2,7 @@
 import SectionHead from '@/components/ui/SectionHead.astro';
 import Button from '@/components/ui/Button.astro';
 import { engagementModels } from '@/data/packages';
-import { discountPercentLabel } from '@/lib/pricing';
+import { discountPercentLabel, foundingSlotsLabel } from '@/lib/pricing';
 ---
 
 <section
@@ -13,7 +13,7 @@ import { discountPercentLabel } from '@/lib/pricing';
   <div class="container-page">
     <div class="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
       <SectionHead
-        index="07"
+        index="06"
         label="Working together"
         id="engage-title"
         title="Right-sized work, <em>clearly</em> priced."
@@ -52,8 +52,8 @@ import { discountPercentLabel } from '@/lib/pricing';
       ))}
     </ol>
     <p class="mt-6 text-sm text-ivory-100/65" data-reveal>
-      A founding-client rate of {discountPercentLabel()} off applies to selected packages for a
-      limited number of early clients.{' '}
+      A founding-client rate of {discountPercentLabel()} off applies to selected packages for
+      {` ${foundingSlotsLabel()}`}.{' '}
       <a
         href="/pricing#founding-offer"
         class="rounded-sm text-mint-300 underline underline-offset-4 hover:text-mint-200"
