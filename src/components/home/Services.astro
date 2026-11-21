@@ -2,18 +2,24 @@
 import SectionHead from '@/components/ui/SectionHead.astro';
 import Icon from '@/components/ui/Icon.astro';
 import PathwaySelector, { type PathwayOption } from './PathwaySelector';
-import { pathways } from '@/data/home';
-import { getService, serviceFamilies, servicesInFamily, serviceHref } from '@/data/services';
+import { publicPathways } from '@/data/home';
+import {
+  approvedServices,
+  publicServiceFamilies,
+  servicesInFamily,
+  serviceHref,
+} from '@/data/services';
 
-const options: PathwayOption[] = pathways.map((p) => ({
+const families = publicServiceFamilies();
+const options: PathwayOption[] = publicPathways().map((p) => ({
   id: p.id,
   label: p.label,
   situation: p.situation,
   recommendation: p.recommendation,
   packageHint: p.packageHint,
   services: p.services.map((slug) => {
-    const service = getService(slug);
-    if (!service) throw new Error(`Unknown service in pathway: ${slug}`);
+    const service = approvedServices.find((item) => item.slug === slug);
+    if (!service) throw new Error(`Pathway linked a service that is not public: ${slug}`);
     return { name: service.name, href: serviceHref(slug) };
   }),
 }));
@@ -30,22 +36,24 @@ const options: PathwayOption[] = pathways.map((p) => ({
       label="Services"
       id="services-title"
       tone="paper"
-      title="Three ways we help a business <em class='text-coral-700'>move forward</em>."
+      title="Four services. Two areas of <em class='text-coral-700'>expertise.</em>"
     >
-      <p>
-        One studio across strategy, build and growth — so the thinking behind your brand carries
-        through to the code, and keeps improving after launch.
-      </p>
+      <p>One studio for the website or store, and for looking after it once it is live.</p>
     </SectionHead>
 
-    <div class="mt-16 grid gap-px overflow-hidden rounded-[var(--radius-card)] border border-midnight-900/12 bg-midnight-900/12 lg:grid-cols-3">
-      {serviceFamilies.map((family, fi) => (
+    <div
+      class:list={[
+        'mt-16 grid gap-px overflow-hidden rounded-[var(--radius-card)] border border-midnight-900/12 bg-midnight-900/12',
+        families.length > 2 ? 'lg:grid-cols-3' : 'lg:grid-cols-2',
+      ]}
+    >
+      {families.map((family, fi) => (
         <div
           class="flex flex-col bg-ivory-50 p-7 sm:p-9"
           data-reveal
           style={`--reveal-delay:${fi * 90}`}
         >
-          <p class="meta text-mint-800">({family.index})</p>
+          <p class="meta text-mint-800">({String(fi + 1).padStart(2, '0')})</p>
           <h3 class="mt-3 text-display-sm font-semibold">{family.name}</h3>
           <p class="mt-3 text-[0.95rem] leading-relaxed text-midnight-800/80">
             {family.description}

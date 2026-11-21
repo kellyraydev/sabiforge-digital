@@ -14,16 +14,16 @@ function check(environment, url, expectedSuccess) {
   );
 }
 
-check('production', 'https://sabiforge.digital', true);
+check('production', 'https://sabiforge-digital.vercel.app', true);
 for (const badUrl of [
   'http://localhost:4321',
+  'https://sabiforge.digital',
   'https://preview.sabiforge.digital',
-  'https://sabiforge-staging.pages.dev',
+  'https://sabiforge-digital-staging.pages.dev',
   'https://sabiforge.vercel.app',
   'https://10.0.0.7',
-  'https://sabiforge.digital:8443',
-  'https://sabiforge.digital/private-path',
-  'https://preview.sabiforge.digital',
+  'https://sabiforge-digital.vercel.app:8443',
+  'https://sabiforge-digital.vercel.app/private-path',
   'https://other-public-host.example',
 ]) {
   check('production', badUrl, false);

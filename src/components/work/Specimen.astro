@@ -1,13 +1,14 @@
 ---
 /** Palette, type roles, limits and related services for a concept: the "spec sheet". */
 import type { Concept } from '@/data/concepts';
-import { getService, serviceHref } from '@/data/services';
+import { confirmedServices, serviceHref } from '@/data/services';
 
 interface Props {
   concept: Concept;
 }
 const { concept } = Astro.props;
-const { theme, palette, type, limits, services: related } = concept.study;
+const { theme, palette, type, limits, services: relatedSlugs } = concept.study;
+const related = confirmedServices(relatedSlugs);
 const line = `border-color:${theme.fg}33`;
 ---
 
@@ -50,20 +51,21 @@ const line = `border-color:${theme.fg}33`;
     <p class="mt-3 leading-relaxed" style={`color:${theme.muted}`}>
       {limits}
     </p>
-    <h3 class="meta mt-8" style={`color:${theme.accent}`}>
-      Related services
-    </h3>
-    <ul class="mt-3 space-y-2">
-      {related.map((slug) => {
-        const s = getService(slug)!;
-        return (
-          <li>
-            <a href={serviceHref(slug)} class="link-sweep font-semibold">
-              {s.name}
-            </a>
-          </li>
-        );
-      })}
-    </ul>
+    {related.length > 0 && (
+      <>
+        <h3 class="meta mt-8" style={`color:${theme.accent}`}>
+          Related services
+        </h3>
+        <ul class="mt-3 space-y-2">
+          {related.map((service) => (
+            <li>
+              <a href={serviceHref(service.slug)} class="link-sweep font-semibold">
+                {service.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </>
+    )}
   </div>
 </div>

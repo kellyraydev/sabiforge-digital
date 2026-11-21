@@ -2,7 +2,7 @@
 import LegalLayout from '@/components/legal/LegalLayout.astro';
 import DecisionNote from '@/components/legal/DecisionNote.astro';
 import { packages } from '@/data/packages';
-import { services } from '@/data/services';
+import { approvedServices } from '@/data/services';
 import { site } from '@/data/site';
 
 const naira = (n: number) => `₦${n.toLocaleString('en-NG')}`;
@@ -36,7 +36,7 @@ const sections = [
   <h2 id="services">2. Services</h2>
   <p>The website currently describes these services:</p>
   <ul>
-    {services.map((s) => (
+    {approvedServices.map((s) => (
       <li>{s.name}</li>
     ))}
   </ul>

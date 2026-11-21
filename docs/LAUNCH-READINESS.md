@@ -191,10 +191,10 @@ purchase.
   origin must appear in canonical, Open Graph and sitemap URLs. The generated robots file disallows
   all crawlers; every page emits `noindex,nofollow`.
 - Keep production in a separate project and account environment. The production URL guard requires
-  an exact match to the current candidate `https://sabiforge.digital`, rejecting every other
-  staging, preview, internal or unapproved public origin. This candidate has not been validated as
-  an owned domain; after the owner approves a different domain, change the single allowlist value in
-  `astro.config.mjs` and the CI fixture together before building production.
+  an exact match to the approved origin `https://sabiforge-digital.vercel.app`, rejecting every other
+  staging, preview, internal or unapproved public origin. The owner approved that origin on
+  17 November 2026, subject to deployment verification. Change the single allowlist value in
+  `astro.config.mjs` and the CI fixture together before using a different production origin.
 - Do not expose any project secrets to build/browser code. This site currently needs no runtime
   secrets. Use Access service tokens only in GitHub Actions environment secrets, never in source,
   workflow logs, URLs or artifacts.

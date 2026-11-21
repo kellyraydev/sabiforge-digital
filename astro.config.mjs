@@ -15,7 +15,7 @@ if (!allowedEnvironments.has(siteEnvironment)) {
 const site = process.env.SITE_URL ?? 'http://localhost:4321';
 const siteUrl = new URL(site);
 // Fail closed until the selected public production origin is explicitly changed here.
-const configuredProductionOrigin = 'https://sabiforge.digital';
+const configuredProductionOrigin = 'https://sabiforge-digital.vercel.app';
 if (siteEnvironment !== 'development') {
   if (siteUrl.protocol !== 'https:') {
     throw new Error('SITE_URL must use https for staging and production builds.');

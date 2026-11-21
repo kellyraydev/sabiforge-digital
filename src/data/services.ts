@@ -33,8 +33,7 @@ export const serviceFamilies: ServiceFamily[] = [
     index: '03',
     name: 'Optimization & Growth',
     promise: 'Keep improving what you have after launch.',
-    description:
-      'Conversion, performance, accessibility, care and integrations: the practical work that keeps a website useful as the business grows.',
+    description: 'Ongoing website care that keeps a site useful as the business grows.',
   },
 ];
 
@@ -661,12 +660,37 @@ export const services: Service[] = [
   },
 ];
 
+/** Services approved for public pages. Pending definitions stay in `services` for review. */
+export const approvedServices = services.filter((service) => service.approval === 'confirmed');
+
 export function getService(slug: string): Service | undefined {
   return services.find((service) => service.slug === slug);
 }
 
+/** Keeps only confirmed services, in the order given. Unknown and pending slugs are dropped. */
+export function confirmedServices(slugs: readonly string[]): Service[] {
+  return slugs
+    .map((slug) => getService(slug))
+    .filter((item): item is Service => item?.approval === 'confirmed');
+}
+
+/** Related services that may be linked. Pending related services are never included. */
+export function approvedRelated(service: Service): Service[] {
+  return confirmedServices(service.related);
+}
+
 export function servicesInFamily(family: ServiceFamilyId): Service[] {
-  return services.filter((service) => service.family === family);
+  return approvedServices.filter((service) => service.family === family);
+}
+
+/** Families that still have at least one confirmed service to show. */
+export function publicServiceFamilies(): ServiceFamily[] {
+  return serviceFamilies.filter((family) => servicesInFamily(family.id).length > 0);
+}
+
+/** Enquiry dropdown values. Pending services cannot be selected. */
+export function enquiryServiceOptions(): { value: string; label: string }[] {
+  return approvedServices.map((service) => ({ value: service.slug, label: service.name }));
 }
 
 export const serviceHref = (slug: string) => `/services/${slug}`;

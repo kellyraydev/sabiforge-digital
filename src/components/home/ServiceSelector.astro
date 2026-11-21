@@ -1,0 +1,69 @@
+---
+import { approvedServices } from '@/data/services';
+---
+
+<section
+  id="project-enquiry"
+  class="border-y border-ivory-100/10 bg-midnight-950 py-20 sm:py-28"
+  aria-labelledby="project-enquiry-title"
+>
+  <div class="container-page grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
+    <div data-reveal>
+      <p class="meta text-mint-300">Enquiry</p>
+      <h2
+        id="project-enquiry-title"
+        class="mt-4 max-w-lg text-display-lg font-semibold text-ivory-50"
+      >
+        Where should we start?
+      </h2>
+      <p class="mt-5 max-w-md text-lg leading-relaxed text-ivory-100/70">
+        Choose one of the four services. The enquiry form will open with that choice selected, so
+        you can add the detail.
+      </p>
+    </div>
+    <form
+      action="/contact"
+      method="get"
+      class="glass-panel rounded-[var(--radius-card)] p-6 sm:p-10"
+      data-reveal
+      style="--reveal-delay:120ms"
+    >
+      <fieldset>
+        <legend class="text-lg font-semibold text-ivory-50">
+          What kind of help are you looking for?
+        </legend>
+        <div class="mt-5 grid gap-3 sm:grid-cols-2">
+          {approvedServices.map((service) => (
+            <label class="flex min-h-14 cursor-pointer items-center gap-3 rounded-xl border border-ivory-100/15 px-4 text-sm font-medium text-ivory-100/75 transition hover:border-ivory-100/35 focus-within:border-mint-300/60 focus-within:bg-mint-300/10 focus-within:text-ivory-50 has-checked:border-mint-300/60 has-checked:bg-mint-300/10 has-checked:text-ivory-50">
+              <input
+                type="radio"
+                name="service"
+                value={service.slug}
+                required
+                class="size-4 shrink-0 accent-mint-300"
+              />
+              {service.name}
+            </label>
+          ))}
+        </div>
+      </fieldset>
+      <button
+        type="submit"
+        class="mt-8 flex min-h-12 w-full items-center justify-center rounded-full bg-coral-500 px-6 text-center font-semibold text-midnight-950 transition hover:bg-coral-400 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-mint-300"
+      >
+        Continue to project enquiry
+        <span aria-hidden="true" class="ml-2">
+          ↗
+        </span>
+      </button>
+      <p class="mt-4 text-center text-sm text-ivory-100/70">
+        <a
+          href="/contact"
+          class="rounded-sm font-semibold text-mint-300 underline decoration-mint-300/40 underline-offset-4 hover:decoration-mint-300 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-mint-300"
+        >
+          Not sure yet
+        </a>
+      </p>
+    </form>
+  </div>
+</section>
