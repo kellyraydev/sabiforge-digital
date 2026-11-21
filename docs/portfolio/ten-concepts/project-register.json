@@ -17,42 +17,42 @@
       "name": "Maison Vale Studios",
       "category": "Interior Design / Creative Studio",
       "direction": "Warm travertine, walnut, daylight; editorial interiors photography; desktop portfolio",
-      "imageStatus": "one full-resolution generated reference; review needed"
+      "imageStatus": "Full-size 1536×1024 original concept scene plus separate 1536×1024 multi-panel draft; not visually approved; final coded UI/cover/detail art pending"
     },
     {
       "id": "aura-clothing",
       "name": "AURA Clothing",
       "category": "Fashion / E-commerce",
       "direction": "Modern fashion/editorial product photography, directional light, black, warm off-white, stone; unique fashion store",
-      "imageStatus": "generation requested; not accepted"
+      "imageStatus": "Full-size 1536×1024 AI multi-panel presentation draft exists locally; unverified prices/shipping in generated UI; cover/detail art pending"
     },
     {
       "id": "flowdesk-os",
       "name": "FlowDesk OS",
       "category": "Business Software / SaaS",
       "direction": "Authentic B2B workspace photograph with accurate coded SaaS dashboard displayed on monitor; slate/navy/teal",
-      "imageStatus": "generation requested; not accepted"
+      "imageStatus": "Full-size 1536×1024 AI multi-panel presentation draft exists locally; fictitious dashboard statistics must be replaced; final coded UI/cover pending"
     },
     {
       "id": "campusone-portal",
       "name": "CampusOne Portal",
       "category": "Education / Student Portal",
       "direction": "Real university library/study setting with portal on laptop or tablet; academic navy/sky/cream",
-      "imageStatus": "generation requested; not accepted"
+      "imageStatus": "Full-size 1536×1024 AI multi-panel presentation draft exists locally; fictional portal data; final coded UI/cover pending"
     },
     {
       "id": "bloom-wellness-studio",
       "name": "Bloom Wellness Studio",
       "category": "Wellness / Booking Website",
       "direction": "Serene photographic studio/interior, tablet booking UI; sage/ivory/terracotta",
-      "imageStatus": "generation requested; not accepted"
+      "imageStatus": "Full-size 1536×1024 AI multi-panel presentation draft exists locally; practitioner/booking claims unverified; final coded UI/cover pending"
     },
     {
       "id": "routepilot-logistics",
       "name": "RoutePilot Logistics",
       "category": "Logistics / Business Platform",
       "direction": "Actual-looking dispatch/warehouse or delivery-operations photograph; accurate tracking UI; steel/navy/amber",
-      "imageStatus": "source imagery pending; Canva generation quota blocked"
+      "imageStatus": "Full-size 1536×1024 AI multi-panel presentation draft exists locally; logistics and tracking visual data must be synthetic; final coded UI/cover pending"
     },
     {
       "id": "big-beerah-collection",
@@ -80,7 +80,7 @@
       "name": "Corporate Website Redesign & Digital Modernization",
       "category": "Corporate / Digital Transformation",
       "direction": "Professional photography of corporate setting; accurate enterprise responsive website; graphite/stone/forest green",
-      "imageStatus": "source imagery pending; Canva generation quota blocked"
+      "imageStatus": "No independent full-size image yet. Only 10-concept AI mosaic overview; production cover/detail art MISSING."
     }
   ],
   "legacyToRemove": [
@@ -107,5 +107,7 @@
     "work": "Ten concept detail sections with stable #slug anchors until distinct detail URLs are approved",
     "oldStudies": "delete active references, old anchors, old demos and unused assets only after dependency search",
     "routeGuard": "Do not invent or deploy /work/<slug> routes without owner approval."
-  }
+  },
+  "assetPack": "sabiforge-ten-concepts-review-v2.zip (downloadable in ChatGPT; binary image files not uploaded to GitHub)",
+  "imageCompletion": "Six full-size multi-panel visual studies generated; seven independent final approved covers and all concept detail/OG assets NOT done. Corporate independent photo artwork MISSING."
 }
