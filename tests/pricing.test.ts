@@ -14,9 +14,9 @@ describe('founding offer', () => {
     expect(discountPercentLabel()).toBe('10%');
   });
 
-  it('does not publish a slot count until the owner resolves 3 vs 5', () => {
-    expect(FOUNDING_CLIENT_SLOTS).toBeNull();
-    expect(foundingSlotsLabel()).toBe('a limited number of founding clients');
+  it('uses the five founding-client slots approved by the owner', () => {
+    expect(FOUNDING_CLIENT_SLOTS).toBe(5);
+    expect(foundingSlotsLabel()).toBe('our first 5 founding clients');
     expect(foundingSlotsLabel(3)).toBe('our first 3 founding clients');
   });
 });
