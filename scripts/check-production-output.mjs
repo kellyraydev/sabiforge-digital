@@ -5,6 +5,8 @@ import { dirname, extname, resolve, sep } from 'node:path';
 const siteUrl = new URL('https://sabiforge-digital.vercel.app');
 const dist = resolve('dist');
 const pendingSlugs = [
+  // Retired 21 November 2026; served as a host-level redirect (vercel.json).
+  'website-care-maintenance',
   'brand-identity-creative-direction',
   'website-strategy-ux-ui-design',
   'design-systems',
@@ -24,7 +26,7 @@ const publicSlugs = [
   'custom-website-design-development',
   'shopify-ecommerce-development',
   'website-redesign-modernization',
-  'website-care-maintenance',
+  'custom-software-and-business-platforms',
 ];
 
 async function walk(directory) {
