@@ -2,7 +2,7 @@
 
 Status (20 November 2026): **account consolidation in progress; new-account preview uploads suspended**.
 
-**Authoritative Cloudflare account:** `Kellyray.dev@gmail.com's Account` 
+**Authoritative Cloudflare account:** `Kellyray.dev@gmail.com's Account`
 (`8849002c70945027fdb2e4169da6802e`, Workers subdomain `kellyray-dev`).
 The connected repository is `kellyraydev/sabiforge-digital` and the intended Worker is `sabiforge`.
 `wrangler.jsonc` pins the account ID to prevent uploads into another account.
