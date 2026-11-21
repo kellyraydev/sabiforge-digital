@@ -23,7 +23,7 @@ This document is the **current** image handoff. See `project-register.json` for 
 | RoutePilot Logistics | Dispatch operations at a warehouse with real photographed trucks/pallets and accurate tracking interface on rugged tablet | Steel gray, navy, amber | No delivery guarantees/tracking numbers or invented claims |
 | Corporate Website Redesign & Digital Modernization | Architectural corporate office/atrium and an enterprise desktop website displayed on a conference screen | Graphite, stone, deep green | No real client logo, invented award, or before/after outcome |
 
-The following are **NOT** seven approved production images:
+**Updated source status (2026-11-21):** Six independent 1536×1024 AI-generated **multi-panel concept presentation drafts** now exist for Maison Vale, AURA, FlowDesk, CampusOne, Bloom and RoutePilot, plus an earlier Maison single-scene master. They are included in `sabiforge-ten-concepts-review-v2.zip` (not GitHub binary attachments). Corporate still lacks a standalone full-resolution draft and appears only in group mosaics. No concept cover/detail/OG set is fully QA-approved; generated text and metrics must be corrected and screenshots recreated in code before use.\n\nThe following are **NOT** seven approved production images:
 - One AI-generated ten-concept mosaic and an alternative mosaic (moodboards/overview references only).
 - Low-resolution individual crops derived from those mosaics (~300×300 each).
 - Unverified image-generation jobs in Canva (some have started but not been visually inspected).
