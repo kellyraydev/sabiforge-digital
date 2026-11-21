@@ -147,9 +147,9 @@ export default function MobileNav({
               <a
                 href={ctaHref}
                 onClick={() => close(false)}
-                className="bg-coral-500 text-midnight-950 flex min-h-13 items-center justify-center gap-2 rounded-full font-semibold"
+                className="bg-coral-600 flex min-h-13 items-center justify-center gap-2 rounded-full font-semibold text-white"
               >
-                Start a project
+                Start your project
                 <Icon name="arrow-up-right" className="size-5" />
               </a>
               <a

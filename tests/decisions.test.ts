@@ -79,3 +79,19 @@ describe('21 November 2026 owner decisions', () => {
     expect(comparisonRows.some((row) => Object.values(row.values).includes(AGREED))).toBe(true);
   });
 });
+
+describe('v2 navigation', () => {
+  it('follows the reference order and keeps /pricing behind the Packages label', async () => {
+    const { navigation } = await import('../src/data/site');
+    expect(
+      navigation.filter((item) => item.primary).map((item) => [item.label, item.href]),
+    ).toEqual([
+      ['Home', '/'],
+      ['Services', '/services'],
+      ['Work', '/work'],
+      ['Packages', '/pricing'],
+      ['Our Process', '/process'],
+      ['About', '/about'],
+    ]);
+  });
+});

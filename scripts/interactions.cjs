@@ -176,7 +176,7 @@ const pass = (msg) => console.log(`✓ ${msg}`);
   const navHrefs = await page
     .locator('nav[aria-label="Primary"] a')
     .evaluateAll((els) => els.map((a) => a.getAttribute('href')));
-  assert.deepEqual(navHrefs, ['/work', '/services', '/process', '/about', '/pricing']);
+  assert.deepEqual(navHrefs, ['/', '/services', '/work', '/pricing', '/process', '/about']);
   pass('primary navigation links to Work, Services, Process, About and Pricing pages');
 
   // Work: concept demos

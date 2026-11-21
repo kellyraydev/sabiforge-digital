@@ -117,7 +117,7 @@ describe('honesty rules', () => {
   });
 
   it('navigation only targets built pages', () => {
-    const built = ['/work', '/services', '/process', '/about', '/pricing', '/contact'];
+    const built = ['/', '/work', '/services', '/process', '/about', '/pricing', '/contact'];
     for (const item of navigation) expect(built).toContain(item.href);
   });
 });
