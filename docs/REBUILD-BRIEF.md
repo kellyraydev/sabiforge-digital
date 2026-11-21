@@ -4,6 +4,13 @@ Status: **APPROVED DESIGN DIRECTION (owner, 20 November 2026). This is not deplo
 
 Source: two owner-supplied reference images in `docs/references/` (commit them with the owner's next local push if not yet present).
 
+## Latest owner supersession — 21 November 2026 (ten-project portfolio)
+This later approval **supersedes** the earlier six-homepage-concept / four-retained-`/work` decisions recorded below, including prior planned commit orders. Historical records below are preserved as prior decisions, **not current implementation requirements**. The current website source has **not** yet been migrated.
+
+Use the single ten-project register `docs/portfolio/ten-concepts/project-register.json` for both homepage and `/work`. Exact IDs/names/categories appear there. All ten are visibly **Concept Project**, never real clients. The four old `/work` studies (Àdùn Table, Kòrà Home, Mend Physio Studio, Tallyhouse) are to be removed from active pages and replaced; no accents/diacritics in NEW concept names. Maison Vale Studios replaces Maison Valé Studios for display. Big Beerah Collection is modest fashion and accessories (hijabs, abayas, scarves, fabric and jewelry), **not beverages**. Amzlat World of Beauty is beauty/cosmetics/fashion; Opeyemi Phones & Gadgets is electronics / Buy-Sell-Swap. Owner-supplied images for the last three are source visual references only, not proof of permission to publish contacts, trademarks or claims.
+
+The implementation must deliver distinct photo-based portfolio covers, accurate coded concept interfaces, accessible detail studies, provenance, visual/image QA and responsive testing. See `docs/portfolio/ten-concepts/CURSOR-NEW-TASK.md` and `ASSET-PLAN.md`. Do not claim these are done based on this spec.
+
 ## Visual references and authority
 
 - `docs/references/homepage-target.jpeg` — primary visual reference for the public homepage, section rhythm, treatment and hierarchy.
