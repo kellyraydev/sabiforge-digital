@@ -6,9 +6,10 @@ const publicServiceSlugs = new Set([
   'custom-website-design-development',
   'shopify-ecommerce-development',
   'website-redesign-modernization',
-  'website-care-maintenance',
+  'custom-software-and-business-platforms',
 ]);
 const pendingServiceSlugs = [
+  'website-care-maintenance',
   'brand-identity-creative-direction',
   'website-strategy-ux-ui-design',
   'design-systems',

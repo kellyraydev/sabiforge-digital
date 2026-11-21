@@ -66,7 +66,7 @@ const empty: Enquiry = {
   consent: false,
 };
 
-const commerceKeys = ['shopify-ecommerce-development', 'catalog', 'ecommerce'];
+const commerceKeys = ['shopify-ecommerce-development', 'store'];
 
 export default function ProjectEnquiry({ services, packages, email, whatsappNumber }: Props) {
   const [data, setData] = useState<Enquiry>(empty);

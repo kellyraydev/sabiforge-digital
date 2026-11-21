@@ -214,8 +214,8 @@ export const decisions: OwnerDecision[] = [
     document: 'terms',
     topic: 'Founding-client offer',
     question:
-      'How many founding places exist (3 or 5), how long does the offer last, and which packages and conditions apply?',
-    why: 'The site shows a 10% founding rate on Launch, Business and Online Catalog (not Full E-commerce) and says places are limited, without a number.',
+      'The owner has set five founding client slots. How long does the offer last, and which other conditions apply?',
+    why: 'The site shows a 10% founding rate on Starter, Business and Online Store. Custom Software is a starting price and is not discounted. Duration and other conditions are still open.',
   },
   {
     id: 'T13',

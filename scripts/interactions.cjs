@@ -24,7 +24,7 @@ const pass = (msg) => console.log(`✓ ${msg}`);
 
   // Homepage hero links and early concept portfolio
   await page.goto(BASE_URL + '/', { waitUntil: 'networkidle' });
-  assert.ok(await page.getByRole('heading', { name: /Distinctive websites/ }).isVisible());
+  assert.ok(await page.getByRole('heading', { name: /More than a website/ }).isVisible());
   assert.equal(
     await page.getByRole('link', { name: 'Explore our work' }).getAttribute('href'),
     '/work',
@@ -56,7 +56,7 @@ const pass = (msg) => console.log(`✓ ${msg}`);
   );
   assert.ok(
     await page
-      .getByRole('link', { name: 'Website Redesign & Digital Modernization' })
+      .getByRole('link', { name: 'Website Redesign and Ongoing Support' })
       .first()
       .isVisible(),
   );
@@ -87,7 +87,7 @@ const pass = (msg) => console.log(`✓ ${msg}`);
     return island && !island.hasAttribute('ssr');
   });
   assert.equal(await selector.getByRole('radio').count(), 5);
-  await selector.getByRole('radio', { name: 'Shopify & E-commerce Development' }).check();
+  await selector.getByRole('radio', { name: 'Online Stores' }).check();
   assert.equal(
     await selector.getByRole('link', { name: 'Continue to project enquiry' }).getAttribute('href'),
     '/contact?service=shopify-ecommerce-development',
@@ -98,10 +98,10 @@ const pass = (msg) => console.log(`✓ ${msg}`);
   await page.goto(BASE_URL + '/pricing', { waitUntil: 'networkidle' });
   await page.locator('astro-island:not([ssr])').first().waitFor();
   const cards = page.locator('section[aria-labelledby="packages-title"]');
-  assert.ok(await cards.getByText('₦120,000').first().isVisible(), 'standard price default');
-  assert.equal(await cards.getByText('₦108,000').count(), 0);
+  assert.ok(await cards.getByText('₦150,000').first().isVisible(), 'standard price default');
+  assert.equal(await cards.getByText('₦135,000').count(), 0);
   await page.getByText('Founding rate', { exact: false }).first().click();
-  assert.ok(await cards.getByText('₦108,000').isVisible());
+  assert.ok(await cards.getByText('₦135,000').isVisible());
   assert.ok(await cards.getByText('Not part of the founding offer').isVisible());
   pass('pricing defaults to standard prices; founding toggle shows eligible discounts only');
 
@@ -255,18 +255,6 @@ const pass = (msg) => console.log(`✓ ${msg}`);
   assert.ok(await triad.getByText('load quickly').isVisible());
   pass('about: triad diagram switches discipline');
 
-  // Shopify: anatomy tabs
-  await page.goto(BASE_URL + '/shopify', { waitUntil: 'networkidle' });
-  const anatomy = page.locator('#anatomy-title').locator('xpath=ancestor::section');
-  await anatomy.scrollIntoViewIfNeeded();
-  await page.waitForTimeout(500);
-  await anatomy.getByRole('tab', { name: 'Navigation' }).focus();
-  await page.keyboard.press('ArrowRight');
-  assert.match(await anatomy.getByRole('tabpanel').innerText(), /Collection pages and filters/);
-  await page.keyboard.press('End');
-  assert.match(await anatomy.getByRole('tabpanel').innerText(), /Performance/);
-  pass('shopify: store anatomy tabs respond to arrow keys and End');
-
   // Legal drafts: noindex, banner, decision register
   for (const route of ['/privacy', '/terms']) {
     await page.goto(BASE_URL + route, { waitUntil: 'networkidle' });
@@ -280,7 +268,14 @@ const pass = (msg) => console.log(`✓ ${msg}`);
   pass('legal drafts: noindex, draft banner and owner-decision register present');
 
   // Keyboard: every new page shows a visible focus indicator on its first 14 tab stops
-  for (const route of ['/work', '/process', '/about', '/shopify', '/privacy', '/terms']) {
+  for (const route of [
+    '/work',
+    '/process',
+    '/about',
+    '/services/shopify-ecommerce-development',
+    '/privacy',
+    '/terms',
+  ]) {
     await page.goto(BASE_URL + route, { waitUntil: 'networkidle' });
     let lacking = [];
     for (let i = 0; i < 14; i++) {
@@ -307,7 +302,7 @@ const pass = (msg) => console.log(`✓ ${msg}`);
   });
   await configureStagingAuth(noJs);
   const njp = await noJs.newPage();
-  for (const route of ['/work', '/process', '/about', '/shopify']) {
+  for (const route of ['/work', '/process', '/about', '/services/shopify-ecommerce-development']) {
     await njp.goto(BASE_URL + route);
     const hidden = await njp.evaluate(
       () =>

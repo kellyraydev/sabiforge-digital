@@ -101,7 +101,7 @@ export const differentiators: { title: string; benefit: string; icon: IconKey }[
     icon: 'compass',
   },
   {
-    title: 'Purposeful website design',
+    title: 'Custom creative direction',
     benefit:
       'Your site is designed for your brand and customers, not adapted from a template other businesses also use.',
     icon: 'sparkle',
@@ -162,16 +162,16 @@ export const pathways: Pathway[] = [
       'You need to look credible and be easy to contact, without over-investing on day one.',
     recommendation: 'Start with a focused, well-designed site you can grow into.',
     services: ['custom-website-design-development'],
-    packageHint: 'The Launch package (₦120,000) is designed for this.',
+    packageHint: 'The Starter package is ₦150,000.',
   },
   {
     id: 'small-business',
     label: 'My business has no proper website yet',
     situation:
       'Customers find you through referrals and social media, but there is nowhere to send them.',
-    recommendation: 'A multi-page site that explains each service and captures enquiries.',
+    recommendation: 'A business website that explains your services and captures enquiries.',
     services: ['custom-website-design-development'],
-    packageHint: 'The Business package (₦280,000) covers up to six pages with a CMS.',
+    packageHint: 'The Business package is ₦350,000.',
   },
   {
     id: 'redesign',
@@ -184,22 +184,24 @@ export const pathways: Pathway[] = [
     id: 'merchant',
     label: 'I sell products, or run a Shopify store',
     situation: 'You want customers to browse, compare and buy more easily, including on mobile.',
-    recommendation: 'A catalogue or store built around how your customers shop.',
+    recommendation: 'A store built around how your customers shop.',
     services: ['shopify-ecommerce-development'],
-    packageHint: 'Online Catalog ₦500,000 · Full E-commerce from ₦900,000.',
+    packageHint: 'The Online Store package is ₦750,000.',
   },
   {
     id: 'growing',
-    label: 'Our website needs to keep up with the business',
-    situation: 'The business has changed, and the current website no longer reflects what it does.',
-    recommendation: 'Modernize the website and plan for ongoing maintenance.',
-    services: ['website-redesign-modernization', 'website-care-maintenance'],
+    label: 'We’re a growing brand that needs to stand out',
+    situation: 'The business has momentum, but the brand and website feel generic.',
+    recommendation: 'A business website that presents the brand more clearly.',
+    services: ['custom-website-design-development'],
   },
   {
     id: 'complex',
-    label: 'We need help maintaining our website',
-    situation: 'We want a clear plan for routine updates and website care.',
-    recommendation: 'Discuss a maintenance scope that fits the website.',
-    services: ['website-care-maintenance'],
+    label: 'Our requirements are more complex',
+    situation: 'Portals, integrations, multiple audiences or ongoing product work.',
+    recommendation:
+      'Custom software, scoped after discovery. The published figure is a starting price.',
+    services: ['custom-software-and-business-platforms'],
+    packageHint: 'Custom Software starts from ₦1,500,000 and is not a fixed quote.',
   },
 ];

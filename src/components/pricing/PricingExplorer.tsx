@@ -1,5 +1,6 @@
 import { useId, useState } from 'react';
 import Icon from '@/components/ui/Icon';
+import { foundingSlotsLabel } from '@/lib/pricing';
 
 export interface PackageCard {
   id: string;
@@ -71,8 +72,9 @@ export default function PricingExplorer({ cards, discountLabel }: Props) {
       </fieldset>
       {mode === 'founding' && (
         <p className="text-ivory-100/75 mt-4 text-sm" role="status">
-          Founding-client rates apply to Launch, Business and Online Catalog for a limited number of
-          early clients. Eligibility is confirmed in writing.{' '}
+          Founding-client rates apply to Starter, Business and Online Store for{' '}
+          {foundingSlotsLabel()}. Custom Software is not discounted. Eligibility is confirmed in
+          writing.{' '}
           <a
             href="#founding-offer"
             className="text-mint-300 rounded-sm underline underline-offset-4"

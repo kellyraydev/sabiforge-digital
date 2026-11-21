@@ -13,12 +13,10 @@ const options: PathwayOption[] = pathways.map((p) => ({
   packageHint: p.packageHint,
   services: p.services.map((slug) => {
     const service = getService(slug);
-    if (!service || service.approval !== 'confirmed')
-      throw new Error(`Unknown or unapproved public service in pathway: ${slug}`);
+    if (!service) throw new Error(`Unknown service in pathway: ${slug}`);
     return { name: service.name, href: serviceHref(slug) };
   }),
 }));
-const publicFamilies = serviceFamilies.filter((family) => servicesInFamily(family.id).length > 0);
 ---
 
 <section
@@ -28,17 +26,20 @@ const publicFamilies = serviceFamilies.filter((family) => servicesInFamily(famil
 >
   <div class="container-page">
     <SectionHead
-      index="03"
+      index="04"
       label="Services"
       id="services-title"
       tone="paper"
-      title="Four approved ways to <em class='text-coral-700'>move forward</em>."
+      title="Three ways we help a business <em class='text-coral-700'>move forward</em>."
     >
-      <p>Choose website design and development, e-commerce, a redesign, or ongoing website care.</p>
+      <p>
+        Business websites, online stores, custom software, and redesigns with ongoing support. Each
+        is scoped around what your business needs right now.
+      </p>
     </SectionHead>
 
     <div class="mt-16 grid gap-px overflow-hidden rounded-[var(--radius-card)] border border-midnight-900/12 bg-midnight-900/12 lg:grid-cols-3">
-      {publicFamilies.map((family, fi) => (
+      {serviceFamilies.map((family, fi) => (
         <div
           class="flex flex-col bg-ivory-50 p-7 sm:p-9"
           data-reveal

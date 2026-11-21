@@ -2,15 +2,13 @@
 export const FOUNDING_DISCOUNT_RATE = 0.1;
 
 /**
- * Owner-approved founding-client slot count (20 November 2026).
- * This does not represent a real-time count of remaining openings.
+ * Founding-client places. Approved by the owner on 20 November 2026.
+ * The 10% discount rate above is unchanged.
  */
 export const FOUNDING_CLIENT_SLOTS: number | null = 5;
 
 export function foundingSlotsLabel(slots: number | null = FOUNDING_CLIENT_SLOTS): string {
-  return slots === null
-    ? 'a limited number of founding clients'
-    : `our first ${slots} founding clients`;
+  return slots === null ? 'a limited number of founding clients' : `${slots} founding client slots`;
 }
 
 const nairaFormatter = new Intl.NumberFormat('en-NG', {

@@ -1,20 +1,25 @@
 import { applyDiscount } from '@/lib/pricing';
 
 /**
- * Approved packages (source: SabiForge flyer). Names, prices and the
- * one-line scope are owner-approved. Anything marked AGREED is not yet
- * defined by the owner and is shown as "Agreed in your proposal".
+ * Packages approved by the owner on 20 November 2026 (names and prices).
+ * Headline inclusions (`typically`) approved by the owner on 21 November 2026,
+ * taken from docs/references/homepage-target.jpeg. Anything beyond these
+ * headline items stays "Agreed in your proposal".
+ *
+ * Founding eligibility follows the previous discount rule: fixed package
+ * prices qualify, and a "from" starting price does not. Custom Software is
+ * a starting price, so it is not discounted.
  */
 export const AGREED = 'Agreed in your proposal';
 export const NOT_STANDARD = 'Not in standard scope';
 
-export type EngagementModel = 'launch' | 'growth' | 'commerce' | 'partnership';
+export type EngagementModel = 'starter' | 'business' | 'store' | 'custom';
 
 export interface WebsitePackage {
   id: string;
   name: string;
   model: EngagementModel;
-  /** Approved one-line scope from the flyer. */
+  /** One-line description. Detailed scope is still agreed per project. */
   scope: string;
   bestFor: string;
   objective: string;
@@ -22,83 +27,84 @@ export interface WebsitePackage {
   price: number | null;
   fromPrice: boolean;
   foundingEligible: boolean;
-  /** Indicative inclusions — drafted, pending owner confirmation. */
+  /** Owner-approved headline inclusions (21 November 2026). */
   typically: string[];
   serviceSlug: string;
 }
 
 export const packages: WebsitePackage[] = [
   {
-    id: 'launch',
-    name: 'Launch',
-    model: 'launch',
-    scope: 'One-page professional business website',
-    bestFor: 'Founders and small businesses getting online for the first time',
+    id: 'starter',
+    name: 'Starter',
+    model: 'starter',
+    scope: 'Starter business website',
+    bestFor: 'Businesses getting a first professional website online',
     objective: 'Look credible, explain what you do and make it easy to contact you.',
-    price: 120_000,
+    price: 150_000,
     fromPrice: false,
     foundingEligible: true,
     typically: [
-      'A single, well-structured scrolling page',
-      'Mobile-first responsive design',
-      'WhatsApp, call and email actions',
-      'Search-friendly page structure',
+      'Up to 5 pages',
+      'Mobile-friendly design',
+      'Contact and WhatsApp enquiry',
+      'Basic SEO setup',
     ],
     serviceSlug: 'custom-website-design-development',
   },
   {
     id: 'business',
     name: 'Business',
-    model: 'growth',
-    scope: 'Up to 6 pages, business website + CMS',
-    bestFor: 'Established small businesses that need room to explain services properly',
-    objective: 'Give each service its own page and let your team update content.',
-    price: 280_000,
+    model: 'business',
+    scope: 'Business website',
+    bestFor: 'Businesses that need more room than a starter site',
+    objective: 'Explain the business more fully and give customers a clear next step.',
+    price: 350_000,
     fromPrice: false,
     foundingEligible: true,
     typically: [
-      'Up to six designed pages',
-      'Content management so you can edit text and images',
-      'Enquiry routes for each service',
-      'Handover walkthrough',
+      'Custom page designs',
+      'Services and portfolio sections',
+      'Content management (CMS)',
+      'Analytics setup',
     ],
     serviceSlug: 'custom-website-design-development',
   },
   {
-    id: 'catalog',
-    name: 'Online Catalog',
-    model: 'commerce',
-    scope: 'Products, filters, owner-editable listings',
-    bestFor: 'Product businesses that sell through conversation, showroom or WhatsApp',
-    objective: 'Help customers browse and shortlist products before they get in touch.',
-    price: 500_000,
+    id: 'store',
+    name: 'Online Store',
+    model: 'store',
+    scope: 'Online store',
+    bestFor: 'Businesses that sell products online',
+    objective: 'Give customers a store they can browse, with the selling setup agreed in writing.',
+    price: 750_000,
     fromPrice: false,
     foundingEligible: true,
     typically: [
-      'Product catalogue with categories and filters',
-      'Listings you can add and edit yourself',
-      'Product enquiry actions',
-      'Handover walkthrough',
+      'Product and category pages',
+      'Shopping cart and checkout',
+      'Payment integration',
+      'Order management',
     ],
     serviceSlug: 'shopify-ecommerce-development',
   },
   {
-    id: 'ecommerce',
-    name: 'Full E-commerce',
-    model: 'commerce',
-    scope: 'Checkout, payments, products + orders',
-    bestFor: 'Merchants ready to take orders and payments online',
-    objective: 'Run a complete store: products, cart, checkout, payments and order handling.',
-    price: 900_000,
+    id: 'custom',
+    name: 'Custom Software',
+    model: 'custom',
+    scope: 'Custom software and business platforms',
+    bestFor: 'Businesses that need software or a platform beyond a website or store package',
+    objective:
+      'Scope the system properly, then quote the build. The published price is only a start.',
+    price: 1_500_000,
     fromPrice: true,
     foundingEligible: false,
     typically: [
-      'Storefront, cart and checkout',
-      'Payment gateway integration',
-      'Product and order management',
-      'Custom quote after discovery',
+      'Portals and dashboards',
+      'Booking or management systems',
+      'Workflow automation',
+      'Integrations and ongoing support',
     ],
-    serviceSlug: 'shopify-ecommerce-development',
+    serviceSlug: 'custom-software-and-business-platforms',
   },
 ];
 
@@ -117,36 +123,36 @@ export interface EngagementModelInfo {
 
 export const engagementModels: EngagementModelInfo[] = [
   {
-    id: 'launch',
-    name: 'Launch',
-    forWhom: 'A first, professional presence that is quick to get right.',
-    packages: ['Launch'],
-    priceLabel: '₦120,000',
+    id: 'starter',
+    name: 'Starter',
+    forWhom: 'A first professional website, priced as a package.',
+    packages: ['Starter'],
+    priceLabel: '₦150,000',
   },
   {
-    id: 'growth',
-    name: 'Growth',
-    forWhom: 'A fuller website for a business that has outgrown a single page.',
+    id: 'business',
+    name: 'Business',
+    forWhom: 'A fuller business website than the starter package.',
     packages: ['Business'],
-    priceLabel: '₦280,000',
+    priceLabel: '₦350,000',
   },
   {
-    id: 'commerce',
-    name: 'Commerce',
-    forWhom: 'Catalogues and stores for businesses that sell products.',
-    packages: ['Online Catalog', 'Full E-commerce'],
-    priceLabel: 'From ₦500,000',
+    id: 'store',
+    name: 'Online Store',
+    forWhom: 'A store for businesses that sell products.',
+    packages: ['Online Store'],
+    priceLabel: '₦750,000',
   },
   {
-    id: 'partnership',
-    name: 'Custom scope',
-    forWhom: 'One of the approved services when a published package is not a fit.',
-    packages: ['Custom scope'],
-    priceLabel: 'Custom quote',
+    id: 'custom',
+    name: 'Custom Software',
+    forWhom: 'Software and business platforms. The figure is a starting price, not a fixed quote.',
+    packages: ['Custom Software'],
+    priceLabel: 'From ₦1,500,000',
   },
 ];
 
-/** Comparison matrix — values use approved wording where it exists. */
+/** Comparison matrix. `true` only where the owner approved the inclusion (21 November 2026); everything else stays agreed per proposal. */
 export interface ComparisonRow {
   label: string;
   values: Record<WebsitePackage['id'], string | boolean>;
@@ -157,72 +163,71 @@ export const comparisonRows: ComparisonRow[] = [
   {
     label: 'Scope',
     values: {
-      launch: 'One-page professional business website',
-      business: 'Up to 6 pages, business website + CMS',
-      catalog: 'Products, filters, owner-editable listings',
-      ecommerce: 'Checkout, payments, products + orders',
+      starter: 'Starter business website',
+      business: 'Business website',
+      store: 'Online store',
+      custom: 'Custom software and business platforms',
+    },
+  },
+  {
+    label: 'Price type',
+    values: {
+      starter: 'Fixed package price',
+      business: 'Fixed package price',
+      store: 'Fixed package price',
+      custom: 'Starting price, not a fixed quote',
     },
   },
   {
     label: 'Pages or templates',
-    values: {
-      launch: '1 scrolling page',
-      business: 'Up to 6 pages',
-      catalog: AGREED,
-      ecommerce: AGREED,
-    },
+    values: { starter: 'Up to 5 pages', business: AGREED, store: AGREED, custom: AGREED },
   },
   {
     label: 'Responsive design',
-    values: { launch: true, business: true, catalog: true, ecommerce: true },
+    values: { starter: true, business: true, store: true, custom: true },
   },
   {
     label: 'Edit content yourself',
-    values: {
-      launch: NOT_STANDARD,
-      business: 'CMS included',
-      catalog: 'Owner-editable listings',
-      ecommerce: 'Product & order management',
-    },
+    values: { starter: AGREED, business: true, store: AGREED, custom: AGREED },
   },
   {
-    label: 'Product catalogue & filters',
-    values: { launch: false, business: false, catalog: true, ecommerce: true },
+    label: 'Product catalogue',
+    values: { starter: false, business: false, store: true, custom: AGREED },
   },
   {
-    label: 'Checkout & online payments',
-    values: { launch: false, business: false, catalog: false, ecommerce: true },
+    label: 'Checkout and online payments',
+    values: { starter: false, business: false, store: true, custom: AGREED },
   },
   {
-    label: 'Handover & training',
-    values: { launch: true, business: true, catalog: true, ecommerce: true },
+    label: 'Handover',
+    values: { starter: AGREED, business: AGREED, store: AGREED, custom: AGREED },
   },
   {
     label: 'Revision rounds',
-    values: { launch: AGREED, business: AGREED, catalog: AGREED, ecommerce: AGREED },
+    values: { starter: AGREED, business: AGREED, store: AGREED, custom: AGREED },
   },
   {
     label: 'Timeline',
-    values: { launch: AGREED, business: AGREED, catalog: AGREED, ecommerce: AGREED },
+    values: { starter: AGREED, business: AGREED, store: AGREED, custom: AGREED },
   },
   {
     label: 'Post-launch support',
-    values: { launch: AGREED, business: AGREED, catalog: AGREED, ecommerce: AGREED },
+    values: { starter: AGREED, business: AGREED, store: AGREED, custom: true },
   },
   {
     label: 'Third-party costs',
     values: {
-      launch: 'Quoted separately',
+      starter: 'Quoted separately',
       business: 'Quoted separately',
-      catalog: 'Quoted separately',
-      ecommerce: 'Quoted separately',
+      store: 'Quoted separately',
+      custom: 'Quoted separately',
     },
   },
 ];
 
 export const thirdPartyCosts = [
   'Domain name registration and renewal',
-  'Hosting or platform subscriptions (for example a Shopify plan)',
+  'Hosting or platform subscriptions',
   'Premium themes, plugins and apps',
   'Payment-gateway transaction fees',
   'Licensed photography, illustration or fonts',
@@ -238,7 +243,6 @@ export const commonExclusions = [
 
 export const addOns = [
   { name: 'Additional pages or templates', detail: 'For content beyond the package scope.' },
-  { name: 'Brand identity', detail: 'Logo refinement, colour and type system, guidelines.' },
   { name: 'Content and copy support', detail: 'Structuring and writing page content with you.' },
   { name: 'Extra integrations', detail: 'Booking, CRM, messaging or other connected tools.' },
   { name: 'Website care plan', detail: 'Updates, monitoring and improvements after launch.' },

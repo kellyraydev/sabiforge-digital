@@ -2,8 +2,9 @@
 import LegalLayout from '@/components/legal/LegalLayout.astro';
 import DecisionNote from '@/components/legal/DecisionNote.astro';
 import { packages } from '@/data/packages';
-import { approvedServices } from '@/data/services';
+import { services } from '@/data/services';
 import { site } from '@/data/site';
+import { discountPercentLabel, foundingSlotsLabel } from '@/lib/pricing';
 
 const naira = (n: number) => `₦${n.toLocaleString('en-NG')}`;
 const sections = [
@@ -36,7 +37,7 @@ const sections = [
   <h2 id="services">2. Services</h2>
   <p>The website currently describes these services:</p>
   <ul>
-    {approvedServices.map((s) => (
+    {services.map((s) => (
       <li>{s.name}</li>
     ))}
   </ul>
@@ -67,19 +68,20 @@ const sections = [
   <ul>
     {packages.map((p) => (
       <li>
-        <strong>{p.name}:</strong> {p.id === 'ecommerce' ? 'from ' : ''}
+        <strong>{p.name}:</strong> {p.fromPrice ? 'from ' : ''}
         {p.price === null ? 'a custom amount' : naira(p.price)} for {p.scope.toLowerCase()}.
       </li>
     ))}
   </ul>
   <p>
     Third-party costs, such as domains, hosting, platform subscriptions, paid themes and apps,
-    payment-gateway fees and licensed images or fonts, are quoted separately. Custom scopes for an
-    approved service are quoted individually.
+    payment-gateway fees and licensed images or fonts, are quoted separately. Custom Software is a
+    starting price, not a fixed quote.
   </p>
   <p>
-    A founding-client rate of 10% is shown for the Launch, Business and Online Catalog packages. It
-    does not apply to Full E-commerce. The number of founding places has not been decided.
+    A founding-client rate of {discountPercentLabel()} is shown for the Starter, Business and Online
+    Store packages. It does not apply to Custom Software. There are {foundingSlotsLabel()}. How long
+    the offer lasts, and any other conditions, are still confirmed in the written proposal.
   </p>
   <DecisionNote id="T12" />
   <DecisionNote id="T2" />

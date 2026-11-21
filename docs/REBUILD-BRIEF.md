@@ -22,6 +22,21 @@ Recorded 20 November 2026:
 6. `FOUNDING_CLIENT_SLOTS = 5` approved; founding-offer copy states five founding client slots; discount rules unchanged.
 7. Homepage headline approved: "More than a website. Built for your business to grow."
 
+Recorded 21 November 2026 (owner answers in the Claude session; see `docs/SITE-AUDIT-2026-11-21.md`):
+
+8. The live site at `sabiforge-digital.vercel.app` is hidden from search until v2 launches. Vercel production `SITE_ENV` is set to `staging`; restore `production` at launch.
+9. Service URLs: keep `/services/custom-website-design-development` (Business Websites), `/services/shopify-ecommerce-development` (Online Stores) and `/services/website-redesign-modernization` (Website Redesign and Ongoing Support). Add `/services/custom-software-and-business-platforms`. Redirect `/services/website-care-maintenance` to the redesign page with a 301.
+10. `/shopify` is folded into Online Stores and redirects with a 301 to `/services/shopify-ecommerce-development`.
+11. The pricing page stays at `/pricing`. The navigation label may read "Packages".
+12. Headline package inclusions are approved as shown in `docs/references/homepage-target.jpeg`:
+    - Starter: up to 5 pages; mobile-friendly design; contact and WhatsApp enquiry; basic SEO setup.
+    - Business: custom page designs; services and portfolio sections; content management (CMS); analytics setup.
+    - Online Store: product and category pages; shopping cart and checkout; payment integration; order management.
+    - Custom Software: portals and dashboards; booking or management systems; workflow automation; integrations and ongoing support.
+    - Anything beyond these stays "Agreed in your proposal".
+13. PR #13's catalogue migration is merged into the v2 foundation line, with the URL decisions above applied on top.
+14. Homepage copy (audience strip, "Why SabiForge", footer location line): the owner delegated drafting ("rebuild it the best way"). Use the reference copy as the starting point, without claims of past clients or results. The final wording needs owner sign-off in the PR before merge.
+
 ## Overall art direction
 
 Create a distinctive SabiForge Digital experience that feels polished and technical, not a generic agency template. Dark midnight/navy base, violet and purple highlights, turquoise/cyan illumination, controlled glow, restrained cards and visible hierarchy. Use gradients selectively, not everywhere. Maintain strong text readability and focus states over effects.

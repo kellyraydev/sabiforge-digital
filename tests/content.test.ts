@@ -1,26 +1,31 @@
 import { describe, expect, it } from 'vitest';
 import { packages, foundingPrice, comparisonRows, engagementModels } from '../src/data/packages';
-import { services, approvedServices, serviceFamilies, getService } from '../src/data/services';
-import { concepts, getConcept } from '../src/data/concepts';
+import { services, serviceFamilies, getService } from '../src/data/services';
+import {
+  concepts,
+  getConcept,
+  homepageConcepts,
+  HOMEPAGE_CONCEPT_LABEL,
+} from '../src/data/concepts';
 import { pathways, stages } from '../src/data/home';
 import { navigation, whatsappLink, mailtoLink, site } from '../src/data/site';
 
 describe('approved packages', () => {
-  it('keeps the four flyer packages, prices and scope wording', () => {
-    expect(packages.map((p) => [p.name, p.price, p.scope])).toEqual([
-      ['Launch', 120_000, 'One-page professional business website'],
-      ['Business', 280_000, 'Up to 6 pages, business website + CMS'],
-      ['Online Catalog', 500_000, 'Products, filters, owner-editable listings'],
-      ['Full E-commerce', 900_000, 'Checkout, payments, products + orders'],
+  it('keeps the four approved packages and prices', () => {
+    expect(packages.map((p) => [p.name, p.price, p.fromPrice])).toEqual([
+      ['Starter', 150_000, false],
+      ['Business', 350_000, false],
+      ['Online Store', 750_000, false],
+      ['Custom Software', 1_500_000, true],
     ]);
   });
 
   it('applies the founding rate only to eligible packages', () => {
     expect(Object.fromEntries(packages.map((p) => [p.id, foundingPrice(p)]))).toEqual({
-      launch: 108_000,
-      business: 252_000,
-      catalog: 450_000,
-      ecommerce: 900_000,
+      starter: 135_000,
+      business: 315_000,
+      store: 675_000,
+      custom: 1_500_000,
     });
   });
 
@@ -38,25 +43,18 @@ describe('approved packages', () => {
 });
 
 describe('services', () => {
-  it('defines ten services across three families with unique slugs', () => {
-    expect(services).toHaveLength(10);
-    expect(new Set(services.map((s) => s.slug)).size).toBe(10);
+  it('defines the four approved services across three layout groups with unique slugs', () => {
+    expect(services.map((s) => s.name)).toEqual([
+      'Business Websites',
+      'Online Stores',
+      'Custom Software and Business Platforms',
+      'Website Redesign and Ongoing Support',
+    ]);
+    expect(services.every((s) => s.approval === 'confirmed')).toBe(true);
+    expect(new Set(services.map((s) => s.slug)).size).toBe(4);
     for (const family of serviceFamilies) {
       expect(services.some((s) => s.family === family.id)).toBe(true);
     }
-  });
-
-  it('publishes only the four owner-approved services and retains six pending definitions', () => {
-    expect(approvedServices.map((service) => service.slug).sort()).toEqual(
-      [
-        'custom-website-design-development',
-        'shopify-ecommerce-development',
-        'website-care-maintenance',
-        'website-redesign-modernization',
-      ].sort(),
-    );
-    expect(services.filter((service) => service.approval === 'pending')).toHaveLength(6);
-    expect(services).toHaveLength(10);
   });
 
   it('only references existing related services and concepts', () => {
@@ -75,24 +73,31 @@ describe('services', () => {
 
   it('pathways point to real services', () => {
     for (const pathway of pathways) {
-      for (const slug of pathway.services) {
-        expect(getService(slug), slug).toBeDefined();
-        expect(
-          approvedServices.some((service) => service.slug === slug),
-          slug,
-        ).toBe(true);
-      }
+      for (const slug of pathway.services) expect(getService(slug), slug).toBeDefined();
     }
   });
 });
 
 describe('honesty rules', () => {
-  it('labels every concept as fictional via the shared data', () => {
-    expect(concepts.length).toBeGreaterThan(0);
-    expect(concepts).toHaveLength(4);
-    for (const concept of concepts) {
-      expect(concept.category.length).toBeGreaterThan(0);
-      expect(concept.filterCategory.length).toBeGreaterThan(0);
+  it('keeps the four /work studies and adds six homepage concept projects', () => {
+    expect(concepts.map((concept) => concept.name)).toEqual([
+      'Àdùn Table',
+      'Kòrà Home',
+      'Mend Physio Studio',
+      'Tallyhouse',
+    ]);
+    expect(homepageConcepts.map((concept) => concept.name)).toEqual([
+      'Maison Valé Studios',
+      'AURA Clothing',
+      'FlowDesk OS',
+      'CampusOne Portal',
+      'Bloom Wellness Studio',
+      'RoutePilot Logistics',
+    ]);
+    for (const concept of homepageConcepts) {
+      expect(concept.label).toBe(HOMEPAGE_CONCEPT_LABEL);
+      expect(concept.conceptOnly).toBe(true);
+      expect(concept.summary).toMatch(/Not a client project/);
     }
   });
 
@@ -112,7 +117,7 @@ describe('honesty rules', () => {
   });
 
   it('navigation only targets built pages', () => {
-    const built = ['/work', '/services', '/shopify', '/process', '/about', '/pricing', '/contact'];
+    const built = ['/work', '/services', '/process', '/about', '/pricing', '/contact'];
     for (const item of navigation) expect(built).toContain(item.href);
   });
 });
