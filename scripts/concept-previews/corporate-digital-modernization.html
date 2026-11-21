@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        overflow: hidden;
+      }
+      body {
+        font-family: 'Segoe UI', Inter, sans-serif;
+        color: #1c1916;
+      }
+      button {
+        font: inherit;
+      }
+      button:disabled {
+        cursor: not-allowed;
+      }
+      img {
+        max-width: 100%;
+      }
+
+      body {
+        background: #f3f1ec;
+        color: #1e2421;
+      }
+      header {
+        height: 76px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 36px;
+      }
+      main {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        min-height: calc(100% - 76px);
+      }
+      .copy {
+        padding: 36px;
+      }
+      h1 {
+        font-size: 46px;
+        line-height: 1;
+        margin: 0 0 12px;
+      }
+      .panel {
+        background: #1f4d3a;
+        color: #f3f1ec;
+        padding: 36px;
+        display: grid;
+        align-content: end;
+        gap: 14px;
+      }
+      .step {
+        border-top: 1px solid #8fbfa8;
+        padding-top: 10px;
+      }
+      @media (max-width: 700px) {
+        header {
+          padding: 0 16px;
+        }
+        main {
+          grid-template-columns: 1fr;
+        }
+        .copy,
+        .panel {
+          padding: 18px;
+        }
+        h1 {
+          font-size: 32px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header><strong>Organisation</strong><span>Concept company site</span></header>
+    <main>
+      <div class="copy">
+        <p>CORPORATE WEBSITE</p>
+        <h1>A clearer site for a modern organisation.</h1>
+        <p>
+          Review what the current site fails to explain. Redesign the path. Support it after launch
+          when support is agreed. No awards and no performance figures.
+        </p>
+      </div>
+      <div class="panel">
+        <div class="step">
+          <strong>01 Review</strong>
+          <p>What the current site makes difficult.</p>
+        </div>
+        <div class="step">
+          <strong>02 Redesign</strong>
+          <p>Pages people can use on a phone.</p>
+        </div>
+        <div class="step">
+          <strong>03 Support</strong>
+          <p>Only when a support scope is agreed.</p>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

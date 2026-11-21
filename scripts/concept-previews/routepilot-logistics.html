@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        overflow: hidden;
+      }
+      body {
+        font-family: 'Segoe UI', Inter, sans-serif;
+        color: #1c1916;
+      }
+      button {
+        font: inherit;
+      }
+      button:disabled {
+        cursor: not-allowed;
+      }
+      img {
+        max-width: 100%;
+      }
+
+      body {
+        background: #e8eef2;
+        color: #1c2b3a;
+      }
+      header {
+        height: 72px;
+        background: #1c2b3a;
+        color: #e8eef2;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 28px;
+      }
+      main {
+        padding: 22px 28px;
+      }
+      h1 {
+        margin: 0 0 4px;
+      }
+      .note {
+        margin: 0 0 16px;
+        color: #4d5d6c;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        background: #fff;
+        border-radius: 16px;
+        overflow: hidden;
+      }
+      th,
+      td {
+        text-align: left;
+        padding: 14px 16px;
+        border-bottom: 1px solid #e8eef2;
+      }
+      .amber {
+        color: #9a6414;
+        font-weight: 700;
+      }
+      @media (max-width: 700px) {
+        header {
+          padding: 0 14px;
+        }
+        main {
+          padding: 14px;
+        }
+        th:nth-child(3),
+        td:nth-child(3) {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header><strong>RoutePilot</strong><span>Sample board</span></header>
+    <main>
+      <h1>Lanes</h1>
+      <p class="note">Illustrative lanes. Not live shipments and not a delivery promise.</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Lane</th>
+            <th>Status</th>
+            <th>Note</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>North</td>
+            <td class="amber">Preparing</td>
+            <td>Sample only</td>
+          </tr>
+          <tr>
+            <td>East</td>
+            <td>Moving</td>
+            <td>Sample only</td>
+          </tr>
+          <tr>
+            <td>Yard</td>
+            <td>Arrived</td>
+            <td>Sample only</td>
+          </tr>
+        </tbody>
+      </table>
+    </main>
+  </body>
+</html>
