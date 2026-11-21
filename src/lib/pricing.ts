@@ -2,11 +2,10 @@
 export const FOUNDING_DISCOUNT_RATE = 0.1;
 
 /**
- * Number of founding-client places. Deliberately unset: owner materials
- * conflict (3 in the project brief, 5 on the flyer). Public copy says
- * "a limited number" until the owner confirms a figure here.
+ * Owner-approved founding-client slot count (20 November 2026).
+ * This does not represent a real-time count of remaining openings.
  */
-export const FOUNDING_CLIENT_SLOTS: number | null = null;
+export const FOUNDING_CLIENT_SLOTS: number | null = 5;
 
 export function foundingSlotsLabel(slots: number | null = FOUNDING_CLIENT_SLOTS): string {
   return slots === null
