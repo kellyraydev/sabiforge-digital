@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        overflow: hidden;
+      }
+      body {
+        font-family: 'Segoe UI', Inter, sans-serif;
+        color: #1c1916;
+      }
+      button {
+        font: inherit;
+      }
+      button:disabled {
+        cursor: not-allowed;
+      }
+      img {
+        max-width: 100%;
+      }
+
+      body {
+        background: #f6f1e8;
+        color: #2c241c;
+      }
+      header,
+      main {
+        padding: 0 48px;
+      }
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 84px;
+      }
+      .brand {
+        font-family: Georgia, serif;
+        font-size: 22px;
+      }
+      nav {
+        display: flex;
+        gap: 22px;
+        font-size: 14px;
+      }
+      .hero {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 36px;
+        align-items: center;
+        height: calc(100% - 84px);
+      }
+      h1 {
+        font-family: Georgia, serif;
+        font-weight: 500;
+        font-size: 64px;
+        line-height: 0.95;
+        margin: 0 0 16px;
+      }
+      p {
+        font-size: 18px;
+        line-height: 1.5;
+        max-width: 36rem;
+        margin: 0;
+      }
+      .rooms {
+        display: grid;
+        gap: 12px;
+      }
+      .room {
+        border-radius: 18px;
+        min-height: 150px;
+        padding: 18px;
+        color: #f6f1e8;
+        display: flex;
+        align-items: flex-end;
+        font-family: Georgia, serif;
+        font-size: 22px;
+      }
+      .a {
+        background: linear-gradient(160deg, #cbb89a, #6b4a32);
+      }
+      .b {
+        background: linear-gradient(160deg, #8d947c, #3e4634);
+      }
+      .c {
+        background: linear-gradient(160deg, #d9cfc2, #5c5348);
+      }
+      @media (max-width: 700px) {
+        header,
+        main {
+          padding: 0 20px;
+        }
+        header {
+          height: 68px;
+        }
+        nav {
+          display: none;
+        }
+        .hero {
+          grid-template-columns: 1fr;
+          gap: 18px;
+          align-content: start;
+          padding-top: 12px;
+        }
+        h1 {
+          font-size: 40px;
+        }
+        p {
+          font-size: 16px;
+        }
+        .room {
+          min-height: 92px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="brand">Maison Vale Studios</div>
+      <nav><span>Projects</span><span>Materials</span><span>Enquire</span></nav>
+    </header>
+    <main class="hero">
+      <div>
+        <h1>Thoughtful interior spaces</h1>
+        <p>
+          Residential, hospitality and commercial studies. A concept website for a fictional studio.
+        </p>
+      </div>
+      <div class="rooms">
+        <div class="room a">Residential</div>
+        <div class="room b">Hospitality</div>
+        <div class="room c">Commercial</div>
+      </div>
+    </main>
+  </body>
+</html>

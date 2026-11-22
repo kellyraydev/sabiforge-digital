@@ -24,9 +24,9 @@ import { serviceCardCopy } from '@/data/home';
         return (
           <li class="group relative flex flex-col overflow-hidden rounded-2xl border border-ivory-100/10 bg-midnight-800/60 transition hover:border-coral-400/40">
             <ImageSlot
-              class="hidden sm:block"
               slot={`service-${service.slug}`}
-              alt=""
+              image={copy?.image}
+              alt={copy?.alt ?? ''}
               icon={copy?.icon}
               ratio="16 / 9"
               sizes="(min-width: 1280px) 22vw, (min-width: 640px) 45vw, 90vw"

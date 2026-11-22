@@ -16,6 +16,8 @@ interface Props {
   footerCta?: boolean;
   /** Show a reading-progress bar (long pages). */
   progress?: boolean;
+  /** Path under the site root for this page's social image. Hash URLs share the page image. */
+  ogImage?: string;
 }
 
 const {
@@ -25,6 +27,7 @@ const {
   noindex = false,
   footerCta = true,
   progress = false,
+  ogImage = '/assets/og-sabiforge.png',
 } = Astro.props;
 const pageTitle = title ? `${title} — ${site.name}` : `${site.name} — Design & development studio`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
@@ -68,10 +71,13 @@ const organization = {
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:locale" content={site.locale} />
-    <meta property="og:image" content={new URL('/assets/og-sabiforge.png', Astro.site)} />
-    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image" content={new URL(ogImage, Astro.site)} />
+    <meta
+      property="og:image:type"
+      content={ogImage.endsWith('.jpg') ? 'image/jpeg' : 'image/png'}
+    />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content={new URL('/assets/og-sabiforge.png', Astro.site)} />
+    <meta name="twitter:image" content={new URL(ogImage, Astro.site)} />
 
     <script is:inline>
       document.documentElement.classList.add('js');

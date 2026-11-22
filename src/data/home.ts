@@ -1,4 +1,12 @@
+import type { ImageMetadata } from 'astro';
 import type { IconKey } from '@/lib/icons';
+import businessWebsitesImg from '@/assets/services/business-websites.png';
+import onlineStoresImg from '@/assets/services/online-stores.png';
+import customSoftwareImg from '@/assets/services/custom-software.png';
+import redesignSupportImg from '@/assets/services/redesign-support.png';
+import whySabiForgeImg from '@/assets/home/why-sabiforge.png';
+
+export { whySabiForgeImg };
 
 /** Section 03 — the ingredients of a strong website. */
 export const ingredients = [
@@ -221,25 +229,36 @@ export const audiences: { label: string; icon: IconKey }[] = [
 ];
 
 /** Homepage service cards, keyed by service slug. */
-export const serviceCardCopy: Record<string, { blurb: string; icon: IconKey }> = {
+export const serviceCardCopy: Record<
+  string,
+  { blurb: string; icon: IconKey; image: ImageMetadata; alt: string }
+> = {
   'custom-website-design-development': {
     blurb:
       'A modern, professional website that helps customers find you, trust you and choose your business.',
     icon: 'monitor',
+    image: businessWebsitesImg,
+    alt: 'Laptop showing a modern small-business website with a warm interior photo',
   },
   'shopify-ecommerce-development': {
     blurb: 'Sell your products online with a smooth, secure store that is easy to manage.',
     icon: 'cart',
+    image: onlineStoresImg,
+    alt: 'Tablet showing an online-store product page for a tan leather handbag priced in naira',
   },
   'custom-software-and-business-platforms': {
     blurb:
       'Tools built around how your business works, from customer portals to internal management systems.',
     icon: 'layers',
+    image: customSoftwareImg,
+    alt: 'Laptop showing a dark business dashboard with stats and a revenue chart (illustrative figures)',
   },
   'website-redesign-modernization': {
     blurb:
       'Give your existing website a fresh, better look, then keep it secure and running smoothly.',
     icon: 'wrench',
+    image: redesignSupportImg,
+    alt: 'Laptop showing an old, cluttered website beside its clean modern redesign',
   },
 };
 

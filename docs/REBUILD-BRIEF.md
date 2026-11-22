@@ -4,6 +4,14 @@ Status: **APPROVED DESIGN DIRECTION (owner, 20 November 2026). This is not deplo
 
 Source: two owner-supplied reference images in `docs/references/` (commit them with the owner's next local push if not yet present).
 
+## Latest owner supersession — 21 November 2026 (ten-project portfolio)
+
+This later approval **supersedes** the earlier six-homepage-concept / four-retained-`/work` decisions recorded below, including prior planned commit orders. Historical records below are preserved as prior decisions, **not current implementation requirements**. The active homepage and `/work` register on this branch is the ten-concept set. It is not approved for merge or production until the owner reviews it.
+
+Use the single ten-project register `docs/portfolio/ten-concepts/project-register.json` for both homepage and `/work`. Exact IDs/names/categories appear there. All ten are visibly **Concept Project**, never real clients. The four old `/work` studies (Àdùn Table, Kòrà Home, Mend Physio Studio, Tallyhouse) are to be removed from active pages and replaced; no accents/diacritics in NEW concept names. Maison Vale Studios replaces Maison Valé Studios for display. Big Beerah Collection is modest fashion and accessories (hijabs, abayas, scarves, fabric and jewelry), **not beverages**. Amzlat World of Beauty is beauty/cosmetics/fashion; Opeyemi Phones & Gadgets is electronics / Buy-Sell-Swap. Owner-supplied images for the last three are source visual references only, not proof of permission to publish contacts, trademarks or claims.
+
+The implementation must deliver distinct photo-based portfolio covers, accurate coded concept interfaces, accessible detail studies, provenance, visual/image QA and responsive testing. See `docs/portfolio/ten-concepts/CURSOR-NEW-TASK.md` and `ASSET-PLAN.md`. Do not claim these are done based on this spec.
+
 ## Visual references and authority
 
 - `docs/references/homepage-target.jpeg` — primary visual reference for the public homepage, section rhythm, treatment and hierarchy.
@@ -41,7 +49,7 @@ Recorded 22 November 2026:
 
 15. Homepage headline changed to "Your business deserves more than just a website.", with "just a website." as the gradient accent. This replaces item 7. The lede is unchanged.
 16. The homepage hero is rebuilt to `docs/references/hero-target-v2.jpeg`, chosen by the owner over a second supplied image. Copy and buttons are real HTML. Only the laptop-and-phone scene is an image (`src/assets/hero/v2-devices.png`), cut from the reference with the overlapping headline text removed. It is labelled "Concept mockup, not client work". Its dashboard figures and fictional brands ("BizFlow", AURA) are illustrative only.
-17. The owner supplied three demo concepts named after real businesses that have not yet been asked. Their names, images and data stay out of this public repository until each business agrees. Then they are added to `homepageConcepts` with `realBusinessConsent: 'granted'`, with address, phone and CAC details removed from the images.
+17. Big Beerah Collection, Amzlat World of Beauty and Opeyemi Phones & Gadgets are existing businesses that have not been asked. **Owner decision (22 November 2026): publish them now as clearly labelled uncommissioned concepts** ("Concept Project", plus "Uncommissioned, based on an existing business" on the homepage card and the reference-concept disclaimer on `/work`). No addresses, phone numbers, CAC numbers, prices or logos are copied. This supersedes the earlier hold-until-consent rule. If a business objects, remove its record.
 18. The homepage below the hero follows `docs/references/homepage-target.jpeg`: audience strip, four service cards, six fictional Concept Projects, "Why work with SabiForge?", four packages with approved prices and inclusions, and six process steps. The footer band is the closing call to action. The v1 homepage sections are removed. The "Where are you starting from?" enquiry picker moves to `/services` and is kept. Missing pictures use designed placeholders; prompts are in `docs/IMAGE-REQUESTS.md`.
 
 ## Overall art direction

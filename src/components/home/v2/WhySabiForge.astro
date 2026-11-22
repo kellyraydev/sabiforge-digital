@@ -1,7 +1,7 @@
 ---
 import Icon from '@/components/ui/Icon.astro';
 import ImageSlot from '@/components/ui/ImageSlot.astro';
-import { whyPoints } from '@/data/home';
+import { whyPoints, whySabiForgeImg } from '@/data/home';
 ---
 
 <section aria-labelledby="why-title" class="bg-[#000417] py-12 lg:py-16">
@@ -9,7 +9,9 @@ import { whyPoints } from '@/data/home';
     <div class="grid overflow-hidden rounded-3xl border border-ivory-100/10 bg-midnight-800/50 lg:grid-cols-[0.8fr_1.2fr]">
       <ImageSlot
         slot="why-sabiforge"
+        image={whySabiForgeImg}
         alt=""
+        position="60% 40%"
         icon="code"
         ratio="4 / 3"
         class="lg:aspect-auto! lg:h-full"

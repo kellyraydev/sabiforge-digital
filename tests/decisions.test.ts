@@ -96,12 +96,19 @@ describe('v2 navigation', () => {
   });
 });
 
-describe('real-business concept projects (ledger 17)', () => {
-  it('are only published once that business has agreed', async () => {
-    const { homepageConcepts, publishedHomepageConcepts } = await import('../src/data/concepts');
-    for (const concept of homepageConcepts) {
-      const shown = publishedHomepageConcepts.includes(concept);
-      expect(shown).toBe(concept.realBusinessConsent !== 'pending');
+describe('real-business concept projects (ledger 17, updated 22 Nov)', () => {
+  it('are published only as clearly labelled, uncommissioned reference concepts', async () => {
+    const { concepts, REFERENCE_CONCEPT_DISCLAIMER } = await import('../src/data/concepts');
+    const reference = concepts.filter((concept) => concept.basis === 'reference');
+    expect(reference.map((concept) => concept.id)).toEqual([
+      'big-beerah-collection',
+      'amzlat-world-of-beauty',
+      'opeyemi-phones-gadgets',
+    ]);
+    for (const concept of reference) {
+      expect(concept.label).toBe('Concept Project');
+      expect(concept.summary).toMatch(/Not commissioned work/);
     }
+    expect(REFERENCE_CONCEPT_DISCLAIMER).toMatch(/Not commissioned work, not an official website/);
   });
 });

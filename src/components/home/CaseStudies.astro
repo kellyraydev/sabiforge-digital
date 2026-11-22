@@ -1,0 +1,115 @@
+---
+import { Image } from 'astro:assets';
+import { concepts, conceptFilters, TECHNOLOGY_POSITIONING } from '@/data/concepts';
+import { conceptImage } from '@/data/concept-media';
+---
+
+<section
+  id="case-studies"
+  class="scroll-mt-24 border-t border-ivory-100/10 bg-midnight-950 py-24 lg:py-36"
+  aria-labelledby="case-studies-title"
+>
+  <div class="container-page">
+    <div class="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+      <div>
+        <p class="meta text-mint-300">All concepts</p>
+        <h2
+          id="case-studies-title"
+          class="mt-4 max-w-3xl text-display-lg font-semibold text-ivory-50"
+        >
+          Ten concept projects. <em>No</em> client claims.
+        </h2>
+        <p class="mt-5 max-w-2xl text-lg text-ivory-100/70">{TECHNOLOGY_POSITIONING}</p>
+        <p class="mt-4 max-w-2xl text-ivory-100/70">
+          The same ten studies appear here and on the work page. Seven invent a brand. Big Beerah
+          Collection, Amzlat World of Beauty and Opeyemi Phones &amp; Gadgets are uncommissioned
+          concepts based on existing businesses. None is client work.
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-2" role="group" aria-label="Filter studio concepts">
+        {conceptFilters.map((item, index) => (
+          <button
+            type="button"
+            data-concept-filter={item}
+            aria-pressed={index === 0 ? 'true' : 'false'}
+            class:list={[
+              'min-h-11 rounded-full border px-4 text-sm font-semibold transition',
+              index === 0
+                ? 'border-mint-300 bg-mint-300/10 text-mint-200'
+                : 'border-ivory-100/15 text-ivory-100/65 hover:border-ivory-100/40',
+            ]}
+          >
+            {item}
+          </button>
+        ))}
+      </div>
+    </div>
+    <div class="mt-14 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+      {concepts.map((concept) => (
+        <article
+          class="overflow-hidden rounded-[var(--radius-card)] border border-ivory-100/10 bg-midnight-900/70"
+          data-concept-category={concept.filterCategory}
+          style={`border-top:2px solid ${concept.study.theme.accent}`}
+        >
+          <a
+            href={`/work#${concept.id}`}
+            class="block focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-300"
+            aria-label={`${concept.name}, concept project cover`}
+          >
+            <Image
+              src={conceptImage(concept.id, 'cover')}
+              alt={concept.alt.cover}
+              widths={[480, 800, 1200]}
+              sizes="(min-width:1280px) 30vw, (min-width:768px) 45vw, 100vw"
+              class="aspect-[3/2] w-full object-cover"
+            />
+          </a>
+          <div class="p-6">
+            <p class="meta text-mint-300">
+              {concept.label} · {concept.category}
+            </p>
+            <p class="mt-2 text-xs leading-relaxed text-ivory-100/60">{concept.summary}</p>
+            <h3 class="mt-3 text-2xl font-semibold text-ivory-50">{concept.name}</h3>
+            <p class="mt-4 text-sm leading-relaxed text-ivory-100/70">
+              <strong class="text-ivory-50">Challenge. </strong>
+              {concept.challenge}
+            </p>
+            <p class="mt-3 text-sm leading-relaxed text-ivory-100/70">
+              <strong class="text-ivory-50">Approach. </strong>
+              {concept.approach}
+            </p>
+            <a
+              href={`/work#${concept.id}`}
+              class="mt-6 inline-flex min-h-11 items-center rounded-sm font-semibold text-mint-300 underline decoration-mint-300/40 underline-offset-4 hover:decoration-mint-300 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-mint-300"
+            >
+              Explore this concept
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  const buttons = [...document.querySelectorAll<HTMLButtonElement>('[data-concept-filter]')];
+  const cards = [...document.querySelectorAll<HTMLElement>('#case-studies article')];
+  const active = 'border-mint-300 bg-mint-300/10 text-mint-200';
+  const idle = 'border-ivory-100/15 text-ivory-100/65 hover:border-ivory-100/40';
+
+  function paint(selected: string) {
+    for (const button of buttons) {
+      const on = button.dataset.conceptFilter === selected;
+      button.setAttribute('aria-pressed', String(on));
+      button.className = `min-h-11 rounded-full border px-4 text-sm font-semibold transition ${on ? active : idle}`;
+    }
+    for (const card of cards) {
+      const show = selected === 'All concepts' || card.dataset.conceptCategory === selected;
+      card.toggleAttribute('hidden', !show);
+    }
+  }
+
+  for (const button of buttons) {
+    button.addEventListener('click', () => paint(button.dataset.conceptFilter ?? 'All concepts'));
+  }
+</script>

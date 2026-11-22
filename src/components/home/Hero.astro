@@ -7,7 +7,7 @@
 import { Picture } from 'astro:assets';
 import Button from '@/components/ui/Button.astro';
 import { startProjectHref } from '@/data/site';
-import devices from '@/assets/hero/v2-devices.png';
+import devices from '@/assets/hero/v2-devices-hd.png';
 ---
 
 <section aria-labelledby="hero-title" class="hero relative isolate overflow-hidden">
@@ -36,7 +36,7 @@ import devices from '@/assets/hero/v2-devices.png';
       <Picture
         src={devices}
         formats={['avif', 'webp']}
-        widths={[480, 738]}
+        widths={[560, 900, 1240]}
         sizes="(min-width: 1024px) 52vw, 100vw"
         alt="Illustrative concept mockup: a business dashboard on a laptop and a fashion store on a phone"
         loading="eager"

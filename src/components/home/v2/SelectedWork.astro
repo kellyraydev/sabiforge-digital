@@ -2,7 +2,8 @@
 import Button from '@/components/ui/Button.astro';
 import ImageSlot from '@/components/ui/ImageSlot.astro';
 import SectionHeading from './SectionHeading.astro';
-import { publishedHomepageConcepts, HOMEPAGE_CONCEPT_LABEL } from '@/data/concepts';
+import { concepts, CONCEPT_LABEL } from '@/data/concepts';
+import { conceptThumb } from '@/data/concept-media';
 ---
 
 <section id="work" aria-labelledby="work-title" class="bg-[#000417] py-12 lg:py-16">
@@ -15,33 +16,44 @@ import { publishedHomepageConcepts, HOMEPAGE_CONCEPT_LABEL } from '@/data/concep
       />
       <div class="flex flex-col gap-4 sm:flex-row sm:items-center lg:max-w-xl">
         <p class="text-sm text-ivory-100/70">
-          A look at websites and platforms we have designed and built as concept projects, to show
-          what we can do. They are not client work.
+          Concept projects we designed to show what we can do. Seven invent a brand; three are
+          uncommissioned concepts based on existing businesses. None is client work.
         </p>
         <Button href="/work" variant="secondary" icon="arrow-right" class="shrink-0">
           View all work
         </Button>
       </div>
     </div>
-    <ul class="mt-10 grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-6">
-      {publishedHomepageConcepts.map((concept) => (
-        <li class="overflow-hidden rounded-xl border border-ivory-100/10 bg-midnight-800/60">
+    <ul class="mt-10 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
+      {concepts.map((concept) => (
+        <li class="group relative overflow-hidden rounded-xl border border-ivory-100/10 bg-midnight-800/60 transition hover:border-coral-400/40">
           <div class="relative">
             <ImageSlot
               slot={`concept-${concept.id}`}
-              image={concept.image}
-              alt={`${concept.name}: ${concept.type} concept design`}
-              icon={concept.icon}
+              image={conceptThumb(concept.id)}
+              alt={concept.alt.cover}
               ratio="4 / 3"
-              sizes="(min-width: 1280px) 15vw, (min-width: 768px) 30vw, 45vw"
+              sizes="(min-width: 1024px) 19vw, (min-width: 768px) 30vw, 45vw"
             />
             <span class="absolute bottom-2 left-2 rounded-full bg-coral-600 px-2.5 py-0.5 text-[0.7rem] font-semibold text-white">
-              {HOMEPAGE_CONCEPT_LABEL}
+              {CONCEPT_LABEL}
             </span>
           </div>
           <div class="p-3.5">
-            <h3 class="font-display text-sm font-semibold text-ivory-50">{concept.name}</h3>
-            <p class="mt-0.5 text-xs text-ivory-100/65">{concept.type}</p>
+            <h3 class="font-display text-sm font-semibold text-ivory-50">
+              <a
+                href={`/work#${concept.id}`}
+                class="rounded-sm after:absolute after:inset-0 group-hover:text-coral-300"
+              >
+                {concept.name}
+              </a>
+            </h3>
+            <p class="mt-0.5 text-xs text-ivory-100/65">{concept.category}</p>
+            {concept.basis === 'reference' && (
+              <p class="mt-1 text-[0.7rem] text-mint-300/90">
+                Uncommissioned, based on an existing business
+              </p>
+            )}
           </div>
         </li>
       ))}

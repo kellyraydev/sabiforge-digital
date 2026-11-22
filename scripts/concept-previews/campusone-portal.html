@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        overflow: hidden;
+      }
+      body {
+        font-family: 'Segoe UI', Inter, sans-serif;
+        color: #1c1916;
+      }
+      button {
+        font: inherit;
+      }
+      button:disabled {
+        cursor: not-allowed;
+      }
+      img {
+        max-width: 100%;
+      }
+
+      body {
+        background: #f4f7fb;
+        color: #12315c;
+      }
+      header {
+        height: 72px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 36px;
+        background: #12315c;
+        color: #f4f7fb;
+      }
+      main {
+        padding: 28px 36px;
+      }
+      .banner {
+        background: #12315c;
+        color: #f4f7fb;
+        border-radius: 20px;
+        padding: 28px;
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+      }
+      h1 {
+        margin: 0 0 8px;
+        font-size: 36px;
+      }
+      .mods {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        margin-top: 16px;
+      }
+      .mod {
+        background: #fff;
+        border-radius: 16px;
+        padding: 18px;
+        border-top: 4px solid #c4a15a;
+      }
+      .fine {
+        font-size: 13px;
+        color: #5d7190;
+      }
+      @media (max-width: 700px) {
+        header {
+          padding: 0 16px;
+        }
+        main {
+          padding: 16px;
+        }
+        .banner {
+          display: block;
+        }
+        h1 {
+          font-size: 30px;
+        }
+        .mods {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header><strong>CampusOne Portal</strong><span>Sample home</span></header>
+    <main>
+      <section class="banner">
+        <div>
+          <p class="fine">SAMPLE MODULE · NOT A REAL INSTITUTION</p>
+          <h1>Studio practice</h1>
+          <p>Open the next reading. Nothing here is an enrolment record.</p>
+        </div>
+      </section>
+      <div class="mods">
+        <article class="mod">
+          <h2>Writing</h2>
+          <p class="fine">Sample area</p>
+        </article>
+        <article class="mod">
+          <h2>Systems</h2>
+          <p class="fine">Sample area</p>
+        </article>
+        <article class="mod">
+          <h2>Seminar</h2>
+          <p class="fine">Sample area</p>
+        </article>
+      </div>
+    </main>
+  </body>
+</html>

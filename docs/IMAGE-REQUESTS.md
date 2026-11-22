@@ -1,5 +1,7 @@
 # Image requests
 
+> **Status (22 Nov 2026): all 12 delivered** in `36fc322` and in use. See `docs/IMAGE-PROVENANCE.md`. The list below is kept so they can be regenerated at native high resolution later.
+
 Images the v2 homepage still needs. Until each one arrives, the page shows a designed
 gradient placeholder (`src/components/ui/ImageSlot.astro`), so nothing looks broken.
 

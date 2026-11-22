@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        overflow: hidden;
+      }
+      body {
+        font-family: 'Segoe UI', Inter, sans-serif;
+        color: #1c1916;
+      }
+      button {
+        font: inherit;
+      }
+      button:disabled {
+        cursor: not-allowed;
+      }
+      img {
+        max-width: 100%;
+      }
+
+      body {
+        background: #f7f3ec;
+        color: #3e5c45;
+      }
+      header {
+        height: 76px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 36px;
+      }
+      .brand {
+        font-family: Georgia, serif;
+        font-size: 24px;
+      }
+      main {
+        padding: 8px 36px 28px;
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 28px;
+      }
+      h1 {
+        font-family: Georgia, serif;
+        font-weight: 500;
+        font-size: 54px;
+        line-height: 0.95;
+        margin: 0 0 12px;
+      }
+      .visits {
+        display: grid;
+        gap: 10px;
+      }
+      .visit {
+        background: #fff;
+        border-radius: 16px;
+        padding: 16px 18px;
+        display: flex;
+        justify-content: space-between;
+      }
+      button {
+        background: #8c5a45;
+        color: #fff;
+        border: 0;
+        border-radius: 999px;
+        padding: 14px 18px;
+      }
+      .warn {
+        font-size: 13px;
+        color: #6d5348;
+      }
+      @media (max-width: 700px) {
+        header,
+        main {
+          padding-left: 16px;
+          padding-right: 16px;
+        }
+        main {
+          grid-template-columns: 1fr;
+          gap: 16px;
+        }
+        h1 {
+          font-size: 38px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="brand">Bloom Wellness Studio</div>
+      <span>Concept</span>
+    </header>
+    <main>
+      <div>
+        <h1>Ask for a time. Nothing is booked.</h1>
+        <p>Movement, rest and recovery, described for a fictional studio.</p>
+        <p class="warn">This control does not create an appointment.</p>
+        <button type="button" disabled>Request a time</button>
+      </div>
+      <div class="visits">
+        <article class="visit"><strong>Movement</strong><span>Studio visit</span></article>
+        <article class="visit"><strong>Rest</strong><span>Quiet room</span></article>
+        <article class="visit"><strong>Recovery</strong><span>Follow-up visit</span></article>
+      </div>
+    </main>
+  </body>
+</html>
