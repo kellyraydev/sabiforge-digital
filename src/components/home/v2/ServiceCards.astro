@@ -1,0 +1,51 @@
+---
+import Icon from '@/components/ui/Icon.astro';
+import ImageSlot from '@/components/ui/ImageSlot.astro';
+import SectionHeading from './SectionHeading.astro';
+import { approvedServices, serviceHref } from '@/data/services';
+import { serviceCardCopy } from '@/data/home';
+---
+
+<section id="services" aria-labelledby="services-title" class="bg-[#000417] py-12 lg:py-16">
+  <div class="container-page">
+    <div class="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+      <SectionHeading
+        id="services-title"
+        eyebrow="Our services"
+        title="What can we build for you?"
+      />
+      <p class="max-w-sm text-ivory-100/70">
+        Practical, reliable and modern digital solutions built around your business goals.
+      </p>
+    </div>
+    <ul class="mt-10 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+      {approvedServices.map((service) => {
+        const copy = serviceCardCopy[service.slug];
+        return (
+          <li class="group relative flex flex-col overflow-hidden rounded-2xl border border-ivory-100/10 bg-midnight-800/60 transition hover:border-coral-400/40">
+            <ImageSlot
+              class="hidden sm:block"
+              slot={`service-${service.slug}`}
+              alt=""
+              icon={copy?.icon}
+              ratio="16 / 9"
+              sizes="(min-width: 1280px) 22vw, (min-width: 640px) 45vw, 90vw"
+            />
+            <div class="flex flex-1 flex-col p-6">
+              <Icon name={copy?.icon ?? 'sparkle'} class="size-7 text-mint-300" />
+              <h3 class="mt-4 font-display text-lg font-semibold text-ivory-50">{service.name}</h3>
+              <p class="mt-2 flex-1 text-sm leading-relaxed text-ivory-100/70">{copy?.blurb}</p>
+              <a
+                href={serviceHref(service.slug)}
+                class="mt-5 inline-flex items-center gap-2 rounded-sm text-sm font-semibold text-mint-300 after:absolute after:inset-0 hover:text-mint-200"
+              >
+                Learn more <span class="sr-only">about {service.name}</span>
+                <Icon name="arrow-right" class="size-4 transition group-hover:translate-x-0.5" />
+              </a>
+            </div>
+          </li>
+        );
+      })}
+    </ul>
+  </div>
+</section>

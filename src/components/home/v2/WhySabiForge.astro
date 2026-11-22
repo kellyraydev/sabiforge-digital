@@ -1,0 +1,43 @@
+---
+import Icon from '@/components/ui/Icon.astro';
+import ImageSlot from '@/components/ui/ImageSlot.astro';
+import { whyPoints } from '@/data/home';
+---
+
+<section aria-labelledby="why-title" class="bg-[#000417] py-12 lg:py-16">
+  <div class="container-page">
+    <div class="grid overflow-hidden rounded-3xl border border-ivory-100/10 bg-midnight-800/50 lg:grid-cols-[0.8fr_1.2fr]">
+      <ImageSlot
+        slot="why-sabiforge"
+        alt=""
+        icon="code"
+        ratio="4 / 3"
+        class="lg:aspect-auto! lg:h-full"
+        sizes="(min-width: 1024px) 40vw, 100vw"
+      />
+      <div class="p-7 sm:p-10">
+        <p class="text-xs font-semibold tracking-[0.18em] text-mint-300 uppercase">Why SabiForge</p>
+        <h2 id="why-title" class="mt-2 font-display text-display-sm font-semibold text-ivory-50">
+          Why work with SabiForge?
+        </h2>
+        <p class="mt-3 max-w-xl text-ivory-100/70">
+          A focused, transparent and people-first approach to building digital solutions that create
+          real value for your business.
+        </p>
+        <ul class="mt-8 grid gap-6 sm:grid-cols-2">
+          {whyPoints.map((point) => (
+            <li class="flex gap-4">
+              <span class="grid size-11 shrink-0 place-items-center rounded-xl border border-ivory-100/10 bg-midnight-900 text-coral-300">
+                <Icon name={point.icon} class="size-5" />
+              </span>
+              <div>
+                <h3 class="font-display text-base font-semibold text-ivory-50">{point.title}</h3>
+                <p class="mt-1 text-sm leading-relaxed text-ivory-100/70">{point.body}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

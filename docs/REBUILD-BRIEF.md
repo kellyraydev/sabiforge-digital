@@ -41,6 +41,8 @@ Recorded 22 November 2026:
 
 15. Homepage headline changed to "Your business deserves more than just a website.", with "just a website." as the gradient accent. This replaces item 7. The lede is unchanged.
 16. The homepage hero is rebuilt to `docs/references/hero-target-v2.jpeg`, chosen by the owner over a second supplied image. Copy and buttons are real HTML. Only the laptop-and-phone scene is an image (`src/assets/hero/v2-devices.png`), cut from the reference with the overlapping headline text removed. It is labelled "Concept mockup, not client work". Its dashboard figures and fictional brands ("BizFlow", AURA) are illustrative only.
+17. The owner supplied three demo concepts named after real businesses that have not yet been asked. Their names, images and data stay out of this public repository until each business agrees. Then they are added to `homepageConcepts` with `realBusinessConsent: 'granted'`, with address, phone and CAC details removed from the images.
+18. The homepage below the hero follows `docs/references/homepage-target.jpeg`: audience strip, four service cards, six fictional Concept Projects, "Why work with SabiForge?", four packages with approved prices and inclusions, and six process steps. The footer band is the closing call to action. The v1 homepage sections are removed. The "Where are you starting from?" enquiry picker moves to `/services` and is kept. Missing pictures use designed placeholders; prompts are in `docs/IMAGE-REQUESTS.md`.
 
 ## Overall art direction
 

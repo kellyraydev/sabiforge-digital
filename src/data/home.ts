@@ -205,3 +205,74 @@ export const pathways: Pathway[] = [
     packageHint: 'Custom Software starts from ₦1,500,000 and is not a fixed quote.',
   },
 ];
+
+/*
+ * v2 homepage sections (docs/references/homepage-target.jpeg). Copy was drafted by Claude
+ * from the reference under owner delegation (ledger 14) and needs owner sign-off before
+ * launch. It avoids claims about past clients or results.
+ */
+
+/** "Built for growing businesses like yours": who the studio is for, not a client list. */
+export const audiences: { label: string; icon: IconKey }[] = [
+  { label: 'Small businesses and local brands', icon: 'tag' },
+  { label: 'Startups and entrepreneurs', icon: 'rocket' },
+  { label: 'Established companies', icon: 'layers' },
+  { label: 'Schools, NGOs and organisations', icon: 'graduation' },
+];
+
+/** Homepage service cards, keyed by service slug. */
+export const serviceCardCopy: Record<string, { blurb: string; icon: IconKey }> = {
+  'custom-website-design-development': {
+    blurb:
+      'A modern, professional website that helps customers find you, trust you and choose your business.',
+    icon: 'monitor',
+  },
+  'shopify-ecommerce-development': {
+    blurb: 'Sell your products online with a smooth, secure store that is easy to manage.',
+    icon: 'cart',
+  },
+  'custom-software-and-business-platforms': {
+    blurb:
+      'Tools built around how your business works, from customer portals to internal management systems.',
+    icon: 'layers',
+  },
+  'website-redesign-modernization': {
+    blurb:
+      'Give your existing website a fresh, better look, then keep it secure and running smoothly.',
+    icon: 'wrench',
+  },
+};
+
+/** "Why work with SabiForge?" points. */
+export const whyPoints: { title: string; body: string; icon: IconKey }[] = [
+  {
+    title: 'Built around your goals',
+    body: 'We start by understanding your business, your customers and what you need.',
+    icon: 'compass',
+  },
+  {
+    title: 'Clear and honest process',
+    body: 'A simple, transparent workflow from planning to launch, with your approval at each step.',
+    icon: 'clipboard',
+  },
+  {
+    title: 'Quality that lasts',
+    body: 'Fast, secure and easy to use on phones, tablets and computers.',
+    icon: 'shield',
+  },
+  {
+    title: 'Support after launch',
+    body: 'Help, updates and improvements as your business grows.',
+    icon: 'support',
+  },
+];
+
+/** Six-step process shown on the homepage. /process has the full detail. */
+export const processSteps: { title: string; body: string }[] = [
+  { title: 'Discover', body: 'Tell us your idea, goals and requirements.' },
+  { title: 'Plan', body: 'We agree the scope, features, timeline and cost.' },
+  { title: 'Design', body: 'We create a look and experience that fits your brand.' },
+  { title: 'Build', body: 'We develop, test and refine your website or software.' },
+  { title: 'Review', body: 'You test the work and share feedback before launch.' },
+  { title: 'Launch and support', body: 'We go live and stay available for support as needed.' },
+];

@@ -1,0 +1,45 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import { processSteps } from '@/data/home';
+---
+
+<section id="process" aria-labelledby="process-title" class="bg-[#000417] py-12 lg:py-16">
+  <div class="container-page grid gap-10 xl:grid-cols-[0.75fr_2.25fr] xl:items-start">
+    <div>
+      <SectionHeading
+        id="process-title"
+        eyebrow="Our process"
+        title="From your idea to a working solution"
+      />
+      <p class="mt-4 max-w-md text-ivory-100/70">
+        A clear, simple process that keeps you involved and informed at every stage.
+      </p>
+      <a
+        href="/process"
+        class="mt-5 inline-flex rounded-sm text-sm font-semibold text-mint-300 underline underline-offset-2 hover:text-mint-200"
+      >
+        See the full process
+      </a>
+    </div>
+    <ol class="grid gap-x-5 gap-y-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+      {processSteps.map((step, index) => (
+        <li class="relative">
+          <span
+            class:list={[
+              'grid size-11 place-items-center rounded-full border-2 font-display text-lg font-semibold',
+              index % 2 === 0 ? 'border-coral-400 text-coral-300' : 'border-mint-300 text-mint-300',
+            ]}
+            aria-hidden="true"
+          >
+            {index + 1}
+          </span>
+          <h3 class="mt-4 font-display text-base font-semibold text-ivory-50">
+            <span class="sr-only">Step {index + 1}: </span>
+            {step.title}
+          </h3>
+          <p class="mt-1.5 text-sm leading-relaxed text-ivory-100/70">{step.body}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>

@@ -1,0 +1,50 @@
+---
+import Button from '@/components/ui/Button.astro';
+import ImageSlot from '@/components/ui/ImageSlot.astro';
+import SectionHeading from './SectionHeading.astro';
+import { publishedHomepageConcepts, HOMEPAGE_CONCEPT_LABEL } from '@/data/concepts';
+---
+
+<section id="work" aria-labelledby="work-title" class="bg-[#000417] py-12 lg:py-16">
+  <div class="container-page">
+    <div class="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+      <SectionHeading
+        id="work-title"
+        eyebrow="Selected work"
+        title="Projects by SabiForge Digital"
+      />
+      <div class="flex flex-col gap-4 sm:flex-row sm:items-center lg:max-w-xl">
+        <p class="text-sm text-ivory-100/70">
+          A look at websites and platforms we have designed and built as concept projects, to show
+          what we can do. They are not client work.
+        </p>
+        <Button href="/work" variant="secondary" icon="arrow-right" class="shrink-0">
+          View all work
+        </Button>
+      </div>
+    </div>
+    <ul class="mt-10 grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-6">
+      {publishedHomepageConcepts.map((concept) => (
+        <li class="overflow-hidden rounded-xl border border-ivory-100/10 bg-midnight-800/60">
+          <div class="relative">
+            <ImageSlot
+              slot={`concept-${concept.id}`}
+              image={concept.image}
+              alt={`${concept.name}: ${concept.type} concept design`}
+              icon={concept.icon}
+              ratio="4 / 3"
+              sizes="(min-width: 1280px) 15vw, (min-width: 768px) 30vw, 45vw"
+            />
+            <span class="absolute bottom-2 left-2 rounded-full bg-coral-600 px-2.5 py-0.5 text-[0.7rem] font-semibold text-white">
+              {HOMEPAGE_CONCEPT_LABEL}
+            </span>
+          </div>
+          <div class="p-3.5">
+            <h3 class="font-display text-sm font-semibold text-ivory-50">{concept.name}</h3>
+            <p class="mt-0.5 text-xs text-ivory-100/65">{concept.type}</p>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

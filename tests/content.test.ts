@@ -5,6 +5,7 @@ import {
   concepts,
   getConcept,
   homepageConcepts,
+  publishedHomepageConcepts,
   HOMEPAGE_CONCEPT_LABEL,
 } from '../src/data/concepts';
 import { pathways, stages } from '../src/data/home';
@@ -79,14 +80,14 @@ describe('services', () => {
 });
 
 describe('honesty rules', () => {
-  it('keeps the four /work studies and adds six homepage concept projects', () => {
+  it('keeps the four /work studies and publishes six fictional homepage concepts', () => {
     expect(concepts.map((concept) => concept.name)).toEqual([
       'Àdùn Table',
       'Kòrà Home',
       'Mend Physio Studio',
       'Tallyhouse',
     ]);
-    expect(homepageConcepts.map((concept) => concept.name)).toEqual([
+    expect(publishedHomepageConcepts.map((concept) => concept.name)).toEqual([
       'Maison Valé Studios',
       'AURA Clothing',
       'FlowDesk OS',
@@ -97,7 +98,7 @@ describe('honesty rules', () => {
     for (const concept of homepageConcepts) {
       expect(concept.label).toBe(HOMEPAGE_CONCEPT_LABEL);
       expect(concept.conceptOnly).toBe(true);
-      expect(concept.summary).toMatch(/Not a client project/);
+      expect(concept.summary).toMatch(/Not a (client|commissioned) project/);
     }
   });
 

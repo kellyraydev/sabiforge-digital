@@ -33,57 +33,33 @@ const pass = (msg) => console.log(`✓ ${msg}`);
     await page.getByRole('link', { name: 'Explore our work' }).getAttribute('href'),
     '/work',
   );
-  assert.equal(await page.locator('#case-studies article').count(), 4);
-  const conceptFilters = page.getByRole('group', { name: 'Filter studio concepts' });
-  await conceptFilters.getByRole('button', { name: 'E-commerce' }).click();
-  assert.equal(await page.locator('#case-studies article').count(), 1);
-  assert.equal(await page.locator('#case-studies article h3').innerText(), 'Kòrà Home');
-  await conceptFilters.getByRole('button', { name: 'All concepts' }).click();
-  assert.equal(await page.locator('#case-studies [role="tab"]').count(), 0);
-  pass('homepage concept filter uses pressed buttons and shows the shared Work concept data');
+  // v2 homepage sections (docs/references/homepage-target.jpeg)
+  const serviceLinks = await page
+    .locator('#services a', { hasText: 'Learn more' })
+    .evaluateAll((els) => els.map((a) => a.getAttribute('href')));
+  assert.deepEqual(serviceLinks, [
+    '/services/custom-website-design-development',
+    '/services/shopify-ecommerce-development',
+    '/services/custom-software-and-business-platforms',
+    '/services/website-redesign-modernization',
+  ]);
+  const conceptCards = page.locator('#work li');
+  assert.equal(await conceptCards.count(), 6);
+  assert.equal(await page.locator('#work li', { hasText: 'Concept Project' }).count(), 6);
+  const planLinks = await page
+    .locator('#packages a', { hasText: 'Discuss this plan' })
+    .evaluateAll((els) => els.map((a) => a.getAttribute('href')));
+  assert.deepEqual(planLinks, [
+    '/contact?package=starter',
+    '/contact?package=business',
+    '/contact?package=store',
+    '/contact?package=custom',
+  ]);
+  assert.equal(await page.locator('#process ol > li').count(), 6);
+  pass('homepage sections: service links, six labelled concepts, plan links, six process steps');
 
-  // Pathway selector (radio group, arrow keys)
-  const pathway = page.getByRole('radiogroup');
-  await pathway.evaluate((el) => el.scrollIntoView({ block: 'center' }));
-  await page.waitForFunction(() => {
-    const island = document.querySelector(
-      '#services astro-island[component-url*="PathwaySelector"]',
-    );
-    return island && !island.hasAttribute('ssr');
-  });
-  await pathway.getByRole('radio').first().focus();
-  await page.keyboard.press('ArrowDown');
-  await page.keyboard.press('ArrowDown');
-  assert.equal(
-    await pathway.getByRole('radio', { checked: true }).innerText(),
-    'Our current website needs a redesign',
-  );
-  assert.ok(
-    await page
-      .getByRole('link', { name: 'Website Redesign and Ongoing Support' })
-      .first()
-      .isVisible(),
-  );
-  pass('pathway selector moves with arrow keys and shows matching services');
-
-  // Approach tabs
-  const approach = page.locator('#approach');
-  await approach.evaluate((el) => el.scrollIntoView({ block: 'center' }));
-  await page.waitForFunction(() => {
-    const island = document.querySelector(
-      '#approach astro-island[component-url*="ApproachStages"]',
-    );
-    return island && !island.hasAttribute('ssr');
-  });
-  await approach.getByRole('tab', { name: /Define/ }).click();
-  assert.match(await approach.getByRole('tabpanel').innerText(), /Define/);
-  await page.keyboard.press('ArrowDown');
-  assert.match(await approach.getByRole('tabpanel').innerText(), /Design/);
-  await page.keyboard.press('End');
-  assert.match(await approach.getByRole('tabpanel').innerText(), /Launch & Support/);
-  pass('approach tabs respond to click, ArrowDown and End');
-
-  // Project enquiry selector uses approved services and prefills contact.
+  // Project enquiry selector (moved to /services) uses approved services and prefills contact.
+  await page.goto(BASE_URL + '/services', { waitUntil: 'networkidle' });
   const selector = page.locator('#project-enquiry');
   await selector.scrollIntoViewIfNeeded();
   await page.waitForFunction(() => {
@@ -96,7 +72,7 @@ const pass = (msg) => console.log(`✓ ${msg}`);
     await selector.getByRole('link', { name: 'Continue to project enquiry' }).getAttribute('href'),
     '/contact?service=shopify-ecommerce-development',
   );
-  pass('homepage enquiry selector provides four approved services and service prefill');
+  pass('services enquiry selector provides four approved services and service prefill');
 
   // Pricing toggle
   await page.goto(BASE_URL + '/pricing', { waitUntil: 'networkidle' });

@@ -3,6 +3,9 @@
  * design problems. These are NOT client projects and must always be
  * labelled as concepts wherever they appear.
  */
+import type { ImageMetadata } from 'astro';
+import type { IconKey } from '@/lib/icons';
+
 export type PlateVariant = 'editorial' | 'commerce' | 'service' | 'product' | 'brand';
 export type ConceptFilterCategory = 'Business websites' | 'E-commerce' | 'Product interfaces';
 
@@ -271,8 +274,19 @@ export interface HomepageConceptProject {
   name: string;
   label: typeof HOMEPAGE_CONCEPT_LABEL;
   conceptOnly: true;
+  /** Short line shown under the name, e.g. "E-commerce fashion store". */
+  type: string;
   /** What kind of fictional project this is. Not a client, result or metric. */
   summary: string;
+  /** Thumbnail. Missing images render a designed placeholder (see docs/IMAGE-REQUESTS.md). */
+  image?: ImageMetadata;
+  /** Icon for the placeholder. */
+  icon: IconKey;
+  /**
+   * Named after a real business: shown only once that business has agreed.
+   * Fictional concepts leave this undefined.
+   */
+  realBusinessConsent?: 'pending' | 'granted';
 }
 
 export const homepageConcepts: HomepageConceptProject[] = [
@@ -281,41 +295,61 @@ export const homepageConcepts: HomepageConceptProject[] = [
     name: 'Maison Valé Studios',
     label: HOMEPAGE_CONCEPT_LABEL,
     conceptOnly: true,
+    type: 'Interior design studio website',
     summary: 'Fictional studio website concept. Not a client project.',
+    icon: 'monitor',
   },
   {
     id: 'aura-clothing',
     name: 'AURA Clothing',
     label: HOMEPAGE_CONCEPT_LABEL,
     conceptOnly: true,
+    type: 'E-commerce fashion store',
     summary: 'Fictional clothing-store concept. Not a client project.',
+    icon: 'cart',
   },
   {
     id: 'flowdesk-os',
     name: 'FlowDesk OS',
     label: HOMEPAGE_CONCEPT_LABEL,
     conceptOnly: true,
+    type: 'Business operations platform',
     summary: 'Fictional business-software concept. Not a client project.',
+    icon: 'chart',
   },
   {
     id: 'campusone-portal',
     name: 'CampusOne Portal',
     label: HOMEPAGE_CONCEPT_LABEL,
     conceptOnly: true,
+    type: 'Student and academic portal',
     summary: 'Fictional portal concept. Not a client project.',
+    icon: 'graduation',
   },
   {
     id: 'bloom-wellness-studio',
     name: 'Bloom Wellness Studio',
     label: HOMEPAGE_CONCEPT_LABEL,
     conceptOnly: true,
+    type: 'Wellness and booking website',
     summary: 'Fictional wellness-studio website concept. Not a client project.',
+    icon: 'sparkle',
   },
   {
     id: 'routepilot-logistics',
     name: 'RoutePilot Logistics',
     label: HOMEPAGE_CONCEPT_LABEL,
     conceptOnly: true,
+    type: 'Logistics management platform',
     summary: 'Fictional logistics-platform concept. Not a client project.',
+    icon: 'truck',
   },
+  // Concepts named after real businesses are added here only once that business has agreed,
+  // with realBusinessConsent: 'granted' (ledger 17). Names stay out of this public repository
+  // until then.
 ];
+
+/** Concepts that may be shown publicly: fictional ones, plus real-business ones with consent. */
+export const publishedHomepageConcepts = homepageConcepts.filter(
+  (concept) => concept.realBusinessConsent !== 'pending',
+);

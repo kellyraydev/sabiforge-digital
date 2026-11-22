@@ -3,7 +3,8 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/page/PageHero.astro';
 import CtaPanel from '@/components/page/CtaPanel.astro';
 import Icon from '@/components/ui/Icon.astro';
-import { serviceFamilies, servicesInFamily, serviceHref } from '@/data/services';
+import { serviceFamilies, servicesInFamily, serviceHref, approvedServices } from '@/data/services';
+import ProjectEnquirySelector from '@/components/home/ProjectEnquirySelector';
 import { whatsappLink } from '@/data/site';
 import EditorialSignal from '@/components/ui/EditorialSignal.astro';
 ---
@@ -43,6 +44,11 @@ import EditorialSignal from '@/components/ui/EditorialSignal.astro';
       />
     </div>
   </PageHero>
+  <!-- Moved from the v1 homepage (22 Nov 2026) so the guided starting point is kept. -->
+  <ProjectEnquirySelector
+    client:visible
+    services={approvedServices.map(({ slug, name }) => ({ slug, name }))}
+  />
 
   {serviceFamilies.map((family, fi) => (
     <section

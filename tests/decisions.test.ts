@@ -95,3 +95,13 @@ describe('v2 navigation', () => {
     ]);
   });
 });
+
+describe('real-business concept projects (ledger 17)', () => {
+  it('are only published once that business has agreed', async () => {
+    const { homepageConcepts, publishedHomepageConcepts } = await import('../src/data/concepts');
+    for (const concept of homepageConcepts) {
+      const shown = publishedHomepageConcepts.includes(concept);
+      expect(shown).toBe(concept.realBusinessConsent !== 'pending');
+    }
+  });
+});
