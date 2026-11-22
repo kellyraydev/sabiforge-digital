@@ -12,9 +12,9 @@ export interface DemoDefinition {
   intro: string;
   /**
    * Height reserved for the demo before it loads, so the page does not jump (CLS).
-   * base: phones; sm: 640px and wider. Match the demo's tallest default view.
+   * base: phones; sm: 640px and wider; lg: 1024px and wider (defaults to sm). Match the demo's tallest default view.
    */
-  reserve: { base: string; sm: string };
+  reserve: { base: string; sm: string; lg?: string };
   /** Guided walkthrough shown in review mode. */
   review: ReviewStep[];
 }

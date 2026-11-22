@@ -419,6 +419,44 @@ const pass = (msg) => console.log(`✓ ${msg}`);
   assert.ok(await mobile.locator('#mobile-menu').isHidden());
   pass('mobile menu keeps focus inside and closes on Escape');
 
+  // AURA Clothing demo (T1): filter, open a piece, size guard, enquiry bag, focus.
+  const auraUrl = `${BASE_URL}/work/aura-clothing/demo`;
+  await page.goto(auraUrl, { waitUntil: 'networkidle' });
+  assert.match(await page.locator('[data-demo-badge]').innerText(), /fictional brand/);
+  const grid = page.locator('[data-aura-grid] > li');
+  assert.equal(await grid.count(), 9);
+  await page
+    .locator('[data-aura-filters]')
+    .getByRole('button', { name: /^Accessories/ })
+    .click();
+  assert.equal(await grid.count(), 3);
+  await page
+    .locator('[data-aura-filters]')
+    .getByRole('button', { name: /^Tailoring/ })
+    .click();
+  await page.getByRole('button', { name: /Ivory wrap blazer/ }).click();
+  assert.equal(await page.evaluate(() => document.activeElement?.textContent), 'Ivory wrap blazer');
+  await page.getByRole('button', { name: 'Add to enquiry bag' }).click();
+  assert.match(await page.locator('#aura-size-hint').innerText(), /Choose a size first/);
+  await page.locator('[data-aura-sizes]').getByRole('button', { name: 'M', exact: true }).click();
+  await page.getByRole('button', { name: 'Add to enquiry bag' }).click();
+  assert.match(await page.locator('[data-aura-bag-button]').innerText(), /\(1\)/);
+  await page.getByRole('button', { name: 'Back to the collection', exact: true }).click();
+  assert.equal(
+    await page.evaluate(() => document.activeElement?.id),
+    'aura-card-ivory-wrap-blazer',
+  );
+  await page.locator('[data-aura-bag-button]').click();
+  assert.match(
+    await page.locator('[data-aura-bag]').innerText(),
+    /Ivory wrap blazer[\s\S]*Size: M/,
+  );
+  await page.getByRole('button', { name: 'Send enquiry' }).click();
+  assert.match(await page.locator('[data-aura-bag] [role="status"]').innerText(), /^Demo:/);
+  await page.getByRole('button', { name: /Remove/ }).click();
+  assert.match(await page.locator('[data-aura-bag]').innerText(), /Nothing here yet/);
+  pass('AURA demo: filters, size guard, enquiry bag, focus return and demo send');
+
   // Concept demo shell (T11): badge, way back, lazy island, review mode, no-JS fallback.
   const demoUrl = `${BASE_URL}/work/corporate-digital-modernization/demo`;
   await page.goto(BASE_URL + '/work', { waitUntil: 'networkidle' });

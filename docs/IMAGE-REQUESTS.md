@@ -85,3 +85,21 @@ crop at every screen width, and records it in `docs/IMAGE-PROVENANCE.md`.
 ## Not needed from Grok
 
 The three owner-supplied concepts named after real businesses already have prepared images. They are kept outside this public repository until each business agrees (ledger 17).
+
+## Demo images: AURA Clothing (task T1, requested 22 Nov 2026)
+
+The AURA demo at `/work/aura-clothing/demo` shows a tonal placeholder for each piece until its photo exists. **No code change is needed:** commit a file at the path below and the demo picks it up on the next build. Then record it in `docs/IMAGE-PROVENANCE.md`.
+
+**Shared style for all nine:** studio product photograph, portrait 4:5, at least 1200×1500 px, PNG or high-quality JPG. Warm ivory backdrop (#F7F3EE) with soft daylight and a gentle shadow. Palette limited to black, ivory, champagne (#CDB89A) and stone (#8A8175). Garments on an invisible mannequin ("ghost mannequin") or flat-laid, **no faces, no people, no hands**. No logos, labels, text or watermarks. Consistent lighting and camera height across the set so the grid looks like one shoot.
+
+| #   | Save as                                                  | Prompt (add the shared style above)                                                                        |
+| --- | -------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| A1  | `src/assets/demos/aura-clothing/ivory-wrap-blazer.png`   | Ivory wool-crepe wrap blazer with soft shoulders and a tie belt, shown closed on a ghost mannequin.        |
+| A2  | `src/assets/demos/aura-clothing/black-wide-trouser.png`  | Black high-waisted wide-leg trousers with a sharp front crease, ghost mannequin, full length visible.      |
+| A3  | `src/assets/demos/aura-clothing/champagne-waistcoat.png` | Fitted collarless champagne satin-crepe waistcoat with covered buttons, ghost mannequin.                   |
+| A4  | `src/assets/demos/aura-clothing/silk-slip-dress.png`     | Bias-cut midi slip dress in washed champagne-stone silk with thin straps, hanging on a slim wooden hanger. |
+| A5  | `src/assets/demos/aura-clothing/linen-shirt-dress.png`   | Relaxed ivory linen shirt dress with self belt and patch pockets, ghost mannequin.                         |
+| A6  | `src/assets/demos/aura-clothing/knit-co-ord.png`         | Dark stone rib-knit fitted top and matching straight midi skirt, flat-laid together from above.            |
+| A7  | `src/assets/demos/aura-clothing/structured-tote.png`     | Structured black smooth-leather tote bag, three-quarter angle, standing upright, no hardware logos.        |
+| A8  | `src/assets/demos/aura-clothing/gold-cuff.png`           | Open brushed-gold cuff bracelet resting on an ivory linen fold, close-up, soft reflections.                |
+| A9  | `src/assets/demos/aura-clothing/silk-square-scarf.png`   | Ivory and black silk twill square scarf with a simple geometric border, loosely folded, from above.        |

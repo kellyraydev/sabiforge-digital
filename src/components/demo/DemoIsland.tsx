@@ -1,10 +1,11 @@
-import { lazy, Suspense, type ComponentType, type LazyExoticComponent } from 'react';
+import { lazy, Suspense, useEffect, type ComponentType, type LazyExoticComponent } from 'react';
 
 /**
  * One island for every concept demo. Each demo is code-split with React.lazy, so a demo's
  * JavaScript loads only on its own /work/<slug>/demo page. T1-T10 add one line each.
  */
 const registry: Record<string, LazyExoticComponent<ComponentType>> = {
+  'aura-clothing': lazy(() => import('./demos/AuraClothingDemo')),
   'corporate-digital-modernization': lazy(() => import('./demos/CorporateRedesignDemo')),
 };
 
@@ -20,8 +21,17 @@ export default function DemoIsland({ slug }: { slug: string }) {
       }
     >
       <Demo />
+      <Loaded />
     </Suspense>
   );
+}
+
+/** Once the demo has rendered, release the height reserved against layout shift. */
+function Loaded() {
+  useEffect(() => {
+    document.querySelector('.demo-stage')?.classList.add('is-loaded');
+  }, []);
+  return null;
 }
 
 export const demoSlugs = Object.keys(registry);

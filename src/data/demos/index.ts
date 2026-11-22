@@ -1,6 +1,7 @@
 import type { Concept } from '@/data/concepts';
 import type { DemoDefinition } from './types';
 import { corporateDemo } from './corporate-digital-modernization';
+import { auraDemo } from './aura-clothing';
 
 export type { DemoDefinition, ReviewStep } from './types';
 
@@ -8,7 +9,7 @@ export type { DemoDefinition, ReviewStep } from './types';
  * Concepts with a live demo at /work/<slug>/demo. Tasks T1-T10 add one entry each,
  * plus a component in src/components/demo/DemoIsland.tsx.
  */
-export const demos: DemoDefinition[] = [corporateDemo];
+export const demos: DemoDefinition[] = [auraDemo, corporateDemo];
 
 export function getDemo(slug: string): DemoDefinition | undefined {
   return demos.find((demo) => demo.slug === slug);

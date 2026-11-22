@@ -77,7 +77,7 @@ const back = `/work#${concept.id}`;
         <section
           aria-label={`${concept.name} interactive demo`}
           class="demo-stage overflow-hidden rounded-2xl border border-ivory-100/10 bg-midnight-900"
-          style={`--demo-min:${demo.reserve.base};--demo-min-sm:${demo.reserve.sm}`}
+          style={`--demo-min:${demo.reserve.base};--demo-min-sm:${demo.reserve.sm};--demo-min-lg:${demo.reserve.lg ?? demo.reserve.sm}`}
         >
           <DemoIsland client:only="react" slug={demo.slug}>
             <div slot="fallback">
@@ -176,6 +176,14 @@ const back = `/work#${concept.id}`;
     :global(.js) .demo-stage {
       min-height: var(--demo-min-sm);
     }
+  }
+  @media (min-width: 1024px) {
+    :global(.js) .demo-stage {
+      min-height: var(--demo-min-lg);
+    }
+  }
+  :global(.js) .demo-stage:global(.is-loaded) {
+    min-height: 0;
   }
   /* With JS, review mode is a panel: beside the demo on large screens, a drawer on small. */
   :global(.js) .demo-review {
