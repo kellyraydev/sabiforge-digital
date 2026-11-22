@@ -95,6 +95,14 @@ const EXTRA_ROUTES = ['/privacy', '/terms'];
         return [];
       });
       if (overflow.length) problems.push(`${tag} horizontal overflow: ${overflow.join(' | ')}`);
+      // Mobile browsers widen the layout viewport instead of scrolling sideways, so
+      // also fail when the page renders wider than the device after a full reveal.
+      await page.addStyleTag({ content: '*{content-visibility:visible!important}' });
+      const layoutWidth = await page.evaluate(() => window.innerWidth);
+      if (layoutWidth > width)
+        problems.push(
+          `${tag} layout viewport widened to ${layoutWidth}px (content wider than device)`,
+        );
 
       // Complete the intended reveal transitions before accessibility checks so
       // the contrast analyzer samples the rendered colors rather than opacity-zero text.
@@ -160,7 +168,14 @@ const EXTRA_ROUTES = ['/privacy', '/terms'];
       }
 
       if (width === 390 && route === '/') {
-        await page.getByRole('button', { name: 'Menu' }).click();
+        // The header hides while scrolling down; return to the top as a visitor would.
+        await page.evaluate(() => window.scrollTo(0, 0));
+        await page.waitForTimeout(400);
+        try {
+          await page.getByRole('button', { name: 'Menu' }).click({ timeout: 5000 });
+        } catch {
+          problems.push(`${tag} menu button could not be tapped`);
+        }
         await page.waitForTimeout(400);
         await page.screenshot({ path: path.join(OUT, 'menu-390.png') });
         const focused = await page.evaluate(() => document.activeElement?.textContent?.trim());
