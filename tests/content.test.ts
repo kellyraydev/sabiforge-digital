@@ -1,12 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { packages, foundingPrice, comparisonRows, engagementModels } from '../src/data/packages';
 import { services, serviceFamilies, getService } from '../src/data/services';
-import {
-  concepts,
-  getConcept,
-  homepageConcepts,
-  HOMEPAGE_CONCEPT_LABEL,
-} from '../src/data/concepts';
+import { concepts, getConcept, CONCEPT_LABEL, TECHNOLOGY_POSITIONING } from '../src/data/concepts';
 import { pathways, stages } from '../src/data/home';
 import { navigation, whatsappLink, mailtoLink, site } from '../src/data/site';
 
@@ -79,26 +74,46 @@ describe('services', () => {
 });
 
 describe('honesty rules', () => {
-  it('keeps the four /work studies and adds six homepage concept projects', () => {
-    expect(concepts.map((concept) => concept.name)).toEqual([
-      'Àdùn Table',
-      'Kòrà Home',
-      'Mend Physio Studio',
-      'Tallyhouse',
+  it('uses one ten-concept register for the homepage and /work', () => {
+    expect(concepts.map((concept) => [concept.id, concept.name, concept.category])).toEqual([
+      ['maison-vale-studios', 'Maison Vale Studios', 'Interior Design / Creative Studio'],
+      ['aura-clothing', 'AURA Clothing', 'Fashion / E-commerce'],
+      ['flowdesk-os', 'FlowDesk OS', 'Business Software / SaaS'],
+      ['campusone-portal', 'CampusOne Portal', 'Education / Student Portal'],
+      ['bloom-wellness-studio', 'Bloom Wellness Studio', 'Wellness / Booking Website'],
+      ['routepilot-logistics', 'RoutePilot Logistics', 'Logistics / Business Platform'],
+      [
+        'big-beerah-collection',
+        'Big Beerah Collection',
+        'Modest Fashion & Accessories / E-commerce',
+      ],
+      ['amzlat-world-of-beauty', 'Amzlat World of Beauty', 'Beauty, Cosmetics & Fashion Retail'],
+      [
+        'opeyemi-phones-gadgets',
+        'Opeyemi Phones & Gadgets',
+        'Electronics Retail / Buy, Sell & Swap',
+      ],
+      [
+        'corporate-digital-modernization',
+        'Corporate Website Redesign & Digital Modernization',
+        'Corporate / Digital Transformation',
+      ],
     ]);
-    expect(homepageConcepts.map((concept) => concept.name)).toEqual([
-      'Maison Valé Studios',
-      'AURA Clothing',
-      'FlowDesk OS',
-      'CampusOne Portal',
-      'Bloom Wellness Studio',
-      'RoutePilot Logistics',
-    ]);
-    for (const concept of homepageConcepts) {
-      expect(concept.label).toBe(HOMEPAGE_CONCEPT_LABEL);
+    for (const concept of concepts) {
+      expect(concept.label).toBe(CONCEPT_LABEL);
+      expect(CONCEPT_LABEL).toBe('Concept Project');
       expect(concept.conceptOnly).toBe(true);
       expect(concept.summary).toMatch(/Not a client project/);
+      expect([...concept.name].every((char) => char.charCodeAt(0) < 128)).toBe(true);
     }
+    expect(
+      ['adun-table', 'kora-home', 'mend-physio', 'tallyhouse'].some((id) =>
+        concepts.some((concept) => concept.id === id),
+      ),
+    ).toBe(false);
+    expect(TECHNOLOGY_POSITIONING).toMatch(/latest technology and modern design standards/);
+    expect(concepts.filter((concept) => concept.basis === 'reference')).toHaveLength(3);
+    expect(concepts.filter((concept) => concept.basis === 'fictional')).toHaveLength(7);
   });
 
   it('has no social profiles until real ones are added', () => {

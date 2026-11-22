@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        overflow: hidden;
+      }
+      body {
+        font-family: 'Segoe UI', Inter, sans-serif;
+        color: #1c1916;
+      }
+      button {
+        font: inherit;
+      }
+      button:disabled {
+        cursor: not-allowed;
+      }
+      img {
+        max-width: 100%;
+      }
+
+      body {
+        background: #fff8f3;
+        color: #161616;
+      }
+      header {
+        height: 76px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 32px;
+        background: #161616;
+        color: #fff8f3;
+      }
+      main {
+        padding: 28px 32px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+        height: calc(100% - 76px);
+      }
+      h1 {
+        font-size: 46px;
+        line-height: 0.95;
+        margin: 0 0 10px;
+      }
+      .gold {
+        color: #c6a15b;
+      }
+      .tiles {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 10px;
+      }
+      .tile {
+        border-radius: 18px;
+        min-height: 150px;
+        padding: 16px;
+        display: flex;
+        align-items: flex-end;
+        font-size: 18px;
+      }
+      .p {
+        background: #f3d5e0;
+      }
+      .c {
+        background: #fff;
+        border: 1px solid #f3d5e0;
+      }
+      .b {
+        background: #161616;
+        color: #fff8f3;
+      }
+      .g {
+        background: #c6a15b;
+      }
+      .s {
+        background: #f7e7ef;
+      }
+      .n {
+        background: #2a2420;
+        color: #fff8f3;
+      }
+      @media (max-width: 700px) {
+        header {
+          padding: 0 16px;
+          height: auto;
+          min-height: 64px;
+        }
+        main {
+          padding: 16px;
+          grid-template-columns: 1fr;
+          height: auto;
+        }
+        h1 {
+          font-size: 34px;
+        }
+        .tile {
+          min-height: 88px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <strong>Amzlat World of Beauty</strong><span class="gold">Concept project</span>
+    </header>
+    <main>
+      <div>
+        <h1>Beauty, hair and fashion.</h1>
+        <p>Uncommissioned concept. No prices, addresses or contact details.</p>
+      </div>
+      <div class="tiles">
+        <div class="tile p">Makeup</div>
+        <div class="tile c">Skincare</div>
+        <div class="tile b">Hair</div>
+        <div class="tile g">Fashion</div>
+        <div class="tile s">Body care</div>
+        <div class="tile n">Manicure and pedicure</div>
+      </div>
+    </main>
+  </body>
+</html>

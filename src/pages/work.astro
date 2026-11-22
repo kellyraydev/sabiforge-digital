@@ -1,114 +1,81 @@
 ---
+import { Image } from 'astro:assets';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
-import HexLines from '@/components/ui/HexLines.astro';
-import ConceptPlate from '@/components/ui/ConceptPlate.astro';
 import Icon from '@/components/ui/Icon.astro';
 import CtaPanel from '@/components/page/CtaPanel.astro';
 import Decisions from '@/components/work/Decisions.astro';
 import Specimen from '@/components/work/Specimen.astro';
-import { MenuDemo, ProductDemo, ExpectDemo, InvoiceDemo } from '@/components/work/ConceptDemos';
-import { concepts, CONCEPT_LABEL, CONCEPT_DISCLAIMER, getConcept } from '@/data/concepts';
-import EditorialSignal from '@/components/ui/EditorialSignal.astro';
+import { concepts, TECHNOLOGY_POSITIONING } from '@/data/concepts';
+import { conceptImage } from '@/data/concept-media';
 
-const adun = getConcept('adun-table')!;
-const kora = getConcept('kora-home')!;
-const mend = getConcept('mend-physio')!;
-const tally = getConcept('tallyhouse')!;
-const num = (c: (typeof concepts)[number]) => String(concepts.indexOf(c) + 1).padStart(2, '0');
-const tag = (c: (typeof concepts)[number]) =>
-  `(${num(c)}) ${CONCEPT_LABEL} · ${c.study.capability}`;
+const num = (index: number) => String(index + 1).padStart(2, '0');
 ---
 
 <BaseLayout
-  title="Work: studio concepts"
-  description="Four fictional brands designed by SabiForge Digital to work through real business problems: editorial, e-commerce, service trust and product interface. Studio concepts, not client projects."
+  title="Work: concept projects"
+  description="Ten concept projects by SabiForge Digital. Seven are invented brands. Three are uncommissioned concepts based on existing businesses. None is client work."
+  ogImage="/assets/work-og.jpg"
   progress
 >
-  <!-- Hero -->
   <section class="relative isolate overflow-hidden pt-32 pb-20 lg:pt-44 lg:pb-28">
     <div
       class="absolute inset-0 -z-20 bg-[radial-gradient(55%_70%_at_90%_0%,rgb(91_33_182/0.55),transparent),radial-gradient(35%_45%_at_0%_100%,rgb(46_230_196/0.08),transparent)]"
       aria-hidden="true"
     ></div>
-    <HexLines class="absolute -top-32 -left-60 -z-10 size-[44rem] text-mint-300/[0.08]" rings={7} />
     <div class="container-page">
       <Breadcrumbs items={[{ label: 'Work' }]} />
       <div class="mt-10 grid gap-14 lg:grid-cols-[1.25fr_1fr] lg:items-end">
         <div>
-          <p class="meta text-mint-300" data-reveal>
-            Work · Studio concepts
-          </p>
+          <p class="meta text-mint-300">Work · Concept projects</p>
           <h1 class="mt-5 text-display-xl font-semibold text-ivory-50">
-            Four invented brands. Four <em class="text-mint-300">real</em> problems.
+            Ten concept projects. One <em class="text-mint-300">register</em>.
           </h1>
-          <p class="text-lede mt-8 max-w-xl text-ivory-100/75">
-            SabiForge is a new studio, so we have not borrowed anyone’s logo. Instead we invented
-            four businesses and designed each one’s website, store or app to answer a problem we see
-            often. Every chapter shows the decisions behind the design, and something you can try.
+          <p class="text-lede mt-8 max-w-xl text-ivory-100/75">{TECHNOLOGY_POSITIONING}</p>
+          <p class="mt-5 max-w-xl text-ivory-100/75">
+            The interfaces in these studies are coded pages, photographed into distinct scenes.
+            Published prices, scopes and post-launch support stay on the services and pricing pages.
           </p>
         </div>
         <aside
           class="chamfer border border-ivory-100/15 bg-midnight-800/70 p-6 sm:p-8"
           aria-label="About this work"
-          data-reveal
         >
           <p class="meta flex items-center gap-2 text-coral-400">
             <Icon name="info" class="size-4" /> Read this first
           </p>
-          <p class="mt-3 text-ivory-50">{CONCEPT_DISCLAIMER}</p>
+          <p class="mt-3 text-ivory-50">
+            Seven studies invent a brand. Big Beerah Collection, Amzlat World of Beauty and Opeyemi
+            Phones &amp; Gadgets are uncommissioned design concepts based on existing businesses.
+            None of these pages is commissioned client work, an official website, or a verified
+            result.
+          </p>
           <ul class="mt-4 space-y-2 text-sm text-ivory-100/75">
-            <li>No clients, testimonials or business results appear on this page.</li>
-            <li>All names, prices and invoices are made up.</li>
-            <li>
-              Real client projects will have their own section once they exist and are approved.
-            </li>
+            <li>No testimonials or business results appear on this page.</li>
+            <li>Sample tasks and device options are layout material.</li>
+            <li>Prices, warranties, stock and contact numbers are not shown.</li>
           </ul>
         </aside>
       </div>
-      <div class="mt-12 max-w-2xl lg:ml-auto lg:-mt-16 lg:w-[36rem]">
-        <EditorialSignal
-          variant="work"
-          label="Portfolio index visual showing four interface studies"
-        />
-      </div>
 
-      <!-- Contact-sheet index -->
       <nav aria-label="Concepts" class="mt-16 lg:mt-24">
-        <ol class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {concepts.map((c, i) => (
-            <li data-reveal style={`--reveal-delay:${i * 80}`}>
+        <ol class="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+          {concepts.map((concept, index) => (
+            <li>
               <a
-                href={`#${c.id}`}
-                class="group flex h-full flex-col justify-between gap-10 rounded-2xl border p-5 transition duration-300 hover:-translate-y-1"
-                style={`background:${c.study.theme.bg};color:${c.study.theme.fg};border-color:${c.study.theme.fg}33`}
+                href={`#${concept.id}`}
+                class="group flex h-full flex-col justify-between gap-8 rounded-2xl border p-5 transition duration-300 hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+                style={`background:${concept.study.theme.bg};color:${concept.study.theme.fg};border-color:${concept.study.theme.fg}33`}
               >
-                <span class="flex items-center justify-between">
-                  <span class="meta" style={`color:${c.study.theme.accent}`}>
-                    ({num(c)})
-                  </span>
-                  <span class="flex -space-x-1.5" aria-hidden="true">
-                    {c.study.palette.slice(0, 4).map((p) => (
-                      <span
-                        class="size-4 rounded-full ring-2"
-                        style={`background:${p.hex};--tw-ring-color:${c.study.theme.bg}`}
-                      />
-                    ))}
-                  </span>
+                <span class="meta" style={`color:${concept.study.theme.accent}`}>
+                  ({num(index)}) {concept.label}
                 </span>
                 <span>
-                  <span class="block font-display text-2xl leading-tight font-semibold">
-                    {c.name}
+                  <span class="block font-display text-xl leading-tight font-semibold">
+                    {concept.name}
                   </span>
-                  <span class="mt-1 block text-sm" style={`color:${c.study.theme.muted}`}>
-                    {c.study.capability}
-                  </span>
-                  <span
-                    class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold"
-                    style={`color:${c.study.theme.accent}`}
-                  >
-                    Read the study
-                    <Icon name="arrow-down" class="size-4 transition group-hover:translate-y-0.5" />
+                  <span class="mt-1 block text-sm" style={`color:${concept.study.theme.muted}`}>
+                    {concept.category}
                   </span>
                 </span>
               </a>
@@ -119,295 +86,89 @@ const tag = (c: (typeof concepts)[number]) =>
     </div>
   </section>
 
-  <!-- 01 Àdùn Table: editorial -->
-  <section
-    id={adun.id}
-    aria-labelledby={`${adun.id}-title`}
-    class="notch-tr relative isolate overflow-hidden py-24 lg:py-36"
-    style={`background:${adun.study.theme.bg};color:${adun.study.theme.fg}`}
-  >
-    <div class="container-page">
-      <div class="grid gap-14 lg:grid-cols-12 lg:gap-x-14">
-        <div class="lg:col-span-5 lg:self-start">
-          <p class="meta" style={`color:${adun.study.theme.accent}`}>
-            {tag(adun)}
-          </p>
-          <h2
-            id={`${adun.id}-title`}
-            class="mt-4 text-display-sm font-semibold"
-            style="font-size:clamp(1.1rem,1rem + .4vw,1.4rem)"
-          >
-            {adun.name}{' '}
-            <span class="font-normal" style={`color:${adun.study.theme.muted}`}>
-              · {adun.category}
-            </span>
-          </h2>
-          <p
-            class="mt-6 font-display text-display-lg font-semibold"
-            set:html={adun.study.headline}
-          />
-          <p class="mt-8 leading-relaxed" style={`color:${adun.study.theme.muted}`}>
-            <span class="font-semibold" style={`color:${adun.study.theme.fg}`}>
-              The brief.{' '}
-            </span>
-            {adun.study.brief}
-          </p>
-          <p class="mt-4 leading-relaxed" style={`color:${adun.study.theme.muted}`}>
-            <span class="font-semibold" style={`color:${adun.study.theme.fg}`}>
-              For whom.{' '}
-            </span>
-            {adun.study.audience}
-          </p>
-          <Decisions concept={adun} />
-        </div>
-        <div class="space-y-10 lg:col-span-7">
-          <div class="plate-lift" data-reveal>
-            <ConceptPlate variant="editorial" />
-          </div>
-          <div data-reveal>
-            <p class="meta mb-4" style={`color:${adun.study.theme.accent}`}>
-              Try it: why the menu was rebuilt
-            </p>
-            <MenuDemo client:visible />
-          </div>
-          <div class="plate-lift sm:ml-16" data-reveal>
-            <ConceptPlate variant="brand" />
-            <p class="meta mt-3" style={`color:${adun.study.theme.muted}`}>
-              Identity system board, same fictional brand
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="mt-20 border-t pt-12" style={`border-color:${adun.study.theme.fg}33`}>
-        <Specimen concept={adun} />
-      </div>
-    </div>
-  </section>
-
-  <!-- 02 Kòrà Home: commerce -->
-  <section
-    id={kora.id}
-    aria-labelledby={`${kora.id}-title`}
-    class="relative isolate overflow-hidden py-24 lg:py-36"
-    style={`background:${kora.study.theme.bg};color:${kora.study.theme.fg}`}
-  >
-    <svg class="absolute inset-0 -z-10 size-full opacity-[0.07]" aria-hidden="true">
-      <defs>
-        <pattern id="adire" width="64" height="64" patternUnits="userSpaceOnUse">
-          <circle cx="32" cy="32" r="18" fill="none" stroke="#efe7da" stroke-width="1.5" />
-          <circle cx="32" cy="32" r="5" fill="#efe7da" />
-          <path d="M0 0l64 64M64 0 0 64" stroke="#efe7da" stroke-width=".6" />
-        </pattern>
-      </defs>
-      <rect width="100%" height="100%" fill="url(#adire)" />
-    </svg>
-    <div class="container-page">
-      <div class="max-w-4xl">
-        <p class="meta" style={`color:${kora.study.theme.accent}`}>
-          {tag(kora)}
+  {concepts.map((concept, index) => (
+    <article
+      id={concept.id}
+      class="scroll-mt-28 border-t border-ivory-100/10 py-20 lg:py-28"
+      style={`background:${concept.study.theme.bg};color:${concept.study.theme.fg}`}
+      aria-labelledby={`${concept.id}-title`}
+    >
+      <div class="container-page">
+        <p class="meta" style={`color:${concept.study.theme.accent}`}>
+          ({num(index)}) {concept.label} · {concept.category}
         </p>
         <h2
-          id={`${kora.id}-title`}
-          class="mt-4 font-semibold"
-          style="font-size:clamp(1.1rem,1rem + .4vw,1.4rem)"
+          id={`${concept.id}-title`}
+          class="mt-4 max-w-3xl text-display-lg font-semibold"
+          set:html={concept.study.headline}
+        />
+        <p
+          class="mt-6 max-w-2xl text-lg leading-relaxed"
+          style={`color:${concept.study.theme.muted}`}
         >
-          {kora.name}{' '}
-          <span class="font-normal" style={`color:${kora.study.theme.muted}`}>
-            · {kora.category}
-          </span>
-        </h2>
-        <p class="mt-6 font-display text-display-xl font-semibold" set:html={kora.study.headline} />
-      </div>
-      <div class="mt-14 grid gap-12 lg:grid-cols-[1fr_1.35fr] lg:items-start lg:gap-16">
-        <div>
-          <p class="leading-relaxed" style={`color:${kora.study.theme.muted}`}>
-            <span class="font-semibold" style={`color:${kora.study.theme.fg}`}>
-              The brief.{' '}
-            </span>
-            {kora.study.brief}
-          </p>
-          <p class="mt-4 leading-relaxed" style={`color:${kora.study.theme.muted}`}>
-            <span class="font-semibold" style={`color:${kora.study.theme.fg}`}>
-              For whom.{' '}
-            </span>
-            {kora.study.audience}
-          </p>
-          <div class="plate-lift mt-10 hidden lg:block" data-reveal>
-            <ConceptPlate variant="commerce" />
-          </div>
-        </div>
-        <div data-reveal>
-          <p class="meta mb-4" style={`color:${kora.study.theme.accent}`}>
-            Try it: choose a colour and size
-          </p>
-          <ProductDemo client:visible />
-        </div>
-      </div>
-      <Decisions concept={kora} columns />
-      <div class="mt-20 border-t pt-12" style={`border-color:${kora.study.theme.fg}33`}>
-        <Specimen concept={kora} />
-      </div>
-    </div>
-  </section>
-
-  <!-- 03 Mend Physio: service trust (light) -->
-  <section
-    id={mend.id}
-    aria-labelledby={`${mend.id}-title`}
-    class="on-paper notch-bl relative isolate overflow-hidden py-24 lg:py-36"
-    style={`background:${mend.study.theme.bg};color:${mend.study.theme.fg}`}
-  >
-    <div class="container-page">
-      <div class="mx-auto max-w-4xl text-center">
-        <p class="meta" style={`color:${mend.study.theme.accent}`}>
-          {tag(mend)}
+          {concept.summary} {concept.study.brief}
         </p>
-        <h2
-          id={`${mend.id}-title`}
-          class="mt-4 font-semibold"
-          style="font-size:clamp(1.1rem,1rem + .4vw,1.4rem)"
-        >
-          {mend.name}{' '}
-          <span class="font-normal" style={`color:${mend.study.theme.muted}`}>
-            · {mend.category}
-          </span>
-        </h2>
-        <p class="mt-6 font-display text-display-xl font-semibold" set:html={mend.study.headline} />
-        <p class="mx-auto mt-8 max-w-2xl leading-relaxed" style={`color:${mend.study.theme.muted}`}>
-          <span class="font-semibold" style={`color:${mend.study.theme.fg}`}>
-            The brief.{' '}
-          </span>
-          {mend.study.brief}
+        <Image
+          src={conceptImage(concept.id, 'detail-hero')}
+          alt={concept.alt.detail}
+          widths={[640, 960, 1440, 1920]}
+          sizes="(min-width: 1280px) 1120px, 100vw"
+          class="mt-10 aspect-video w-full rounded-[var(--radius-card)] object-cover"
+        />
+        <div class="mt-10 grid gap-6 lg:grid-cols-[1.4fr_.6fr] lg:items-start">
+          <figure>
+            <Image
+              src={conceptImage(concept.id, 'desktop-ui')}
+              alt={concept.alt.desktop}
+              widths={[720, 1100, 1440]}
+              sizes="(min-width: 1024px) 65vw, 100vw"
+              class="w-full rounded-2xl border border-white/10"
+            />
+            <figcaption class="mt-3 text-sm" style={`color:${concept.study.theme.muted}`}>
+              Desktop interface, coded for this concept.
+            </figcaption>
+          </figure>
+          <figure>
+            <Image
+              src={conceptImage(concept.id, 'mobile-ui')}
+              alt={concept.alt.mobile}
+              widths={[390, 780]}
+              sizes="(min-width: 1024px) 280px, 70vw"
+              class="mx-auto w-full max-w-xs rounded-2xl border border-white/10"
+            />
+            <figcaption class="mt-3 text-sm" style={`color:${concept.study.theme.muted}`}>
+              The same interface at a phone width.
+            </figcaption>
+          </figure>
+        </div>
+        <p class="mt-8 max-w-2xl leading-relaxed">
+          <strong>Who it is for. </strong>
+          {concept.study.audience}
         </p>
-      </div>
-      <div class="mt-16 grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:items-start">
-        <div class="plate-lift" data-reveal>
-          <ConceptPlate variant="service" />
+        <div class="mt-12">
+          <Decisions concept={concept} columns />
         </div>
-        <div data-reveal>
-          <p class="meta mb-4" style={`color:${mend.study.theme.accent}`}>
-            Try it: preview a first visit
-          </p>
-          <ExpectDemo client:visible />
+        <div class="mt-12">
+          <Specimen concept={concept} />
         </div>
       </div>
-      <p
-        class="mx-auto mt-12 max-w-3xl text-center leading-relaxed"
-        style={`color:${mend.study.theme.muted}`}
-      >
-        <span class="font-semibold" style={`color:${mend.study.theme.fg}`}>
-          For whom.{' '}
-        </span>
-        {mend.study.audience}
-      </p>
-      <Decisions concept={mend} columns />
-      <div class="mt-20 border-t pt-12" style={`border-color:${mend.study.theme.fg}33`}>
-        <Specimen concept={mend} />
-      </div>
-    </div>
-  </section>
+    </article>
+  ))}
 
-  <!-- 04 Tallyhouse: product -->
   <section
-    id={tally.id}
-    aria-labelledby={`${tally.id}-title`}
-    class="relative isolate overflow-hidden py-24 lg:py-36"
-    style={`background:${tally.study.theme.bg};color:${tally.study.theme.fg}`}
+    aria-labelledby="client-work-title"
+    class="border-t border-ivory-100/10 bg-midnight-950 py-20 text-ivory-50 lg:py-28"
   >
-    <div
-      class="absolute inset-0 -z-10 bg-[radial-gradient(40%_50%_at_50%_45%,rgb(198_243_107/0.10),transparent)]"
-      aria-hidden="true"
-    ></div>
-    <div class="container-page">
-      <p class="meta" style={`color:${tally.study.theme.accent}`}>
-        {tag(tally)}
-      </p>
-      <h2
-        id={`${tally.id}-title`}
-        class="mt-4 font-semibold"
-        style="font-size:clamp(1.1rem,1rem + .4vw,1.4rem)"
-      >
-        {tally.name}{' '}
-        <span class="font-normal" style={`color:${tally.study.theme.muted}`}>
-          · {tally.category}
-        </span>
-      </h2>
-      <div class="mt-12 grid gap-12 lg:grid-cols-[1fr_minmax(0,24rem)_1fr] lg:items-center lg:gap-14">
-        <div class="lg:order-1">
-          <p class="font-display text-display-md font-semibold" set:html={tally.study.headline} />
-          <p class="mt-6 leading-relaxed" style={`color:${tally.study.theme.muted}`}>
-            <span class="font-semibold" style={`color:${tally.study.theme.fg}`}>
-              The brief.{' '}
-            </span>
-            {tally.study.brief}
-          </p>
-          <p class="mt-4 leading-relaxed" style={`color:${tally.study.theme.muted}`}>
-            <span class="font-semibold" style={`color:${tally.study.theme.fg}`}>
-              For whom.{' '}
-            </span>
-            {tally.study.audience}
-          </p>
-        </div>
-        <div class="lg:order-2" data-reveal>
-          <p class="meta mb-4 text-center" style={`color:${tally.study.theme.accent}`}>
-            Try it: filter the invoices
-          </p>
-          <InvoiceDemo client:visible />
-        </div>
-        <div class="lg:order-3">
-          <Decisions concept={tally} />
-        </div>
-      </div>
-      <div class="mt-20 grid gap-10 lg:grid-cols-2 lg:items-center" data-reveal>
-        <div class="plate-lift mx-auto w-full max-w-60">
-          <ConceptPlate variant="product" />
-        </div>
-        <div>
-          <h3 class="meta" style={`color:${tally.study.theme.accent}`}>
-            Components, defined once
-          </h3>
-          <ul class="mt-4 grid grid-cols-2 gap-3 text-sm sm:grid-cols-3">
-            {[
-              'Card',
-              'List row',
-              'Status chip',
-              'Filter chip',
-              'Primary button',
-              'Figure + trend',
-            ].map((n) => (
-              <li
-                class="rounded-lg border px-3 py-3 font-semibold"
-                style={`border-color:${tally.study.theme.fg}33`}
-              >
-                {n}
-              </li>
-            ))}
-          </ul>
-          <p class="mt-4 text-sm leading-relaxed" style={`color:${tally.study.theme.muted}`}>
-            Six parts cover every screen in this concept. Spacing, colour and type are tokens, so
-            changing one value changes it everywhere.
-          </p>
-        </div>
-      </div>
-      <div class="mt-20 border-t pt-12" style={`border-color:${tally.study.theme.fg}33`}>
-        <Specimen concept={tally} />
-      </div>
-    </div>
-  </section>
-
-  <!-- Client work -->
-  <section aria-labelledby="client-work-title" class="border-t border-ivory-100/10 py-20 lg:py-28">
     <div class="container-page grid gap-8 lg:grid-cols-[minmax(0,24rem)_1fr] lg:gap-20">
       <p class="meta text-mint-300">Client work</p>
-      <div data-reveal>
-        <h2 id="client-work-title" class="text-display-md font-semibold text-ivory-50">
+      <div>
+        <h2 id="client-work-title" class="text-display-md font-semibold">
           Not yet. <em class="text-mint-300">Honestly.</em>
         </h2>
         <p class="mt-5 max-w-2xl text-lg text-ivory-100/75">
           No client projects are published here yet. When SabiForge completes work that clients are
           happy to show, it will appear in its own section, with their permission and without
-          invented numbers. Until then, the concepts above are the best evidence of how we think and
-          build.
+          invented numbers.
         </p>
       </div>
     </div>
@@ -416,6 +177,6 @@ const tag = (c: (typeof concepts)[number]) =>
   <CtaPanel
     title="Have a problem like <em>one</em> of these?"
     body="Tell us about your business and what your customers struggle with. We’ll say how we’d approach it, and whether you need a studio yet."
-    whatsappMessage="Hello SabiForge Digital, I saw your studio concepts and I'd like to discuss a project."
+    whatsappMessage="Hello SabiForge Digital, I saw your concept projects and I'd like to discuss a project."
   />
 </BaseLayout>

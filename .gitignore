@@ -19,6 +19,9 @@ npm-debug.log*
 !.vscode/extensions.json
 .idea/
 
+# local review pack (not source)
+.review-pack/
+
 # local screenshot output (reviewed copies live in docs/screenshots)
 /screenshots/
 .ideavo/project

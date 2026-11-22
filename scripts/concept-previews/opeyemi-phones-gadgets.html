@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        overflow: hidden;
+      }
+      body {
+        font-family: 'Segoe UI', Inter, sans-serif;
+        color: #1c1916;
+      }
+      button {
+        font: inherit;
+      }
+      button:disabled {
+        cursor: not-allowed;
+      }
+      img {
+        max-width: 100%;
+      }
+
+      body {
+        background: #fff;
+        color: #101b3a;
+        display: flex;
+        flex-direction: column;
+      }
+      .bar {
+        background: #0a215f;
+        color: #fff;
+        font-size: 12px;
+        text-align: center;
+        padding: 8px 12px;
+      }
+      header {
+        height: 74px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 28px;
+        border-bottom: 1px solid #dde5f6;
+      }
+      .logo {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        font-weight: 800;
+      }
+      .mark {
+        width: 36px;
+        height: 36px;
+        border: 3px solid #123cc9;
+        color: #123cc9;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        font-family: Georgia, serif;
+      }
+      .wa {
+        background: #079344;
+        color: #fff;
+        border: 0;
+        border-radius: 999px;
+        padding: 12px 16px;
+        opacity: 0.55;
+      }
+      .hero {
+        background: linear-gradient(110deg, #072eaf, #0d2b79);
+        color: #fff;
+        padding: 28px;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .benefits {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        padding: 16px 28px;
+        background: #f5f7fc;
+      }
+      .benefit {
+        background: #fff;
+        border: 1px solid #dde5f6;
+        border-radius: 14px;
+        padding: 12px;
+        font-size: 13px;
+      }
+      .swap {
+        background: #092975;
+        color: #fff;
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        align-items: center;
+        padding: 22px 28px;
+      }
+      .swap p {
+        margin: 6px 0 0;
+        color: #d5e2ff;
+      }
+      h1 {
+        font-size: 48px;
+        line-height: 1;
+        margin: 8px 0;
+      }
+      .chip {
+        font-size: 13px;
+      }
+      .devices {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+      }
+      .d {
+        background: #e8eefc;
+        color: #101b3a;
+        border-radius: 16px;
+        padding: 16px;
+        min-height: 140px;
+      }
+      @media (max-width: 700px) {
+        header {
+          padding: 0 14px;
+        }
+        .hero {
+          grid-template-columns: 1fr;
+          padding: 22px 14px;
+        }
+        h1 {
+          font-size: 34px;
+        }
+        .devices {
+          grid-template-columns: 1fr;
+        }
+        .d {
+          min-height: 72px;
+        }
+        .benefits {
+          grid-template-columns: 1fr 1fr;
+        }
+        .swap {
+          display: block;
+          padding: 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bar">CONCEPT PROJECT · Illustrative devices · Not a live store</div>
+    <header>
+      <div class="logo">
+        <span class="mark">G</span><span>Opeyemi<br />Phones &amp; Gadgets</span>
+      </div>
+      <button class="wa" type="button" disabled>WhatsApp enquiry</button>
+    </header>
+    <section class="hero">
+      <div>
+        <div class="chip">Phones · MacBooks · Watches</div>
+        <h1>Quality gadgets. Simple shopping.</h1>
+        <p>
+          Browse device types, then ask. Buy, sell and swap stay as enquiries. No price and no
+          warranty is shown.
+        </p>
+      </div>
+      <div class="devices">
+        <article class="d">
+          <strong>iPhones</strong>
+          <p>Sample phone category</p>
+        </article>
+        <article class="d">
+          <strong>MacBooks</strong>
+          <p>Sample laptop category</p>
+        </article>
+        <article class="d">
+          <strong>Apple Watches</strong>
+          <p>Sample watch category</p>
+        </article>
+      </div>
+    </section>
+    <section class="benefits">
+      <article class="benefit">
+        <strong>Clear details</strong>
+        <p>Compare type and condition. No live stock.</p>
+      </article>
+      <article class="benefit">
+        <strong>Enquire first</strong>
+        <p>No checkout in this concept.</p>
+      </article>
+      <article class="benefit">
+        <strong>Buy, sell, swap</strong>
+        <p>Separate paths. No valuation.</p>
+      </article>
+      <article class="benefit">
+        <strong>WhatsApp</strong>
+        <p>The green control is disabled.</p>
+      </article>
+    </section>
+    <section class="swap">
+      <div>
+        <strong>Buy, sell and swap</strong>
+        <p>Describe a device. No valuation and no transaction happens in this concept.</p>
+      </div>
+      <span>01 Current device · 02 Condition · 03 Enquiry</span>
+    </section>
+  </body>
+</html>
