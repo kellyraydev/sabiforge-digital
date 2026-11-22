@@ -101,7 +101,6 @@ describe('real-business concept projects (ledger 17, updated 22 Nov)', () => {
     const { concepts, REFERENCE_CONCEPT_DISCLAIMER } = await import('../src/data/concepts');
     const reference = concepts.filter((concept) => concept.basis === 'reference');
     expect(reference.map((concept) => concept.id)).toEqual([
-      'big-beerah-collection',
       'amzlat-world-of-beauty',
       'opeyemi-phones-gadgets',
     ]);
@@ -110,5 +109,26 @@ describe('real-business concept projects (ledger 17, updated 22 Nov)', () => {
       expect(concept.summary).toMatch(/Not commissioned work/);
     }
     expect(REFERENCE_CONCEPT_DISCLAIMER).toMatch(/Not commissioned work, not an official website/);
+  });
+});
+
+describe('Big Beerah Collection is client work (ledger 19, 22 Nov)', () => {
+  it('is the only client project, labelled as one, with no concept wording', async () => {
+    const { concepts } = await import('../src/data/concepts');
+    const client = concepts.filter((concept) => concept.basis === 'client');
+    expect(client.map((concept) => concept.id)).toEqual(['big-beerah-collection']);
+    const [bb] = client;
+    expect(bb.label).toBe('Client Project');
+    expect(bb.conceptOnly).toBeUndefined();
+    const text = JSON.stringify(bb);
+    expect(text).not.toMatch(/uncommissioned|concept project|not a client|fictional/i);
+    expect(bb.summary).toMatch(/permission/);
+  });
+
+  it('is recorded in the owner ledger', async () => {
+    const { readFileSync } = await import('node:fs');
+    expect(readFileSync('docs/REBUILD-BRIEF.md', 'utf8')).toMatch(
+      /19\. \*\*Owner decision \(22 November 2026\): Big Beerah Collection is client work/,
+    );
   });
 });

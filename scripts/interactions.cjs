@@ -45,12 +45,16 @@ const pass = (msg) => console.log(`✓ ${msg}`);
   ]);
   const conceptCards = page.locator('#work li');
   assert.equal(await conceptCards.count(), 10);
-  assert.equal(await page.locator('#work li', { hasText: 'Concept Project' }).count(), 10);
+  assert.equal(await page.locator('#work li', { hasText: 'Concept Project' }).count(), 9);
+  assert.match(
+    await conceptCards.first().innerText(),
+    /Client Project[\s\S]*Big Beerah Collection/,
+  );
   assert.equal(
     await page
       .locator('#work li', { hasText: 'Uncommissioned, based on an existing business' })
       .count(),
-    3,
+    2,
   );
   const planLinks = await page
     .locator('#packages a', { hasText: 'Discuss this plan' })
@@ -221,7 +225,7 @@ const pass = (msg) => console.log(`✓ ${msg}`);
   );
   assert.equal(
     await page
-      .locator('#big-beerah-collection [data-study-meta]')
+      .locator('#amzlat-world-of-beauty [data-study-meta]')
       .innerText()
       .then((t) => /uncommissioned/i.test(t)),
     true,

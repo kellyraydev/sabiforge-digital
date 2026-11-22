@@ -33,7 +33,6 @@ describe('studio concept studies', () => {
     const reference = concepts.filter((concept) => concept.basis === 'reference');
     const fictional = concepts.filter((concept) => concept.basis === 'fictional');
     expect(reference.map((concept) => concept.id)).toEqual([
-      'big-beerah-collection',
       'amzlat-world-of-beauty',
       'opeyemi-phones-gadgets',
     ]);

@@ -4,7 +4,7 @@ import PageHero from '@/components/page/PageHero.astro';
 import CtaPanel from '@/components/page/CtaPanel.astro';
 import { Image } from 'astro:assets';
 import Icon from '@/components/ui/Icon.astro';
-import { getConcept, CONCEPT_LABEL } from '@/data/concepts';
+import { getConcept } from '@/data/concepts';
 import { conceptImage } from '@/data/concept-media';
 import {
   approvedServices,
@@ -210,7 +210,7 @@ const serviceLd = {
           </div>
           <figcaption class="mt-5">
             <p class="meta text-mint-300">
-              {CONCEPT_LABEL} · {concept.category}
+              {concept.label} · {concept.category}
             </p>
             <p class="mt-2 font-semibold text-ivory-50">{concept.name}</p>
             <p class="mt-1 text-sm leading-relaxed text-ivory-100/70">{concept.approach}</p>

@@ -2,7 +2,12 @@
 import Button from '@/components/ui/Button.astro';
 import ImageSlot from '@/components/ui/ImageSlot.astro';
 import SectionHeading from './SectionHeading.astro';
-import { concepts, CONCEPT_LABEL } from '@/data/concepts';
+import { concepts } from '@/data/concepts';
+
+// Client work first, then concepts in register order.
+const ordered = [...concepts].sort(
+  (a, b) => Number(b.basis === 'client') - Number(a.basis === 'client'),
+);
 import { conceptThumb } from '@/data/concept-media';
 ---
 
@@ -16,8 +21,9 @@ import { conceptThumb } from '@/data/concept-media';
       />
       <div class="flex flex-col gap-4 sm:flex-row sm:items-center lg:max-w-xl">
         <p class="text-sm text-ivory-100/70">
-          Concept projects we designed to show what we can do. Seven invent a brand; three are
-          uncommissioned concepts based on existing businesses. None is client work.
+          One client project, shown with the owner’s permission, and nine concepts we designed to
+          show what we can do. Seven concepts invent a brand; two are uncommissioned concepts based
+          on existing businesses.
         </p>
         <Button href="/work" variant="secondary" icon="arrow-right" class="shrink-0">
           View all work
@@ -25,7 +31,7 @@ import { conceptThumb } from '@/data/concept-media';
       </div>
     </div>
     <ul class="mt-10 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
-      {concepts.map((concept) => (
+      {ordered.map((concept) => (
         <li class="group relative overflow-hidden rounded-xl border border-ivory-100/10 bg-midnight-800/60 transition hover:border-coral-400/40">
           <div class="relative">
             <ImageSlot
@@ -35,8 +41,15 @@ import { conceptThumb } from '@/data/concept-media';
               ratio="4 / 3"
               sizes="(min-width: 1024px) 19vw, (min-width: 768px) 30vw, 45vw"
             />
-            <span class="absolute bottom-2 left-2 rounded-full bg-coral-600 px-2.5 py-0.5 text-[0.7rem] font-semibold text-white">
-              {CONCEPT_LABEL}
+            <span
+              class:list={[
+                'absolute bottom-2 left-2 rounded-full px-2.5 py-0.5 text-[0.7rem] font-semibold',
+                concept.basis === 'client'
+                  ? 'bg-mint-300 text-midnight-950'
+                  : 'bg-coral-600 text-white',
+              ]}
+            >
+              {concept.label}
             </span>
           </div>
           <div class="p-3.5">

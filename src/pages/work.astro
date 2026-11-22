@@ -24,7 +24,7 @@ const serviceNames = (slugs: string[]) =>
 <BaseLayout
   footerCta={false}
   title="Work: concept projects"
-  description="Ten concept projects by SabiForge Digital. Seven are invented brands. Three are uncommissioned concepts based on existing businesses. None is client work."
+  description="Work by SabiForge Digital: one client project, Big Beerah Collection, and nine concept projects. Seven concepts are invented brands; two are uncommissioned concepts based on existing businesses."
   ogImage="/assets/work-og.jpg"
   progress
 >
@@ -39,7 +39,7 @@ const serviceNames = (slugs: string[]) =>
         <div>
           <p class="meta text-mint-300">Work · Concept projects</p>
           <h1 class="mt-5 text-display-xl font-semibold text-ivory-50">
-            Ten concept projects. One <em class="text-mint-300">register</em>.
+            One client project. Nine <em class="text-mint-300">concepts</em>.
           </h1>
           <p class="text-lede mt-8 max-w-xl text-ivory-100/75">{TECHNOLOGY_POSITIONING}</p>
           <p class="mt-5 max-w-xl text-ivory-100/75">
@@ -55,10 +55,10 @@ const serviceNames = (slugs: string[]) =>
             <Icon name="info" class="size-4" /> Read this first
           </p>
           <p class="mt-3 text-ivory-50">
-            Seven studies invent a brand. Big Beerah Collection, Amzlat World of Beauty and Opeyemi
-            Phones &amp; Gadgets are uncommissioned design concepts based on existing businesses.
-            None of these pages is commissioned client work, an official website, or a verified
-            result.
+            Big Beerah Collection is client work, shown with the owner’s permission. Of the nine
+            concepts, seven invent a brand, and Amzlat World of Beauty and Opeyemi Phones &amp;
+            Gadgets are uncommissioned designs based on existing businesses, not their official
+            websites. No study shows a verified result.
           </p>
           <ul class="mt-4 space-y-2 text-sm text-ivory-100/75">
             <li>No testimonials or business results appear on this page.</li>
@@ -127,13 +127,15 @@ const serviceNames = (slugs: string[]) =>
         >
           {[
             ['Sector', concept.category],
-            ['Concept', concept.study.capability],
+            [concept.basis === 'client' ? 'Project' : 'Concept', concept.study.capability],
             ['Service', serviceNames(concept.study.services)],
             [
               'Basis',
-              concept.basis === 'reference'
-                ? 'Existing business, uncommissioned'
-                : 'Invented brand',
+              concept.basis === 'client'
+                ? 'Client work, published with permission'
+                : concept.basis === 'reference'
+                  ? 'Existing business, uncommissioned'
+                  : 'Invented brand',
             ],
           ].map(([term, value]) => (
             <div>
@@ -253,7 +255,7 @@ const serviceNames = (slugs: string[]) =>
                 data-next-concept
               >
                 <span class="meta" style={`color:${concept.study.theme.accent}`}>
-                  Next concept
+                  {next.basis === 'client' ? 'Next project' : 'Next concept'}
                 </span>
                 <span>{next.name}</span>
                 <Icon name="arrow-right" class="size-4 transition group-hover:translate-x-1" />
@@ -273,12 +275,17 @@ const serviceNames = (slugs: string[]) =>
       <p class="meta text-mint-300">Client work</p>
       <div>
         <h2 id="client-work-title" class="text-display-md font-semibold">
-          Not yet. <em class="text-mint-300">Honestly.</em>
+          One so far. <em class="text-mint-300">More to come.</em>
         </h2>
         <p class="mt-5 max-w-2xl text-lg text-ivory-100/75">
-          No client projects are published here yet. When SabiForge completes work that clients are
-          happy to show, it will appear in its own section, with their permission and without
-          invented numbers.
+          <a
+            href="#big-beerah-collection"
+            class="font-semibold text-mint-300 underline underline-offset-2"
+          >
+            Big Beerah Collection
+          </a>
+          is our first published client project, shown with the owner’s permission. More client work
+          will appear here as clients agree to it, without invented numbers.
         </p>
       </div>
     </div>

@@ -26,6 +26,7 @@ describe('concept demos (T11 shell)', () => {
 
   it('badge says fictional only for fictional concepts', () => {
     expect(demoBadge({ basis: 'fictional' })).toMatch(/fictional brand, not a live client/);
+    expect(demoBadge({ basis: 'client' })).toMatch(/^Client project demo/);
     const reference = demoBadge({ basis: 'reference' });
     expect(reference).toMatch(/uncommissioned/);
     expect(reference).not.toMatch(/fictional/);

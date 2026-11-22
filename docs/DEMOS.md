@@ -24,7 +24,7 @@ Pages are generated only for slugs listed in `demos`. A concept without a demo h
 
 ## Rules
 
-- The badge stays visible on every demo page. For `basis: 'fictional'` concepts it reads "fictional brand, not a live client". For the three `basis: 'reference'` concepts (Big Beerah, Amzlat, Opeyemi) it says the demo is uncommissioned and is not the business's official website. "Fictional" would be untrue for those three.
+- The badge stays visible on every demo page. For `basis: 'fictional'` concepts it reads "fictional brand, not a live client". For the two `basis: 'reference'` concepts (Amzlat, Opeyemi) it says the demo is uncommissioned and is not the business's official website. Big Beerah Collection is client work (`basis: 'client'`, ledger item 19), so its badge says it is a client project shown with permission.
 - Demo buttons that would leave the demo (checkout, contact, booking) show an on-page "Demo:" message instead. No real forms submit, no payments, no real contact details.
 - No metrics, awards, client logos or testimonials inside demos.
 - Mock headings inside a demo start at `h2`, so the page heading order stays valid.

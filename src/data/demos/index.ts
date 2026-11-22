@@ -19,6 +19,7 @@ export function getDemo(slug: string): DemoDefinition | undefined {
  * so they get wording that says what they actually are.
  */
 export function demoBadge(concept: Pick<Concept, 'basis'>): string {
+  if (concept.basis === 'client') return 'Client project demo: shop design, shown with permission';
   return concept.basis === 'reference'
     ? 'Concept demo: uncommissioned, not this business’s official website'
     : 'Concept demo: fictional brand, not a live client';

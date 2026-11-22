@@ -194,8 +194,8 @@ const screens = {
       .grid{grid-template-columns:1fr 1fr;gap:8px}
       .item{min-height:96px}
     }`,
-    `<header><div class="brand">Big Beerah Collection</div><span>Concept project</span></header>
-     <main><h1>Modest fashion and accessories.</h1><p>Uncommissioned concept. No prices, stock counts or contact details.</p>
+    `<header><div class="brand">Big Beerah Collection</div><span>Shop by category</span></header>
+     <main><h1>Modest fashion and accessories.</h1><p>Hijabs, abayas, scarves, fabrics and accessories for everyday elegance.</p>
      <div class="grid"><article class="item">Hijabs</article><article class="item">Abayas</article><article class="item">Jersey scarves</article><article class="item">Necklaces</article><article class="item">Fabrics</article><article class="item">Ready to wear</article><article class="item">Gift boxes</article><article class="item">Everyday essentials</article></div></main>`,
   ),
   'amzlat-world-of-beauty': shell(

@@ -99,11 +99,13 @@ describe('honesty rules', () => {
         'Corporate / Digital Transformation',
       ],
     ]);
-    for (const concept of concepts) {
+    expect(CONCEPT_LABEL).toBe('Concept Project');
+    for (const concept of concepts.filter((c) => c.basis !== 'client')) {
       expect(concept.label).toBe(CONCEPT_LABEL);
-      expect(CONCEPT_LABEL).toBe('Concept Project');
       expect(concept.conceptOnly).toBe(true);
       expect(concept.summary).toMatch(/Not a client project/);
+    }
+    for (const concept of concepts) {
       expect([...concept.name].every((char) => char.charCodeAt(0) < 128)).toBe(true);
     }
     expect(
@@ -112,7 +114,8 @@ describe('honesty rules', () => {
       ),
     ).toBe(false);
     expect(TECHNOLOGY_POSITIONING).toMatch(/latest technology and modern design standards/);
-    expect(concepts.filter((concept) => concept.basis === 'reference')).toHaveLength(3);
+    expect(concepts.filter((concept) => concept.basis === 'reference')).toHaveLength(2);
+    expect(concepts.filter((concept) => concept.basis === 'client')).toHaveLength(1);
     expect(concepts.filter((concept) => concept.basis === 'fictional')).toHaveLength(7);
   });
 

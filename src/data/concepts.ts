@@ -1,20 +1,22 @@
 /**
- * Ten studio concepts. One register feeds the homepage and /work.
- * Seven records invent a brand. Three are uncommissioned concepts based on existing
- * businesses. Every record stays labelled "Concept Project".
+ * One register feeds the homepage and /work: one client project (Big Beerah Collection,
+ * labelled "Client Project", ledger item 19), seven invented brands and two uncommissioned
+ * concepts based on existing businesses (both labelled "Concept Project").
  */
 export type ConceptFilterCategory = 'Business websites' | 'E-commerce' | 'Product interfaces';
 
-export type ConceptBasis = 'fictional' | 'reference';
+export type ConceptBasis = 'fictional' | 'reference' | 'client';
 
 export interface Concept {
   id: string;
   name: string;
   category: string;
   filterCategory: ConceptFilterCategory;
-  label: typeof CONCEPT_LABEL;
-  conceptOnly: true;
-  /** fictional = invented brand. reference = existing business, uncommissioned concept site. */
+  label: typeof CONCEPT_LABEL | typeof CLIENT_LABEL;
+  /** Present on every concept; absent on client work. */
+  conceptOnly?: true;
+  /** fictional = invented brand. reference = existing business, uncommissioned concept site.
+   * client = commissioned work the client agreed to publish (ledger item 19). */
   basis: ConceptBasis;
   summary: string;
   challenge: string;
@@ -44,6 +46,7 @@ export interface ConceptStudy {
 }
 
 export const CONCEPT_LABEL = 'Concept Project';
+export const CLIENT_LABEL = 'Client Project';
 export const CONCEPT_DISCLAIMER =
   'Fictional design concept. Not completed client work. Not a live business or client result. Not a client project.';
 
@@ -440,46 +443,45 @@ export const concepts: Concept[] = [
     name: 'Big Beerah Collection',
     category: 'Modest Fashion & Accessories / E-commerce',
     filterCategory: 'E-commerce',
-    label: CONCEPT_LABEL,
-    conceptOnly: true,
-    basis: 'reference',
-    summary: reference,
+    label: CLIENT_LABEL,
+    basis: 'client',
+    summary: 'Client project, published with the owner’s permission.',
     challenge:
-      'A modest-fashion collection needs categories people already use — hijabs, abayas, scarves, jewellery and fabric — presented without turning the brand into something else.',
+      'A modest-fashion business needs an online shop with the categories its customers already ask for (hijabs, abayas, scarves, jewellery and fabric) in the brand’s own colours.',
     approach:
-      'A blush, burgundy and gold shop organised by those categories, with an enquire path and no invented stock.',
+      'A blush, burgundy and gold shop organised by those categories, designed for shoppers browsing on a phone.',
     explores: ['Category merchandising', 'Modest fashion presentation', 'Enquire-first commerce'],
     alt: {
       cover:
-        'Provisional generated art-direction image for the Big Beerah Collection concept project: blush and burgundy textiles with gold jewellery and a coded shop preview.',
+        'Provisional generated art-direction image for the Big Beerah Collection client project: blush and burgundy textiles with gold jewellery and a coded shop preview.',
       detail:
-        'Provisional generated art-direction image for the Big Beerah Collection concept project: folded fabrics and scarves with a coded mobile shop preview.',
+        'Provisional generated art-direction image for the Big Beerah Collection client project: folded fabrics and scarves with a coded mobile shop preview.',
       desktop:
-        'Coded desktop interface preview for the Big Beerah Collection concept project, a modest fashion shop.',
+        'Coded desktop interface preview for the Big Beerah Collection client project, a modest fashion shop.',
       mobile:
-        'Coded mobile interface preview for the Big Beerah Collection concept project, a modest fashion shop.',
+        'Coded mobile interface preview for the Big Beerah Collection client project, a modest fashion shop.',
     },
     study: {
       capability: 'Modest fashion storefront',
       headline: 'Hijabs, abayas and accessories, <em>sorted</em> the way shoppers ask for them.',
       brief:
-        'Big Beerah Collection is an existing modest-fashion business. This study is an uncommissioned shop concept. It keeps hijabs, abayas, jersey scarves, fabrics and necklaces, and also shows ready-to-wear, gift boxes and everyday essentials from the supplied flyer. It is not a beverage brand, and it does not publish the flyer’s contact details.',
+        'Big Beerah Collection is a modest-fashion business and a SabiForge client. We designed its online shop around hijabs, abayas, jersey scarves, fabrics and necklaces, with ready-to-wear, gift boxes and everyday essentials alongside.',
       audience: 'Shoppers looking for modest clothing and accessories on a phone.',
       decisions: [
         {
-          title: 'Use the reference categories',
+          title: 'Lead with the real categories',
           detail:
-            'The shop leads with hijabs, abayas, jersey scarves, necklaces and fabrics, then ready-to-wear, gift boxes and everyday essentials from the supplied flyer.',
+            'The shop leads with hijabs, abayas, jersey scarves, necklaces and fabrics, then ready-to-wear, gift boxes and everyday essentials, the way the business already sells.',
         },
         {
-          title: 'Keep the reference palette',
+          title: 'Keep the brand palette',
           detail:
             'Blush, burgundy and gold are the brand colours. The layout does not introduce a drinks identity.',
         },
         {
-          title: 'Leave contact details off the concept',
+          title: 'Design for the phone first',
           detail:
-            'The reference flyer’s phone numbers and addresses are not copied. Enquiry stays inside the concept.',
+            'Most customers browse on a phone, so categories sit near the top and every tap target is large enough to use with a thumb.',
         },
       ],
       palette: [
@@ -493,7 +495,7 @@ export const concepts: Concept[] = [
         { role: 'Text', face: 'Inter' },
       ],
       limits:
-        'Nothing is for sale. The owner’s flyer is visual direction only. Stock, prices and contact details are not published here.',
+        'The screens show the shop design. For current stock and prices, contact Big Beerah Collection directly.',
       services: ['shopify-ecommerce-development'],
       theme: { bg: '#6e2438', fg: '#fbf6f2', accent: '#e6c98a', muted: '#f4d6d8', tone: 'dark' },
     },
