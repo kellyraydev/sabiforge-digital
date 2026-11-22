@@ -1,6 +1,13 @@
 import { useEffect, useId, useRef, useState, type SubmitEvent, type ReactNode } from 'react';
 import Icon from '@/components/ui/Icon';
-import { composeBrief, validateEnquiry, type Enquiry, type EnquiryErrors } from '@/lib/enquiry';
+import {
+  composeBrief,
+  enquiryNeeds,
+  suggestedService,
+  validateEnquiry,
+  type Enquiry,
+  type EnquiryErrors,
+} from '@/lib/enquiry';
 
 interface Option {
   value: string;
@@ -57,6 +64,7 @@ const empty: Enquiry = {
   website: '',
   businessType: '',
   service: '',
+  needs: [],
   package: '',
   platform: '',
   description: '',
@@ -70,6 +78,8 @@ const commerceKeys = ['shopify-ecommerce-development', 'store'];
 
 export default function ProjectEnquiry({ services, packages, email, whatsappNumber }: Props) {
   const [data, setData] = useState<Enquiry>(empty);
+  // True while the service field holds a suggestion from the needs checklist, not a choice.
+  const [suggested, setSuggested] = useState(false);
   const [errors, setErrors] = useState<EnquiryErrors>({});
   const [stage, setStage] = useState<'form' | 'review'>('form');
   const [copied, setCopied] = useState(false);
@@ -96,6 +106,19 @@ export default function ProjectEnquiry({ services, packages, email, whatsappNumb
   const set = <K extends keyof Enquiry>(key: K, value: Enquiry[K]) => {
     setData((d) => ({ ...d, [key]: value }));
     if (errors[key]) setErrors((e) => ({ ...e, [key]: undefined }));
+  };
+
+  const toggleNeed = (id: string) => {
+    const needs = data.needs.includes(id)
+      ? data.needs.filter((n) => n !== id)
+      : [...data.needs, id];
+    // Suggest a service only while the visitor has not chosen one themselves.
+    if (data.service && !suggested) {
+      set('needs', needs);
+      return;
+    }
+    setSuggested(true);
+    setData((d) => ({ ...d, needs, service: suggestedService(needs) }));
   };
 
   const showCommerce = commerceKeys.includes(data.service) || commerceKeys.includes(data.package);
@@ -335,13 +358,57 @@ export default function ProjectEnquiry({ services, packages, email, whatsappNumb
       </FieldGroup>
 
       <FieldGroup title="The project">
+        <fieldset className="mb-6" data-needs>
+          <legend className="flex w-full items-baseline justify-between gap-3 text-sm font-semibold">
+            <span>What do you need? Tick everything that applies.</span>
+            <span className="shrink-0 text-xs font-medium opacity-75" aria-live="polite">
+              {data.needs.length} selected
+            </span>
+          </legend>
+          <div className="mt-3 grid gap-4 sm:grid-cols-2">
+            {enquiryNeeds.map((group) => (
+              <div key={group.service}>
+                <p className="text-xs font-semibold tracking-[0.12em] uppercase opacity-70">
+                  {group.group}
+                </p>
+                <ul className="mt-2 space-y-2">
+                  {group.items.map((item) => {
+                    const checked = data.needs.includes(item.id);
+                    return (
+                      <li key={item.id}>
+                        <label
+                          className={`flex min-h-11 cursor-pointer items-center gap-3 rounded-lg border px-3 py-2 text-sm transition ${
+                            checked
+                              ? 'border-mint-300 bg-mint-300/10'
+                              : 'border-ivory-100/15 hover:border-ivory-100/40'
+                          }`}
+                        >
+                          <input
+                            type="checkbox"
+                            className="size-4 shrink-0 accent-[#2ee6c4]"
+                            checked={checked}
+                            onChange={() => toggleNeed(item.id)}
+                          />
+                          {item.label}
+                        </label>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </fieldset>
         <div className="grid gap-5 sm:grid-cols-2">
           <SelectField
             id={`${uid}-service`}
             label="Service you’re interested in"
             options={[{ value: '', label: 'Not sure yet' }, ...services]}
             value={data.service}
-            onChange={(v) => set('service', v)}
+            onChange={(v) => {
+              setSuggested(false);
+              set('service', v);
+            }}
           />
           <SelectField
             id={`${uid}-package`}

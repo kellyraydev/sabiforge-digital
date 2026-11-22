@@ -145,7 +145,16 @@ const pass = (msg) => console.log(`✓ ${msg}`);
   await page
     .getByLabel(/What would you like to achieve/)
     .fill('A store for our hand-made bags, with delivery across Lagos.');
-  await page.getByRole('checkbox').check();
+  // Needs checklist: counter, and service suggestion does not override a chosen service.
+  const needs = page.locator('[data-needs]');
+  await needs.getByLabel('Sell products online').check();
+  await needs.getByLabel('Get enquiries by WhatsApp or email').check();
+  assert.match(await needs.locator('legend').innerText(), /2 selected/);
+  assert.equal(
+    await page.getByLabel('Service you’re interested in').inputValue(),
+    'shopify-ecommerce-development',
+  );
+  await page.locator('input[id$="-consent"]').check();
   await page.getByRole('button', { name: /Review my brief/ }).click();
   const heading = page.getByRole('heading', { name: /Thanks, Ada/ });
   assert.ok(await heading.isVisible());
@@ -153,12 +162,71 @@ const pass = (msg) => console.log(`✓ ${msg}`);
   const wa = await page.getByRole('link', { name: /Send on WhatsApp/ }).getAttribute('href');
   assert.ok(mail.startsWith('mailto:kellyray.dev@gmail.com?subject='));
   assert.ok(decodeURIComponent(mail).includes('Name: Ada Obi'));
+  assert.ok(
+    decodeURIComponent(mail).includes(
+      'Needs: Sell products online; Get enquiries by WhatsApp or email',
+    ),
+  );
   assert.ok(wa.startsWith('https://wa.me/2349038430068?text='));
   pass('valid brief reaches review step with working email and WhatsApp hand-off links');
 
   await page.getByRole('button', { name: 'Edit details' }).click();
   assert.equal(await page.getByLabel(/Your name/).inputValue(), 'Ada Obi');
   pass('edit returns to the form with details kept');
+
+  // A fresh form: ticking needs suggests a service, choosing one stops the suggestions.
+  await page.goto(BASE_URL + '/contact', { waitUntil: 'networkidle' });
+  await page.locator('[data-needs]').getByLabel('Redesign or modernise my current site').check();
+  assert.equal(
+    await page.getByLabel('Service you’re interested in').inputValue(),
+    'website-redesign-modernization',
+  );
+  await page
+    .getByLabel('Service you’re interested in')
+    .selectOption('custom-software-and-business-platforms');
+  await page.locator('[data-needs]').getByLabel('Sell products online').check();
+  assert.equal(
+    await page.getByLabel('Service you’re interested in').inputValue(),
+    'custom-software-and-business-platforms',
+  );
+  pass('needs checklist counts ticks, suggests a service, never overrides a chosen one');
+
+  // Growth blueprint: homepage process shows the client's part, mid-page dual CTA
+  await page.goto(BASE_URL + '/', { waitUntil: 'networkidle' });
+  assert.equal(await page.locator('#process li', { hasText: 'Your part' }).count(), 6);
+  const pair = page.locator('[data-cta-pair]');
+  assert.equal(
+    await pair.getByRole('link', { name: 'Start your project' }).getAttribute('href'),
+    '/contact',
+  );
+  assert.ok(
+    (await pair.getByRole('link', { name: /WhatsApp/ }).getAttribute('href')).startsWith(
+      'https://wa.me/2349038430068',
+    ),
+  );
+  pass('homepage process lists the client part of all six steps; mid-page CTA pair works');
+
+  // /work studies: meta line, four steps, tags, next-concept loop
+  await page.goto(BASE_URL + '/work', { waitUntil: 'networkidle' });
+  assert.equal(await page.locator('[data-study-meta]').count(), 10);
+  assert.equal(await page.locator('[data-study-steps] > li').count(), 40);
+  assert.equal(await page.locator('[data-study-tags]').count(), 10);
+  const nexts = await page
+    .locator('[data-next-concept]')
+    .evaluateAll((links) => links.map((a) => a.getAttribute('href')));
+  const ids = await page.locator('article[id]').evaluateAll((items) => items.map((a) => a.id));
+  assert.deepEqual(
+    nexts,
+    [...ids.slice(1), ids[0]].map((id) => `#${id}`),
+  );
+  assert.equal(
+    await page
+      .locator('#big-beerah-collection [data-study-meta]')
+      .innerText()
+      .then((t) => /uncommissioned/i.test(t)),
+    true,
+  );
+  pass('every /work study has meta, four steps, tags and a next-concept link that loops');
 
   // Header current state and keyboard skip link
   await page.goto(BASE_URL + '/services', { waitUntil: 'networkidle' });

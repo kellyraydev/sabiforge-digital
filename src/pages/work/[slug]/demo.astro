@@ -14,6 +14,7 @@ import DemoIsland from '@/components/demo/DemoIsland';
 import { getConcept } from '@/data/concepts';
 import { conceptImage } from '@/data/concept-media';
 import { demos, demoBadge } from '@/data/demos';
+import CtaPanel from '@/components/page/CtaPanel.astro';
 
 export function getStaticPaths() {
   return demos.map((demo) => ({ params: { slug: demo.slug }, props: { demo } }));
@@ -155,6 +156,11 @@ const back = `/work#${concept.id}`;
       </div>
     </div>
   </div>
+  <CtaPanel
+    title="Want something like this for <em>your business</em>?"
+    body="Tell us what you sell and who you serve. We will suggest the right package and a realistic timeline."
+    whatsappMessage={`Hello SabiForge Digital, I saw the ${concept.name} concept demo and I'd like to discuss a project.`}
+  />
 </BaseLayout>
 
 <style>

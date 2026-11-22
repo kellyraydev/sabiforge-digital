@@ -12,6 +12,13 @@ import { conceptImage } from '@/data/concept-media';
 
 const num = (index: number) => String(index + 1).padStart(2, '0');
 import { getDemo } from '@/data/demos';
+import { approvedServices } from '@/data/services';
+
+const serviceNames = (slugs: string[]) =>
+  slugs
+    .map((slug) => approvedServices.find((service) => service.slug === slug)?.shortName)
+    .filter(Boolean)
+    .join(', ');
 ---
 
 <BaseLayout
@@ -113,6 +120,30 @@ import { getDemo } from '@/data/demos';
         >
           {concept.summary} {concept.study.brief}
         </p>
+        <dl
+          class="mt-8 grid max-w-4xl gap-x-8 gap-y-4 border-y py-5 text-sm sm:grid-cols-2 lg:grid-cols-4"
+          style={`border-color:${concept.study.theme.fg}26`}
+          data-study-meta
+        >
+          {[
+            ['Sector', concept.category],
+            ['Concept', concept.study.capability],
+            ['Service', serviceNames(concept.study.services)],
+            [
+              'Basis',
+              concept.basis === 'reference'
+                ? 'Existing business, uncommissioned'
+                : 'Invented brand',
+            ],
+          ].map(([term, value]) => (
+            <div>
+              <dt class="meta" style={`color:${concept.study.theme.accent}`}>
+                {term}
+              </dt>
+              <dd class="mt-1 font-medium">{value}</dd>
+            </div>
+          ))}
+        </dl>
         {getDemo(concept.id) && (
           <div class="mt-6 flex flex-wrap gap-3" data-demo-links>
             <a
@@ -164,15 +195,71 @@ import { getDemo } from '@/data/demos';
             </figcaption>
           </figure>
         </div>
-        <p class="mt-8 max-w-2xl leading-relaxed">
-          <strong>Who it is for. </strong>
-          {concept.study.audience}
-        </p>
+        <div class="mt-14">
+          <h3 class="meta" style={`color:${concept.study.theme.accent}`}>
+            How the concept came together
+          </h3>
+          <ol class="mt-5 grid gap-6 sm:grid-cols-2 lg:grid-cols-4" data-study-steps>
+            {[
+              ['Challenge', concept.challenge],
+              ['Audience', concept.study.audience],
+              ['Direction', concept.approach],
+              [
+                'Interface',
+                'Coded desktop and phone pages, shown above, built to the same palette and type as the spec below.',
+              ],
+            ].map(([title, body], step) => (
+              <li class="border-t pt-4" style={`border-color:${concept.study.theme.fg}33`}>
+                <p class="meta" style={`color:${concept.study.theme.accent}`}>
+                  {num(step)}
+                </p>
+                <p class="mt-1 font-display text-lg font-semibold">{title}</p>
+                <p
+                  class="mt-2 text-sm leading-relaxed"
+                  style={`color:${concept.study.theme.muted}`}
+                >
+                  {body}
+                </p>
+              </li>
+            ))}
+          </ol>
+        </div>
         <div class="mt-12">
           <Decisions concept={concept} columns />
         </div>
         <div class="mt-12">
           <Specimen concept={concept} />
+        </div>
+        <div
+          class="mt-14 flex flex-col gap-6 border-t pt-8 sm:flex-row sm:items-center sm:justify-between"
+          style={`border-color:${concept.study.theme.fg}26`}
+        >
+          <ul class="flex flex-wrap gap-2" aria-label={`${concept.name} topics`} data-study-tags>
+            {concept.explores.map((tag) => (
+              <li
+                class="rounded-full border px-3 py-1 text-xs font-semibold"
+                style={`border-color:${concept.study.theme.fg}40`}
+              >
+                {tag}
+              </li>
+            ))}
+          </ul>
+          {(() => {
+            const next = concepts[(index + 1) % concepts.length];
+            return (
+              <a
+                href={`#${next.id}`}
+                class="group inline-flex shrink-0 items-center gap-3 font-semibold"
+                data-next-concept
+              >
+                <span class="meta" style={`color:${concept.study.theme.accent}`}>
+                  Next concept
+                </span>
+                <span>{next.name}</span>
+                <Icon name="arrow-right" class="size-4 transition group-hover:translate-x-1" />
+              </a>
+            );
+          })()}
         </div>
       </div>
     </article>

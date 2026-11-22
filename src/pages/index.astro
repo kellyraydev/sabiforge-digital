@@ -7,6 +7,7 @@ import SelectedWork from '@/components/home/v2/SelectedWork.astro';
 import WhySabiForge from '@/components/home/v2/WhySabiForge.astro';
 import PackagesPreview from '@/components/home/v2/PackagesPreview.astro';
 import ProcessSteps from '@/components/home/v2/ProcessSteps.astro';
+import CtaPair from '@/components/ui/CtaPair.astro';
 ---
 
 <!--
@@ -18,6 +19,14 @@ import ProcessSteps from '@/components/home/v2/ProcessSteps.astro';
   <AudienceStrip />
   <ServiceCards />
   <SelectedWork />
+  <div class="bg-[#000417] pb-4">
+    <div class="container-page">
+      <CtaPair
+        lead="Want something like this for your business?"
+        whatsappMessage="Hello SabiForge Digital, I saw your concept projects and I'd like to discuss a project."
+      />
+    </div>
+  </div>
   <WhySabiForge />
   <PackagesPreview />
   <ProcessSteps />
