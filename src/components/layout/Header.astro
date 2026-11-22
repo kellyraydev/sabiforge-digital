@@ -33,7 +33,7 @@ const items = navigation.map((item) => ({
               <a
                 href={item.href}
                 aria-current={item.current ? 'page' : undefined}
-                class="relative block rounded-md px-3 py-2 text-sm font-medium text-ivory-100/80 transition after:absolute after:inset-x-3 after:-bottom-0.5 after:h-0.5 after:rounded-full after:bg-coral-400 after:opacity-0 after:transition hover:text-ivory-50 aria-[current=page]:text-ivory-50 aria-[current=page]:after:opacity-100 xl:px-3.5"
+                class="relative block whitespace-nowrap rounded-md px-3 py-2 text-sm font-medium text-ivory-100/80 transition after:absolute after:inset-x-3 after:-bottom-0.5 after:h-0.5 after:rounded-full after:bg-coral-400 after:opacity-0 after:transition hover:text-ivory-50 aria-[current=page]:text-ivory-50 aria-[current=page]:after:opacity-100 xl:px-3.5"
               >
                 {item.label}
               </a>
@@ -42,17 +42,12 @@ const items = navigation.map((item) => ({
       </ul>
     </nav>
 
-    <div class="hidden items-center gap-3 lg:flex">
-      <Button
-        href={whatsappLink()}
-        variant="secondary"
-        icon="chat"
-        iconPosition="start"
-        external
-        class="hidden xl:inline-flex"
-      >
-        Talk to us
-      </Button>
+    <div class="hidden items-center gap-3 lg:flex [&_a]:whitespace-nowrap">
+      <span class="hidden xl:contents">
+        <Button href={whatsappLink()} variant="secondary" icon="chat" iconPosition="start" external>
+          Talk to us
+        </Button>
+      </span>
       <Button href={startProjectHref} icon="arrow-right">
         Start your project
       </Button>

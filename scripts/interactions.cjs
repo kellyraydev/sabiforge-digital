@@ -24,7 +24,11 @@ const pass = (msg) => console.log(`✓ ${msg}`);
 
   // Homepage hero links and early concept portfolio
   await page.goto(BASE_URL + '/', { waitUntil: 'networkidle' });
-  assert.ok(await page.getByRole('heading', { name: /More than a website/ }).isVisible());
+  assert.ok(
+    await page
+      .getByRole('heading', { name: /Your business deserves more than just a website/ })
+      .isVisible(),
+  );
   assert.equal(
     await page.getByRole('link', { name: 'Explore our work' }).getAttribute('href'),
     '/work',

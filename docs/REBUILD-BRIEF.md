@@ -37,6 +37,11 @@ Recorded 21 November 2026 (owner answers in the Claude session; see `docs/SITE-A
 13. PR #13's catalogue migration is merged into the v2 foundation line, with the URL decisions above applied on top.
 14. Homepage copy (audience strip, "Why SabiForge", footer location line): the owner delegated drafting ("rebuild it the best way"). Use the reference copy as the starting point, without claims of past clients or results. The final wording needs owner sign-off in the PR before merge.
 
+Recorded 22 November 2026:
+
+15. Homepage headline changed to "Your business deserves more than just a website.", with "just a website." as the gradient accent. This replaces item 7. The lede is unchanged.
+16. The homepage hero is rebuilt to `docs/references/hero-target-v2.jpeg`, chosen by the owner over a second supplied image. Copy and buttons are real HTML. Only the laptop-and-phone scene is an image (`src/assets/hero/v2-devices.png`), cut from the reference with the overlapping headline text removed. It is labelled "Concept mockup, not client work". Its dashboard figures and fictional brands ("BizFlow", AURA) are illustrative only.
+
 ## Overall art direction
 
 Create a distinctive SabiForge Digital experience that feels polished and technical, not a generic agency template. Dark midnight/navy base, violet and purple highlights, turquoise/cyan illumination, controlled glow, restrained cards and visible hierarchy. Use gradients selectively, not everywhere. Maintain strong text readability and focus states over effects.

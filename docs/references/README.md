@@ -8,6 +8,8 @@
 - `homepage-target.jpeg`: 1024×1536, primary homepage visual target.
 - `implementation-blueprint.jpeg`: 1199×1312, UI and implementation blueprint.
 
+- `hero-target-v2.jpeg`: 1168×784, the homepage hero target from 22 November 2026 (SHA-256 `90bf22e05fb7332cbd2048b6fed06967d544c99bc914e7201bbba4f7b0ee82b5`). It supersedes the hero area of `homepage-target.jpeg`; the rest of that image still guides the sections below the hero.
+
 **Provenance:** supplied by the owner in chat on 21 November 2026. These are the same two images that `docs/COMPLETE-IMPROVEMENT-PLAN.md` records were found in the owner's ChatGPT Library as "SabiForge Digital Agency Homepage.png" and "SabiForge Digital AI Blueprint.png". They are AI-generated design references.
 
 **Not evidence for business facts** (see `AGENTS.md` §1 and §4). Details in these images that differ from verified repo data must **not** be copied into the site without an owner decision:

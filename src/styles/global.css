@@ -63,8 +63,8 @@
 
   --color-ink: #080b24;
 
-  /* Signature gradient (turquoise → violet), used sparingly */
-  --gradient-signal: linear-gradient(90deg, #2ee6c4 0%, #38bdf8 45%, #a78bfa 100%);
+  /* Signature gradient (cyan → violet, from the hero reference), used sparingly */
+  --gradient-signal: linear-gradient(90deg, #22d3ee 0%, #6366f1 55%, #a855f7 100%);
 
   /* Fluid type scale (375px → 1440px) */
   --text-display-xl: clamp(2.7rem, 1.6rem + 4.9vw, 6.1rem);
