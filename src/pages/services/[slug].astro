@@ -41,7 +41,12 @@ const serviceLd = {
 };
 ---
 
-<BaseLayout title={service.name} description={service.summary} structuredData={[serviceLd]}>
+<BaseLayout
+  footerCta={false}
+  title={service.name}
+  description={service.summary}
+  structuredData={[serviceLd]}
+>
   <PageHero
     label={`${family.name} · Service`}
     title={service.headline.replace('<em>', "<em class='text-mint-300'>")}
@@ -119,7 +124,7 @@ const serviceLd = {
       </div>
       <aside
         aria-labelledby="deliverables-title"
-        class="chamfer self-start rounded-[var(--radius-card)] bg-midnight-900 p-7 text-ivory-50 sm:p-9"
+        class="on-ink chamfer self-start rounded-[var(--radius-card)] bg-midnight-900 p-7 text-ivory-50 sm:p-9"
         data-reveal
         style="--reveal-delay:120"
       >

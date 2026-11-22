@@ -66,6 +66,7 @@ const faqLd = {
 ---
 
 <BaseLayout
+  footerCta={false}
   title="Pricing"
   description="Packages: Starter ₦150,000, Business ₦350,000, Online Store ₦750,000, and Custom Software from ₦1,500,000. Custom Software is a starting price, not a fixed quote."
   structuredData={[faqLd]}
@@ -92,18 +93,18 @@ const faqLd = {
       </h2>
       <PricingExplorer client:load cards={cards} discountLabel={discountPercentLabel()} />
 
-      <div class="chamfer mt-6 grid gap-6 rounded-[var(--radius-card)] bg-mint-300 p-7 text-midnight-900 sm:p-9 lg:grid-cols-[1fr_auto] lg:items-center">
+      <div class="mt-6 grid gap-6 rounded-[var(--radius-card)] border border-coral-400/30 bg-[linear-gradient(110deg,rgb(124_58_237/0.25),rgb(23_29_69/0.85)_55%,rgb(46_230_196/0.12))] p-7 text-ivory-100 sm:p-9 lg:grid-cols-[1fr_auto] lg:items-center">
         <div>
-          <p class="meta text-midnight-800">Custom Software</p>
-          <h3 class="mt-2 font-display text-3xl font-semibold">From ₦1,500,000</h3>
-          <p class="mt-2 max-w-2xl text-midnight-900/80">
+          <p class="meta text-mint-300">Custom Software</p>
+          <h3 class="mt-2 font-display text-3xl font-semibold text-ivory-50">From ₦1,500,000</h3>
+          <p class="mt-2 max-w-2xl text-ivory-100/75">
             Custom software and business platforms. This is a starting price, never a fixed quote.
             The final figure follows a discovery conversation.
           </p>
         </div>
         <a
           href="/contact?package=custom"
-          class="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-midnight-900 px-6 font-semibold text-ivory-50 transition hover:bg-midnight-700"
+          class="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-coral-600 px-6 font-semibold text-white transition hover:bg-coral-700"
         >
           Discuss a custom project <Icon name="arrow-up-right" class="size-5" />
         </a>

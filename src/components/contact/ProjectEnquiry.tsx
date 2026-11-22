@@ -138,7 +138,7 @@ export default function ProjectEnquiry({ services, packages, email, whatsappNumb
 
   if (stage === 'review') {
     return (
-      <div className="bg-ivory-50 text-midnight-900 rounded-[var(--radius-card)] p-6 sm:p-10">
+      <div className="on-paper bg-ivory-50 text-midnight-900 rounded-[var(--radius-card)] p-6 sm:p-10">
         <p className="meta text-mint-800">Step 2 of 2 · Send your brief</p>
         <h2
           ref={reviewRef}
@@ -205,7 +205,7 @@ export default function ProjectEnquiry({ services, packages, email, whatsappNumb
     <form
       noValidate
       onSubmit={onSubmit}
-      className="bg-ivory-50 text-midnight-900 rounded-[var(--radius-card)] p-6 sm:p-10"
+      className="on-paper bg-ivory-50 text-midnight-900 rounded-[var(--radius-card)] p-6 sm:p-10"
       aria-describedby={`${uid}-intro`}
     >
       <p className="meta text-mint-800">Step 1 of 2 · About your project</p>
@@ -300,7 +300,7 @@ export default function ProjectEnquiry({ services, packages, email, whatsappNumb
                   key={o.value}
                   className={`has-[:focus-visible]:outline-mint-700 flex min-h-11 flex-1 cursor-pointer items-center justify-center gap-2 rounded-xl border px-4 text-sm font-medium transition has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-offset-2 ${
                     data.hasWebsite === o.value
-                      ? 'border-midnight-900 bg-midnight-900 text-ivory-50'
+                      ? 'on-ink border-midnight-900 bg-midnight-900 text-ivory-50'
                       : 'border-midnight-900/25'
                   }`}
                 >
@@ -447,8 +447,8 @@ export default function ProjectEnquiry({ services, packages, email, whatsappNumb
 }
 
 function inputClass(invalid: boolean) {
-  return `mt-2 block w-full rounded-xl border bg-white px-4 py-3 text-base text-midnight-900 placeholder:text-midnight-800/50 transition focus:border-midnight-900 focus-visible:outline-3 focus-visible:outline-offset-1 focus-visible:outline-mint-700 ${
-    invalid ? 'border-coral-700' : 'border-midnight-900/25'
+  return `mt-2 block w-full rounded-xl border bg-[#080b24] px-4 py-3 text-base text-midnight-900 placeholder:text-midnight-800/50 transition focus:border-midnight-900 focus-visible:outline-3 focus-visible:outline-offset-1 focus-visible:outline-mint-700 ${
+    invalid ? 'border-coral-400' : 'border-midnight-900/25'
   }`;
 }
 
@@ -549,7 +549,7 @@ function SelectField({ id, label, options, value, onChange, hint }: SelectFieldP
         value={value}
         aria-describedby={hint ? `${id}-hint` : undefined}
         onChange={(e) => onChange(e.target.value)}
-        className={`${inputClass(false)} appearance-none bg-[url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='%23031f25'%20stroke-width='2'%3E%3Cpath%20d='m6%209%206%206%206-6'/%3E%3C/svg%3E")] bg-[length:1.1rem] bg-[right_1rem_center] bg-no-repeat pr-10`}
+        className={`${inputClass(false)} appearance-none bg-[url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='%23d6dbf2'%20stroke-width='2'%3E%3Cpath%20d='m6%209%206%206%206-6'/%3E%3C/svg%3E")] bg-[length:1.1rem] bg-[right_1rem_center] bg-no-repeat pr-10`}
       >
         {options.map((o) => (
           <option key={o.value + o.label} value={o.value}>

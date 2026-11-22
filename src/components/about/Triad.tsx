@@ -79,7 +79,7 @@ export default function Triad() {
             style={{ left: `${n.x}%`, top: `${n.y}%` }}
             className={`font-display absolute -translate-x-1/2 -translate-y-1/2 rounded-full border px-5 py-3 text-lg font-semibold transition ${
               active.id === n.id
-                ? 'border-midnight-900 bg-midnight-900 text-mint-300 scale-110'
+                ? 'on-ink border-midnight-900 bg-midnight-900 text-mint-300 scale-110'
                 : 'border-midnight-900/40 bg-ivory-50 text-midnight-900 hover:border-midnight-900'
             }`}
           >

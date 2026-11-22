@@ -74,7 +74,7 @@ export default function ProjectEnquirySelector({ services }: Props) {
           </fieldset>
           <a
             href={contactHref}
-            className="bg-mint-300 text-midnight-950 hover:bg-mint-200 focus-visible:outline-mint-300 mt-8 flex min-h-12 items-center justify-center rounded-full px-6 text-center font-semibold transition focus-visible:outline-2 focus-visible:outline-offset-4"
+            className="bg-coral-600 hover:bg-coral-700 focus-visible:outline-mint-300 mt-8 flex min-h-12 items-center justify-center rounded-full px-6 text-center font-semibold text-white transition focus-visible:outline-2 focus-visible:outline-offset-4"
           >
             Continue to project enquiry
             <span aria-hidden="true" className="ml-2">

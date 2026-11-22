@@ -269,6 +269,48 @@
  * Milestone D additions: section transitions, micro-interactions
  * ------------------------------------------------------------------ */
 
+/*
+ * v2: "paper" sections render dark.
+ * v1 marked light sections with .on-paper and coloured them with ivory backgrounds and
+ * midnight text. The v2 direction is dark throughout, so inside .on-paper the light and
+ * dark token families swap: ivory becomes a navy surface and midnight becomes light text.
+ * Deep turquoise and violet text tokens brighten so labels stay readable on navy.
+ * Nested dark islands (.on-ink) restore the normal tokens.
+ */
+.on-paper {
+  --color-ivory-50: #0f1433;
+  --color-ivory-100: #0c1130;
+  --color-ivory-200: #1b2150;
+  --color-ivory-300: #283063;
+  --color-midnight-950: #f7f8ff;
+  --color-midnight-900: #e9ecfb;
+  --color-midnight-800: #d6dbf2;
+  --color-midnight-700: #bcc3e4;
+  --color-midnight-600: #a3abd6;
+  --color-midnight-500: #8b94c4;
+  --color-mint-700: #2ee6c4;
+  --color-mint-800: #5eead4;
+  --color-coral-800: #c4b5fd;
+  --color-ink: #e9ecfb;
+  border: 1px solid rgb(233 236 251 / 0.08);
+}
+.on-paper .on-ink {
+  --color-midnight-950: #04061a;
+  --color-midnight-900: #080b24;
+  --color-midnight-800: #0f1433;
+  --color-midnight-700: #171d45;
+  --color-midnight-600: #232a5c;
+  --color-midnight-500: #363f7a;
+  --color-ivory-50: #f7f8ff;
+  --color-ivory-100: #e9ecfb;
+  --color-ivory-200: #d6dbf2;
+  --color-ivory-300: #bcc3e4;
+  --color-mint-700: #0b5f58;
+  --color-mint-800: #0a4a45;
+  --color-coral-800: #5b21b6;
+  --color-ink: #080b24;
+}
+
 /* A section-wide 30° cut, taken from the logo hexagon, for paper sections that follow dark ones */
 .notch-tr {
   clip-path: polygon(0 0, calc(100% - 7rem) 0, 100% 4.04rem, 100% 100%, 0 100%);
