@@ -347,6 +347,77 @@ const pass = (msg) => console.log(`✓ ${msg}`);
   assert.ok(await mobile.locator('#mobile-menu').isHidden());
   pass('mobile menu keeps focus inside and closes on Escape');
 
+  // Concept demo shell (T11): badge, way back, lazy island, review mode, no-JS fallback.
+  const demoUrl = `${BASE_URL}/work/corporate-digital-modernization/demo`;
+  await page.goto(BASE_URL + '/work', { waitUntil: 'networkidle' });
+  const demoLink = page.locator('#corporate-digital-modernization [data-demo-links] a').first();
+  assert.equal(await demoLink.getAttribute('href'), '/work/corporate-digital-modernization/demo');
+  pass('/work links the corporate concept to its demo and review mode');
+
+  await page.goto(demoUrl, { waitUntil: 'networkidle' });
+  const badge = page.locator('[data-demo-badge]');
+  assert.match(await badge.innerText(), /fictional brand, not a live client/);
+  await page.mouse.wheel(0, 1500);
+  await page.waitForTimeout(300);
+  assert.ok(await badge.isVisible(), 'badge stays visible after scrolling');
+  pass('demo badge is present and stays visible while scrolling');
+
+  await page.getByRole('button', { name: 'Old website' }).click();
+  assert.ok(await page.getByTestId('old-site').isVisible());
+  assert.equal(
+    await page.getByRole('button', { name: 'Old website' }).getAttribute('aria-pressed'),
+    'true',
+  );
+  await page.getByRole('button', { name: 'Redesigned website' }).click();
+  assert.ok(await page.getByTestId('new-site').isVisible());
+  await page.getByRole('button', { name: 'Talk to our team' }).click();
+  assert.match(
+    await page.getByRole('status').filter({ hasText: 'Demo:' }).innerText(),
+    /contact page/,
+  );
+  pass('demo switches between old and redesigned site, and buttons give feedback');
+
+  const toggle = page.locator('[data-review-toggle]');
+  await toggle.click();
+  assert.equal(await toggle.getAttribute('aria-expanded'), 'true');
+  assert.ok(await page.locator('#demo-review').isVisible());
+  assert.match(await page.locator('[data-review-status]').innerText(), /Step 1 of 5/);
+  await page.locator('[data-review-next]').click();
+  assert.match(
+    await page.locator('[data-review-step][aria-current="step"]').innerText(),
+    /One clear next step/,
+  );
+  await page.keyboard.press('Escape');
+  assert.ok(await page.locator('#demo-review').isHidden());
+  assert.equal(
+    await page.evaluate(() => document.activeElement?.hasAttribute('data-review-toggle')),
+    true,
+  );
+  pass('review mode opens, steps forward, closes on Escape and returns focus');
+
+  await page.goto(demoUrl + '?review=1', { waitUntil: 'networkidle' });
+  assert.ok(await page.locator('#demo-review').isVisible());
+  pass('?review=1 opens the guided review directly');
+
+  await page.getByRole('link', { name: 'Back to the case study' }).click();
+  await page.waitForURL(/\/work#corporate-digital-modernization$/);
+  pass('back link returns to the case study entry');
+
+  const demoNoJs = await browser.newContext({
+    javaScriptEnabled: false,
+    viewport: { width: 390, height: 844 },
+  });
+  await configureStagingAuth(demoNoJs);
+  const demoPlain = await demoNoJs.newPage();
+  await demoPlain.goto(demoUrl, { waitUntil: 'load' });
+  assert.ok(await demoPlain.locator('[data-demo-badge]').isVisible());
+  assert.ok(await demoPlain.locator('#demo-review').isVisible(), 'walkthrough readable without JS');
+  assert.equal(await demoPlain.locator('[data-review-step]').count(), 5);
+  assert.ok(await demoPlain.locator('[data-review-toggle]').isHidden(), 'JS-only toggle hidden');
+  assert.ok(await demoPlain.locator('section img').first().isVisible(), 'static picture fallback');
+  await demoNoJs.close();
+  pass('without JavaScript the demo page shows the picture, badge and full walkthrough');
+
   const res = await page.goto(`${BASE_URL}/does-not-exist`);
   assert.equal(res.status(), 404);
   pass('unknown routes return the 404 page');

@@ -11,6 +11,7 @@ import { concepts, TECHNOLOGY_POSITIONING } from '@/data/concepts';
 import { conceptImage } from '@/data/concept-media';
 
 const num = (index: number) => String(index + 1).padStart(2, '0');
+import { getDemo } from '@/data/demos';
 ---
 
 <BaseLayout
@@ -112,6 +113,24 @@ const num = (index: number) => String(index + 1).padStart(2, '0');
         >
           {concept.summary} {concept.study.brief}
         </p>
+        {getDemo(concept.id) && (
+          <div class="mt-6 flex flex-wrap gap-3" data-demo-links>
+            <a
+              href={`/work/${concept.id}/demo`}
+              class="inline-flex min-h-11 items-center gap-2 rounded-full px-5 text-sm font-semibold"
+              style={`background:${concept.study.theme.fg};color:${concept.study.theme.bg}`}
+            >
+              View the interactive demo
+            </a>
+            <a
+              href={`/work/${concept.id}/demo?review=1`}
+              class="inline-flex min-h-11 items-center gap-2 rounded-full border px-5 text-sm font-semibold"
+              style={`border-color:${concept.study.theme.muted};color:${concept.study.theme.fg}`}
+            >
+              Review the concept
+            </a>
+          </div>
+        )}
         <Image
           src={conceptImage(concept.id, 'detail-hero')}
           alt={concept.alt.detail}

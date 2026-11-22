@@ -1,0 +1,271 @@
+---
+/**
+ * Shared demo shell (task T11): /work/<slug>/demo.
+ * - Persistent honesty badge and a way back to the case study at all times.
+ * - The demo is a client-only React island, code-split per concept (DemoIsland).
+ * - Review mode: a guided walkthrough beside the demo (?review=1 or the button).
+ * - Without JavaScript the page stays a readable static case: summary, link back and
+ *   the walkthrough as a plain list.
+ */
+import { Image } from 'astro:assets';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Icon from '@/components/ui/Icon.astro';
+import DemoIsland from '@/components/demo/DemoIsland';
+import { getConcept } from '@/data/concepts';
+import { conceptImage } from '@/data/concept-media';
+import { demos, demoBadge } from '@/data/demos';
+
+export function getStaticPaths() {
+  return demos.map((demo) => ({ params: { slug: demo.slug }, props: { demo } }));
+}
+
+const { demo } = Astro.props;
+const concept = getConcept(demo.slug)!;
+const badge = demoBadge(concept);
+const back = `/work#${concept.id}`;
+---
+
+<BaseLayout
+  title={`${concept.name}: concept demo`}
+  description={`${demo.intro} ${badge}.`}
+  footerCta={false}
+>
+  <div class="demo-page bg-[#000417] pt-24 pb-16 lg:pt-28">
+    <div
+      class="sticky top-0 z-40 border-b border-ivory-100/10 bg-midnight-950/90 backdrop-blur"
+      data-demo-bar
+    >
+      <div class="container-page flex flex-wrap items-center justify-between gap-3 py-3">
+        <p
+          class="inline-flex items-center gap-2 rounded-full border border-coral-400/40 bg-coral-600/15 px-3 py-1 text-xs font-semibold text-coral-300"
+          data-demo-badge
+        >
+          <Icon name="info" class="size-3.5" />
+          {badge}
+        </p>
+        <div class="flex flex-wrap items-center gap-2">
+          <button
+            type="button"
+            class="hidden min-h-10 items-center gap-2 rounded-full border border-ivory-100/25 whitespace-nowrap px-4 text-sm font-semibold text-ivory-50 hover:border-ivory-100/60 [.js_&]:inline-flex"
+            aria-controls="demo-review"
+            aria-expanded="false"
+            data-review-toggle
+          >
+            <Icon name="clipboard" class="size-4" /> Review the concept
+          </button>
+          <a
+            href={back}
+            class="inline-flex min-h-10 items-center gap-2 rounded-full px-4 text-sm font-semibold whitespace-nowrap text-mint-300 hover:text-mint-200"
+          >
+            <Icon name="arrow-right" class="size-4 rotate-180" /> Back to the case study
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-page mt-8">
+      <p class="text-xs font-semibold tracking-[0.18em] text-mint-300 uppercase">
+        {concept.label} · {concept.category}
+      </p>
+      <h1 class="mt-2 font-display text-display-sm font-semibold text-ivory-50">
+        {concept.name}: {demo.title}
+      </h1>
+      <p class="mt-3 max-w-2xl text-ivory-100/75">{demo.intro}</p>
+
+      <div class="demo-layout mt-8" data-demo-layout>
+        <section
+          aria-label={`${concept.name} interactive demo`}
+          class="demo-stage overflow-hidden rounded-2xl border border-ivory-100/10 bg-midnight-900"
+          style={`--demo-min:${demo.reserve.base};--demo-min-sm:${demo.reserve.sm}`}
+        >
+          <DemoIsland client:only="react" slug={demo.slug}>
+            <div slot="fallback">
+              <p class="hidden p-8 text-center text-sm text-ivory-100/70 [.js_&]:block">
+                Loading the demo…
+              </p>
+              <noscript>
+                <div class="p-6 text-ivory-100">
+                  <Image
+                    src={conceptImage(concept.id, 'desktop-ui')}
+                    alt={concept.alt.desktop}
+                    widths={[720, 1100]}
+                    sizes="(min-width: 1024px) 60vw, 100vw"
+                    class="w-full rounded-xl border border-white/10"
+                  />
+                  <p class="mt-4 text-sm">
+                    The interactive demo needs JavaScript. The picture above shows the concept, and
+                    the walkthrough explains the decisions.
+                    <a href={back} class="font-semibold text-mint-300 underline">
+                      Read the full case study
+                    </a>
+                    .
+                  </p>
+                </div>
+              </noscript>
+            </div>
+          </DemoIsland>
+        </section>
+
+        <aside
+          id="demo-review"
+          aria-labelledby="demo-review-title"
+          class="demo-review rounded-2xl border border-ivory-100/10 bg-midnight-800 p-6"
+          data-review
+        >
+          <div class="flex items-start justify-between gap-3">
+            <h2
+              id="demo-review-title"
+              class="outline-none font-display text-lg font-semibold text-ivory-50"
+            >
+              How we thought about it
+            </h2>
+            <button
+              type="button"
+              class="hidden size-10 shrink-0 items-center justify-center rounded-full border border-ivory-100/20 text-ivory-100 hover:border-ivory-100/60 [.js_&]:inline-flex"
+              data-review-close
+            >
+              <Icon name="close" class="size-4" />
+              <span class="sr-only">Close the walkthrough</span>
+            </button>
+          </div>
+          <ol class="mt-5 space-y-3" data-review-steps>
+            {demo.review.map((step, index) => (
+              <li
+                class="review-step rounded-xl border border-ivory-100/10 p-4"
+                data-review-step={index}
+              >
+                <p class="text-xs font-semibold tracking-[0.14em] text-mint-300 uppercase">
+                  Step {index + 1} of {demo.review.length} · {step.focus}
+                </p>
+                <h3 class="mt-1.5 font-semibold text-ivory-50">{step.title}</h3>
+                <p class="mt-1 text-sm leading-relaxed text-ivory-100/75">{step.body}</p>
+              </li>
+            ))}
+          </ol>
+          <div class="mt-5 hidden items-center justify-between gap-3 [.js_&]:flex">
+            <button type="button" class="review-nav" data-review-prev>
+              Previous
+            </button>
+            <p class="text-xs text-ivory-100/60" aria-live="polite" data-review-status></p>
+            <button type="button" class="review-nav" data-review-next>
+              Next
+            </button>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .demo-layout {
+    display: grid;
+    gap: 1.5rem;
+  }
+  /* Reserve the demo's height so swapping the loading state for the island does not shift the page. */
+  :global(.js) .demo-stage {
+    min-height: var(--demo-min);
+  }
+  @media (min-width: 640px) {
+    :global(.js) .demo-stage {
+      min-height: var(--demo-min-sm);
+    }
+  }
+  /* With JS, review mode is a panel: beside the demo on large screens, a drawer on small. */
+  :global(.js) .demo-review {
+    display: none;
+  }
+  :global(.js) [data-demo-layout][data-reviewing] .demo-review {
+    display: block;
+  }
+  @media (min-width: 1024px) {
+    :global(.js) [data-demo-layout][data-reviewing] {
+      grid-template-columns: minmax(0, 1fr) 22rem;
+      align-items: start;
+    }
+    :global(.js) [data-demo-layout][data-reviewing] .demo-review {
+      position: sticky;
+      top: 5rem;
+    }
+  }
+  @media (max-width: 1023px) {
+    :global(.js) [data-demo-layout][data-reviewing] .demo-review {
+      position: fixed;
+      inset: auto 0.75rem 0.75rem;
+      z-index: 60;
+      max-height: 70vh;
+      overflow: auto;
+      box-shadow: 0 -1rem 3rem rgb(0 0 0 / 0.5);
+    }
+  }
+  :global(.js) .review-step {
+    display: none;
+  }
+  :global(.js) .review-step[aria-current='step'] {
+    display: block;
+    border-color: rgb(167 139 250 / 0.5);
+  }
+  .review-nav {
+    min-height: 2.5rem;
+    border-radius: 999px;
+    border: 1px solid rgb(233 236 251 / 0.25);
+    padding: 0 1rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #f7f8ff;
+  }
+  .review-nav:disabled {
+    opacity: 0.4;
+  }
+</style>
+
+<script>
+  const layout = document.querySelector<HTMLElement>('[data-demo-layout]');
+  const toggle = document.querySelector<HTMLButtonElement>('[data-review-toggle]');
+  const close = document.querySelector<HTMLButtonElement>('[data-review-close]');
+  const panel = document.querySelector<HTMLElement>('[data-review]');
+  const steps = [...document.querySelectorAll<HTMLElement>('[data-review-step]')];
+  const prev = document.querySelector<HTMLButtonElement>('[data-review-prev]');
+  const next = document.querySelector<HTMLButtonElement>('[data-review-next]');
+  const status = document.querySelector<HTMLElement>('[data-review-status]');
+  let current = 0;
+
+  function show(index: number) {
+    current = Math.max(0, Math.min(index, steps.length - 1));
+    steps.forEach((step, i) =>
+      i === current
+        ? step.setAttribute('aria-current', 'step')
+        : step.removeAttribute('aria-current'),
+    );
+    if (prev) prev.disabled = current === 0;
+    if (next) next.disabled = current === steps.length - 1;
+    if (status) status.textContent = `Step ${current + 1} of ${steps.length}`;
+  }
+
+  function open() {
+    layout?.setAttribute('data-reviewing', '');
+    toggle?.setAttribute('aria-expanded', 'true');
+    show(current);
+    panel?.querySelector<HTMLElement>('h2')?.setAttribute('tabindex', '-1');
+    panel?.querySelector<HTMLElement>('h2')?.focus();
+  }
+
+  function shut() {
+    layout?.removeAttribute('data-reviewing');
+    toggle?.setAttribute('aria-expanded', 'false');
+    toggle?.focus();
+  }
+
+  toggle?.addEventListener('click', () =>
+    layout?.hasAttribute('data-reviewing') ? shut() : open(),
+  );
+  close?.addEventListener('click', shut);
+  prev?.addEventListener('click', () => show(current - 1));
+  next?.addEventListener('click', () => show(current + 1));
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && layout?.hasAttribute('data-reviewing')) shut();
+  });
+
+  show(0);
+  if (new URLSearchParams(location.search).has('review')) open();
+</script>
