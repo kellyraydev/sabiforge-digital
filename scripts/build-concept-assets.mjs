@@ -329,7 +329,11 @@ const only = new Set(
     .map((id) => id.trim())
     .filter(Boolean),
 );
-const ids = Object.keys(screens).filter((id) => only.size === 0 || only.has(id));
+/** Client work uses the client's own screens (docs/IMAGE-PROVENANCE.md); never overwrite them. */
+const clientIds = new Set(['big-beerah-collection']);
+const ids = Object.keys(screens).filter(
+  (id) => !clientIds.has(id) && (only.size === 0 || only.has(id)),
+);
 if (ids.length === 0) throw new Error('ONLY did not match any concept id.');
 
 const executablePath = process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH;

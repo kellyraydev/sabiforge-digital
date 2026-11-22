@@ -181,7 +181,9 @@ const serviceNames = (slugs: string[]) =>
               class="w-full rounded-2xl border border-white/10"
             />
             <figcaption class="mt-3 text-sm" style={`color:${concept.study.theme.muted}`}>
-              Desktop interface, coded for this concept.
+              {concept.basis === 'client'
+                ? 'Desktop shop design. Product ratings and review counts in the screens are layout samples, not customer reviews.'
+                : 'Desktop interface, coded for this concept.'}
             </figcaption>
           </figure>
           <figure>
@@ -193,13 +195,17 @@ const serviceNames = (slugs: string[]) =>
               class="mx-auto w-full max-w-xs rounded-2xl border border-white/10"
             />
             <figcaption class="mt-3 text-sm" style={`color:${concept.study.theme.muted}`}>
-              The same interface at a phone width.
+              {concept.basis === 'client'
+                ? 'The mobile shop design.'
+                : 'The same interface at a phone width.'}
             </figcaption>
           </figure>
         </div>
         <div class="mt-14">
           <h3 class="meta" style={`color:${concept.study.theme.accent}`}>
-            How the concept came together
+            {concept.basis === 'client'
+              ? 'How the project came together'
+              : 'How the concept came together'}
           </h3>
           <ol class="mt-5 grid gap-6 sm:grid-cols-2 lg:grid-cols-4" data-study-steps>
             {[
@@ -208,7 +214,9 @@ const serviceNames = (slugs: string[]) =>
               ['Direction', concept.approach],
               [
                 'Interface',
-                'Coded desktop and phone pages, shown above, built to the same palette and type as the spec below.',
+                concept.basis === 'client'
+                  ? 'Desktop and mobile shop screens, shown above, in the brand palette below.'
+                  : 'Coded desktop and phone pages, shown above, built to the same palette and type as the spec below.',
               ],
             ].map(([title, body], step) => (
               <li class="border-t pt-4" style={`border-color:${concept.study.theme.fg}33`}>

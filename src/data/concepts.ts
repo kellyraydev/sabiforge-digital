@@ -453,13 +453,13 @@ export const concepts: Concept[] = [
     explores: ['Category merchandising', 'Modest fashion presentation', 'Enquire-first commerce'],
     alt: {
       cover:
-        'Provisional generated art-direction image for the Big Beerah Collection client project: blush and burgundy textiles with gold jewellery and a coded shop preview.',
+        'Big Beerah Collection shop homepage: burgundy hero reading “Modest Fashion for Everyday Elegance”, category tiles and new arrivals.',
       detail:
-        'Provisional generated art-direction image for the Big Beerah Collection client project: folded fabrics and scarves with a coded mobile shop preview.',
+        'Big Beerah Collection desktop shop design: crown logo, navigation, hero with a model in a satin hijab, shop-by-category tiles and new arrivals with prices.',
       desktop:
-        'Coded desktop interface preview for the Big Beerah Collection client project, a modest fashion shop.',
+        'Big Beerah Collection desktop shop design: crown logo, navigation, hero with a model in a satin hijab, shop-by-category tiles and new arrivals with prices.',
       mobile:
-        'Coded mobile interface preview for the Big Beerah Collection client project, a modest fashion shop.',
+        'Big Beerah Collection mobile shop design: delivery banner, crown logo, “Hijabs, Abayas & Accessories” hero, categories, new arrivals and a fabrics promotion.',
     },
     study: {
       capability: 'Modest fashion storefront',
