@@ -158,6 +158,12 @@ const linkClass = 'rounded-sm text-ivory-100/75 transition hover:text-ivory-50';
               <span class="sr-only">(WhatsApp, opens in a new tab)</span>
             </a>
           </li>
+          <li>
+            <a class:list={[linkClass, 'flex items-center gap-2.5']} href={site.contact.phoneHref}>
+              <Icon name="phone" class="size-4 shrink-0 text-mint-300" />
+              Call {site.contact.whatsappDisplay}
+            </a>
+          </li>
           <li class="flex items-center gap-2.5 text-ivory-100/75">
             <Icon name="map" class="size-4 shrink-0 text-mint-300" />
             {locationLine}

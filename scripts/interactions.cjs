@@ -57,7 +57,7 @@ const pass = (msg) => console.log(`✓ ${msg}`);
     2,
   );
   const planLinks = await page
-    .locator('#packages a', { hasText: 'Discuss this plan' })
+    .locator('#packages a', { hasText: 'Start with' })
     .evaluateAll((els) => els.map((a) => a.getAttribute('href')));
   assert.deepEqual(planLinks, [
     '/contact?package=starter',
@@ -71,7 +71,7 @@ const pass = (msg) => console.log(`✓ ${msg}`);
   // Concept filter (moved to /work)
   await page.goto(BASE_URL + '/work', { waitUntil: 'networkidle' });
   assert.equal(await page.locator('#case-studies article').count(), 10);
-  const conceptFilters = page.getByRole('group', { name: 'Filter studio concepts' });
+  const conceptFilters = page.getByRole('group', { name: 'Filter the work' });
   await conceptFilters.getByRole('button', { name: 'E-commerce' }).click();
   assert.equal(await page.locator('#case-studies article:visible').count(), 4);
   assert.equal(
@@ -81,7 +81,7 @@ const pass = (msg) => console.log(`✓ ${msg}`);
   await conceptFilters.getByRole('button', { name: 'Product interfaces' }).focus();
   await page.keyboard.press('Enter');
   assert.equal(await page.locator('#case-studies article:visible').count(), 3);
-  await conceptFilters.getByRole('button', { name: 'All concepts' }).click();
+  await conceptFilters.getByRole('button', { name: 'All work' }).click();
   assert.equal(await page.locator('#case-studies article').count(), 10);
   pass('work concept filter uses pressed buttons and shows the shared Work concept data');
 
@@ -231,6 +231,26 @@ const pass = (msg) => console.log(`✓ ${msg}`);
     true,
   );
   pass('every /work study has meta, four steps, tags and a next-concept link that loops');
+
+  // Audit follow-ups: client-work filter, header WhatsApp below xl, footer call link
+  await page.goto(BASE_URL + '/work', { waitUntil: 'networkidle' });
+  await page.locator('[data-concept-filter="Client work"]').click();
+  const visibleWork = await page
+    .locator('[data-concept-category]')
+    .evaluateAll((cards) => cards.filter((c) => !c.hidden && c.offsetParent !== null).length);
+  assert.equal(visibleWork, 1);
+  await page.locator('[data-concept-filter="All work"]').click();
+  await page.setViewportSize({ width: 390, height: 844 });
+  assert.ok(await page.locator('[data-header-whatsapp]').isVisible());
+  assert.ok(
+    (await page.locator('[data-header-whatsapp]').getAttribute('href')).startsWith(
+      'https://wa.me/',
+    ),
+  );
+  assert.equal(await page.locator('footer a[href="tel:+2349038430068"]').count(), 1);
+  await page.setViewportSize({ width: 1440, height: 900 });
+  assert.ok(await page.locator('[data-header-whatsapp]').isHidden());
+  pass('client-work filter shows one study; WhatsApp in header below xl; footer call link');
 
   // Header current state and keyboard skip link
   await page.goto(BASE_URL + '/services', { waitUntil: 'networkidle' });

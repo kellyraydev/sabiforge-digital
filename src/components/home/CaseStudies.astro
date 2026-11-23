@@ -12,7 +12,7 @@ import { conceptImage } from '@/data/concept-media';
   <div class="container-page">
     <div class="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
       <div>
-        <p class="meta text-mint-300">All concepts</p>
+        <p class="meta text-mint-300">All work</p>
         <h2
           id="case-studies-title"
           class="mt-4 max-w-3xl text-display-lg font-semibold text-ivory-50"
@@ -27,7 +27,7 @@ import { conceptImage } from '@/data/concept-media';
           businesses.
         </p>
       </div>
-      <div class="flex flex-wrap gap-2" role="group" aria-label="Filter studio concepts">
+      <div class="flex flex-wrap gap-2" role="group" aria-label="Filter the work">
         {conceptFilters.map((item, index) => (
           <button
             type="button"
@@ -50,6 +50,7 @@ import { conceptImage } from '@/data/concept-media';
         <article
           class="overflow-hidden rounded-[var(--radius-card)] border border-ivory-100/10 bg-midnight-900/70"
           data-concept-category={concept.filterCategory}
+          data-concept-client={String(concept.basis === 'client')}
           style={`border-top:2px solid ${concept.study.theme.accent}`}
         >
           <a
@@ -105,12 +106,16 @@ import { conceptImage } from '@/data/concept-media';
       button.className = `min-h-11 rounded-full border px-4 text-sm font-semibold transition ${on ? active : idle}`;
     }
     for (const card of cards) {
-      const show = selected === 'All concepts' || card.dataset.conceptCategory === selected;
+      const show =
+        selected === 'All work' ||
+        (selected === 'Client work'
+          ? card.dataset.conceptClient === 'true'
+          : card.dataset.conceptCategory === selected);
       card.toggleAttribute('hidden', !show);
     }
   }
 
   for (const button of buttons) {
-    button.addEventListener('click', () => paint(button.dataset.conceptFilter ?? 'All concepts'));
+    button.addEventListener('click', () => paint(button.dataset.conceptFilter ?? 'All work'));
   }
 </script>

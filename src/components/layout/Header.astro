@@ -3,6 +3,7 @@ import Logo from '@/components/ui/Logo.astro';
 import Button from '@/components/ui/Button.astro';
 import MobileNav from './MobileNav';
 import { navigation, site, startProjectHref, whatsappLink } from '@/data/site';
+import Icon from '@/components/ui/Icon.astro';
 
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 const items = navigation.map((item) => ({
@@ -41,6 +42,17 @@ const items = navigation.map((item) => ({
           ))}
       </ul>
     </nav>
+
+    <a
+      href={whatsappLink()}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="ml-auto inline-flex size-11 shrink-0 items-center justify-center rounded-full border border-ivory-100/20 text-mint-300 hover:border-mint-300/60 lg:ml-0 xl:hidden"
+      data-header-whatsapp
+    >
+      <Icon name="whatsapp" class="size-5" />
+      <span class="sr-only">Chat on WhatsApp (opens in a new tab)</span>
+    </a>
 
     <div class="hidden items-center gap-3 lg:flex [&_a]:whitespace-nowrap">
       <span class="hidden xl:contents">

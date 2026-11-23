@@ -696,8 +696,9 @@ export function getConcept(id: string): Concept | undefined {
 }
 
 export const conceptFilters = [
-  'All concepts',
+  'All work',
+  'Client work',
   'Business websites',
   'E-commerce',
   'Product interfaces',
-] as const satisfies readonly ('All concepts' | ConceptFilterCategory)[];
+] as const satisfies readonly ('All work' | 'Client work' | ConceptFilterCategory)[];
