@@ -1,8 +1,9 @@
+import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { packages, foundingPrice, comparisonRows, engagementModels } from '../src/data/packages';
 import { services, serviceFamilies, getService } from '../src/data/services';
 import { concepts, getConcept, CONCEPT_LABEL, TECHNOLOGY_POSITIONING } from '../src/data/concepts';
-import { pathways, processSteps, stages } from '../src/data/home';
+import { pathways, processSteps, serviceCardCopy, stages, whyPoints } from '../src/data/home';
 import { navigation, whatsappLink, mailtoLink, site } from '../src/data/site';
 
 describe('approved packages', () => {
@@ -113,7 +114,32 @@ describe('honesty rules', () => {
         concepts.some((concept) => concept.id === id),
       ),
     ).toBe(false);
-    expect(TECHNOLOGY_POSITIONING).toMatch(/latest technology and modern design standards/);
+    expect(TECHNOLOGY_POSITIONING).toMatch(/design approach and the thinking behind each project/);
+    expect(TECHNOLOGY_POSITIONING).not.toMatch(/latest technology|fast|secure|never ship/i);
+    expect(serviceCardCopy['shopify-ecommerce-development'].blurb).toMatch(
+      /product pages, checkout and payment integration/,
+    );
+    expect(serviceCardCopy['shopify-ecommerce-development'].blurb).not.toMatch(/secure|smooth/i);
+    expect(serviceCardCopy['website-redesign-modernization'].blurb).not.toMatch(
+      /secure|running smoothly/i,
+    );
+    expect(JSON.stringify(whyPoints)).not.toMatch(/most of your customers|checked for speed/i);
+  });
+
+  it('does not publish unsupported popularity, privacy, or response-time claims', () => {
+    const publicCopy = [
+      'src/components/home/v2/PackagesPreview.astro',
+      'src/pages/about.astro',
+      'src/pages/contact.astro',
+      'src/data/home.ts',
+      'src/data/process.ts',
+      'src/pages/terms.astro',
+    ]
+      .map((file) => readFileSync(file, 'utf8'))
+      .join('\n');
+    expect(publicCopy).not.toMatch(
+      /Most popular|private staging|private link|three minutes|new studio|account management/i,
+    );
     expect(concepts.filter((concept) => concept.basis === 'reference')).toHaveLength(2);
     expect(concepts.filter((concept) => concept.basis === 'client')).toHaveLength(1);
     expect(concepts.filter((concept) => concept.basis === 'fictional')).toHaveLength(7);

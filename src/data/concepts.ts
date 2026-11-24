@@ -54,7 +54,7 @@ export const REFERENCE_CONCEPT_DISCLAIMER =
   'Independent design concept based on an existing business. Not commissioned work, not an official website, and not a client project.';
 
 export const TECHNOLOGY_POSITIONING =
-  'At SabiForge, we do not just build websites. We build with the latest technology and modern design standards: fast, responsive, accessible, and conversion-focused. We never ship outdated or legacy design.';
+  'Explore website and software concepts that show our design approach and the thinking behind each project.';
 
 const fictional = 'Fictional studio concept. Not a client project.';
 const reference =
@@ -481,7 +481,7 @@ export const concepts: Concept[] = [
         {
           title: 'Design for the phone first',
           detail:
-            'Most customers browse on a phone, so categories sit near the top and every tap target is large enough to use with a thumb.',
+            'The phone layout puts categories near the top and uses tap targets sized for a thumb.',
         },
       ],
       palette: [

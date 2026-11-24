@@ -116,8 +116,7 @@ export const differentiators: { title: string; benefit: string; icon: IconKey }[
   },
   {
     title: 'Responsive by default',
-    benefit:
-      'Layouts are designed for phones first, because that is where most of your customers will meet you.',
+    benefit: 'Layouts are designed for phones first, then checked on larger screens.',
     icon: 'phone',
   },
   {
@@ -129,13 +128,12 @@ export const differentiators: { title: string; benefit: string; icon: IconKey }[
   {
     title: 'Collaborative development',
     benefit:
-      'Preview links and approval gates mean you see progress and make decisions at the right moments.',
+      'Preview links and approval points give you a chance to review the work as it develops.',
     icon: 'chat',
   },
   {
-    title: 'Performance and accessibility awareness',
-    benefit:
-      'Pages are checked for speed, contrast and keyboard access, so more people can use them comfortably.',
+    title: 'Usability checks',
+    benefit: 'We review keyboard access, contrast and page behavior at different screen sizes.',
     icon: 'gauge',
   },
   {
@@ -241,7 +239,7 @@ export const serviceCardCopy: Record<
     alt: 'Laptop showing a modern small-business website with a warm interior photo',
   },
   'shopify-ecommerce-development': {
-    blurb: 'Sell your products online with a smooth, secure store that is easy to manage.',
+    blurb: 'Sell your products online with product pages, checkout and payment integration.',
     icon: 'cart',
     image: onlineStoresImg,
     alt: 'Tablet showing an online-store product page for a tan leather handbag priced in naira',
@@ -254,8 +252,7 @@ export const serviceCardCopy: Record<
     alt: 'Laptop showing a dark business dashboard with stats and a revenue chart (illustrative figures)',
   },
   'website-redesign-modernization': {
-    blurb:
-      'Give your existing website a fresh, better look, then keep it secure and running smoothly.',
+    blurb: 'Refresh your existing website and discuss ongoing support as part of the agreed scope.',
     icon: 'wrench',
     image: redesignSupportImg,
     alt: 'Laptop showing an old, cluttered website beside its clean modern redesign',
