@@ -53,7 +53,7 @@ export const bloomSessions: BloomSession[] = [
     id: 'gentle-mobility',
     name: 'Gentle mobility class',
     minutes: 50,
-    summary: 'Slow, guided movement to loosen the back, hips and shoulders. Small groups.',
+    summary: 'A gentle, guided movement session in a small group.',
     suits: 'Desk days and stiff mornings',
   },
   {

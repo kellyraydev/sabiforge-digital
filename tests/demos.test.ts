@@ -70,5 +70,8 @@ describe('Bloom availability (T2)', () => {
     const { bloomSessions } = await import('@/data/demos/bloom-wellness-studio');
     const text = JSON.stringify(bloomSessions);
     expect(text).not.toMatch(/\b(Dr|therapist|physio|licensed|certified|cure|treat|heal)\w*/i);
+    expect(bloomSessions.find((session) => session.id === 'gentle-mobility')?.summary).toBe(
+      'A gentle, guided movement session in a small group.',
+    );
   });
 });
