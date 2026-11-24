@@ -635,6 +635,39 @@ const pass = (msg) => console.log(`✓ ${msg}`);
   assert.doesNotMatch(await op.innerText(), /₦|warranty included|\+234/i);
   pass('Opeyemi demo: browse, separate sell/swap form, WhatsApp stays disabled');
 
+  // Project blueprint preview (AURA): index gallery, themed mini-site, honesty banner, pages
+  await page.goto(BASE_URL + '/preview', { waitUntil: 'networkidle' });
+  assert.ok((await page.locator('[data-preview-index] > li').count()) >= 1);
+  await page.locator('[data-preview-index] a').first().click();
+  await page.waitForURL(/\/preview\/aura-clothing\/?$/);
+  assert.match(
+    await page.locator('[data-preview-banner]').innerText(),
+    /Fictional brand, not a live client/,
+  );
+  assert.equal(await page.locator('h1').first().innerText(), 'Dress with less.');
+  // Images resolve to real files (not broken [object Object] srcs) or themed placeholders
+  const heroImg = page.locator('.bp-hero img').first();
+  if ((await heroImg.count()) > 0) {
+    const ok = await heroImg.evaluate((el) => el.complete && el.naturalWidth > 0);
+    assert.ok(ok, 'blueprint hero image loads');
+  } else {
+    assert.ok(
+      (await page.locator('[data-image-placeholder]').count()) >= 1,
+      'placeholder when no art',
+    );
+  }
+  await page.getByRole('link', { name: 'Shop', exact: true }).click();
+  await page.waitForURL(/\/preview\/aura-clothing\/shop\/?$/);
+  assert.equal(await page.locator('.bp-product').count(), 8);
+  const productImgs = page.locator('.bp-product img');
+  if ((await productImgs.count()) > 0) {
+    const broken = await productImgs.evaluateAll(
+      (els) => els.filter((el) => el.complete && el.naturalWidth === 0).length,
+    );
+    assert.equal(broken, 0, 'no broken product images');
+  }
+  pass('blueprint preview: gallery, themed mini-site, banner, navigation, placeholders');
+
   // Concept demo shell (T11): badge, way back, lazy island, review mode, no-JS fallback.
   const demoUrl = `${BASE_URL}/work/corporate-digital-modernization/demo`;
   await page.goto(BASE_URL + '/work', { waitUntil: 'networkidle' });

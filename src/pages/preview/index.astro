@@ -1,0 +1,62 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { blueprints } from '@/data/projects';
+import { projectImage, previewPath } from '@/lib/blueprint';
+import { CLIENT_LABEL, CONCEPT_LABEL } from '@/data/concepts';
+
+const label = (basis: string) => (basis === 'client' ? CLIENT_LABEL : CONCEPT_LABEL);
+---
+
+<BaseLayout
+  title="Project previews"
+  description="Explore SabiForge Digital project previews, each built from a declarative blueprint."
+  footerCta={false}
+>
+  <section class="bg-[#000417] pt-28 pb-20">
+    <div class="container-page">
+      <p class="meta text-mint-300">Project previews</p>
+      <h1 class="mt-2 font-display text-display-sm font-semibold text-ivory-50">
+        Explore each project as its own <em class="text-mint-300">preview site</em>.
+      </h1>
+      <p class="mt-3 max-w-2xl text-ivory-100/75">
+        Each preview is built from a single declarative blueprint: lightweight, shareable, and easy
+        to rework. A concept preview is clearly labelled and never presented as a live business.
+      </p>
+
+      <ul class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3" role="list" data-preview-index>
+        {blueprints.map((bp) => {
+          const home = bp.pages[0];
+          const hero = home.sections.find((s) => s.type === 'hero');
+          const heroFile = hero && hero.type === 'hero' ? hero.image?.file : undefined;
+          const thumb = heroFile ? projectImage(bp.slug, heroFile) : undefined;
+          return (
+            <li class="overflow-hidden rounded-2xl border border-ivory-100/10 bg-midnight-800/60">
+              <a href={previewPath(bp.slug)} class="group block">
+                <span
+                  class="block aspect-[4/3] w-full"
+                  style={
+                    thumb
+                      ? `background-image:url(${thumb});background-size:cover;background-position:center`
+                      : `background:linear-gradient(150deg, ${bp.theme.surface}, ${bp.theme.accent})`
+                  }
+                />
+                <span class="block p-5">
+                  <span
+                    class="meta"
+                    style={`color:${bp.theme.accent === '#111111' ? '#8a8175' : bp.theme.accent}`}
+                  >
+                    {label(bp.basis)}
+                  </span>
+                  <span class="mt-1 block font-display text-lg font-semibold text-ivory-50">
+                    {bp.name}
+                  </span>
+                  <span class="mt-1 block text-sm text-ivory-100/70">{bp.tagline}</span>
+                </span>
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  </section>
+</BaseLayout>

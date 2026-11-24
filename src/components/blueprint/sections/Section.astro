@@ -1,0 +1,21 @@
+---
+/** Dispatches a blueprint section to its component by `type`. Unknown types render nothing. */
+import Hero from './Hero.astro';
+import FeatureGrid from './FeatureGrid.astro';
+import ProductGrid from './ProductGrid.astro';
+import Gallery from './Gallery.astro';
+import CtaBand from './CtaBand.astro';
+import type { Section } from '@/lib/blueprint';
+interface Props {
+  slug: string;
+  name: string;
+  section: Section;
+}
+const { slug, name, section } = Astro.props;
+---
+
+{section.type === 'hero' && <Hero slug={slug} name={name} section={section} />}
+{section.type === 'feature-grid' && <FeatureGrid section={section} />}
+{section.type === 'product-grid' && <ProductGrid slug={slug} name={name} section={section} />}
+{section.type === 'gallery' && <Gallery slug={slug} name={name} section={section} />}
+{section.type === 'cta' && <CtaBand slug={slug} section={section} />}

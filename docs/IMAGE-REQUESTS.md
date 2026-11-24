@@ -103,3 +103,91 @@ The AURA demo at `/work/aura-clothing/demo` shows a tonal placeholder for each p
 | A7  | `src/assets/demos/aura-clothing/structured-tote.png`     | Structured black smooth-leather tote bag, three-quarter angle, standing upright, no hardware logos.        |
 | A8  | `src/assets/demos/aura-clothing/gold-cuff.png`           | Open brushed-gold cuff bracelet resting on an ivory linen fold, close-up, soft reflections.                |
 | A9  | `src/assets/demos/aura-clothing/silk-square-scarf.png`   | Ivory and black silk twill square scarf with a simple geometric border, loosely folded, from above.        |
+
+## Project blueprint images: AURA preview (requested 24 Nov 2026)
+
+The AURA blueprint preview at `/preview/aura-clothing` shows a themed placeholder for each image until the file exists. **No code change needed:** commit a file at the path below and it appears on the next build. Record each in `docs/IMAGE-PROVENANCE.md`.
+
+**Shared style:** warm ivory (#F7F3EE) studio background, soft daylight, gentle shadow. Palette: black, ivory, champagne (#CDB89A), stone (#8A8175). No logos, text or watermarks. Consistent lighting across the set.
+
+| #    | Save as                                                                                                                                                                                                                   | Prompt (add the shared style)                                                                                                                                               |
+| ---- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1    | `src/assets/projects/aura-clothing/hero.webp`                                                                                                                                                                             | Portrait 4:5. A model (face optional, editorial) in an ivory wrap blazer against a warm studio wall, calm and minimal.                                                      |
+| 2    | `src/assets/projects/aura-clothing/look-01.webp`                                                                                                                                                                          | Ivory wrap blazer worn open over a silk slip dress, full-length, editorial.                                                                                                 |
+| 3    | `src/assets/projects/aura-clothing/look-02.webp`                                                                                                                                                                          | Black wide-leg trousers with a champagne waistcoat, editorial.                                                                                                              |
+| 4    | `src/assets/projects/aura-clothing/look-03.webp`                                                                                                                                                                          | Rib-knit co-ord in dark stone, full length.                                                                                                                                 |
+| 5    | `src/assets/projects/aura-clothing/look-04.webp`                                                                                                                                                                          | Structured black leather tote on a linen bench, still life.                                                                                                                 |
+| 6    | `src/assets/projects/aura-clothing/look-05.webp`                                                                                                                                                                          | Champagne silk slip dress on a wooden hanger in daylight.                                                                                                                   |
+| 7    | `src/assets/projects/aura-clothing/look-06.webp`                                                                                                                                                                          | Brushed gold cuff on folded ivory linen, close-up.                                                                                                                          |
+| 8    | `src/assets/projects/aura-clothing/about.webp`                                                                                                                                                                            | Folded garments and fabric swatches on a studio table, overhead.                                                                                                            |
+| 9–16 | `src/assets/projects/aura-clothing/product-blazer.webp`, `product-trouser.webp`, `product-waistcoat.webp`, `product-slip.webp`, `product-shirtdress.webp`, `product-coord.webp`, `product-tote.webp`, `product-cuff.webp` | Ghost-mannequin or flat-lay product shots of each piece named in the blueprint, portrait 4:5. (Same set as the AURA demo prompts; reuse those images if already generated.) |
+
+## Project blueprint images: remaining concepts (requested 24 Nov 2026)
+
+For the 8 concepts moving to blueprint previews (`docs/BLUEPRINT-CONVERSION.md`). Save each at
+`src/assets/projects/<slug>/<file>.webp`. Until a file exists the slot shows a themed placeholder,
+so blueprints build and merge without the art. **Every set:** no logos, brand names, UI text or
+watermarks; consistent lighting; generated people are never SabiForge staff/clients. Hero and
+room/space shots portrait 4:5; UI mockups landscape 4:3 (mobile mockups portrait 4:5) with only the
+fictional name shown and minimal readable text. Record each delivered file in `docs/IMAGE-PROVENANCE.md`.
+
+### maison-vale-studios — palette ivory #F6F1E8 / walnut #6B4A32 / stone #C8BBA8 / olive #5E6B45
+
+| Save as (`.../maison-vale-studios/`) | Prompt                                                                                                                                                              |
+| ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `hero.webp`                          | Sunlit interior studio corner, travertine and linen, warm minimal, editorial.                                                                                       |
+| `room-01.webp`..`room-06.webp`       | Six interiors: residential living room; hospitality lounge; commercial reception; walnut kitchen; stone bathroom; styled reading nook. Material-led, warm daylight. |
+| `studio.webp`                        | Material swatches, walnut and olive fabric, stone samples on a studio table, overhead.                                                                              |
+
+### flowdesk-os — palette slate #1C2430 / navy #243B5A / cloud #F4F7FB / teal #3E7C78
+
+| Save as (`.../flowdesk-os/`)                            | Prompt                                                                                                                                    |
+| ------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `hero.webp`                                             | Slate office desk, laptop angled, calm dark workspace, soft teal light. No readable UI.                                                   |
+| `board-now.webp`, `board-next.webp`, `board-later.webp` | UI mockups of a dark task board (Now / Next / Later columns). Sample task names only, "FlowDesk OS" wordmark, no numbers or metrics. 4:3. |
+| `board-mobile.webp`                                     | Mobile mockup of the same board, portrait 4:5.                                                                                            |
+
+### campusone-portal — palette navy #12315C / porcelain #F4F7FB / sky #D5E4F5 / ochre #C4A15A
+
+| Save as (`.../campusone-portal/`)           | Prompt                                                                                                                                                |
+| ------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `hero.webp`                                 | Library study table with laptop, daylight, calm academic, no readable UI.                                                                             |
+| `home.webp`, `module.webp`, `schedule.webp` | UI mockups of a student portal: current-module home; module page; week schedule. Sample content, "CampusOne" wordmark, no crest, no real grades. 4:3. |
+| `mobile.webp`                               | Mobile mockup of the portal home, portrait 4:5.                                                                                                       |
+
+### bloom-wellness-studio — palette sage #D7E4D4 / linen #F7F3EC / clay #8C5A45 / leaf #3E5C45
+
+| Save as (`.../bloom-wellness-studio/`) | Prompt                                                                                                                                 |
+| -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| `hero.webp`                            | Calm sage-and-linen wellness studio interior, soft daylight, plants, minimal.                                                          |
+| `space-01.webp`..`space-04.webp`       | Four interiors: movement room; rest/recovery room; reception with plants; detail of linen and clay textures. No people posed as staff. |
+
+### routepilot-logistics — palette graphite #2A3138 / navy #1C2B3A / steel #E8EEF2 / amber #E39B3A
+
+| Save as (`.../routepilot-logistics/`)           | Prompt                                                                                                                                                                              |
+| ----------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `hero.webp`                                     | Warehouse dispatch desk at dusk, rugged tablet, amber light, industrial calm. No readable UI.                                                                                       |
+| `board.webp`, `lane-detail.webp`, `status.webp` | UI mockups of a dark dispatch board: lane board; lane detail; status view. Fake lane names (North, East, Yard), status words only, no tracking numbers, "RoutePilot" wordmark. 4:3. |
+| `mobile.webp`                                   | Mobile mockup of the lane board, portrait 4:5.                                                                                                                                      |
+
+### amzlat-world-of-beauty — palette pink #F3D5E0 / cream #FFF8F3 / black #161616 / gold #C6A15B — **unbranded**
+
+| Save as (`.../amzlat-world-of-beauty/`)                                                    | Prompt                                                                                                                                                                       |
+| ------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `hero.webp`                                                                                | Pink-and-black beauty still life, unbranded bottles and a gold tray, cream backdrop, soft light.                                                                             |
+| `makeup.webp`, `skincare.webp`, `hair.webp`, `fashion.webp`, `bodycare.webp`, `nails.webp` | Six category still lifes, all products **unbranded** (blank bottles/tools, no logos or labels): makeup; skincare; hair tools; folded clothing; body-care jars; manicure set. |
+
+### opeyemi-phones-gadgets — palette cobalt #123CC9 / deep #0A215F / white / green #079344 — **unbranded devices**
+
+| Save as (`.../opeyemi-phones-gadgets/`)                        | Prompt                                                                                                            |
+| -------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `hero.webp`                                                    | A phone, laptop and watch on a cobalt-and-white counter, clean studio light. Screens blank, **no visible logos**. |
+| `device-phone.webp`, `device-laptop.webp`, `device-watch.webp` | Three device still lifes — generic phone, laptop, smartwatch — blank screens, no brand marks.                     |
+
+### corporate-digital-modernization — palette graphite #1E2421 / stone #F3F1EC / forest #1F4D3A / brass #B7A48A
+
+| Save as (`.../corporate-digital-modernization/`) | Prompt                                                                                                                                                             |
+| ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `hero.webp`                                      | Stone-and-glass corporate atrium, calm institutional, daylight, no signage or logos.                                                                               |
+| `before.webp`, `after.webp`                      | UI mockups of a corporate homepage: a plain "before" layout and a clearer "after" layout. Neutral placeholder org name "Meridian", no real logos, no metrics. 4:3. |
+| `mobile.webp`                                    | Mobile mockup of the "after" homepage, portrait 4:5.                                                                                                               |

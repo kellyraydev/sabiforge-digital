@@ -1,0 +1,50 @@
+---
+import type { Section } from '@/lib/blueprint';
+interface Props {
+  slug: string;
+  section: Extract<Section, { type: 'cta' }>;
+}
+const { slug, section } = Astro.props;
+const href = (to: string) => (to.startsWith('/') ? `/preview/${slug}${to === '/' ? '' : to}` : to);
+---
+
+<section class="bp-cta" data-reveal>
+  <h2 class="bp-cta-title">{section.headline}</h2>
+  {section.sub && <p class="bp-cta-sub">{section.sub}</p>}
+  {section.cta && (
+    <a class="bp-btn bp-btn-primary" href={href(section.cta.to)}>
+      {section.cta.label}
+    </a>
+  )}
+</section>
+<style>
+  .bp-cta {
+    margin: 1rem 0 var(--bp-space-section);
+    padding: clamp(2.75rem, 7vw, 5.25rem) clamp(1.25rem, 4vw, 3rem);
+    border-radius: var(--bp-radius);
+    text-align: center;
+    background: var(--bp-accent);
+    color: var(--bp-accent-ink);
+  }
+  .bp-cta-title {
+    font-family: var(--bp-display);
+    font-size: var(--bp-type-display);
+    font-weight: 400;
+    line-height: var(--bp-leading-title);
+    letter-spacing: var(--bp-track-display);
+    margin: 0 auto;
+    max-width: 16ch;
+    text-wrap: balance;
+  }
+  .bp-cta-sub {
+    margin: 1rem auto 1.75rem;
+    max-width: 42ch;
+    font-size: var(--bp-type-lede);
+    line-height: var(--bp-leading-body);
+    opacity: 0.86;
+  }
+  .bp-cta .bp-btn-primary {
+    background: var(--bp-accent-ink);
+    color: var(--bp-accent);
+  }
+</style>

@@ -1,0 +1,94 @@
+---
+import ImageSlot from '@/components/blueprint/ImageSlot.astro';
+import type { Section } from '@/lib/blueprint';
+interface Props {
+  slug: string;
+  name: string;
+  section: Extract<Section, { type: 'product-grid' }>;
+}
+const { slug, name, section } = Astro.props;
+---
+
+<section class="bp-section" data-island={section.island ?? undefined}>
+  {section.title && (
+    <h2 class="bp-section-title" data-reveal>
+      {section.title}
+    </h2>
+  )}
+  {section.intro && (
+    <p class="bp-section-intro" data-reveal style="--bp-reveal-index: 1">
+      {section.intro}
+    </p>
+  )}
+  <ul class="bp-product-grid" role="list">
+    {section.products.map((p, i) => (
+      <li class="bp-product" data-reveal style={`--bp-reveal-index:${i % 4}`}>
+        <div class="bp-product-media">
+          <ImageSlot slug={slug} image={p.image} projectName={name} ratio="4 / 5" />
+        </div>
+        <p class="bp-product-name">{p.name}</p>
+        {p.caption && <p class="bp-product-caption">{p.caption}</p>}
+      </li>
+    ))}
+  </ul>
+  {section.island && (
+    <p class="bp-island-note">
+      Interactive {section.island.replace('-', ' ')} mounts here when enabled.
+    </p>
+  )}
+</section>
+<style>
+  .bp-product-grid {
+    list-style: none;
+    margin: var(--bp-space-block) 0 0;
+    padding: 0;
+    display: grid;
+    gap: var(--bp-space-block) var(--bp-space-inline);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  @media (min-width: 900px) {
+    .bp-product-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+  .bp-product-media {
+    overflow: hidden;
+    border-radius: var(--bp-radius);
+    background: var(--bp-surface);
+  }
+  .bp-product-name {
+    margin: 0.9rem 0 0;
+    font-family: var(--bp-display);
+    font-weight: 400;
+    font-size: var(--bp-type-card);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+  .bp-product-caption {
+    margin: 0.35rem 0 0;
+    color: var(--bp-muted);
+    font-size: 0.88rem;
+    letter-spacing: 0.01em;
+    line-height: 1.45;
+  }
+  .bp-product-media :global(.bp-img) {
+    border-radius: 0;
+    transition: transform var(--bp-motion-hover) var(--bp-ease);
+  }
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .bp-product:hover :global(.bp-img) {
+      transform: scale(1.045);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .bp-product:hover :global(.bp-img) {
+      transform: none;
+    }
+  }
+  .bp-island-note {
+    margin-top: 1.25rem;
+    font-size: 0.8rem;
+    color: var(--bp-muted);
+    font-style: italic;
+  }
+</style>
