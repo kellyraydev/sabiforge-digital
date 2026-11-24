@@ -1,4 +1,5 @@
 ---
+import PackageFinderSection from '@/components/pricing/PackageFinderSection.astro';
 import { promises } from '@/data/site';
 import Icon from '@/components/ui/Icon.astro';
 import SectionHeading from './SectionHeading.astro';
@@ -102,5 +103,6 @@ const taglines: Record<string, string> = {
         );
       })}
     </ul>
+    <PackageFinderSection class="mt-14" />
   </div>
 </section>

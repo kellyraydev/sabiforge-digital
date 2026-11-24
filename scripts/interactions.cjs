@@ -252,6 +252,31 @@ const pass = (msg) => console.log(`✓ ${msg}`);
   assert.ok(await page.locator('[data-header-whatsapp]').isHidden());
   pass('client-work filter shows one study; WhatsApp in header below xl; footer call link');
 
+  // Package finder: branching questions, recommendation, prefilled contact, restart
+  await page.goto(BASE_URL + '/pricing', { waitUntil: 'networkidle' });
+  const finder = page.locator('#finder [data-package-finder]');
+  await finder.scrollIntoViewIfNeeded();
+  await finder.getByRole('button', { name: /Show my business/ }).click();
+  assert.match(await finder.locator('[data-finder-progress]').innerText(), /Question 2 of 3/);
+  await finder.getByRole('button', { name: /^5 or fewer/ }).click();
+  await finder.getByRole('button', { name: /Yes, I want to edit/ }).click();
+  assert.match(await finder.locator('[data-finder-result] h3').innerText(), /Business/);
+  assert.equal(
+    await finder.getByRole('link', { name: 'Start with Business' }).getAttribute('href'),
+    '/contact?package=business',
+  );
+  await finder.getByRole('button', { name: 'Start again' }).click();
+  await finder.getByRole('button', { name: /Sell products online/ }).click();
+  assert.match(await finder.locator('[data-finder-result] h3').innerText(), /Online Store/);
+  assert.match(
+    await finder.getByRole('link', { name: /Ask on WhatsApp/ }).getAttribute('href'),
+    /^https:\/\/wa\.me\/2349038430068\?text=.*Online%20Store/,
+  );
+  assert.equal(await page.locator('#packages [data-package-finder]').count(), 0);
+  await page.goto(BASE_URL + '/', { waitUntil: 'networkidle' });
+  assert.equal(await page.locator('#packages [data-package-finder]').count(), 1);
+  pass('package finder branches, recommends, links to contact/WhatsApp, restarts');
+
   // Header current state and keyboard skip link
   await page.goto(BASE_URL + '/services', { waitUntil: 'networkidle' });
   assert.equal(

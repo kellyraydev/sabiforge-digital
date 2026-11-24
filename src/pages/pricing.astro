@@ -1,4 +1,5 @@
 ---
+import PackageFinderSection from '@/components/pricing/PackageFinderSection.astro';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/page/PageHero.astro';
 import CtaPanel from '@/components/page/CtaPanel.astro';
@@ -109,6 +110,12 @@ const faqLd = {
           Discuss a custom project <Icon name="arrow-up-right" class="size-5" />
         </a>
       </div>
+    </div>
+  </section>
+
+  <section id="finder" aria-label="Package finder" class="scroll-mt-24 pb-20 lg:pb-28">
+    <div class="container-page">
+      <PackageFinderSection />
     </div>
   </section>
 
