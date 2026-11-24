@@ -97,12 +97,12 @@ export const stageDetails: StageDetail[] = [
   },
   {
     id: 'develop',
-    visible: 'A private staging link that you can open on your own phone and computer.',
+    visible: 'A preview link that you can open on your own phone and computer.',
     activities: [
       'Build the approved design with maintainable, accessible code',
       'Set up the content management or store platform where included',
       'Connect forms, product data and agreed integrations',
-      'Share the staging link as the build progresses',
+      'Share the preview link as the build progresses',
     ],
     affectedBy: 'Platform access, final content, and the complexity of features and integrations.',
     reviewHow:
@@ -115,7 +115,7 @@ export const stageDetails: StageDetail[] = [
       ],
       us: [
         'Build to the approved design',
-        'Keep the staging site private',
+        'Share the preview link for review',
         'Tell you early if a platform limit affects the plan',
       ],
     },
@@ -205,8 +205,7 @@ export const handoverItems = [
 export const timelineFactors = [
   {
     title: 'Content that arrives late',
-    detail:
-      'The most common cause of delay. Real copy and images are needed before design review and again before launch.',
+    detail: 'Approved copy and images are needed before design review and again before launch.',
   },
   {
     title: 'Feedback in pieces',

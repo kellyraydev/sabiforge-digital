@@ -3,11 +3,15 @@ import Logo from '@/components/ui/Logo.astro';
 import Button from '@/components/ui/Button.astro';
 import MobileNav from './MobileNav';
 import { navigation, site, startProjectHref, whatsappLink } from '@/data/site';
+import Icon from '@/components/ui/Icon.astro';
 
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 const items = navigation.map((item) => ({
   ...item,
-  current: Boolean(item.match && (path === item.match || path.startsWith(`${item.match}/`))),
+  current: Boolean(
+    item.match &&
+    (item.match === '/' ? path === '/' : path === item.match || path.startsWith(`${item.match}/`)),
+  ),
 }));
 ---
 
@@ -22,7 +26,7 @@ const items = navigation.map((item) => ({
     </a>
 
     <nav aria-label="Primary" class="hidden lg:block">
-      <ul class="flex items-center gap-1 rounded-full border border-ivory-100/10 bg-midnight-950/40 p-1 backdrop-blur">
+      <ul class="flex items-center gap-0.5 xl:gap-1">
         {items
           .filter((item) => item.primary)
           .map((item) => (
@@ -30,7 +34,7 @@ const items = navigation.map((item) => ({
               <a
                 href={item.href}
                 aria-current={item.current ? 'page' : undefined}
-                class="block rounded-full px-3.5 py-2 text-sm font-medium xl:px-4 text-ivory-100/80 transition hover:text-ivory-50 aria-[current=page]:bg-ivory-50 aria-[current=page]:text-midnight-900"
+                class="relative block whitespace-nowrap rounded-md px-3 py-2 text-sm font-medium text-ivory-100/80 transition after:absolute after:inset-x-3 after:-bottom-0.5 after:h-0.5 after:rounded-full after:bg-coral-400 after:opacity-0 after:transition hover:text-ivory-50 aria-[current=page]:text-ivory-50 aria-[current=page]:after:opacity-100 xl:px-3.5"
               >
                 {item.label}
               </a>
@@ -39,9 +43,25 @@ const items = navigation.map((item) => ({
       </ul>
     </nav>
 
-    <div class="hidden lg:block">
-      <Button href={startProjectHref} icon="arrow-up-right">
-        Start a project
+    <a
+      href={whatsappLink()}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="ml-auto inline-flex size-11 shrink-0 items-center justify-center rounded-full border border-ivory-100/20 text-mint-300 hover:border-mint-300/60 lg:ml-0 xl:hidden"
+      data-header-whatsapp
+    >
+      <Icon name="whatsapp" class="size-5" />
+      <span class="sr-only">Chat on WhatsApp (opens in a new tab)</span>
+    </a>
+
+    <div class="hidden items-center gap-3 lg:flex [&_a]:whitespace-nowrap">
+      <span class="hidden xl:contents">
+        <Button href={whatsappLink()} variant="secondary" icon="chat" iconPosition="start" external>
+          Talk to us
+        </Button>
+      </span>
+      <Button href={startProjectHref} icon="arrow-right">
+        Start your project
       </Button>
     </div>
 

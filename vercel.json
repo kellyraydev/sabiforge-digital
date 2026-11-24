@@ -1,0 +1,25 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    {
+      "source": "/services/website-care-maintenance",
+      "destination": "/services/website-redesign-modernization",
+      "statusCode": 301
+    },
+    {
+      "source": "/services/website-care-maintenance/",
+      "destination": "/services/website-redesign-modernization",
+      "statusCode": 301
+    },
+    {
+      "source": "/shopify",
+      "destination": "/services/shopify-ecommerce-development",
+      "statusCode": 301
+    },
+    {
+      "source": "/shopify/",
+      "destination": "/services/shopify-ecommerce-development",
+      "statusCode": 301
+    }
+  ]
+}

@@ -1,4 +1,6 @@
 ---
+import { locationLine } from '@/data/site';
+
 interface Props {
   direction: 'human-digital' | 'atelier';
 }
@@ -113,7 +115,7 @@ const intro = isHuman
               <span class="phone-bottom">Scroll to enter ↓</span>
             </div>
           </div>
-          <span class="coordinate coordinate-one meta">06°31'N / 03°22'E</span>
+          <span class="coordinate coordinate-one meta">{locationLine.split(' · ')[0]}</span>
           <span class="coordinate coordinate-two meta">S / 30°</span>
         </div>
       ) : (

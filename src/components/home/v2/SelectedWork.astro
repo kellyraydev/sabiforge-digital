@@ -1,0 +1,75 @@
+---
+import Button from '@/components/ui/Button.astro';
+import ImageSlot from '@/components/ui/ImageSlot.astro';
+import SectionHeading from './SectionHeading.astro';
+import { concepts } from '@/data/concepts';
+
+// Client work first, then concepts in register order.
+const ordered = [...concepts].sort(
+  (a, b) => Number(b.basis === 'client') - Number(a.basis === 'client'),
+);
+import { conceptThumb } from '@/data/concept-media';
+---
+
+<section id="work" aria-labelledby="work-title" class="bg-[#000417] py-12 lg:py-16">
+  <div class="container-page">
+    <div class="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+      <SectionHeading
+        id="work-title"
+        eyebrow="Selected work"
+        title="Projects by SabiForge Digital"
+      />
+      <div class="flex flex-col gap-4 sm:flex-row sm:items-center lg:max-w-xl">
+        <p class="text-sm text-ivory-100/70">
+          One client project, shown with the owner’s permission, and nine concepts we designed to
+          show what we can do. Seven concepts invent a brand; two are uncommissioned concepts based
+          on existing businesses.
+        </p>
+        <Button href="/work" variant="secondary" icon="arrow-right" class="shrink-0">
+          View all work
+        </Button>
+      </div>
+    </div>
+    <ul class="mt-10 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
+      {ordered.map((concept) => (
+        <li class="group relative overflow-hidden rounded-xl border border-ivory-100/10 bg-midnight-800/60 transition hover:border-coral-400/40">
+          <div class="relative">
+            <ImageSlot
+              slot={`concept-${concept.id}`}
+              image={conceptThumb(concept.id)}
+              alt={concept.alt.cover}
+              ratio="4 / 3"
+              sizes="(min-width: 1024px) 19vw, (min-width: 768px) 30vw, 45vw"
+            />
+            <span
+              class:list={[
+                'absolute bottom-2 left-2 rounded-full px-2.5 py-0.5 text-[0.7rem] font-semibold',
+                concept.basis === 'client'
+                  ? 'bg-mint-300 text-midnight-950'
+                  : 'bg-coral-600 text-white',
+              ]}
+            >
+              {concept.label}
+            </span>
+          </div>
+          <div class="p-3.5">
+            <h3 class="font-display text-sm font-semibold text-ivory-50">
+              <a
+                href={`/work#${concept.id}`}
+                class="rounded-sm after:absolute after:inset-0 group-hover:text-coral-300"
+              >
+                {concept.name}
+              </a>
+            </h3>
+            <p class="mt-0.5 text-xs text-ivory-100/65">{concept.category}</p>
+            {concept.basis === 'reference' && (
+              <p class="mt-1 text-[0.7rem] text-mint-300/90">
+                Uncommissioned, based on an existing business
+              </p>
+            )}
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

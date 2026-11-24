@@ -1,0 +1,39 @@
+---
+/**
+ * Compact dual call to action for the middle of long pages: start a project, or message on
+ * WhatsApp. Pages still end with CtaPanel or the footer band.
+ */
+import Button from '@/components/ui/Button.astro';
+import { startProjectHref, whatsappLink } from '@/data/site';
+
+interface Props {
+  lead: string;
+  whatsappMessage?: string;
+  class?: string;
+}
+const { lead, whatsappMessage, class: className } = Astro.props;
+---
+
+<div
+  class:list={[
+    'flex flex-col gap-4 rounded-2xl border border-ivory-100/10 bg-midnight-900/60 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6',
+    className,
+  ]}
+  data-cta-pair
+>
+  <p class="font-display text-lg font-semibold text-ivory-50">{lead}</p>
+  <div class="flex flex-col gap-3 sm:flex-row sm:shrink-0">
+    <Button href={startProjectHref} icon="arrow-right">
+      Start your project
+    </Button>
+    <Button
+      href={whatsappLink(whatsappMessage)}
+      variant="secondary"
+      icon="whatsapp"
+      iconPosition="start"
+      external
+    >
+      WhatsApp
+    </Button>
+  </div>
+</div>

@@ -2,71 +2,104 @@
 import LogoMark from '@/components/ui/LogoMark.astro';
 import Logo from '@/components/ui/Logo.astro';
 import Icon from '@/components/ui/Icon.astro';
-import HexLines from '@/components/ui/HexLines.astro';
-import { navigation, site, whatsappLink, mailtoLink, startProjectHref } from '@/data/site';
-import { serviceFamilies, servicesInFamily, serviceHref } from '@/data/services';
+import Button from '@/components/ui/Button.astro';
+import {
+  navigation,
+  site,
+  whatsappLink,
+  mailtoLink,
+  startProjectHref,
+  locationLine,
+} from '@/data/site';
+import { approvedServices, serviceHref } from '@/data/services';
 
 interface Props {
   showCta?: boolean;
 }
 const { showCta = true } = Astro.props;
 const year = new Date().getFullYear();
+
+const quickLinks = navigation.filter((item) =>
+  ['/', '/services', '/work', '/pricing', '/about'].includes(item.href),
+);
+const resources = [
+  { label: 'Our Process', href: '/process' },
+  { label: 'FAQs', href: '/pricing#faq-title' },
+  { label: 'Contact', href: '/contact' },
+];
+const linkClass = 'rounded-sm text-ivory-100/75 transition hover:text-ivory-50';
 ---
 
-<footer class="relative isolate overflow-hidden border-t border-ivory-100/10 bg-midnight-950">
-  <HexLines class="absolute -top-40 -right-40 -z-10 size-[44rem] text-mint-300/[0.07]" rings={7} />
+<footer class="relative isolate overflow-hidden bg-midnight-950">
+  <div
+    class="pointer-events-none absolute inset-x-0 top-0 -z-10 h-80 bg-[radial-gradient(50%_70%_at_20%_0%,rgb(124_58_237/0.16),transparent),radial-gradient(40%_60%_at_85%_0%,rgb(46_230_196/0.08),transparent)]"
+    aria-hidden="true"
+  ></div>
 
-  <div class="container-page pt-20 pb-10 lg:pt-28">
+  <div class="container-page pt-16 pb-10 lg:pt-20">
     {showCta && (
-      <div class="grid gap-10 lg:grid-cols-[1.4fr_1fr] lg:items-end">
-        <p class="font-display text-display-md font-semibold text-ivory-50">
-          Built for business. <em class="text-mint-300">Ready</em> for what’s next.
-        </p>
-        <div class="flex flex-col gap-3 sm:flex-row lg:justify-end">
-          <a
-            href={startProjectHref}
-            class="group inline-flex min-h-13 items-center justify-center gap-2 rounded-full bg-coral-500 px-7 font-semibold text-midnight-950 transition hover:bg-coral-400"
-          >
-            Start a project
-            <Icon name="arrow-up-right" class="size-5 transition group-hover:translate-x-0.5" />
-          </a>
-          <a
-            href={whatsappLink()}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex min-h-13 items-center justify-center gap-2 rounded-full border border-ivory-100/25 px-7 font-semibold text-ivory-50 transition hover:border-mint-300"
-          >
-            <Icon name="whatsapp" class="size-5" /> WhatsApp
-            <span class="sr-only">(opens in a new tab)</span>
-          </a>
+      <section
+        aria-labelledby="footer-cta-title"
+        class="relative overflow-hidden rounded-[1.75rem] border border-coral-400/25 bg-[linear-gradient(110deg,rgb(124_58_237/0.32),rgb(23_29_69/0.9)_45%,rgb(46_230_196/0.14))] px-6 py-10 sm:px-10 lg:flex lg:items-center lg:justify-between lg:gap-10 lg:px-14"
+      >
+        <div class="flex items-start gap-5">
+          <span class="hidden size-14 shrink-0 items-center justify-center rounded-2xl border border-ivory-100/15 bg-midnight-900/60 text-coral-300 sm:flex">
+            <Icon name="arrow-up-right" class="size-7" />
+          </span>
+          <div>
+            <h2
+              id="footer-cta-title"
+              class="font-display text-display-sm font-semibold text-ivory-50"
+            >
+              Ready to build your next project?
+            </h2>
+            <p class="mt-2 max-w-xl text-ivory-100/75">
+              Let’s create a website or software solution that moves your business forward.
+            </p>
+          </div>
         </div>
-      </div>
+        <div class="mt-8 flex flex-col gap-3 sm:flex-row lg:mt-0 lg:shrink-0">
+          <Button href={startProjectHref} size="lg" icon="arrow-right">
+            Start your project
+          </Button>
+          <Button
+            href={whatsappLink()}
+            variant="secondary"
+            size="lg"
+            icon="chat"
+            iconPosition="start"
+            external
+          >
+            Talk to us
+          </Button>
+        </div>
+      </section>
     )}
 
     <div
       class:list={[
-        'grid gap-12 sm:grid-cols-2 lg:grid-cols-[1.3fr_repeat(5,1fr)]',
-        showCta && 'mt-16 border-t border-ivory-100/10 pt-12',
+        'grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-[1.5fr_1fr_1.2fr_1fr_1.4fr]',
+        showCta ? 'mt-16' : 'mt-0',
       ]}
     >
-      <div class="sm:col-span-2 lg:col-span-1">
+      <div class="col-span-2 lg:col-span-1">
         <a href="/" class="inline-block rounded-md">
           <Logo />
           <span class="sr-only">, home</span>
         </a>
-        <p class="mt-6 max-w-xs text-sm leading-relaxed text-ivory-100/70">
-          A design and development studio for businesses in {site.market}, at every stage of growth.
+        <p class="mt-5 max-w-xs text-sm leading-relaxed text-ivory-100/70">
+          Websites, online stores and custom software for businesses that want to grow.
         </p>
       </div>
 
-      <nav aria-labelledby="footer-studio">
-        <h2 id="footer-studio" class="meta text-mint-300">
-          Studio
+      <nav aria-labelledby="footer-quick" class="lg:order-1">
+        <h2 id="footer-quick" class="font-display text-base font-semibold text-ivory-50">
+          Quick links
         </h2>
-        <ul class="mt-5 space-y-3 text-sm">
-          {navigation.map((item) => (
+        <ul class="mt-4 space-y-2.5 text-sm">
+          {quickLinks.map((item) => (
             <li>
-              <a class="text-ivory-100/75 transition hover:text-ivory-50" href={item.href}>
+              <a class={linkClass} href={item.href}>
                 {item.label}
               </a>
             </li>
@@ -74,81 +107,95 @@ const year = new Date().getFullYear();
         </ul>
       </nav>
 
-      {serviceFamilies.map((family) => (
-        <nav aria-labelledby={`footer-${family.id}`}>
-          <h2 id={`footer-${family.id}`} class="meta text-mint-300">
-            {family.name}
-          </h2>
-          <ul class="mt-5 space-y-3 text-sm">
-            {servicesInFamily(family.id).map((service) => (
-              <li>
-                <a
-                  class="text-ivory-100/75 transition hover:text-ivory-50"
-                  href={serviceHref(service.slug)}
-                >
-                  {service.shortName}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      ))}
-
-      <div>
-        <h2 class="meta text-mint-300">Contact</h2>
-        <ul class="mt-5 space-y-3 text-sm">
-          <li>
-            <a
-              class="text-ivory-100/75 transition hover:text-ivory-50"
-              href={site.contact.phoneHref}
-            >
-              {site.contact.whatsappDisplay}
-            </a>
-          </li>
-          <li>
-            <a
-              class="break-all text-ivory-100/75 transition hover:text-ivory-50"
-              href={mailtoLink()}
-            >
-              {site.contact.email}
-            </a>
-          </li>
-          {site.social.map((profile) => (
+      <nav aria-labelledby="footer-resources" class="lg:order-3">
+        <h2 id="footer-resources" class="font-display text-base font-semibold text-ivory-50">
+          Resources
+        </h2>
+        <ul class="mt-4 space-y-2.5 text-sm">
+          {resources.map((item) => (
             <li>
-              <a
-                class="text-ivory-100/75 hover:text-ivory-50"
-                href={profile.href}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                {profile.label}
+              <a class={linkClass} href={item.href}>
+                {item.label}
               </a>
             </li>
           ))}
         </ul>
-        <p class="mt-6 text-xs leading-relaxed text-ivory-100/60">
-          Working with businesses across Nigeria, remotely and on WhatsApp.
-        </p>
+      </nav>
+
+      <nav aria-labelledby="footer-services" class="col-span-2 sm:col-span-1 lg:order-2">
+        <h2 id="footer-services" class="font-display text-base font-semibold text-ivory-50">
+          Services
+        </h2>
+        <ul class="mt-4 space-y-2.5 text-sm">
+          {approvedServices.map((service) => (
+            <li>
+              <a class={linkClass} href={serviceHref(service.slug)}>
+                {service.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      <div class="col-span-2 sm:col-span-1 lg:order-4">
+        <h2 class="font-display text-base font-semibold text-ivory-50">Get in touch</h2>
+        <ul class="mt-4 space-y-3 text-sm">
+          <li>
+            <a class:list={[linkClass, 'flex items-center gap-2.5 break-all']} href={mailtoLink()}>
+              <Icon name="mail" class="size-4 shrink-0 text-mint-300" />
+              {site.contact.email}
+            </a>
+          </li>
+          <li>
+            <a
+              class:list={[linkClass, 'flex items-center gap-2.5']}
+              href={whatsappLink()}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Icon name="whatsapp" class="size-4 shrink-0 text-mint-300" />
+              {site.contact.whatsappDisplay}
+              <span class="sr-only">(WhatsApp, opens in a new tab)</span>
+            </a>
+          </li>
+          <li>
+            <a class:list={[linkClass, 'flex items-center gap-2.5']} href={site.contact.phoneHref}>
+              <Icon name="phone" class="size-4 shrink-0 text-mint-300" />
+              Call {site.contact.whatsappDisplay}
+            </a>
+          </li>
+          <li class="flex items-center gap-2.5 text-ivory-100/75">
+            <Icon name="map" class="size-4 shrink-0 text-mint-300" />
+            {locationLine}
+          </li>
+          {site.social.map((profile) => (
+            <li>
+              <a class={linkClass} href={profile.href} rel="noopener noreferrer" target="_blank">
+                {profile.label}
+                <span class="sr-only">(opens in a new tab)</span>
+              </a>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
 
-    <div class="mt-16 flex flex-col gap-4 border-t border-ivory-100/10 pt-6 text-xs text-ivory-100/60 sm:flex-row sm:items-center sm:justify-between">
+    <div class="mt-14 flex flex-col gap-4 border-t border-ivory-100/10 pt-6 text-xs text-ivory-100/60 sm:flex-row sm:items-center sm:justify-between">
       <p class="flex items-center gap-3">
         <LogoMark class="h-5 w-auto" />
-        &copy; {year} {site.name}
+        {`© ${year} ${site.name}. All rights reserved.`}
       </p>
-      <p>Prices in Nigerian naira. Third-party costs are quoted separately.</p>
-      <p class="flex gap-4">
+      <p class="flex flex-wrap gap-x-5 gap-y-2">
         <a href="/privacy" class="rounded-sm hover:text-ivory-50">
-          Privacy (draft)
+          Privacy Policy (draft)
         </a>
         <a href="/terms" class="rounded-sm hover:text-ivory-50">
-          Terms (draft)
+          Terms of Service (draft)
+        </a>
+        <a href="#main" class="inline-flex items-center gap-1.5 rounded-sm hover:text-ivory-50">
+          Back to top <Icon name="arrow-up-right" class="size-3.5 -rotate-45" />
         </a>
       </p>
-      <a href="#main" class="inline-flex items-center gap-1.5 rounded-sm hover:text-ivory-50">
-        Back to top <Icon name="arrow-up-right" class="size-3.5 -rotate-45" />
-      </a>
     </div>
   </div>
 </footer>

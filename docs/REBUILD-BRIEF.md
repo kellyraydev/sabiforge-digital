@@ -4,6 +4,14 @@ Status: **APPROVED DESIGN DIRECTION (owner, 20 November 2026). This is not deplo
 
 Source: two owner-supplied reference images in `docs/references/` (commit them with the owner's next local push if not yet present).
 
+## Latest owner supersession — 21 November 2026 (ten-project portfolio)
+
+This later approval **supersedes** the earlier six-homepage-concept / four-retained-`/work` decisions recorded below, including prior planned commit orders. Historical records below are preserved as prior decisions, **not current implementation requirements**. The active homepage and `/work` register on this branch is the ten-concept set. It is not approved for merge or production until the owner reviews it.
+
+Use the single ten-project register `docs/portfolio/ten-concepts/project-register.json` for both homepage and `/work`. Exact IDs/names/categories appear there. All ten are visibly **Concept Project**, never real clients. The four old `/work` studies (Àdùn Table, Kòrà Home, Mend Physio Studio, Tallyhouse) are to be removed from active pages and replaced; no accents/diacritics in NEW concept names. Maison Vale Studios replaces Maison Valé Studios for display. Big Beerah Collection is modest fashion and accessories (hijabs, abayas, scarves, fabric and jewelry), **not beverages**. Amzlat World of Beauty is beauty/cosmetics/fashion; Opeyemi Phones & Gadgets is electronics / Buy-Sell-Swap. Owner-supplied images for the last three are source visual references only, not proof of permission to publish contacts, trademarks or claims.
+
+The implementation must deliver distinct photo-based portfolio covers, accurate coded concept interfaces, accessible detail studies, provenance, visual/image QA and responsive testing. See `docs/portfolio/ten-concepts/CURSOR-NEW-TASK.md` and `ASSET-PLAN.md`. Do not claim these are done based on this spec.
+
 ## Visual references and authority
 
 - `docs/references/homepage-target.jpeg` — primary visual reference for the public homepage, section rhythm, treatment and hierarchy.
@@ -21,6 +29,36 @@ Recorded 20 November 2026:
 5. Contact details in `src/data/site.ts` remain authoritative; the reference images' email and phone are historical.
 6. `FOUNDING_CLIENT_SLOTS = 5` approved; founding-offer copy states five founding client slots; discount rules unchanged.
 7. Homepage headline approved: "More than a website. Built for your business to grow."
+
+Recorded 21 November 2026 (owner answers in the Claude session; see `docs/SITE-AUDIT-2026-11-21.md`):
+
+8. The live site at `sabiforge-digital.vercel.app` is hidden from search until v2 launches. Vercel production `SITE_ENV` is set to `staging`; restore `production` at launch.
+9. Service URLs: keep `/services/custom-website-design-development` (Business Websites), `/services/shopify-ecommerce-development` (Online Stores) and `/services/website-redesign-modernization` (Website Redesign and Ongoing Support). Add `/services/custom-software-and-business-platforms`. Redirect `/services/website-care-maintenance` to the redesign page with a 301.
+10. `/shopify` is folded into Online Stores and redirects with a 301 to `/services/shopify-ecommerce-development`.
+11. The pricing page stays at `/pricing`. The navigation label may read "Packages".
+12. Headline package inclusions are approved as shown in `docs/references/homepage-target.jpeg`:
+    - Starter: up to 5 pages; mobile-friendly design; contact and WhatsApp enquiry; basic SEO setup.
+    - Business: custom page designs; services and portfolio sections; content management (CMS); analytics setup.
+    - Online Store: product and category pages; shopping cart and checkout; payment integration; order management.
+    - Custom Software: portals and dashboards; booking or management systems; workflow automation; integrations and ongoing support.
+    - Anything beyond these stays "Agreed in your proposal".
+13. PR #13's catalogue migration is merged into the v2 foundation line, with the URL decisions above applied on top.
+14. Homepage copy (audience strip, "Why SabiForge", footer location line): the owner delegated drafting ("rebuild it the best way"). Use the reference copy as the starting point, without claims of past clients or results. The final wording needs owner sign-off in the PR before merge.
+
+Recorded 22 November 2026:
+
+15. Homepage headline changed to "Your business deserves more than just a website.", with "just a website." as the gradient accent. This replaces item 7. The lede is unchanged.
+16. The homepage hero is rebuilt to `docs/references/hero-target-v2.jpeg`, chosen by the owner over a second supplied image. Copy and buttons are real HTML. Only the laptop-and-phone scene is an image (`src/assets/hero/v2-devices.png`), cut from the reference with the overlapping headline text removed. It is labelled "Concept mockup, not client work". Its dashboard figures and fictional brands ("BizFlow", AURA) are illustrative only.
+17. Big Beerah Collection, Amzlat World of Beauty and Opeyemi Phones & Gadgets are existing businesses that have not been asked (Big Beerah: superseded by item 19). **Owner decision (22 November 2026): publish them now as clearly labelled uncommissioned concepts** ("Concept Project", plus "Uncommissioned, based on an existing business" on the homepage card and the reference-concept disclaimer on `/work`). No addresses, phone numbers, CAC numbers, prices or logos are copied. This supersedes the earlier hold-until-consent rule. If a business objects, remove its record.
+18. The homepage below the hero follows `docs/references/homepage-target.jpeg`: audience strip, four service cards, six fictional Concept Projects, "Why work with SabiForge?", four packages with approved prices and inclusions, and six process steps. The footer band is the closing call to action. The v1 homepage sections are removed. The "Where are you starting from?" enquiry picker moves to `/services` and is kept. Missing pictures use designed placeholders; prompts are in `docs/IMAGE-REQUESTS.md`.
+19. **Owner decision (22 November 2026): Big Beerah Collection is client work.** The owner confirmed that Big Beerah Collection is a SabiForge client and that the business owner agreed to be shown on the website, including its name, design, contact details, products and owner identity. It is labelled "Client Project" (`basis: 'client'`), listed first on the homepage, and named in the `/work` client-work section. This supersedes item 17 for Big Beerah only; Amzlat and Opeyemi remain uncommissioned concepts. **Pending from the owner:** the real logo, business contact channels, product photos and prices, and the owner's name or photo. Until they are supplied, nothing is invented: the study shows only the shop design and brand palette, and generated art-direction images stay labelled as generated. **Update, 22 November 2026:** the owner supplied desktop and mobile shop screens (logo, categories, products and naira prices); they replace the coded screens. Still pending: business contact channels, owner name or photo, whether the prices and star ratings shown are real, and whether bigbeerahcollection.com is live.
+20. **Owner decision (23 November 2026), delegated: “choose your recommended decision for my site.”** Applied as recommended:
+    - **Headline unchanged** (item 15). The hero lede now states the outcome: “Websites, online stores and custom software for Nigerian businesses, built to bring you more customers and save you time.”
+    - **Free first consultation**, on WhatsApp, a call or email.
+    - **Reply within one working day.**
+    - **Payment:** Starter, Business and Online Store 50% to start and 50% before launch; Custom Software in agreed milestones. Prices themselves are unchanged.
+    - **Legal pages stay labelled “(draft)”** until legal review.
+      These lines live in `promises` in `src/data/site.ts` and in `src/data/faq.ts`. Shown in the hero, the homepage packages, `/contact` and the `/pricing` FAQ.
 
 ## Overall art direction
 

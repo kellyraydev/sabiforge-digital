@@ -9,15 +9,19 @@ import { site, whatsappLink, mailtoLink } from '@/data/site';
 import EditorialSignal from '@/components/ui/EditorialSignal.astro';
 
 const serviceOptions = services.map((s) => ({ value: s.slug, label: s.name }));
-const packageOptions = [
-  ...packages.map((p) => ({ value: p.id, label: p.name })),
-  { value: 'partnership', label: 'Studio Partnership (custom)' },
-];
+const packageOptions = packages.map((p) => ({
+  value: p.id,
+  label: p.fromPrice ? `${p.name} (from)` : p.name,
+}));
 const expectations = [
-  { title: 'A personal reply', detail: 'From a person, with questions or suggested next steps.' },
+  {
+    title: 'A personal reply within one working day',
+    detail: 'From a person, with questions or suggested next steps.',
+  },
   {
     title: 'A short conversation',
-    detail: 'On WhatsApp, a call or by email — whichever suits you.',
+    detail:
+      'On WhatsApp, a call or by email — whichever suits you. The first consultation is free.',
   },
   {
     title: 'A written proposal',
@@ -38,7 +42,7 @@ const expectations = [
   >
     <p>
       First website or complex redesign, the brief is the same: a few details and a few sentences
-      about what you want to achieve. It takes about three minutes.
+      about what you want to achieve.
     </p>
     <div slot="visual">
       <EditorialSignal variant="contact" label="Editorial project brief visual" />
@@ -56,8 +60,8 @@ const expectations = [
           whatsappNumber={site.contact.whatsappNumber}
         />
         <noscript>
-          <p class="mt-4 rounded-xl bg-ivory-50 p-5 text-midnight-900">
-            The brief builder needs JavaScript. You can email us directly at
+          <p class="on-paper mt-4 rounded-xl bg-ivory-50 p-5 text-midnight-900">
+            The brief builder needs JavaScript. You can email us directly at{' '}
             <a class="font-semibold underline" href={mailtoLink()}>
               {site.contact.email}
             </a>

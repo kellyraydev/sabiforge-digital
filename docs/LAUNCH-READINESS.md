@@ -1,7 +1,7 @@
 # SabiForge Digital — authoritative launch-readiness register
 
-Last reviewed: 6 November 2026  
-Branch: `codex/sabiforge-premium-visuals` · PR #1 must remain draft  
+Last reviewed: 12 November 2026
+Repository state: Gate 5 scoped remediation in progress on a dedicated branch
 Release position: **not ready for public launch; conditionally ready for private staging after the
 named staging controls are configured.** Do not merge, deploy, change DNS or activate a provider
 without owner approval.
@@ -11,21 +11,21 @@ milestone documents remain useful implementation history, not current launch aut
 
 ## 1. Launch-readiness checklist
 
-| Area                          | Evidence now                                                                                                                              | Status                                | Owner / next action                                                                                                     |
-| ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| Visual and functional         | 21 public/draft routes plus two noindex hero studies; responsive captures and interaction tests exist                                     | Verify on final staging               | Owner reviews the private staging build; developer fixes only confirmed defects                                         |
-| Service offer                 | Four services confirmed; six are explicitly `pending` in `services.ts`                                                                    | **Launch blocker**                    | Owner decides each row in §2; pending does not mean approved                                                            |
-| Packages and commercial terms | Launch ₦120,000; Business ₦280,000; Online Catalog ₦500,000; Full E-commerce from ₦900,000. Calculations are unit-tested                  | Prices preserved; terms incomplete    | Owner/legal adviser decides revisions, payment, timing, support, refunds and IP                                         |
-| Founding offer                | 10% gives ₦108,000 / ₦252,000 / ₦450,000; Full E-commerce is ineligible                                                                   | **Launch blocker**                    | Decide 3 vs 5 places, end/eligibility conditions and any other restrictions                                             |
-| Privacy and legal             | Draft privacy and terms pages are visibly labelled, noindex and excluded from sitemap; 24 decisions are registered                        | **Launch blocker**                    | Resolve P1–P11 and T1–T13; obtain qualified Nigerian legal review                                                       |
-| Branding and provenance       | Palette is derived from approved flyer; CSS artwork is original; portrait provenance is recorded in `HERO-LAB.md`; no client/staff claims | Provisional                           | Supply original logo vector and approve licensed/commissioned replacement portrait or approve continued provisional use |
-| Domain and SEO                | Exact HTTPS origin validation, production preview-host rejection, sitemap exclusions and generated XML verification are prepared          | Staging origin proposed; not deployed | Approve hostnames; inspect the CI-produced production sitemap artifact/check and staging output                         |
-| Enquiry delivery              | Browser-only review step; email and WhatsApp links use verified constants; the website stores/transmits nothing itself                    | Functional, no delivery confirmation  | Decide whether to keep handoff or approve a provider plus retention policy                                              |
-| Cross-browser                 | Chromium and Firefox evidence exists; WebKit engine plus native Safari/device checks remain                                               | Pending final evidence                | Run the authenticated staging QA workflow on WebKit and complete the manual matrix in §5                                |
-| Performance                   | Prior local Lighthouse results are 100 on key pages after fixes; no field INP or real-network data exists                                 | Provisional                           | Re-run Lighthouse on staging and collect field data only after an approved privacy-safe plan                            |
-| Accessibility                 | Automated axe A/AA and scripted keyboard checks previously passed                                                                         | Manual verification required          | NVDA/Firefox, VoiceOver/Safari, zoom/reflow and voice/switch checks before public launch                                |
-| Credentials and third parties | Site has no client secrets/provider; authenticated Playwright workflow uses Cloudflare Access service-token secrets scoped to staging     | Ready for protected staging setup     | Store tokens as staging environment secrets; confirm all Pages hostnames are behind Access                              |
-| Rollback and operations       | Static build, immutable commit and host rollback are suitable                                                                             | Host not chosen                       | Adopt §7 runbook and record the last-known-good commit/deployment                                                       |
+| Area                          | Evidence now                                                                                                                                  | Status                               | Owner / next action                                                                                                     |
+| ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | ----------------------------------------------------------------------------------------------------------------------- |
+| Visual and functional         | 17 generated pages, including four approved service routes, two noindex hero studies and draft legal pages; responsive and interaction QA run | Verify on final staging              | Owner reviews the private staging build; developer fixes only confirmed defects                                         |
+| Service offer                 | Four approved services are public; six `pending` definitions are retained but excluded from public listings and generated routes              | Controlled scope                     | Keep pending definitions unpublished until individually approved                                                        |
+| Packages and commercial terms | Launch ₦120,000; Business ₦280,000; Online Catalog ₦500,000; Full E-commerce from ₦900,000. Calculations are unit-tested                      | Prices preserved; terms incomplete   | Owner/legal adviser decides revisions, payment, timing, support, refunds and IP                                         |
+| Founding offer                | 10% gives ₦108,000 / ₦252,000 / ₦450,000; Full E-commerce is ineligible                                                                       | **Launch blocker**                   | Decide 3 vs 5 places, end/eligibility conditions and any other restrictions                                             |
+| Privacy and legal             | Draft privacy and terms pages are visibly labelled, noindex and excluded from sitemap; 24 decisions are registered                            | **Launch blocker**                   | Resolve P1–P11 and T1–T13; obtain qualified Nigerian legal review                                                       |
+| Branding and provenance       | Palette is derived from approved flyer; CSS artwork is original; portrait provenance is recorded in `HERO-LAB.md`; no client/staff claims     | Provisional                          | Supply original logo vector and approve licensed/commissioned replacement portrait or approve continued provisional use |
+| Domain and SEO                | Production origin policy targets `https://sabiforge-digital.vercel.app`; staging remains non-indexable                                        | Hosting settings remain external     | Verify Vercel build variables separately; inspect generated production and staging output                               |
+| Enquiry delivery              | Browser-only review step; email and WhatsApp links use verified constants; the website stores/transmits nothing itself                        | Functional, no delivery confirmation | Decide whether to keep handoff or approve a provider plus retention policy                                              |
+| Cross-browser                 | Chromium and Firefox evidence exists; WebKit engine plus native Safari/device checks remain                                                   | Pending final evidence               | Run the authenticated staging QA workflow on WebKit and complete the manual matrix in §5                                |
+| Performance                   | Prior local Lighthouse results are 100 on key pages after fixes; no field INP or real-network data exists                                     | Provisional                          | Re-run Lighthouse on staging and collect field data only after an approved privacy-safe plan                            |
+| Accessibility                 | Automated axe A/AA and scripted keyboard checks previously passed                                                                             | Manual verification required         | NVDA/Firefox, VoiceOver/Safari, zoom/reflow and voice/switch checks before public launch                                |
+| Credentials and third parties | Site has no client secrets/provider; authenticated Playwright workflow uses Cloudflare Access service-token secrets scoped to staging         | Ready for protected staging setup    | Store tokens as staging environment secrets; confirm all Pages hostnames are behind Access                              |
+| Rollback and operations       | Static build, immutable commit and host rollback are suitable                                                                                 | Host not chosen                      | Adopt §7 runbook and record the last-known-good commit/deployment                                                       |
 
 ## 2. Pending service owner-approval table
 
@@ -184,17 +184,15 @@ purchase.
 
 ### URL and environment proposal
 
-- Proposed stable staging origin: `https://sabiforge-digital-staging.pages.dev` (already used in
-  `.env.example`). It is a proposal until the Pages project exists and its exact hostname is
-  confirmed. If an approved business domain is later selected, use a dedicated `staging.` origin.
+- Stable staging build origin: `https://sabiforge-digital-staging.pages.dev` (used by CI and
+  `.env.example`). Cloudflare account configuration is external to this repository.
 - Build staging with `SITE_ENV=staging` and `SITE_URL` equal to that exact HTTPS origin. The same
   origin must appear in canonical, Open Graph and sitemap URLs. The generated robots file disallows
   all crawlers; every page emits `noindex,nofollow`.
-- Keep production in a separate project and account environment. The production URL guard requires
-  an exact match to the current candidate `https://sabiforge.digital`, rejecting every other
-  staging, preview, internal or unapproved public origin. This candidate has not been validated as
-  an owned domain; after the owner approves a different domain, change the single allowlist value in
-  `astro.config.mjs` and the CI fixture together before building production.
+- The production URL guard requires the owner-approved origin
+  `https://sabiforge-digital.vercel.app` and rejects other origins. Every Astro build requires
+  explicit `SITE_ENV` and `SITE_URL`. This source configuration does not verify or change Vercel
+  project settings.
 - Do not expose any project secrets to build/browser code. This site currently needs no runtime
   secrets. Use Access service tokens only in GitHub Actions environment secrets, never in source,
   workflow logs, URLs or artifacts.

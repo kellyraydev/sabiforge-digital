@@ -1,0 +1,103 @@
+---
+import PackageFinderSection from '@/components/pricing/PackageFinderSection.astro';
+import { promises } from '@/data/site';
+import Icon from '@/components/ui/Icon.astro';
+import SectionHeading from './SectionHeading.astro';
+import { packages } from '@/data/packages';
+import { formatNaira, discountPercentLabel, foundingSlotsLabel } from '@/lib/pricing';
+
+const FEATURED = 'business';
+/** Short taglines from the reference (ledger 14 copy). */
+const taglines: Record<string, string> = {
+  starter: 'Get your business online.',
+  business: 'A stronger online presence.',
+  store: 'Start selling your products.',
+  custom: 'A tailored solution for your business.',
+};
+---
+
+<section id="packages" aria-labelledby="packages-title" class="bg-[#000417] py-12 lg:py-16">
+  <div class="container-page grid gap-10 xl:grid-cols-[0.75fr_2.25fr] xl:items-start">
+    <div>
+      <SectionHeading
+        id="packages-title"
+        eyebrow="Our packages"
+        title="Choose a plan that fits your needs"
+      />
+      <p class="mt-4 max-w-md text-ivory-100/70">
+        Flexible, straightforward packages for different business goals. Need something custom?
+        Let’s talk.
+      </p>
+      <p class="mt-5 max-w-md rounded-xl border border-mint-300/25 bg-mint-300/5 p-4 text-sm text-ivory-100/80">
+        Founding offer: {discountPercentLabel()} off Starter, Business and Online Store for our
+        first {foundingSlotsLabel()}.{' '}
+        <a
+          href="/pricing#founding-offer"
+          class="font-semibold text-mint-300 underline underline-offset-2 hover:text-mint-200"
+        >
+          See terms
+        </a>
+      </p>
+      <p class="mt-3 max-w-md text-sm text-ivory-100/70" data-payment-terms>
+        {promises.payment}. Custom Software is paid in agreed milestones.{' '}
+        <a
+          href="/pricing#faq"
+          class="font-semibold text-mint-300 underline underline-offset-2 hover:text-mint-200"
+        >
+          Payment and timeline questions
+        </a>
+      </p>
+    </div>
+    <ul class="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+      {packages.map((pkg) => {
+        const featured = pkg.id === FEATURED;
+        return (
+          <li
+            class:list={[
+              'relative flex flex-col rounded-2xl border p-6',
+              featured
+                ? 'border-coral-400/70 bg-midnight-700/70 shadow-[0_0_2.5rem_-0.75rem_rgb(124_58_237/0.7)]'
+                : 'border-ivory-100/10 bg-midnight-800/60',
+            ]}
+          >
+            <h3 class="font-display text-lg font-semibold text-ivory-50">{pkg.name}</h3>
+            <p class="mt-1 text-sm text-ivory-100/65">{taglines[pkg.id] ?? pkg.scope}</p>
+            <p class="mt-4 font-display text-2xl font-semibold text-ivory-50">
+              {pkg.price === null ? (
+                'Custom quote'
+              ) : (
+                <>
+                  {pkg.fromPrice && (
+                    <span class="text-sm font-normal text-ivory-100/65">From </span>
+                  )}
+                  {formatNaira(pkg.price)}
+                </>
+              )}
+            </p>
+            <ul class="mt-5 flex-1 space-y-2.5 text-sm text-ivory-100/80">
+              {pkg.typically.map((item) => (
+                <li class="flex gap-2.5">
+                  <Icon name="check" class="mt-0.5 size-4 shrink-0 text-mint-300" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <a
+              href={`/contact?package=${pkg.id}`}
+              class:list={[
+                'mt-6 inline-flex w-full items-center justify-center gap-2 whitespace-nowrap rounded-full px-4 py-2.5 text-sm font-semibold transition',
+                featured
+                  ? 'bg-coral-600 text-white hover:bg-coral-700'
+                  : 'border border-ivory-100/25 text-ivory-50 hover:border-ivory-100/60',
+              ]}
+            >
+              Start with {pkg.name}
+              <Icon name="arrow-right" class="size-4" />
+            </a>
+          </li>
+        );
+      })}
+    </ul>
+    <PackageFinderSection class="mt-14" />
+  </div>
+</section>

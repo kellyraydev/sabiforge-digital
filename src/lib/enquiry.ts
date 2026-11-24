@@ -8,6 +8,8 @@ export interface Enquiry {
   website: string;
   businessType: string;
   service: string;
+  /** Needs ticked in the checklist (ids from enquiryNeeds). */
+  needs: string[];
   package: string;
   platform: string;
   description: string;
@@ -52,6 +54,64 @@ type Labels = Partial<
   Record<'service' | 'package' | 'businessType' | 'budget' | 'timeline' | 'platform', string>
 >;
 
+/**
+ * "What do you need?" checklist. Each need is a visitor goal, grouped under the approved
+ * service that covers it. Ticking needs suggests that service if none is chosen yet.
+ */
+export const enquiryNeeds: {
+  service: string;
+  group: string;
+  items: { id: string; label: string }[];
+}[] = [
+  {
+    service: 'custom-website-design-development',
+    group: 'A website',
+    items: [
+      { id: 'show-services', label: 'Show my products or services' },
+      { id: 'get-enquiries', label: 'Get enquiries by WhatsApp or email' },
+      { id: 'look-credible', label: 'Look credible to new customers' },
+    ],
+  },
+  {
+    service: 'shopify-ecommerce-development',
+    group: 'An online store',
+    items: [
+      { id: 'sell-online', label: 'Sell products online' },
+      { id: 'manage-products', label: 'Manage products and orders myself' },
+    ],
+  },
+  {
+    service: 'custom-software-and-business-platforms',
+    group: 'Software for my business',
+    items: [
+      { id: 'bookings-records', label: 'Bookings, records or a dashboard for my team' },
+      { id: 'replace-manual', label: 'Replace spreadsheets or manual paperwork' },
+    ],
+  },
+  {
+    service: 'website-redesign-modernization',
+    group: 'My current website',
+    items: [
+      { id: 'redesign', label: 'Redesign or modernise my current site' },
+      { id: 'keep-updated', label: 'Help keeping the site updated after launch' },
+    ],
+  },
+];
+
+const needLabel = (id: string) =>
+  enquiryNeeds.flatMap((g) => g.items).find((item) => item.id === id)?.label;
+
+/** The service most of the ticked needs point to, or '' when none are ticked. */
+export function suggestedService(needs: string[]): string {
+  let best = '';
+  let bestCount = 0;
+  for (const group of enquiryNeeds) {
+    const count = group.items.filter((item) => needs.includes(item.id)).length;
+    if (count > bestCount) [best, bestCount] = [group.service, count];
+  }
+  return best;
+}
+
 /** Plain-text brief used for email, WhatsApp and clipboard. */
 export function composeBrief(data: Enquiry, labels: Labels = {}): string {
   const line = (label: string, value?: string) =>
@@ -73,6 +133,7 @@ export function composeBrief(data: Enquiry, labels: Labels = {}): string {
           : '',
     ),
     line('Service', labels.service),
+    line('Needs', data.needs.map(needLabel).filter(Boolean).join('; ')),
     line('Package', labels.package),
     line('Sells online via', labels.platform),
     line('Budget', labels.budget),

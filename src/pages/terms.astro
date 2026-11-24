@@ -4,6 +4,7 @@ import DecisionNote from '@/components/legal/DecisionNote.astro';
 import { packages } from '@/data/packages';
 import { services } from '@/data/services';
 import { site } from '@/data/site';
+import { discountPercentLabel, foundingSlotsLabel } from '@/lib/pricing';
 
 const naira = (n: number) => `₦${n.toLocaleString('en-NG')}`;
 const sections = [
@@ -57,7 +58,7 @@ const sections = [
       costs. It is approved before design begins.
     </li>
     <li>Designs are approved before development begins.</li>
-    <li>A private staging site is reviewed before launch.</li>
+    <li>A preview site is reviewed before launch.</li>
     <li>Launch is approved by the client, followed by a handover.</li>
   </ol>
   <DecisionNote id="T13" />
@@ -67,19 +68,20 @@ const sections = [
   <ul>
     {packages.map((p) => (
       <li>
-        <strong>{p.name}:</strong> {p.id === 'ecommerce' ? 'from ' : ''}
+        <strong>{p.name}:</strong> {p.fromPrice ? 'from ' : ''}
         {p.price === null ? 'a custom amount' : naira(p.price)} for {p.scope.toLowerCase()}.
       </li>
     ))}
   </ul>
   <p>
     Third-party costs, such as domains, hosting, platform subscriptions, paid themes and apps,
-    payment-gateway fees and licensed images or fonts, are quoted separately. Studio Partnership
-    work is always quoted individually.
+    payment-gateway fees and licensed images or fonts, are quoted separately. Custom Software is a
+    starting price, not a fixed quote.
   </p>
   <p>
-    A founding-client rate of 10% is shown for the Launch, Business and Online Catalog packages. It
-    does not apply to Full E-commerce. The number of founding places has not been decided.
+    A founding-client rate of {discountPercentLabel()} is shown for the Starter, Business and Online
+    Store packages. It does not apply to Custom Software. There are {foundingSlotsLabel()}. How long
+    the offer lasts, and any other conditions, are still confirmed in the written proposal.
   </p>
   <DecisionNote id="T12" />
   <DecisionNote id="T2" />
@@ -111,9 +113,11 @@ const sections = [
 
   <h2 id="concepts">8. Studio concepts</h2>
   <p>
-    The brands shown on the Work page (Àdùn Table, Kòrà Home, Mend Physio Studio and Tallyhouse) are
-    fictional concepts created by the studio. They are not client projects, and the prices, people,
-    invoices and health wording in them are invented for illustration.
+    Big Beerah Collection on the Work page is client work, shown with the owner’s permission. Seven
+    brands on the Work page are fictional concept projects. Amzlat World of Beauty and Opeyemi
+    Phones &amp; Gadgets are existing businesses; the pages shown for them are uncommissioned design
+    concepts, not official websites or client work. Sample tasks, devices and categories are for
+    illustration. No prices, warranties or contact details in those studies are offers.
   </p>
 
   <h2 id="liability">9. Liability, law and disputes</h2>

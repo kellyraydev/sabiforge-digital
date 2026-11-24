@@ -1,32 +1,36 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Hero from '@/components/home/Hero.astro';
-import CaseStudies from '@/components/home/CaseStudies';
-import Services from '@/components/home/Services.astro';
-import Approach from '@/components/home/Approach.astro';
-import Engagement from '@/components/home/Engagement.astro';
-import Closing from '@/components/home/Closing.astro';
-import ProjectCalculator from '@/components/home/ProjectCalculator';
+import AudienceStrip from '@/components/home/v2/AudienceStrip.astro';
+import ServiceCards from '@/components/home/v2/ServiceCards.astro';
+import SelectedWork from '@/components/home/v2/SelectedWork.astro';
+import WhySabiForge from '@/components/home/v2/WhySabiForge.astro';
+import PackagesPreview from '@/components/home/v2/PackagesPreview.astro';
+import ProcessSteps from '@/components/home/v2/ProcessSteps.astro';
+import CtaPair from '@/components/ui/CtaPair.astro';
 ---
 
-<BaseLayout description="SabiForge Digital is a design and development studio in Nigeria creating distinctive websites, online stores and digital experiences for businesses at every stage.">
+<!--
+  v2 homepage in the order of docs/references/homepage-target.jpeg. The closing call to
+  action is the footer's "Ready to build your next project?" band.
+-->
+<BaseLayout
+  title="Websites, online stores and software for Nigerian businesses"
+  description="SabiForge Digital builds professional websites, online stores and custom software that help Nigerian businesses reach more customers, work smarter and grow."
+>
   <Hero />
-  <div class="ticker" aria-label="Capabilities">
-    <div class="ticker-track">
-      <span>
-        STRATEGY • DESIGN • BUILD • OPTIMIZATION • SHOPIFY • NEXT.JS • TAILWIND • STRATEGY • DESIGN
-        • BUILD • OPTIMIZATION • SHOPIFY • NEXT.JS • TAILWIND •
-      </span>
-      <span aria-hidden="true">
-        STRATEGY • DESIGN • BUILD • OPTIMIZATION • SHOPIFY • NEXT.JS • TAILWIND • STRATEGY • DESIGN
-        • BUILD • OPTIMIZATION • SHOPIFY • NEXT.JS • TAILWIND •
-      </span>
+  <AudienceStrip />
+  <ServiceCards />
+  <SelectedWork />
+  <div class="bg-[#000417] pb-4">
+    <div class="container-page">
+      <CtaPair
+        lead="Want something like this for your business?"
+        whatsappMessage="Hello SabiForge Digital, I saw your concept projects and I'd like to discuss a project."
+      />
     </div>
   </div>
-  <CaseStudies client:load />
-  <Services />
-  <ProjectCalculator client:load />
-  <Approach />
-  <Engagement />
-  <Closing />
+  <WhySabiForge />
+  <PackagesPreview />
+  <ProcessSteps />
 </BaseLayout>

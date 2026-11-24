@@ -1,5 +1,12 @@
 import { describe, expect, it } from 'vitest';
-import { composeBrief, validateEnquiry, type Enquiry } from '../src/lib/enquiry';
+import {
+  composeBrief,
+  enquiryNeeds,
+  suggestedService,
+  validateEnquiry,
+  type Enquiry,
+} from '../src/lib/enquiry';
+import { approvedServices } from '../src/data/services';
 
 const valid: Enquiry = {
   name: 'Ada Obi',
@@ -10,6 +17,7 @@ const valid: Enquiry = {
   website: 'adaandco.ng',
   businessType: 'small-business',
   service: 'custom-website-design-development',
+  needs: [],
   package: 'business',
   platform: '',
   description: 'We need a website that explains our tailoring services and takes enquiries.',
@@ -64,5 +72,28 @@ describe('composeBrief', () => {
     expect(brief).toContain('Budget: ₦150,000 – ₦300,000');
     expect(brief).not.toContain('Sells online via');
     expect(brief).not.toContain('References');
+  });
+});
+
+describe('needs checklist', () => {
+  it('groups needs only under approved services, with unique ids', () => {
+    const slugs = approvedServices.map((service) => service.slug);
+    for (const group of enquiryNeeds) expect(slugs).toContain(group.service);
+    const ids = enquiryNeeds.flatMap((group) => group.items.map((item) => item.id));
+    expect(new Set(ids).size).toBe(ids.length);
+  });
+
+  it('suggests the service most needs point to', () => {
+    expect(suggestedService([])).toBe('');
+    expect(suggestedService(['sell-online'])).toBe('shopify-ecommerce-development');
+    expect(suggestedService(['redesign', 'keep-updated', 'show-services'])).toBe(
+      'website-redesign-modernization',
+    );
+  });
+
+  it('lists ticked needs in the brief', () => {
+    const brief = composeBrief({ ...valid, needs: ['sell-online', 'get-enquiries'] });
+    expect(brief).toContain('Needs: Sell products online; Get enquiries by WhatsApp or email');
+    expect(composeBrief(valid)).not.toContain('Needs:');
   });
 });

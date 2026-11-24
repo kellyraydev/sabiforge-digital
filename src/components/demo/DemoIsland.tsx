@@ -1,0 +1,44 @@
+import { lazy, Suspense, useEffect, type ComponentType, type LazyExoticComponent } from 'react';
+
+/**
+ * One island for every concept demo. Each demo is code-split with React.lazy, so a demo's
+ * JavaScript loads only on its own /work/<slug>/demo page. T1-T10 add one line each.
+ */
+const registry: Record<string, LazyExoticComponent<ComponentType>> = {
+  'aura-clothing': lazy(() => import('./demos/AuraClothingDemo')),
+  'bloom-wellness-studio': lazy(() => import('./demos/BloomBookingDemo')),
+  'flowdesk-os': lazy(() => import('./demos/FlowDeskDemo')),
+  'routepilot-logistics': lazy(() => import('./demos/RoutePilotDemo')),
+  'campusone-portal': lazy(() => import('./demos/CampusOneDemo')),
+  'maison-vale-studios': lazy(() => import('./demos/MaisonValeDemo')),
+  'amzlat-world-of-beauty': lazy(() => import('./demos/AmzlatDemo')),
+  'opeyemi-phones-gadgets': lazy(() => import('./demos/OpeyemiDemo')),
+  'corporate-digital-modernization': lazy(() => import('./demos/CorporateRedesignDemo')),
+};
+
+export default function DemoIsland({ slug }: { slug: string }) {
+  const Demo = registry[slug];
+  if (!Demo) return <p role="alert">This demo is not available yet.</p>;
+  return (
+    <Suspense
+      fallback={
+        <p className="p-8 text-center text-sm opacity-70" aria-live="polite">
+          Loading the demo…
+        </p>
+      }
+    >
+      <Demo />
+      <Loaded />
+    </Suspense>
+  );
+}
+
+/** Once the demo has rendered, release the height reserved against layout shift. */
+function Loaded() {
+  useEffect(() => {
+    document.querySelector('.demo-stage')?.classList.add('is-loaded');
+  }, []);
+  return null;
+}
+
+export const demoSlugs = Object.keys(registry);

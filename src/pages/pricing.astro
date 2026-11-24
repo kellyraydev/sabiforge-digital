@@ -1,4 +1,5 @@
 ---
+import PackageFinderSection from '@/components/pricing/PackageFinderSection.astro';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/page/PageHero.astro';
 import CtaPanel from '@/components/page/CtaPanel.astro';
@@ -66,8 +67,9 @@ const faqLd = {
 ---
 
 <BaseLayout
+  footerCta={false}
   title="Pricing"
-  description="Website packages from ₦120,000. Compare Launch, Business, Online Catalog and Full E-commerce, see what’s included and what is quoted separately."
+  description="Packages: Starter ₦150,000, Business ₦350,000, Online Store ₦750,000, and Custom Software from ₦1,500,000. Custom Software is a starting price, not a fixed quote."
   structuredData={[faqLd]}
 >
   <PageHero
@@ -92,22 +94,28 @@ const faqLd = {
       </h2>
       <PricingExplorer client:load cards={cards} discountLabel={discountPercentLabel()} />
 
-      <div class="chamfer mt-6 grid gap-6 rounded-[var(--radius-card)] bg-mint-300 p-7 text-midnight-900 sm:p-9 lg:grid-cols-[1fr_auto] lg:items-center">
+      <div class="mt-6 grid gap-6 rounded-[var(--radius-card)] border border-coral-400/30 bg-[linear-gradient(110deg,rgb(124_58_237/0.25),rgb(23_29_69/0.85)_55%,rgb(46_230_196/0.12))] p-7 text-ivory-100 sm:p-9 lg:grid-cols-[1fr_auto] lg:items-center">
         <div>
-          <p class="meta text-midnight-800">Studio Partnership</p>
-          <h3 class="mt-2 font-display text-3xl font-semibold">Custom quote</h3>
-          <p class="mt-2 max-w-2xl text-midnight-900/80">
-            For tailored strategy, brand and design work, complex builds, integrations or ongoing
-            engagements. Scoped after a discovery conversation.
+          <p class="meta text-mint-300">Custom Software</p>
+          <h3 class="mt-2 font-display text-3xl font-semibold text-ivory-50">From ₦1,500,000</h3>
+          <p class="mt-2 max-w-2xl text-ivory-100/75">
+            Custom software and business platforms. This is a starting price, never a fixed quote.
+            The final figure follows a discovery conversation.
           </p>
         </div>
         <a
-          href="/contact?package=partnership"
-          class="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-midnight-900 px-6 font-semibold text-ivory-50 transition hover:bg-midnight-700"
+          href="/contact?package=custom"
+          class="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-coral-600 px-6 font-semibold text-white transition hover:bg-coral-700"
         >
           Discuss a custom project <Icon name="arrow-up-right" class="size-5" />
         </a>
       </div>
+    </div>
+  </section>
+
+  <section id="finder" aria-label="Package finder" class="scroll-mt-24 pb-20 lg:pb-28">
+    <div class="container-page">
+      <PackageFinderSection />
     </div>
   </section>
 
@@ -284,16 +292,17 @@ const faqLd = {
       <ul class="space-y-3 text-ivory-100/80" data-reveal>
         <li class="flex gap-3">
           <Icon name="check" class="mt-1 size-4 shrink-0 text-mint-300" strokeWidth={2.5} />
-          Applies to the Launch, Business and Online Catalog packages.
+          Applies to the Starter, Business and Online Store packages.
         </li>
         <li class="flex gap-3">
           <Icon name="check" class="mt-1 size-4 shrink-0 text-mint-300" strokeWidth={2.5} />
-          Full E-commerce, custom projects and third-party costs are not discounted.
+          Custom Software is a starting price and is not discounted. Third-party costs are not
+          discounted.
         </li>
         <li class="flex gap-3">
           <Icon name="check" class="mt-1 size-4 shrink-0 text-mint-300" strokeWidth={2.5} />
-          Available to a limited number of early clients; eligibility is confirmed in writing in
-          your proposal.
+          Available for {foundingSlotsLabel()}. Eligibility is confirmed in writing in your
+          proposal.
         </li>
         <li class="flex gap-3">
           <Icon name="check" class="mt-1 size-4 shrink-0 text-mint-300" strokeWidth={2.5} />
@@ -303,7 +312,11 @@ const faqLd = {
     </div>
   </section>
 
-  <section aria-labelledby="faq-title" class="border-t border-ivory-100/10 py-20 lg:py-28">
+  <section
+    id="faq"
+    aria-labelledby="faq-title"
+    class="scroll-mt-24 border-t border-ivory-100/10 py-20 lg:py-28"
+  >
     <div class="container-page grid gap-10 lg:grid-cols-[minmax(0,24rem)_1fr] lg:gap-20">
       <div data-reveal>
         <p class="meta text-mint-300">Questions</p>
@@ -328,7 +341,7 @@ const faqLd = {
   <CtaPanel
     title="Have a project that doesn’t fit a <em>package</em>?"
     body="Tell us what you need. We’ll scope it properly and give you a clear, written quote."
-    primaryHref="/contact?package=partnership"
+    primaryHref="/contact?package=custom"
     primaryLabel="Request a custom quote"
   />
 </BaseLayout>

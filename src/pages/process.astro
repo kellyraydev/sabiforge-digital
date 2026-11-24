@@ -19,6 +19,7 @@ const n = (i: number) => String(i + 1).padStart(2, '0');
 ---
 
 <BaseLayout
+  footerCta={false}
   title="Process: how a project works"
   description="SabiForge Digital’s six-stage project process: what happens in discovery, strategy, design, development, refinement and launch, what you provide, what you receive and where you approve."
   progress
@@ -26,7 +27,7 @@ const n = (i: number) => String(i + 1).padStart(2, '0');
   <!-- Hero -->
   <section class="relative isolate overflow-hidden pt-32 pb-16 lg:pt-44 lg:pb-24">
     <div
-      class="absolute inset-0 -z-20 bg-[radial-gradient(60%_70%_at_85%_10%,rgb(18_78_71/0.5),transparent)]"
+      class="absolute inset-0 -z-20 bg-[radial-gradient(60%_70%_at_85%_10%,rgb(91_33_182/0.5),transparent)]"
       aria-hidden="true"
     ></div>
     <HexLines class="absolute -top-24 -right-40 -z-10 size-[40rem] text-mint-300/10" rings={7} />
@@ -253,7 +254,7 @@ const n = (i: number) => String(i + 1).padStart(2, '0');
             {[
               [
                 'Review on your own devices',
-                'Open the staging link on your phone and your computer, the way your customers will.',
+                'Open the preview link on your phone and your computer, the way your customers will.',
               ],
               [
                 'Send one consolidated list',
@@ -334,7 +335,7 @@ const n = (i: number) => String(i + 1).padStart(2, '0');
 
   <CtaPanel
     title="Start at stage <em>one</em>."
-    body="The first conversation costs nothing and commits you to nothing. You’ll leave knowing what you need, and what you don’t."
+    body="The first conversation is free and commits you to nothing. We can discuss your project and possible next steps."
     whatsappMessage="Hello SabiForge Digital, I've read your process and I'd like to start a project."
   />
 </BaseLayout>

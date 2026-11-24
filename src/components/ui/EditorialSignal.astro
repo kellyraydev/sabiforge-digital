@@ -1,4 +1,6 @@
 ---
+import { locationLine } from '@/data/site';
+
 interface Props {
   variant?:
     'work' | 'studio' | 'services' | 'pricing' | 'contact' | 'process' | 'commerce' | 'service';
@@ -73,7 +75,7 @@ const { variant = 'work', label = 'SabiForge Digital visual study' } = Astro.pro
   <span class="signal-orbit signal-orbit-a" aria-hidden="true"></span>
   <span class="signal-orbit signal-orbit-b" aria-hidden="true"></span>
   <span class="signal-index meta" aria-hidden="true">
-    LAGOS / 06°31'N / 03°22'E
+    {locationLine.split(' · ')[0]}
   </span>
 </div>
 
@@ -83,9 +85,9 @@ const { variant = 'work', label = 'SabiForge Digital visual study' } = Astro.pro
     min-height: 22rem;
     overflow: hidden;
     isolation: isolate;
-    border: 1px solid rgb(134 240 210 / 0.24);
-    background: linear-gradient(135deg, #06292f, #031f25 65%, #124e47);
-    color: #f7f3ea;
+    border: 1px solid rgb(46 230 196 / 0.24);
+    background: linear-gradient(135deg, #11163a, #0a0e2c 65%, #2a1f6b);
+    color: #e9ecfb;
     clip-path: polygon(0 0, 93% 0, 100% 7%, 100% 100%, 7% 100%, 0 93%);
   }
   .signal-grid {
@@ -94,8 +96,8 @@ const { variant = 'work', label = 'SabiForge Digital visual study' } = Astro.pro
     z-index: -1;
     opacity: 0.45;
     background-image:
-      linear-gradient(rgb(134 240 210 / 0.12) 1px, transparent 1px),
-      linear-gradient(90deg, rgb(134 240 210 / 0.12) 1px, transparent 1px);
+      linear-gradient(rgb(46 230 196 / 0.12) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(46 230 196 / 0.12) 1px, transparent 1px);
     background-size: 3.2rem 3.2rem;
     transform: rotate(-12deg);
   }
@@ -104,9 +106,9 @@ const { variant = 'work', label = 'SabiForge Digital visual study' } = Astro.pro
     width: 62%;
     aspect-ratio: 1.25;
     padding: 0.7rem;
-    border: 1px solid rgb(247 243 234 / 0.22);
-    background: #f7f3ea;
-    color: #031f25;
+    border: 1px solid rgb(233 236 251 / 0.22);
+    background: #e9ecfb;
+    color: #0a0e2c;
     box-shadow: 0 1.5rem 3rem rgb(0 0 0 / 0.2);
   }
   .signal-window-back {
@@ -125,7 +127,7 @@ const { variant = 'work', label = 'SabiForge Digital visual study' } = Astro.pro
     display: flex;
     align-items: center;
     gap: 0.3rem;
-    border-bottom: 1px solid rgb(3 31 37 / 0.16);
+    border-bottom: 1px solid rgb(10 14 44 / 0.16);
     padding-bottom: 0.45rem;
     font: 0.52rem/1 var(--font-mono);
   }
@@ -134,13 +136,13 @@ const { variant = 'work', label = 'SabiForge Digital visual study' } = Astro.pro
     width: 0.35rem;
     height: 0.35rem;
     border-radius: 999px;
-    background: #fe674f;
+    background: #a78bfa;
   }
   .signal-window-top i:nth-child(2) {
-    background: #86f0d2;
+    background: #2ee6c4;
   }
   .signal-window-top i:nth-child(3) {
-    background: #031f25;
+    background: #0a0e2c;
   }
   .signal-window-top b {
     margin-left: auto;
@@ -152,24 +154,24 @@ const { variant = 'work', label = 'SabiForge Digital visual study' } = Astro.pro
     width: 72%;
     height: 0.42rem;
     margin-top: 1.4rem;
-    background: #124e47;
+    background: #2a1f6b;
   }
   .signal-window-line.short {
     width: 44%;
     margin-top: 0.4rem;
-    background: #fe674f;
+    background: #a78bfa;
   }
   .signal-window-block {
     display: block;
     width: 42%;
     height: 3.2rem;
     margin-top: 1.2rem;
-    background: #86f0d2;
+    background: #2ee6c4;
   }
   .signal-display {
     display: block;
     margin-top: 11%;
-    color: #124e47;
+    color: #2a1f6b;
     font: 700 clamp(2.2rem, 7vw, 5rem)/0.9 var(--font-display);
     letter-spacing: -0.08em;
   }
@@ -177,12 +179,12 @@ const { variant = 'work', label = 'SabiForge Digital visual study' } = Astro.pro
     display: block;
     max-width: 10rem;
     margin-top: 0.8rem;
-    color: #a3301f;
+    color: #6d28d9;
     font: 0.56rem/1.35 var(--font-mono);
   }
   .signal-orbit {
     position: absolute;
-    border: 1px solid rgb(254 103 79 / 0.55);
+    border: 1px solid rgb(167 139 250 / 0.55);
     border-radius: 50%;
   }
   .signal-orbit-a {
@@ -197,55 +199,55 @@ const { variant = 'work', label = 'SabiForge Digital visual study' } = Astro.pro
     left: -12rem;
     bottom: -15rem;
     border-style: dashed;
-    border-color: rgb(134 240 210 / 0.4);
+    border-color: rgb(46 230 196 / 0.4);
   }
   .signal-index {
     position: absolute;
     top: 1rem;
     left: 1rem;
-    color: rgb(134 240 210 / 0.72);
+    color: rgb(46 230 196 / 0.72);
     writing-mode: vertical-rl;
     transform: rotate(180deg);
   }
   .editorial-signal-studio .signal-display {
-    color: #a3301f;
+    color: #6d28d9;
     font-family: var(--font-serif);
     font-style: italic;
     font-weight: 400;
   }
   .editorial-signal-services .signal-window-front {
-    background: #86f0d2;
+    background: #2ee6c4;
   }
   .editorial-signal-services .signal-caption {
-    color: #031f25;
+    color: #0a0e2c;
   }
   .editorial-signal-pricing .signal-display {
-    color: #fe674f;
+    color: #a78bfa;
   }
   .editorial-signal-contact .signal-window-front {
-    background: #fe674f;
+    background: #a78bfa;
   }
   .editorial-signal-contact .signal-display {
-    color: #031f25;
+    color: #0a0e2c;
   }
   .editorial-signal-contact .signal-caption {
-    color: #031f25;
+    color: #0a0e2c;
   }
   .editorial-signal-process .signal-window-front {
-    background: #124e47;
-    color: #f7f3ea;
+    background: #2a1f6b;
+    color: #e9ecfb;
   }
   .editorial-signal-process .signal-window-top {
-    border-color: rgb(247 243 234 / 0.2);
+    border-color: rgb(233 236 251 / 0.2);
   }
   .editorial-signal-process .signal-display {
-    color: #86f0d2;
+    color: #2ee6c4;
   }
   .editorial-signal-process .signal-caption {
-    color: #86f0d2;
+    color: #2ee6c4;
   }
   .editorial-signal-commerce .signal-window-front {
-    background: #efe7da;
+    background: #e9ecfb;
   }
   @media (max-width: 640px) {
     .editorial-signal {

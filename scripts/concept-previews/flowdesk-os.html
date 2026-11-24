@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        overflow: hidden;
+      }
+      body {
+        font-family: 'Segoe UI', Inter, sans-serif;
+        color: #1c1916;
+      }
+      button {
+        font: inherit;
+      }
+      button:disabled {
+        cursor: not-allowed;
+      }
+      img {
+        max-width: 100%;
+      }
+
+      body {
+        background: #f4f7fb;
+        color: #1c2430;
+        display: grid;
+        grid-template-columns: 220px 1fr;
+      }
+      aside {
+        background: #1c2430;
+        color: #f4f7fb;
+        padding: 28px 20px;
+      }
+      aside b {
+        display: block;
+        margin-bottom: 28px;
+      }
+      aside div {
+        padding: 10px 0;
+        color: #b7c4d4;
+      }
+      aside .on {
+        color: #fff;
+      }
+      main {
+        padding: 28px;
+      }
+      h1 {
+        margin: 0 0 6px;
+        font-size: 28px;
+      }
+      .note {
+        color: #5c6b7c;
+        margin: 0 0 18px;
+      }
+      .cols {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        height: calc(100% - 90px);
+      }
+      .col {
+        background: #fff;
+        border-radius: 16px;
+        padding: 14px;
+        border: 1px solid #e1e8f0;
+      }
+      .col h2 {
+        font-size: 13px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin: 0 0 12px;
+        color: #3e7c78;
+      }
+      .card {
+        background: #f4f7fb;
+        border-radius: 12px;
+        padding: 12px;
+        margin-bottom: 8px;
+      }
+      @media (max-width: 700px) {
+        body {
+          grid-template-columns: 1fr;
+        }
+        aside {
+          display: flex;
+          gap: 14px;
+          align-items: center;
+          padding: 16px;
+        }
+        aside b {
+          margin: 0;
+        }
+        main {
+          padding: 16px;
+        }
+        .cols {
+          grid-template-columns: 1fr;
+          height: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <aside>
+      <b>FlowDesk OS</b>
+      <div class="on">Board</div>
+      <div>Notes</div>
+      <div>Sample only</div>
+    </aside>
+    <main>
+      <h1>Work in order</h1>
+      <p class="note">Sample tasks. No revenue, customers or live records.</p>
+      <div class="cols">
+        <section class="col">
+          <h2>Now</h2>
+          <div class="card">Draft the scope note</div>
+          <div class="card">Review the layout</div>
+        </section>
+        <section class="col">
+          <h2>Next</h2>
+          <div class="card">Confirm the fields</div>
+        </section>
+        <section class="col">
+          <h2>Later</h2>
+          <div class="card">Write the handover</div>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>

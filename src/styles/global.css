@@ -1,5 +1,5 @@
 @import 'tailwindcss';
-@import '@fontsource-variable/bricolage-grotesque';
+@import '@fontsource-variable/bricolage-grotesque'; /* concept specimens only; downloaded on use */
 @import '@fontsource/instrument-serif/400.css';
 @import '@fontsource/instrument-serif/400-italic.css';
 @import '@fontsource-variable/inter';
@@ -8,53 +8,63 @@
 @import './case-studies.css';
 
 /*
- * SabiForge Digital design system
- * Creative direction: Editorial Precision × Digital Craftsmanship
- * Brand colours are unchanged from the approved flyer (see docs/CREATIVE-DIRECTION.md).
+ * SabiForge Digital design system — v2
+ * Direction: dark navy canvas, turquoise and violet light (docs/REBUILD-BRIEF.md).
+ * docs/CREATIVE-DIRECTION.md describes the superseded v1 editorial direction.
  */
 @theme {
-  --font-display: 'Bricolage Grotesque Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Outfit Variable', ui-sans-serif, system-ui, sans-serif;
   --font-serif: 'Instrument Serif', ui-serif, Georgia, serif;
   --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'JetBrains Mono Variable', ui-monospace, SFMono-Regular, monospace;
   --font-wordmark: 'Outfit Variable', ui-sans-serif, system-ui, sans-serif;
 
-  /* Obsidian — primary surfaces */
-  --color-midnight-950: #070a10;
-  --color-midnight-900: #0b0f19;
-  --color-midnight-800: #121824;
-  --color-midnight-700: #1a2230;
-  --color-midnight-600: #273244;
-  --color-midnight-500: #3a4659;
+  /*
+   * v2 palette (owner-approved dark direction, 20 Nov 2026; see docs/references/).
+   * Token names are kept from the v1 system so every page migrates in one place:
+   *   midnight = navy canvas, mint = turquoise/cyan accent (links, focus),
+   *   coral = violet/purple highlight, ivory = cool light text and surfaces.
+   */
 
-  /* Champagne — precision, links, focus */
-  --color-mint-50: #fffdf5;
-  --color-mint-100: #f8edc9;
-  --color-mint-200: #ead69a;
-  --color-mint-300: #d4af37;
-  --color-mint-400: #e2c765;
-  --color-mint-500: #b89020;
-  --color-mint-700: #806315;
-  --color-mint-800: #624b12;
+  /* Navy — primary surfaces */
+  --color-midnight-950: #04061a;
+  --color-midnight-900: #080b24;
+  --color-midnight-800: #0f1433;
+  --color-midnight-700: #171d45;
+  --color-midnight-600: #232a5c;
+  --color-midnight-500: #363f7a;
 
-  /* Warm highlight */
-  --color-coral-300: #f1d98b;
-  --color-coral-400: #e7c65d;
-  --color-coral-500: #d4af37;
-  --color-coral-600: #b89020;
-  --color-coral-700: #806315;
-  --color-coral-800: #624b12;
+  /* Turquoise — links, focus, primary accent */
+  --color-mint-50: #effefb;
+  --color-mint-100: #ccfbf3;
+  --color-mint-200: #99f6e6;
+  --color-mint-300: #2ee6c4;
+  --color-mint-400: #5eead4;
+  --color-mint-500: #14b8a6;
+  --color-mint-700: #0b5f58;
+  --color-mint-800: #0a4a45;
 
-  /* Logo orange (mark only) */
+  /* Violet — highlight, primary buttons */
+  --color-coral-300: #c4b5fd;
+  --color-coral-400: #a78bfa;
+  --color-coral-500: #8b5cf6;
+  --color-coral-600: #7c3aed;
+  --color-coral-700: #6d28d9;
+  --color-coral-800: #5b21b6;
+
+  /* Logo accent (mark only) */
   --color-ember: #fd8c55;
 
-  /* Ivory — paper surfaces */
-  --color-ivory-50: #fdfbf6;
-  --color-ivory-100: #f7f3ea;
-  --color-ivory-200: #ece5d6;
-  --color-ivory-300: #ddd3bf;
+  /* Cool light — text on navy, light surfaces */
+  --color-ivory-50: #f7f8ff;
+  --color-ivory-100: #e9ecfb;
+  --color-ivory-200: #d6dbf2;
+  --color-ivory-300: #bcc3e4;
 
-  --color-ink: #0c1f22;
+  --color-ink: #080b24;
+
+  /* Signature gradient (cyan → violet, from the hero reference), used sparingly */
+  --gradient-signal: linear-gradient(90deg, #22d3ee 0%, #6366f1 55%, #a855f7 100%);
 
   /* Fluid type scale (375px → 1440px) */
   --text-display-xl: clamp(2.7rem, 1.6rem + 4.9vw, 6.1rem);
@@ -87,6 +97,7 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
     -webkit-text-size-adjust: 100%;
   }
   body {
@@ -99,8 +110,7 @@
   h3,
   h4 {
     @apply font-display text-balance;
-    letter-spacing: -0.025em;
-    font-variation-settings: 'opsz' 96;
+    letter-spacing: -0.02em;
   }
   p {
     text-wrap: pretty;
@@ -148,8 +158,8 @@
     @apply border-ivory-100/12;
   }
   .glass-panel {
-    background: rgb(18 24 36 / 0.68);
-    border: 1px solid rgb(212 175 55 / 0.16);
+    background: rgb(15 20 51 / 0.7);
+    border: 1px solid rgb(167 139 250 / 0.18);
     box-shadow: 0 1.5rem 4rem rgb(0 0 0 / 0.22);
     backdrop-filter: blur(18px);
   }
@@ -207,14 +217,23 @@
   }
 }
 
-/* Editorial accent inside display headings: <h2>Design that <em>earns</em> attention</h2> */
+/* Accent inside display headings: <h1>More than <em>just a website</em></h1>
+ * v2 renders the accent as turquoise-to-violet gradient text, not italic serif. */
 :is(h1, h2, h3, .display) em {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 400;
-  font-size: 1.06em;
-  letter-spacing: -0.01em;
-  line-height: 0.9;
+  font-style: normal;
+  font-weight: inherit;
+  background: var(--gradient-signal);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+@media (forced-colors: active) {
+  :is(h1, h2, h3, .display) em {
+    background: none;
+    color: CanvasText;
+  }
 }
 
 /* Mobile menu entrance (disabled by reduced-motion rules above) */
@@ -250,6 +269,48 @@
  * Milestone D additions: section transitions, micro-interactions
  * ------------------------------------------------------------------ */
 
+/*
+ * v2: "paper" sections render dark.
+ * v1 marked light sections with .on-paper and coloured them with ivory backgrounds and
+ * midnight text. The v2 direction is dark throughout, so inside .on-paper the light and
+ * dark token families swap: ivory becomes a navy surface and midnight becomes light text.
+ * Deep turquoise and violet text tokens brighten so labels stay readable on navy.
+ * Nested dark islands (.on-ink) restore the normal tokens.
+ */
+.on-paper {
+  --color-ivory-50: #0f1433;
+  --color-ivory-100: #0c1130;
+  --color-ivory-200: #1b2150;
+  --color-ivory-300: #283063;
+  --color-midnight-950: #f7f8ff;
+  --color-midnight-900: #e9ecfb;
+  --color-midnight-800: #d6dbf2;
+  --color-midnight-700: #bcc3e4;
+  --color-midnight-600: #a3abd6;
+  --color-midnight-500: #8b94c4;
+  --color-mint-700: #2ee6c4;
+  --color-mint-800: #5eead4;
+  --color-coral-800: #c4b5fd;
+  --color-ink: #e9ecfb;
+  border: 1px solid rgb(233 236 251 / 0.08);
+}
+.on-paper .on-ink {
+  --color-midnight-950: #04061a;
+  --color-midnight-900: #080b24;
+  --color-midnight-800: #0f1433;
+  --color-midnight-700: #171d45;
+  --color-midnight-600: #232a5c;
+  --color-midnight-500: #363f7a;
+  --color-ivory-50: #f7f8ff;
+  --color-ivory-100: #e9ecfb;
+  --color-ivory-200: #d6dbf2;
+  --color-ivory-300: #bcc3e4;
+  --color-mint-700: #0b5f58;
+  --color-mint-800: #0a4a45;
+  --color-coral-800: #5b21b6;
+  --color-ink: #080b24;
+}
+
 /* A section-wide 30° cut, taken from the logo hexagon, for paper sections that follow dark ones */
 .notch-tr {
   clip-path: polygon(0 0, calc(100% - 7rem) 0, 100% 4.04rem, 100% 100%, 0 100%);
@@ -273,7 +334,7 @@
   line-height: 0.8;
   letter-spacing: -0.05em;
   color: transparent;
-  -webkit-text-stroke: 1.5px var(--numeral-color, rgb(134 240 210 / 0.35));
+  -webkit-text-stroke: 1.5px var(--numeral-color, rgb(46 230 196 / 0.35));
   user-select: none;
 }
 

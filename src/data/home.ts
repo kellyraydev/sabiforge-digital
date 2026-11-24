@@ -1,4 +1,12 @@
+import type { ImageMetadata } from 'astro';
 import type { IconKey } from '@/lib/icons';
+import businessWebsitesImg from '@/assets/services/business-websites.png';
+import onlineStoresImg from '@/assets/services/online-stores.png';
+import customSoftwareImg from '@/assets/services/custom-software.png';
+import redesignSupportImg from '@/assets/services/redesign-support.png';
+import whySabiForgeImg from '@/assets/home/why-sabiforge.png';
+
+export { whySabiForgeImg };
 
 /** Section 03 — the ingredients of a strong website. */
 export const ingredients = [
@@ -42,7 +50,7 @@ export const stages: Stage[] = [
   },
   {
     id: 'define',
-    name: 'Define',
+    name: 'Plan',
     summary: 'Agree scope, structure and cost in writing.',
     happens:
       'We turn what we learned into a written proposal: pages or templates, features, content responsibilities, timeline, price and third-party costs.',
@@ -62,17 +70,17 @@ export const stages: Stage[] = [
   },
   {
     id: 'develop',
-    name: 'Develop',
+    name: 'Build',
     summary: 'Build it properly.',
     happens:
-      'The approved design is built with modern, maintainable tooling. You get a private staging link to follow progress on your own devices.',
+      'The approved design is built with modern, maintainable tooling. You get a preview link to follow progress on your own devices.',
     youBring: ['Platform and domain access where needed', 'Final content'],
     weDeliver: ['Staging website', 'Content management setup where included'],
     gate: 'Staging review.',
   },
   {
     id: 'refine',
-    name: 'Refine',
+    name: 'Review',
     summary: 'Test, polish and fix before anyone else sees it.',
     happens:
       'We test across phones, tablets and desktops, check keyboard access and contrast, test forms and checkout flows, and work through your agreed revisions.',
@@ -82,7 +90,7 @@ export const stages: Stage[] = [
   },
   {
     id: 'launch',
-    name: 'Launch & Support',
+    name: 'Launch and Support',
     summary: 'Go live, hand over and keep improving.',
     happens:
       'We connect your domain, run final checks, confirm enquiries or orders reach you and walk you through managing the site. Ongoing care is available if you want it.',
@@ -108,8 +116,7 @@ export const differentiators: { title: string; benefit: string; icon: IconKey }[
   },
   {
     title: 'Responsive by default',
-    benefit:
-      'Layouts are designed for phones first, because that is where most of your customers will meet you.',
+    benefit: 'Layouts are designed for phones first, then checked on larger screens.',
     icon: 'phone',
   },
   {
@@ -121,13 +128,12 @@ export const differentiators: { title: string; benefit: string; icon: IconKey }[
   {
     title: 'Collaborative development',
     benefit:
-      'Staging links and approval gates mean you see progress and make decisions at the right moments.',
+      'Preview links and approval points give you a chance to review the work as it develops.',
     icon: 'chat',
   },
   {
-    title: 'Performance and accessibility awareness',
-    benefit:
-      'Pages are checked for speed, contrast and keyboard access, so more people can use them comfortably.',
+    title: 'Usability checks',
+    benefit: 'We review keyboard access, contrast and page behavior at different screen sizes.',
     icon: 'gauge',
   },
   {
@@ -161,53 +167,128 @@ export const pathways: Pathway[] = [
     situation:
       'You need to look credible and be easy to contact, without over-investing on day one.',
     recommendation: 'Start with a focused, well-designed site you can grow into.',
-    services: ['custom-website-design-development', 'brand-identity-creative-direction'],
-    packageHint: 'The Launch package (₦120,000) is designed for this.',
+    services: ['custom-website-design-development'],
+    packageHint: 'The Starter package is ₦150,000.',
   },
   {
     id: 'small-business',
     label: 'My business has no proper website yet',
     situation:
       'Customers find you through referrals and social media, but there is nowhere to send them.',
-    recommendation: 'A multi-page site that explains each service and captures enquiries.',
-    services: ['custom-website-design-development', 'website-strategy-ux-ui-design'],
-    packageHint: 'The Business package (₦280,000) covers up to six pages with a CMS.',
+    recommendation: 'A business website that explains your services and captures enquiries.',
+    services: ['custom-website-design-development'],
+    packageHint: 'The Business package is ₦350,000.',
   },
   {
     id: 'redesign',
     label: 'Our current website needs a redesign',
     situation: 'The site looks dated, is hard to update or does not work well on phones.',
     recommendation: 'Review what works, then redesign the structure and presentation together.',
-    services: ['website-redesign-modernization', 'performance-accessibility-technical-seo'],
+    services: ['website-redesign-modernization'],
   },
   {
     id: 'merchant',
     label: 'I sell products, or run a Shopify store',
     situation: 'You want customers to browse, compare and buy more easily, including on mobile.',
-    recommendation: 'A catalogue or store built around how your customers shop.',
-    services: ['shopify-ecommerce-development', 'conversion-experience-optimization'],
-    packageHint: 'Online Catalog ₦500,000 · Full E-commerce from ₦900,000.',
+    recommendation: 'A store built around how your customers shop.',
+    services: ['shopify-ecommerce-development'],
+    packageHint: 'The Online Store package is ₦750,000.',
   },
   {
     id: 'growing',
     label: 'We’re a growing brand that needs to stand out',
     situation: 'The business has momentum, but the brand and website feel generic.',
-    recommendation: 'Sharpen the identity, then express it consistently across the site.',
-    services: [
-      'brand-identity-creative-direction',
-      'design-systems',
-      'conversion-experience-optimization',
-    ],
+    recommendation: 'A business website that presents the brand more clearly.',
+    services: ['custom-website-design-development'],
   },
   {
     id: 'complex',
     label: 'Our requirements are more complex',
     situation: 'Portals, integrations, multiple audiences or ongoing product work.',
-    recommendation: 'A tailored studio partnership, scoped after discovery.',
-    services: [
-      'website-strategy-ux-ui-design',
-      'digital-integrations-workflows',
-      'website-care-maintenance',
-    ],
+    recommendation:
+      'Custom software, scoped after discovery. The published figure is a starting price.',
+    services: ['custom-software-and-business-platforms'],
+    packageHint: 'Custom Software starts from ₦1,500,000 and is not a fixed quote.',
   },
+];
+
+/*
+ * v2 homepage sections (docs/references/homepage-target.jpeg). Copy was drafted by Claude
+ * from the reference under owner delegation (ledger 14) and needs owner sign-off before
+ * launch. It avoids claims about past clients or results.
+ */
+
+/** "Built for growing businesses like yours": who the studio is for, not a client list. */
+export const audiences: { label: string; icon: IconKey }[] = [
+  { label: 'Small businesses and local brands', icon: 'tag' },
+  { label: 'Startups and entrepreneurs', icon: 'rocket' },
+  { label: 'Established companies', icon: 'layers' },
+  { label: 'Schools, NGOs and organisations', icon: 'graduation' },
+];
+
+/** Homepage service cards, keyed by service slug. */
+export const serviceCardCopy: Record<
+  string,
+  { blurb: string; icon: IconKey; image: ImageMetadata; alt: string }
+> = {
+  'custom-website-design-development': {
+    blurb:
+      'A modern, professional website that helps customers find you, trust you and choose your business.',
+    icon: 'monitor',
+    image: businessWebsitesImg,
+    alt: 'Laptop showing a modern small-business website with a warm interior photo',
+  },
+  'shopify-ecommerce-development': {
+    blurb: 'Sell your products online with product pages, checkout and payment integration.',
+    icon: 'cart',
+    image: onlineStoresImg,
+    alt: 'Tablet showing an online-store product page for a tan leather handbag priced in naira',
+  },
+  'custom-software-and-business-platforms': {
+    blurb:
+      'Tools built around how your business works, from customer portals to internal management systems.',
+    icon: 'layers',
+    image: customSoftwareImg,
+    alt: 'Laptop showing a dark business dashboard with stats and a revenue chart (illustrative figures)',
+  },
+  'website-redesign-modernization': {
+    blurb: 'Refresh your existing website and discuss ongoing support as part of the agreed scope.',
+    icon: 'wrench',
+    image: redesignSupportImg,
+    alt: 'Laptop showing an old, cluttered website beside its clean modern redesign',
+  },
+};
+
+/** "Why work with SabiForge?" points. */
+export const whyPoints: { title: string; body: string; icon: IconKey }[] = [
+  {
+    title: 'Built around your goals',
+    body: 'We start by understanding your business, your customers and what you need.',
+    icon: 'compass',
+  },
+  {
+    title: 'Clear and honest process',
+    body: 'A simple, transparent workflow from planning to launch, with your approval at each step.',
+    icon: 'clipboard',
+  },
+  {
+    title: 'Usability checks',
+    body: 'We review mobile layouts and keyboard access as part of the project.',
+    icon: 'shield',
+  },
+  {
+    title: 'Support after launch',
+    body: 'Help, updates and improvements as your business grows.',
+    icon: 'support',
+  },
+];
+
+/** Six-step process shown on the homepage. /process has the full detail. */
+export const processSteps: { title: string; body: string }[] = [
+  { title: stages[0].name, body: 'Tell us your idea, goals and requirements.' },
+  { title: stages[1].name, body: 'We agree the scope, features, timeline and cost.' },
+  { title: stages[2].name, body: 'We create a look and experience that fits your brand.' },
+  { title: stages[3].name, body: 'We develop, test and refine your website or software.' },
+  { title: stages[4].name, body: 'You test the work and share feedback before launch.' },
+  { title: stages[5].name, body: 'We go live and stay available for support as needed.' },
 ];

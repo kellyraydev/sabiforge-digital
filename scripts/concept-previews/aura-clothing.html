@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        overflow: hidden;
+      }
+      body {
+        font-family: 'Segoe UI', Inter, sans-serif;
+        color: #1c1916;
+      }
+      button {
+        font: inherit;
+      }
+      button:disabled {
+        cursor: not-allowed;
+      }
+      img {
+        max-width: 100%;
+      }
+
+      body {
+        background: #111;
+        color: #f7f3ee;
+      }
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 80px;
+        padding: 0 40px;
+        letter-spacing: 0.18em;
+      }
+      .brand {
+        font-size: 20px;
+      }
+      .hero {
+        padding: 10px 40px 32px;
+        height: calc(100% - 80px);
+        display: grid;
+        grid-template-rows: auto 1fr;
+        gap: 24px;
+      }
+      h1 {
+        font-weight: 500;
+        font-size: 72px;
+        line-height: 0.9;
+        margin: 0;
+      }
+      .cats {
+        display: grid;
+        grid-template-columns: 1.3fr 1fr 1fr;
+        gap: 12px;
+      }
+      .cat {
+        border: 1px solid #3a342c;
+        border-radius: 20px;
+        padding: 22px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        background: #191714;
+      }
+      .cat strong {
+        font-size: 28px;
+        font-weight: 500;
+      }
+      .cat span {
+        color: #cdb89a;
+      }
+      .wide {
+        background: linear-gradient(180deg, #2a241c, #111);
+      }
+      @media (max-width: 700px) {
+        header {
+          padding: 0 18px;
+        }
+        .hero {
+          padding: 8px 18px 18px;
+        }
+        h1 {
+          font-size: 42px;
+        }
+        .cats {
+          grid-template-columns: 1fr;
+          gap: 10px;
+        }
+        .cat {
+          min-height: 110px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="brand">AURA</div>
+      <div>CLOTHING</div>
+    </header>
+    <main class="hero">
+      <h1>The edit, not the pile.</h1>
+      <div class="cats">
+        <article class="cat wide"><span>01</span><strong>Tailoring</strong></article>
+        <article class="cat"><span>02</span><strong>Ready to wear</strong></article>
+        <article class="cat"><span>03</span><strong>Accessories</strong></article>
+      </div>
+    </main>
+  </body>
+</html>
