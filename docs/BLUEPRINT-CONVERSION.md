@@ -5,6 +5,14 @@
 > built reference. This doc specs the other 8 concepts so they can be built the same way.
 > Demos stay live until all blueprints land and the owner confirms; do not delete demo code yet.
 
+## Build order & status (owner: easiest first, 24 Nov)
+
+1. **maison-vale-studios** — ✅ built (Claude), verified green. Awaiting images.
+2. **bloom-wellness-studio** — ✅ built (Claude), verified green. Awaiting images.
+3. **Cursor to build the remaining six**, in this order: `amzlat-world-of-beauty`,
+   `opeyemi-phones-gadgets`, `corporate-digital-modernization`, `flowdesk-os`,
+   `campusone-portal`, `routepilot-logistics`. One per push, pull before push.
+
 ## Who does what
 
 - **Cursor** builds one `src/data/projects/<slug>/blueprint.ts` per concept from the spec below,
