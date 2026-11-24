@@ -44,3 +44,31 @@ describe('concept demos (T11 shell)', () => {
     for (const c of concepts) expect(c.name).toMatch(/^[\x20-\x7E]+$/);
   });
 });
+
+describe('Bloom availability (T2)', () => {
+  it('lists seven days from tomorrow and closes Sundays', async () => {
+    const { bloomDays } = await import('@/data/demos/bloom-wellness-studio');
+    const days = bloomDays(new Date(2026, 10, 23)); // Monday 23 Nov 2026
+    expect(days).toHaveLength(7);
+    expect(days[0].iso).toBe('2026-11-24');
+    expect(days.filter((d) => d.closed).map((d) => d.iso)).toEqual(['2026-11-29']);
+  });
+
+  it('is stable and always leaves a free time', async () => {
+    const { bloomTimes, bloomSessions } = await import('@/data/demos/bloom-wellness-studio');
+    for (const session of bloomSessions) {
+      for (const day of ['2026-11-24', '2026-11-25', '2026-12-01']) {
+        const a = bloomTimes(day, session.id);
+        expect(a).toEqual(bloomTimes(day, session.id));
+        expect(a.some((t) => !t.taken)).toBe(true);
+        expect(a.some((t) => t.taken)).toBe(true);
+      }
+    }
+  });
+
+  it('names sessions, not practitioners, and makes no clinical claims', async () => {
+    const { bloomSessions } = await import('@/data/demos/bloom-wellness-studio');
+    const text = JSON.stringify(bloomSessions);
+    expect(text).not.toMatch(/\b(Dr|therapist|physio|licensed|certified|cure|treat|heal)\w*/i);
+  });
+});

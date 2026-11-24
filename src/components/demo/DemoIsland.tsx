@@ -6,6 +6,7 @@ import { lazy, Suspense, useEffect, type ComponentType, type LazyExoticComponent
  */
 const registry: Record<string, LazyExoticComponent<ComponentType>> = {
   'aura-clothing': lazy(() => import('./demos/AuraClothingDemo')),
+  'bloom-wellness-studio': lazy(() => import('./demos/BloomBookingDemo')),
   'corporate-digital-modernization': lazy(() => import('./demos/CorporateRedesignDemo')),
 };
 

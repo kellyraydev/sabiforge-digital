@@ -55,6 +55,9 @@ export default function PackageFinder({ packages, whatsappNumber }: Props) {
   const [step, setStep] = useState(0);
   const heading = useRef<HTMLHeadingElement>(null);
   const started = useRef(false);
+  // Answers stay disabled until React has hydrated, so an early tap is never silently lost.
+  const [ready, setReady] = useState(false);
+  useEffect(() => setReady(true), []);
 
   const order = questionsFor(answers);
   const result = step >= order.length ? recommend(answers) : null;
@@ -87,6 +90,7 @@ export default function PackageFinder({ packages, whatsappNumber }: Props) {
     <div
       className="border-ivory-100/10 bg-midnight-900/70 rounded-3xl border p-6 sm:p-8"
       data-package-finder
+      data-ready={ready ? 'true' : 'false'}
     >
       <p className="meta text-mint-300">Package finder</p>
 
@@ -163,8 +167,9 @@ export default function PackageFinder({ packages, whatsappNumber }: Props) {
               <button
                 key={option.value}
                 type="button"
+                disabled={!ready}
                 onClick={() => choose(current, option.value)}
-                className="border-ivory-100/15 text-ivory-50 hover:border-mint-300/60 hover:bg-mint-300/5 focus-visible:outline-mint-300 min-h-12 rounded-xl border px-4 py-3 text-left text-sm font-medium transition focus-visible:outline-2 focus-visible:outline-offset-2"
+                className="border-ivory-100/15 text-ivory-50 hover:border-mint-300/60 hover:bg-mint-300/5 focus-visible:outline-mint-300 min-h-12 rounded-xl border px-4 py-3 text-left text-sm font-medium transition focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-wait disabled:opacity-60"
               >
                 {option.label}
               </button>

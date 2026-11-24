@@ -254,7 +254,8 @@ const pass = (msg) => console.log(`✓ ${msg}`);
 
   // Package finder: branching questions, recommendation, prefilled contact, restart
   await page.goto(BASE_URL + '/pricing', { waitUntil: 'networkidle' });
-  const finder = page.locator('#finder [data-package-finder]');
+  const finder = page.locator('#finder [data-package-finder][data-ready="true"]');
+  await finder.waitFor();
   await finder.scrollIntoViewIfNeeded();
   await finder.getByRole('button', { name: /Show my business/ }).click();
   assert.match(await finder.locator('[data-finder-progress]').innerText(), /Question 2 of 3/);
@@ -501,6 +502,30 @@ const pass = (msg) => console.log(`✓ ${msg}`);
   await page.getByRole('button', { name: /Remove/ }).click();
   assert.match(await page.locator('[data-aura-bag]').innerText(), /Nothing here yet/);
   pass('AURA demo: filters, size guard, enquiry bag, focus return and demo send');
+
+  // Bloom booking demo (T2): session, day (Sunday closed), time (taken disabled), validation,
+  // honest confirmation, restart.
+  await page.goto(`${BASE_URL}/work/bloom-wellness-studio/demo`, { waitUntil: 'networkidle' });
+  const bloom = page.locator('[data-bloom]');
+  await bloom.waitFor();
+  await bloom.getByRole('button', { name: /Restorative yoga/ }).click();
+  const closedDays = await bloom.locator('[data-bloom-days] button:disabled').count();
+  assert.ok(closedDays <= 1, 'at most one closed day (Sunday) in a week');
+  await bloom.locator('[data-bloom-days] button:not(:disabled)').first().click();
+  assert.ok((await bloom.locator('[data-bloom-times] button:disabled').count()) > 0, 'some taken');
+  await bloom.locator('[data-bloom-times] button:not(:disabled)').first().click();
+  await bloom.getByRole('button', { name: 'Send request' }).click();
+  assert.equal(await bloom.getByRole('alert').count(), 2);
+  assert.equal(await page.evaluate(() => document.activeElement?.id), 'bloom-name');
+  await bloom.getByLabel('Your name').fill('Ada Obi');
+  await bloom.getByLabel('Phone or WhatsApp number').fill('0803 123 4567');
+  await bloom.getByRole('button', { name: 'Send request' }).click();
+  const confirmation = bloom.locator('[data-bloom-confirmation]');
+  assert.match(await confirmation.innerText(), /Restorative yoga[\s\S]*0803 123 4567/);
+  assert.match(await confirmation.getByRole('status').innerText(), /Nothing has been booked/);
+  await bloom.getByRole('button', { name: 'Start a new request' }).click();
+  assert.equal(await bloom.getAttribute('data-step'), '0');
+  pass('Bloom demo: session, day, time, validation, honest confirmation, restart');
 
   // Concept demo shell (T11): badge, way back, lazy island, review mode, no-JS fallback.
   const demoUrl = `${BASE_URL}/work/corporate-digital-modernization/demo`;
