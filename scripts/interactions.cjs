@@ -521,7 +521,7 @@ const pass = (msg) => console.log(`✓ ${msg}`);
   await bloom.locator('[data-bloom-days] button:not(:disabled)').first().click();
   assert.ok((await bloom.locator('[data-bloom-times] button:disabled').count()) > 0, 'some taken');
   await bloom.locator('[data-bloom-times] button:not(:disabled)').first().click();
-  await bloom.locator('[data-step="3"]').waitFor();
+  await page.locator('[data-bloom][data-step="3"]').waitFor();
   await bloom.getByRole('button', { name: 'Send request' }).click();
   assert.equal(await bloom.getByRole('alert').count(), 2);
   assert.equal(await page.evaluate(() => document.activeElement?.id), 'bloom-name');
