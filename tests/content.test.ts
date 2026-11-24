@@ -189,3 +189,12 @@ describe('contact links', () => {
     expect(mailtoLink('Hi', 'a b')).toBe(`mailto:${site.contact.email}?subject=Hi&body=a%20b`);
   });
 });
+
+describe('about page collaboration list', () => {
+  it('has no two items making the same point about contact channels', async () => {
+    const { readFileSync } = await import('node:fs');
+    const page = readFileSync('src/pages/about.astro', 'utf8');
+    const channelLines = page.match(/WhatsApp, (by )?email or a call/g) ?? [];
+    expect(channelLines.length).toBeLessThanOrEqual(1);
+  });
+});
