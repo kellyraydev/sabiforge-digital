@@ -50,7 +50,7 @@ export const stages: Stage[] = [
   },
   {
     id: 'define',
-    name: 'Define',
+    name: 'Plan',
     summary: 'Agree scope, structure and cost in writing.',
     happens:
       'We turn what we learned into a written proposal: pages or templates, features, content responsibilities, timeline, price and third-party costs.',
@@ -70,17 +70,17 @@ export const stages: Stage[] = [
   },
   {
     id: 'develop',
-    name: 'Develop',
+    name: 'Build',
     summary: 'Build it properly.',
     happens:
-      'The approved design is built with modern, maintainable tooling. You get a private staging link to follow progress on your own devices.',
+      'The approved design is built with modern, maintainable tooling. You get a preview link to follow progress on your own devices.',
     youBring: ['Platform and domain access where needed', 'Final content'],
     weDeliver: ['Staging website', 'Content management setup where included'],
     gate: 'Staging review.',
   },
   {
     id: 'refine',
-    name: 'Refine',
+    name: 'Review',
     summary: 'Test, polish and fix before anyone else sees it.',
     happens:
       'We test across phones, tablets and desktops, check keyboard access and contrast, test forms and checkout flows, and work through your agreed revisions.',
@@ -90,7 +90,7 @@ export const stages: Stage[] = [
   },
   {
     id: 'launch',
-    name: 'Launch & Support',
+    name: 'Launch and Support',
     summary: 'Go live, hand over and keep improving.',
     happens:
       'We connect your domain, run final checks, confirm enquiries or orders reach you and walk you through managing the site. Ongoing care is available if you want it.',
@@ -129,7 +129,7 @@ export const differentiators: { title: string; benefit: string; icon: IconKey }[
   {
     title: 'Collaborative development',
     benefit:
-      'Staging links and approval gates mean you see progress and make decisions at the right moments.',
+      'Preview links and approval gates mean you see progress and make decisions at the right moments.',
     icon: 'chat',
   },
   {
@@ -288,10 +288,10 @@ export const whyPoints: { title: string; body: string; icon: IconKey }[] = [
 
 /** Six-step process shown on the homepage. /process has the full detail. */
 export const processSteps: { title: string; body: string }[] = [
-  { title: 'Discover', body: 'Tell us your idea, goals and requirements.' },
-  { title: 'Plan', body: 'We agree the scope, features, timeline and cost.' },
-  { title: 'Design', body: 'We create a look and experience that fits your brand.' },
-  { title: 'Build', body: 'We develop, test and refine your website or software.' },
-  { title: 'Review', body: 'You test the work and share feedback before launch.' },
-  { title: 'Launch and support', body: 'We go live and stay available for support as needed.' },
+  { title: stages[0].name, body: 'Tell us your idea, goals and requirements.' },
+  { title: stages[1].name, body: 'We agree the scope, features, timeline and cost.' },
+  { title: stages[2].name, body: 'We create a look and experience that fits your brand.' },
+  { title: stages[3].name, body: 'We develop, test and refine your website or software.' },
+  { title: stages[4].name, body: 'You test the work and share feedback before launch.' },
+  { title: stages[5].name, body: 'We go live and stay available for support as needed.' },
 ];

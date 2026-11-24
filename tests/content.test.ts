@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { packages, foundingPrice, comparisonRows, engagementModels } from '../src/data/packages';
 import { services, serviceFamilies, getService } from '../src/data/services';
 import { concepts, getConcept, CONCEPT_LABEL, TECHNOLOGY_POSITIONING } from '../src/data/concepts';
-import { pathways, stages } from '../src/data/home';
+import { pathways, processSteps, stages } from '../src/data/home';
 import { navigation, whatsappLink, mailtoLink, site } from '../src/data/site';
 
 describe('approved packages', () => {
@@ -124,14 +124,9 @@ describe('honesty rules', () => {
   });
 
   it('has six approach stages ending in launch & support', () => {
-    expect(stages.map((s) => s.name)).toEqual([
-      'Discover',
-      'Define',
-      'Design',
-      'Develop',
-      'Refine',
-      'Launch & Support',
-    ]);
+    const names = ['Discover', 'Plan', 'Design', 'Build', 'Review', 'Launch and Support'];
+    expect(stages.map((s) => s.name)).toEqual(names);
+    expect(processSteps.map((s) => s.title)).toEqual(names);
   });
 
   it('navigation only targets built pages', () => {

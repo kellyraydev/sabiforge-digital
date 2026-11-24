@@ -4,18 +4,18 @@ Interactive demos for the ten concept projects live at `/work/<slug>/demo`. Each
 
 ## Status (23 November 2026)
 
-| Concept                         | Demo                           | Notes                                                                    |
-| ------------------------------- | ------------------------------ | ------------------------------------------------------------------------ |
-| AURA Clothing                   | Lookbook and enquiry bag       | Grok product photos (f406a57)                                            |
-| Bloom Wellness Studio           | Four-step visit request        | Ends in "Request sent (demo)"; nothing booked                            |
-| FlowDesk OS                     | Now / Next / Later board       | Sample rows; no totals                                                   |
-| RoutePilot Logistics            | Lane board with status steps   | Fake job names; no ETAs                                                  |
-| CampusOne Portal                | Study home                     | No institution identity                                                  |
-| Maison Vale Studios             | Projects by space and enquiry  | No timeline promised                                                     |
-| Amzlat World of Beauty          | Category shop and enquiry list | Uncommissioned; no prices or claims                                      |
-| Opeyemi Phones & Gadgets        | Browse and sell/swap           | Uncommissioned; WhatsApp disabled                                        |
-| Corporate Digital Modernization | Old versus redesigned site     | Reference demo for the shell                                             |
-| Big Beerah Collection           | **Not built**                  | Waiting for the owner to confirm prices, ratings, contacts and the model |
+| Concept                                            | Demo                           | Notes                                                                    |
+| -------------------------------------------------- | ------------------------------ | ------------------------------------------------------------------------ |
+| AURA Clothing                                      | Lookbook and enquiry bag       | Grok product photos (f406a57)                                            |
+| Bloom Wellness Studio                              | Four-step visit request        | Ends in "Request sent (demo)"; nothing booked                            |
+| FlowDesk OS                                        | Now / Next / Later board       | Sample rows; no totals                                                   |
+| RoutePilot Logistics                               | Lane board with status steps   | Fake job names; no ETAs                                                  |
+| CampusOne Portal                                   | Study home                     | No institution identity                                                  |
+| Maison Vale Studios                                | Projects by space and enquiry  | No timeline promised                                                     |
+| Amzlat World of Beauty                             | Category shop and enquiry list | Uncommissioned; no prices or claims                                      |
+| Opeyemi Phones & Gadgets                           | Browse and sell/swap           | Uncommissioned; WhatsApp disabled                                        |
+| Corporate Website Redesign & Digital Modernization | Old versus redesigned site     | Reference demo for the shell                                             |
+| Big Beerah Collection                              | **Not built**                  | Waiting for the owner to confirm prices, ratings, contacts and the model |
 
 ## How it fits together
 
