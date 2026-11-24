@@ -9,7 +9,7 @@ interface Props {
 const { slug, name, section } = Astro.props;
 ---
 
-<section class="bp-section" data-island={section.island ?? undefined}>
+<section class="bp-section" data-island={section.island ?? undefined} data-reveal>
   {section.title && <h2 class="bp-section-title">{section.title}</h2>}
   {section.intro && <p class="bp-section-intro">{section.intro}</p>}
   <ul class="bp-product-grid" role="list">
@@ -30,10 +30,10 @@ const { slug, name, section } = Astro.props;
 <style>
   .bp-product-grid {
     list-style: none;
-    margin: 1.75rem 0 0;
+    margin: 2.25rem 0 0;
     padding: 0;
     display: grid;
-    gap: 1rem 1.25rem;
+    gap: clamp(1.5rem, 3vw, 2.5rem) clamp(0.85rem, 1.6vw, 1.5rem);
     grid-template-columns: repeat(2, 1fr);
   }
   @media (min-width: 720px) {
@@ -42,14 +42,31 @@ const { slug, name, section } = Astro.props;
     }
   }
   .bp-product-name {
-    margin: 0.6rem 0 0;
+    margin: 0.85rem 0 0;
     font-weight: 600;
-    font-size: 0.95rem;
+    font-size: 1rem;
+    letter-spacing: -0.01em;
   }
   .bp-product-caption {
-    margin: 0.1rem 0 0;
+    margin: 0.3rem 0 0;
     color: var(--bp-muted);
-    font-size: 0.82rem;
+    font-size: 0.88rem;
+    line-height: 1.5;
+  }
+  .bp-product :global(.bp-img) {
+    transition:
+      transform 420ms var(--bp-ease),
+      box-shadow 420ms var(--bp-ease);
+  }
+  .bp-product:hover :global(.bp-img) {
+    transform: translateY(-4px);
+    box-shadow: 0 1.2rem 2.5rem color-mix(in srgb, var(--bp-ink) 13%, transparent);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .bp-product:hover :global(.bp-img) {
+      transform: none;
+      box-shadow: none;
+    }
   }
   .bp-island-note {
     margin-top: 1.25rem;

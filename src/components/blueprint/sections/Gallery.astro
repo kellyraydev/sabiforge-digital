@@ -9,7 +9,7 @@ interface Props {
 const { slug, name, section } = Astro.props;
 ---
 
-<section class="bp-section">
+<section class="bp-section" data-reveal>
   {section.title && <h2 class="bp-section-title">{section.title}</h2>}
   <div class="bp-gallery">
     {section.images.map((img, i) => (
@@ -24,10 +24,32 @@ const { slug, name, section } = Astro.props;
 </section>
 <style>
   .bp-gallery {
-    margin-top: 1.5rem;
+    margin-top: 2.25rem;
     display: grid;
-    gap: 0.75rem;
+    gap: clamp(0.75rem, 1.8vw, 1.5rem);
     grid-template-columns: repeat(2, 1fr);
+    align-items: start;
+  }
+  .bp-gallery > :nth-child(3n + 2) {
+    margin-top: clamp(1.5rem, 4vw, 3.5rem);
+  }
+  .bp-gallery > :nth-child(3n) {
+    margin-top: clamp(0.75rem, 2vw, 1.75rem);
+  }
+  .bp-gallery > * {
+    transition:
+      transform 350ms var(--bp-ease),
+      box-shadow 350ms var(--bp-ease);
+  }
+  .bp-gallery > *:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 1.25rem 2.5rem color-mix(in srgb, var(--bp-ink) 13%, transparent);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .bp-gallery > *:hover {
+      transform: none;
+      box-shadow: none;
+    }
   }
   @media (min-width: 720px) {
     .bp-gallery {

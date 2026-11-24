@@ -8,7 +8,7 @@ const { slug, section } = Astro.props;
 const href = (to: string) => (to.startsWith('/') ? `/preview/${slug}${to === '/' ? '' : to}` : to);
 ---
 
-<section class="bp-cta">
+<section class="bp-cta" data-reveal>
   <h2 class="bp-cta-title">{section.headline}</h2>
   {section.sub && <p class="bp-cta-sub">{section.sub}</p>}
   {section.cta && (
@@ -19,8 +19,8 @@ const href = (to: string) => (to.startsWith('/') ? `/preview/${slug}${to === '/'
 </section>
 <style>
   .bp-cta {
-    margin: 2.5rem 0;
-    padding: clamp(2rem, 5vw, 3.5rem);
+    margin: 1.5rem 0 var(--bp-space-section);
+    padding: clamp(2.5rem, 7vw, 5rem);
     border-radius: var(--bp-radius);
     text-align: center;
     background: var(--bp-accent);
@@ -28,13 +28,16 @@ const href = (to: string) => (to.startsWith('/') ? `/preview/${slug}${to === '/'
   }
   .bp-cta-title {
     font-family: var(--bp-display);
-    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    font-size: clamp(2rem, 4.5vw, 3.25rem);
+    line-height: 1.08;
+    letter-spacing: -0.04em;
     margin: 0;
   }
   .bp-cta-sub {
-    margin: 0.75rem auto 1.5rem;
+    margin: 1rem auto 1.75rem;
     max-width: 46ch;
     opacity: 0.85;
+    line-height: 1.65;
   }
   .bp-cta .bp-btn-primary {
     background: var(--bp-accent-ink);

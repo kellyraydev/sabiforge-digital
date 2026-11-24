@@ -6,7 +6,7 @@ interface Props {
 const { section } = Astro.props;
 ---
 
-<section class="bp-section">
+<section class="bp-section" data-reveal>
   {section.title && <h2 class="bp-section-title">{section.title}</h2>}
   {section.intro && <p class="bp-section-intro">{section.intro}</p>}
   <ul class="bp-feature-grid" role="list">
@@ -24,23 +24,41 @@ const { section } = Astro.props;
     margin: 1.75rem 0 0;
     padding: 0;
     display: grid;
-    gap: 1rem;
-    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: clamp(0.85rem, 1.8vw, 1.35rem);
+    margin-top: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
   }
   .bp-card {
     background: var(--bp-surface);
     border-radius: var(--bp-radius);
-    padding: 1.25rem;
+    padding: var(--bp-space-card);
     border: 1px solid color-mix(in srgb, var(--bp-ink) 10%, transparent);
+    transition:
+      transform var(--bp-motion-fast) var(--bp-ease),
+      border-color var(--bp-motion-fast) var(--bp-ease),
+      box-shadow var(--bp-motion-fast) var(--bp-ease);
+  }
+  .bp-card:hover {
+    transform: translateY(-4px);
+    border-color: color-mix(in srgb, var(--bp-accent) 42%, transparent);
+    box-shadow: 0 1rem 2.5rem color-mix(in srgb, var(--bp-ink) 8%, transparent);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .bp-card:hover {
+      transform: none;
+      box-shadow: none;
+    }
   }
   .bp-card-title {
     font-family: var(--bp-display);
-    font-size: 1.1rem;
+    font-size: 1.25rem;
+    line-height: 1.25;
     margin: 0;
   }
   .bp-card-body {
-    margin: 0.5rem 0 0;
+    margin: 0.7rem 0 0;
     color: var(--bp-muted);
-    font-size: 0.95rem;
+    font-size: 0.98rem;
+    line-height: 1.65;
   }
 </style>

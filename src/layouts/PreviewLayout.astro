@@ -33,6 +33,7 @@ const banner =
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex,nofollow" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <title>{page.title} · {blueprint.name} preview</title>
     <meta name="description" content={`${blueprint.tagline} ${banner}`} />
   </head>
@@ -74,13 +75,18 @@ const banner =
 
     <style is:global>
       .bp-root {
+        --bp-space-section: clamp(3rem, 7vw, 5.5rem);
+        --bp-space-card: clamp(1.25rem, 2.5vw, 1.75rem);
+        --bp-ease: cubic-bezier(0.22, 1, 0.36, 1);
+        --bp-motion-fast: 220ms;
+        --bp-motion-reveal: 620ms;
         background: var(--bp-bg);
         color: var(--bp-ink);
         font-family: var(--bp-body);
         min-height: 100dvh;
       }
       .bp-shell {
-        width: min(72rem, 100% - 2.5rem);
+        width: min(78rem, 100% - 3rem);
         margin-inline: auto;
       }
       .bp-banner {
@@ -102,7 +108,7 @@ const banner =
       }
       .bp-header {
         border-bottom: 1px solid color-mix(in srgb, var(--bp-ink) 10%, transparent);
-        padding: 1rem 0;
+        padding: 1.15rem 0;
       }
       .bp-header-inner {
         display: flex;
@@ -128,23 +134,28 @@ const banner =
         text-decoration: none;
         font-size: 0.9rem;
         padding: 0.4rem 0;
+        transition: color var(--bp-motion-fast) var(--bp-ease);
       }
       .bp-nav a[aria-current='page'] {
         color: var(--bp-ink);
         font-weight: 600;
       }
       .bp-section {
-        padding: clamp(1.75rem, 4vw, 3rem) 0;
+        padding: var(--bp-space-section) 0;
       }
       .bp-section-title {
         font-family: var(--bp-display);
-        font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+        font-size: clamp(1.8rem, 3.8vw, 2.65rem);
+        line-height: 1.08;
+        letter-spacing: -0.035em;
         margin: 0;
       }
       .bp-section-intro {
-        margin: 0.75rem 0 0;
-        max-width: 52ch;
+        margin: 1rem 0 0;
+        max-width: 58ch;
         color: var(--bp-muted);
+        font-size: clamp(1rem, 1.2vw, 1.1rem);
+        line-height: 1.7;
       }
       .bp-eyebrow {
         text-transform: uppercase;
@@ -163,6 +174,10 @@ const banner =
         font-weight: 600;
         font-size: 0.95rem;
         text-decoration: none;
+        transition:
+          transform var(--bp-motion-fast) var(--bp-ease),
+          box-shadow var(--bp-motion-fast) var(--bp-ease),
+          background-color var(--bp-motion-fast) var(--bp-ease);
       }
       .bp-btn-primary {
         background: var(--bp-accent);
@@ -179,6 +194,13 @@ const banner =
         outline: 2px solid var(--bp-accent);
         outline-offset: 2px;
       }
+      .bp-nav a:hover {
+        color: var(--bp-ink);
+      }
+      .bp-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 0.65rem 1.5rem color-mix(in srgb, var(--bp-ink) 14%, transparent);
+      }
       .bp-footer {
         margin-top: 2rem;
         border-top: 1px solid color-mix(in srgb, var(--bp-ink) 10%, transparent);
@@ -189,22 +211,52 @@ const banner =
         font-size: 0.82rem;
         margin-top: 0.25rem;
       }
-      @media (prefers-reduced-motion: no-preference) {
-        .bp-section,
-        .bp-hero {
-          animation: bp-rise 0.5s ease both;
-        }
+      .bp-reveal-ready [data-reveal]:not(.is-revealed) {
+        opacity: 0;
+        transform: translateY(1.25rem);
       }
-      @keyframes bp-rise {
-        from {
-          opacity: 0;
-          transform: translateY(0.75rem);
+      [data-reveal] {
+        transition:
+          opacity var(--bp-motion-reveal) var(--bp-ease),
+          transform var(--bp-motion-reveal) var(--bp-ease);
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          scroll-behavior: auto !important;
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
         }
-        to {
+        .bp-reveal-ready [data-reveal]:not(.is-revealed) {
           opacity: 1;
           transform: none;
         }
+        .bp-btn:hover {
+          transform: none;
+          box-shadow: none;
+        }
       }
     </style>
+    <script>
+      const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+      if (!motionPreference.matches && 'IntersectionObserver' in window) {
+        const revealItems = document.querySelectorAll<HTMLElement>('[data-reveal]');
+        document.documentElement.classList.add('bp-reveal-ready');
+        const revealObserver = new IntersectionObserver(
+          (entries, observer) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-revealed');
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.12, rootMargin: '0px 0px -5% 0px' },
+        );
+        revealItems.forEach((item) => revealObserver.observe(item));
+      }
+    </script>
   </body>
 </html>

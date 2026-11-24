@@ -10,7 +10,7 @@ const { slug, name, section } = Astro.props;
 const href = (to: string) => (to.startsWith('/') ? `/preview/${slug}${to === '/' ? '' : to}` : to);
 ---
 
-<section class="bp-hero">
+<section class="bp-hero" data-reveal>
   <div class="bp-hero-copy">
     {section.eyebrow && <p class="bp-eyebrow">{section.eyebrow}</p>}
     <h1 class="bp-hero-title">{section.headline}</h1>
@@ -41,31 +41,37 @@ const href = (to: string) => (to.startsWith('/') ? `/preview/${slug}${to === '/'
 <style>
   .bp-hero {
     display: grid;
-    gap: 2rem;
+    gap: clamp(2rem, 5vw, 5rem);
     align-items: center;
-    padding: clamp(2rem, 6vw, 4.5rem) 0;
+    padding: clamp(3rem, 8vw, 7rem) 0 clamp(3.5rem, 8vw, 7.5rem);
   }
   @media (min-width: 900px) {
     .bp-hero {
-      grid-template-columns: 1.05fr 0.95fr;
+      grid-template-columns: minmax(0, 1.08fr) minmax(20rem, 0.92fr);
     }
   }
   .bp-hero-title {
     font-family: var(--bp-display);
-    font-size: clamp(2.2rem, 6vw, 3.6rem);
-    line-height: 1.02;
-    margin: 0.4rem 0 0;
+    font-size: clamp(2.8rem, 6.5vw, 5.6rem);
+    line-height: 0.99;
+    letter-spacing: -0.055em;
+    max-width: 11ch;
+    margin: 0.65rem 0 0;
   }
   .bp-hero-sub {
-    margin-top: 1rem;
-    max-width: 38ch;
+    margin: 1.35rem 0 0;
+    max-width: 42ch;
     color: var(--bp-muted);
-    font-size: 1.05rem;
+    font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+    line-height: 1.7;
   }
   .bp-hero-actions {
-    margin-top: 1.75rem;
+    margin-top: 2rem;
     display: flex;
     flex-wrap: wrap;
     gap: 0.75rem;
+  }
+  .bp-hero-img {
+    box-shadow: 0 1.5rem 4rem color-mix(in srgb, var(--bp-ink) 12%, transparent);
   }
 </style>
