@@ -527,6 +527,106 @@ const pass = (msg) => console.log(`✓ ${msg}`);
   assert.equal(await bloom.getAttribute('data-step'), '0');
   pass('Bloom demo: session, day, time, validation, honest confirmation, restart');
 
+  // Remaining concept demos: each one's main flow, badge wording and honesty note.
+  const openDemo = async (slug, root) => {
+    await page.goto(`${BASE_URL}/work/${slug}/demo`, { waitUntil: 'networkidle' });
+    const el = page.locator(root);
+    await el.waitFor();
+    return el;
+  };
+
+  const fd = await openDemo('flowdesk-os', '[data-flowdesk]');
+  await fd.getByRole('button', { name: 'Add to Later' }).click();
+  assert.equal(await page.evaluate(() => document.activeElement?.id), 'fd-title');
+  await fd.getByLabel('New task').fill('Call back the caterer');
+  await fd.getByRole('button', { name: 'Add to Later' }).click();
+  const later = fd.locator('[data-column="later"]');
+  assert.match(await later.innerText(), /Call back the caterer/);
+  await later.getByRole('button', { name: /← Next\s*: Call back the caterer/ }).click();
+  assert.match(await fd.locator('[data-column="next"]').innerText(), /Call back the caterer/);
+  await fd.getByRole('button', { name: /Done\s*: Call back the caterer/ }).click();
+  assert.match(await fd.locator('[data-done] summary').innerText(), /Done \(1\)/);
+  assert.doesNotMatch(await fd.innerText(), /%|₦|\$|revenue/i);
+  pass('FlowDesk demo: add with validation, move, done; no scores or totals');
+
+  const route = await openDemo('routepilot-logistics', '[data-routepilot]');
+  await route.locator('[data-lanes]').getByRole('button', { name: /^Yard/ }).click();
+  assert.equal(await route.locator('[data-jobs] tbody tr').count(), 2);
+  await route.getByRole('button', { name: /Mark moving\s*: Sample job 06/ }).click();
+  await route.getByRole('button', { name: /Mark arrived\s*: Sample job 06/ }).click();
+  assert.match(
+    await route.locator('[data-job="Sample job 06"]').innerText(),
+    /Arrived[\s\S]*Complete/,
+  );
+  assert.match(
+    await route.locator('[data-activity]').innerText(),
+    /Sample job 06: Moving → Arrived/,
+  );
+  assert.doesNotMatch(await route.innerText(), /\bETA\b|tracking number/i);
+  pass('RoutePilot demo: lane filter, status steps, activity log; fake identifiers');
+
+  const co = await openDemo('campusone-portal', '[data-campus]');
+  assert.match(await co.locator('[data-lesson-progress]').innerText(), /2 of 5/);
+  await co.getByRole('button', { name: 'Complete lesson 3' }).click();
+  assert.match(await co.locator('[data-lesson-progress]').innerText(), /3 of 5.*Lesson 4/);
+  await co.getByRole('tab', { name: 'Home' }).focus();
+  await page.keyboard.press('ArrowRight');
+  await page.keyboard.press('ArrowRight');
+  assert.equal(await co.getByRole('tab', { name: /Tasks/ }).getAttribute('aria-selected'), 'true');
+  await co.getByLabel('Read the lesson 3 notes').check();
+  assert.match(await co.getByRole('tab', { name: /Tasks/ }).innerText(), /Tasks\s*1/);
+  pass('CampusOne demo: lesson progress, keyboard tabs, task checkboxes');
+
+  const mv = await openDemo('maison-vale-studios', '[data-maison]');
+  await mv.locator('[data-maison-filters]').getByRole('button', { name: 'Hospitality' }).click();
+  assert.equal(await mv.locator('[data-maison-projects] > li').count(), 2);
+  await mv.getByRole('button', { name: /Boutique hotel lobby/ }).click();
+  assert.match(await mv.innerText(), /Travertine/);
+  await mv.getByRole('button', { name: 'Review my enquiry' }).click();
+  assert.match(await mv.getByRole('status').innerText(), /Choose an answer for each question/);
+  await mv.getByRole('button', { name: /Residential\s*\(space\)/ }).click();
+  await mv.getByRole('button', { name: /A single room\s*\(size\)/ }).click();
+  await mv.getByRole('button', { name: /Ready to plan\s*\(stage\)/ }).click();
+  await mv.getByRole('button', { name: 'Review my enquiry' }).click();
+  assert.match(
+    await mv.locator('[data-maison-summary]').innerText(),
+    /Residential[\s\S]*No timeline or result is\s+promised/,
+  );
+  pass('Maison Vale demo: space filter, materials, enquiry validation and honest summary');
+
+  const am = await openDemo('amzlat-world-of-beauty', '[data-amzlat]');
+  assert.match(await page.locator('[data-demo-badge]').innerText(), /uncommissioned/);
+  assert.equal(await am.locator('[data-amzlat-categories] button').count(), 6);
+  await am.locator('[data-amzlat-categories]').getByRole('button', { name: 'Skincare' }).click();
+  await am.getByRole('button', { name: /Add to list\s*: Cleanser/ }).click();
+  await am.locator('[data-amzlat-categories]').getByRole('button', { name: 'Hair' }).click();
+  await am.getByRole('button', { name: /Add to list\s*: Hair oil/ }).click();
+  await am.locator('[data-amzlat-list-button]').click();
+  assert.match(
+    await am.locator('[data-amzlat-list]').innerText(),
+    /Skincare: Cleanser[\s\S]*Hair: Hair oil/,
+  );
+  assert.doesNotMatch(await am.innerText(), /₦|\$|in stock/i);
+  pass('Amzlat demo: six reference categories, enquiry list, no prices or stock');
+
+  const op = await openDemo('opeyemi-phones-gadgets', '[data-opeyemi]');
+  await op.getByRole('button', { name: 'Laptops' }).click();
+  assert.match(await op.locator('[data-opeyemi-listings]').innerText(), /13-inch laptop/);
+  await op.getByRole('button', { name: 'Sell or swap' }).click();
+  await op.getByRole('button', { name: 'Review my device' }).click();
+  assert.match(await op.getByRole('status').innerText(), /Choose a device type/);
+  await op.getByLabel('Device type').selectOption('Phones');
+  await op.getByLabel('Model and storage').fill('128 GB, black');
+  await op.getByLabel('Condition').selectOption('Good');
+  await op.getByRole('button', { name: 'Review my device' }).click();
+  assert.match(
+    await op.locator('[data-opeyemi-summary]').innerText(),
+    /Swap: phone · 128 GB, black · good/,
+  );
+  assert.ok(await op.getByRole('button', { name: 'Send on WhatsApp' }).isDisabled());
+  assert.doesNotMatch(await op.innerText(), /₦|warranty included|\+234/i);
+  pass('Opeyemi demo: browse, separate sell/swap form, WhatsApp stays disabled');
+
   // Concept demo shell (T11): badge, way back, lazy island, review mode, no-JS fallback.
   const demoUrl = `${BASE_URL}/work/corporate-digital-modernization/demo`;
   await page.goto(BASE_URL + '/work', { waitUntil: 'networkidle' });

@@ -1,6 +1,12 @@
 import type { Concept } from '@/data/concepts';
 import type { DemoDefinition } from './types';
 import { corporateDemo } from './corporate-digital-modernization';
+import { flowdeskDemo } from './flowdesk-os';
+import { routepilotDemo } from './routepilot-logistics';
+import { campusDemo } from './campusone-portal';
+import { maisonDemo } from './maison-vale-studios';
+import { amzlatDemo } from './amzlat-world-of-beauty';
+import { opeyemiDemo } from './opeyemi-phones-gadgets';
 import { auraDemo } from './aura-clothing';
 import { bloomDemo } from './bloom-wellness-studio';
 
@@ -10,7 +16,17 @@ export type { DemoDefinition, ReviewStep } from './types';
  * Concepts with a live demo at /work/<slug>/demo. Tasks T1-T10 add one entry each,
  * plus a component in src/components/demo/DemoIsland.tsx.
  */
-export const demos: DemoDefinition[] = [auraDemo, bloomDemo, corporateDemo];
+export const demos: DemoDefinition[] = [
+  auraDemo,
+  bloomDemo,
+  flowdeskDemo,
+  routepilotDemo,
+  campusDemo,
+  maisonDemo,
+  amzlatDemo,
+  opeyemiDemo,
+  corporateDemo,
+];
 
 export function getDemo(slug: string): DemoDefinition | undefined {
   return demos.find((demo) => demo.slug === slug);

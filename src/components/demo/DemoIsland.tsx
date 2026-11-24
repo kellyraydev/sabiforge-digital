@@ -7,6 +7,12 @@ import { lazy, Suspense, useEffect, type ComponentType, type LazyExoticComponent
 const registry: Record<string, LazyExoticComponent<ComponentType>> = {
   'aura-clothing': lazy(() => import('./demos/AuraClothingDemo')),
   'bloom-wellness-studio': lazy(() => import('./demos/BloomBookingDemo')),
+  'flowdesk-os': lazy(() => import('./demos/FlowDeskDemo')),
+  'routepilot-logistics': lazy(() => import('./demos/RoutePilotDemo')),
+  'campusone-portal': lazy(() => import('./demos/CampusOneDemo')),
+  'maison-vale-studios': lazy(() => import('./demos/MaisonValeDemo')),
+  'amzlat-world-of-beauty': lazy(() => import('./demos/AmzlatDemo')),
+  'opeyemi-phones-gadgets': lazy(() => import('./demos/OpeyemiDemo')),
   'corporate-digital-modernization': lazy(() => import('./demos/CorporateRedesignDemo')),
 };
 
