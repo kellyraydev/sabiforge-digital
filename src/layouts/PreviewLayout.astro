@@ -4,7 +4,11 @@
  * honesty banner (so a concept is never mistaken for a real site), then the project's own header,
  * page content and footer. Previews are noindex, consistent with staging policy.
  */
+import '@fontsource-variable/bricolage-grotesque';
 import '@fontsource-variable/inter';
+import '@fontsource-variable/jetbrains-mono';
+import '@fontsource-variable/outfit';
+import '@fontsource/instrument-serif/400.css';
 import { themeStyle, type Blueprint, type BlueprintPage } from '@/lib/blueprint';
 import { CLIENT_LABEL, CONCEPT_LABEL } from '@/data/concepts';
 
@@ -74,19 +78,47 @@ const banner =
     </div>
 
     <style is:global>
+      html[data-preview],
+      html[data-preview] body {
+        margin: 0;
+      }
       .bp-root {
-        --bp-space-section: clamp(3rem, 7vw, 5.5rem);
-        --bp-space-card: clamp(1.25rem, 2.5vw, 1.75rem);
-        --bp-ease: cubic-bezier(0.22, 1, 0.36, 1);
-        --bp-motion-fast: 220ms;
-        --bp-motion-reveal: 620ms;
+        --bp-space-page: clamp(1.25rem, 4vw, 2.75rem);
+        --bp-space-section: clamp(4.25rem, 8vw, 7rem);
+        --bp-space-block: clamp(1.75rem, 3vw, 2.75rem);
+        --bp-space-card: clamp(1.35rem, 2.2vw, 1.9rem);
+        --bp-space-inline: clamp(0.85rem, 1.8vw, 1.35rem);
+        --bp-space-hero-y: clamp(3.25rem, 8vw, 6.75rem);
+        --bp-space-hero-gap: clamp(2rem, 5vw, 5.5rem);
+        --bp-type-hero: clamp(3.25rem, 7.4vw, 6.75rem);
+        --bp-type-display: clamp(2.05rem, 4.4vw, 3.4rem);
+        --bp-type-card: clamp(1.2rem, 1.6vw, 1.45rem);
+        --bp-type-lede: clamp(1.05rem, 1.35vw, 1.22rem);
+        --bp-type-body: 1rem;
+        --bp-type-meta: 0.78rem;
+        --bp-leading-display: 0.94;
+        --bp-leading-title: 1.08;
+        --bp-leading-body: 1.65;
+        --bp-track-display: -0.048em;
+        --bp-track-eyebrow: 0.2em;
+        --bp-gallery-gap: clamp(0.65rem, 1.4vw, 1.15rem);
+        --bp-gallery-shift: clamp(2.75rem, 7vw, 6.5rem);
+        --bp-gallery-shift-sm: clamp(0.85rem, 3vw, 1.75rem);
+        --bp-ease: cubic-bezier(0.16, 1, 0.3, 1);
+        --bp-motion-fast: 200ms;
+        --bp-motion-hover: 480ms;
+        --bp-motion-reveal: 680ms;
+        --bp-motion-stagger: 80ms;
+        --bp-shadow-lift: 0 1.15rem 2.4rem color-mix(in srgb, var(--bp-ink) 12%, transparent);
         background: var(--bp-bg);
         color: var(--bp-ink);
         font-family: var(--bp-body);
+        font-size: var(--bp-type-body);
+        line-height: var(--bp-leading-body);
         min-height: 100dvh;
       }
       .bp-shell {
-        width: min(78rem, 100% - 3rem);
+        width: min(80rem, calc(100% - var(--bp-space-page) * 2));
         margin-inline: auto;
       }
       .bp-banner {
@@ -108,7 +140,7 @@ const banner =
       }
       .bp-header {
         border-bottom: 1px solid color-mix(in srgb, var(--bp-ink) 10%, transparent);
-        padding: 1.15rem 0;
+        padding: 1.2rem 0;
       }
       .bp-header-inner {
         display: flex;
@@ -118,49 +150,54 @@ const banner =
       }
       .bp-brand {
         font-family: var(--bp-display);
-        font-size: 1.2rem;
+        font-size: var(--bp-type-card);
         letter-spacing: 0.04em;
         font-weight: 600;
+        line-height: 1;
         text-decoration: none;
         color: inherit;
+        transition: color var(--bp-motion-fast) var(--bp-ease);
       }
       .bp-nav {
         display: flex;
         flex-wrap: wrap;
-        gap: 0.25rem 1rem;
+        gap: 0.25rem 1.15rem;
       }
       .bp-nav a {
         color: var(--bp-muted);
         text-decoration: none;
-        font-size: 0.9rem;
+        font-size: 0.92rem;
         padding: 0.4rem 0;
         transition: color var(--bp-motion-fast) var(--bp-ease);
       }
       .bp-nav a[aria-current='page'] {
         color: var(--bp-ink);
         font-weight: 600;
+        box-shadow: inset 0 -1px 0 var(--bp-accent);
       }
       .bp-section {
         padding: var(--bp-space-section) 0;
       }
       .bp-section-title {
         font-family: var(--bp-display);
-        font-size: clamp(1.8rem, 3.8vw, 2.65rem);
-        line-height: 1.08;
-        letter-spacing: -0.035em;
+        font-weight: 400;
+        font-size: var(--bp-type-display);
+        line-height: var(--bp-leading-title);
+        letter-spacing: var(--bp-track-display);
         margin: 0;
+        max-width: 16ch;
       }
       .bp-section-intro {
         margin: 1rem 0 0;
         max-width: 58ch;
         color: var(--bp-muted);
-        font-size: clamp(1rem, 1.2vw, 1.1rem);
-        line-height: 1.7;
+        font-size: var(--bp-type-lede);
+        line-height: var(--bp-leading-body);
       }
       .bp-eyebrow {
         text-transform: uppercase;
-        letter-spacing: 0.18em;
-        font-size: 0.75rem;
+        letter-spacing: var(--bp-track-eyebrow);
+        font-size: var(--bp-type-meta);
         color: var(--bp-accent);
         margin: 0;
         font-weight: 600;
@@ -194,12 +231,15 @@ const banner =
         outline: 2px solid var(--bp-accent);
         outline-offset: 2px;
       }
-      .bp-nav a:hover {
-        color: var(--bp-ink);
-      }
-      .bp-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 0.65rem 1.5rem color-mix(in srgb, var(--bp-ink) 14%, transparent);
+      @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+        .bp-nav a:hover,
+        .bp-brand:hover {
+          color: var(--bp-accent);
+        }
+        .bp-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: var(--bp-shadow-lift);
+        }
       }
       .bp-footer {
         margin-top: 2rem;
@@ -213,12 +253,13 @@ const banner =
       }
       .bp-reveal-ready [data-reveal]:not(.is-revealed) {
         opacity: 0;
-        transform: translateY(1.25rem);
+        transform: translateY(1.15rem);
       }
       [data-reveal] {
         transition:
           opacity var(--bp-motion-reveal) var(--bp-ease),
           transform var(--bp-motion-reveal) var(--bp-ease);
+        transition-delay: calc(var(--bp-reveal-index, 0) * var(--bp-motion-stagger));
       }
       @media (prefers-reduced-motion: reduce) {
         *,
@@ -228,12 +269,14 @@ const banner =
           animation-duration: 0.01ms !important;
           animation-iteration-count: 1 !important;
           transition-duration: 0.01ms !important;
+          transition-delay: 0ms !important;
         }
         .bp-reveal-ready [data-reveal]:not(.is-revealed) {
           opacity: 1;
           transform: none;
         }
-        .bp-btn:hover {
+        .bp-btn:hover,
+        .bp-brand:hover {
           transform: none;
           box-shadow: none;
         }
@@ -241,8 +284,13 @@ const banner =
     </style>
     <script>
       const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
-      if (!motionPreference.matches && 'IntersectionObserver' in window) {
-        const revealItems = document.querySelectorAll<HTMLElement>('[data-reveal]');
+      const revealItems = document.querySelectorAll<HTMLElement>('[data-reveal]');
+      if (!motionPreference.matches && 'IntersectionObserver' in window && revealItems.length > 0) {
+        const viewportBottom = window.innerHeight * 0.92;
+        revealItems.forEach((item) => {
+          const rect = item.getBoundingClientRect();
+          if (rect.top < viewportBottom && rect.bottom > 0) item.classList.add('is-revealed');
+        });
         document.documentElement.classList.add('bp-reveal-ready');
         const revealObserver = new IntersectionObserver(
           (entries, observer) => {
@@ -253,9 +301,11 @@ const banner =
               }
             });
           },
-          { threshold: 0.12, rootMargin: '0px 0px -5% 0px' },
+          { threshold: 0.16, rootMargin: '0px 0px -8% 0px' },
         );
-        revealItems.forEach((item) => revealObserver.observe(item));
+        revealItems.forEach((item) => {
+          if (!item.classList.contains('is-revealed')) revealObserver.observe(item);
+        });
       }
     </script>
   </body>

@@ -19,8 +19,8 @@ const href = (to: string) => (to.startsWith('/') ? `/preview/${slug}${to === '/'
 </section>
 <style>
   .bp-cta {
-    margin: 1.5rem 0 var(--bp-space-section);
-    padding: clamp(2.5rem, 7vw, 5rem);
+    margin: 1rem 0 var(--bp-space-section);
+    padding: clamp(2.75rem, 7vw, 5.25rem) clamp(1.25rem, 4vw, 3rem);
     border-radius: var(--bp-radius);
     text-align: center;
     background: var(--bp-accent);
@@ -28,16 +28,20 @@ const href = (to: string) => (to.startsWith('/') ? `/preview/${slug}${to === '/'
   }
   .bp-cta-title {
     font-family: var(--bp-display);
-    font-size: clamp(2rem, 4.5vw, 3.25rem);
-    line-height: 1.08;
-    letter-spacing: -0.04em;
-    margin: 0;
+    font-size: var(--bp-type-display);
+    font-weight: 400;
+    line-height: var(--bp-leading-title);
+    letter-spacing: var(--bp-track-display);
+    margin: 0 auto;
+    max-width: 16ch;
+    text-wrap: balance;
   }
   .bp-cta-sub {
     margin: 1rem auto 1.75rem;
-    max-width: 46ch;
-    opacity: 0.85;
-    line-height: 1.65;
+    max-width: 42ch;
+    font-size: var(--bp-type-lede);
+    line-height: var(--bp-leading-body);
+    opacity: 0.86;
   }
   .bp-cta .bp-btn-primary {
     background: var(--bp-accent-ink);

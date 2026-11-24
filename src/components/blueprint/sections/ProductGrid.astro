@@ -9,13 +9,23 @@ interface Props {
 const { slug, name, section } = Astro.props;
 ---
 
-<section class="bp-section" data-island={section.island ?? undefined} data-reveal>
-  {section.title && <h2 class="bp-section-title">{section.title}</h2>}
-  {section.intro && <p class="bp-section-intro">{section.intro}</p>}
+<section class="bp-section" data-island={section.island ?? undefined}>
+  {section.title && (
+    <h2 class="bp-section-title" data-reveal>
+      {section.title}
+    </h2>
+  )}
+  {section.intro && (
+    <p class="bp-section-intro" data-reveal style="--bp-reveal-index: 1">
+      {section.intro}
+    </p>
+  )}
   <ul class="bp-product-grid" role="list">
-    {section.products.map((p) => (
-      <li class="bp-product">
-        <ImageSlot slug={slug} image={p.image} projectName={name} ratio="4 / 5" />
+    {section.products.map((p, i) => (
+      <li class="bp-product" data-reveal style={`--bp-reveal-index:${i % 4}`}>
+        <div class="bp-product-media">
+          <ImageSlot slug={slug} image={p.image} projectName={name} ratio="4 / 5" />
+        </div>
         <p class="bp-product-name">{p.name}</p>
         {p.caption && <p class="bp-product-caption">{p.caption}</p>}
       </li>
@@ -30,42 +40,49 @@ const { slug, name, section } = Astro.props;
 <style>
   .bp-product-grid {
     list-style: none;
-    margin: 2.25rem 0 0;
+    margin: var(--bp-space-block) 0 0;
     padding: 0;
     display: grid;
-    gap: clamp(1.5rem, 3vw, 2.5rem) clamp(0.85rem, 1.6vw, 1.5rem);
-    grid-template-columns: repeat(2, 1fr);
+    gap: var(--bp-space-block) var(--bp-space-inline);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  @media (min-width: 720px) {
+  @media (min-width: 900px) {
     .bp-product-grid {
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(4, minmax(0, 1fr));
     }
   }
+  .bp-product-media {
+    overflow: hidden;
+    border-radius: var(--bp-radius);
+    background: var(--bp-surface);
+  }
   .bp-product-name {
-    margin: 0.85rem 0 0;
-    font-weight: 600;
-    font-size: 1rem;
-    letter-spacing: -0.01em;
+    margin: 0.9rem 0 0;
+    font-family: var(--bp-display);
+    font-weight: 400;
+    font-size: var(--bp-type-card);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
   }
   .bp-product-caption {
-    margin: 0.3rem 0 0;
+    margin: 0.35rem 0 0;
     color: var(--bp-muted);
     font-size: 0.88rem;
-    line-height: 1.5;
+    letter-spacing: 0.01em;
+    line-height: 1.45;
   }
-  .bp-product :global(.bp-img) {
-    transition:
-      transform 420ms var(--bp-ease),
-      box-shadow 420ms var(--bp-ease);
+  .bp-product-media :global(.bp-img) {
+    border-radius: 0;
+    transition: transform var(--bp-motion-hover) var(--bp-ease);
   }
-  .bp-product:hover :global(.bp-img) {
-    transform: translateY(-4px);
-    box-shadow: 0 1.2rem 2.5rem color-mix(in srgb, var(--bp-ink) 13%, transparent);
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .bp-product:hover :global(.bp-img) {
+      transform: scale(1.045);
+    }
   }
   @media (prefers-reduced-motion: reduce) {
     .bp-product:hover :global(.bp-img) {
       transform: none;
-      box-shadow: none;
     }
   }
   .bp-island-note {

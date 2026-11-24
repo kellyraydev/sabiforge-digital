@@ -6,12 +6,20 @@ interface Props {
 const { section } = Astro.props;
 ---
 
-<section class="bp-section" data-reveal>
-  {section.title && <h2 class="bp-section-title">{section.title}</h2>}
-  {section.intro && <p class="bp-section-intro">{section.intro}</p>}
+<section class="bp-section">
+  {section.title && (
+    <h2 class="bp-section-title" data-reveal>
+      {section.title}
+    </h2>
+  )}
+  {section.intro && (
+    <p class="bp-section-intro" data-reveal style="--bp-reveal-index: 1">
+      {section.intro}
+    </p>
+  )}
   <ul class="bp-feature-grid" role="list">
-    {section.items.map((item) => (
-      <li class="bp-card">
+    {section.items.map((item, i) => (
+      <li class="bp-card" data-reveal style={`--bp-reveal-index:${i % 4}`}>
         <h3 class="bp-card-title">{item.title}</h3>
         <p class="bp-card-body">{item.body}</p>
       </li>
@@ -21,11 +29,10 @@ const { section } = Astro.props;
 <style>
   .bp-feature-grid {
     list-style: none;
-    margin: 1.75rem 0 0;
+    margin: var(--bp-space-block) 0 0;
     padding: 0;
     display: grid;
-    gap: clamp(0.85rem, 1.8vw, 1.35rem);
-    margin-top: 2rem;
+    gap: var(--bp-space-inline);
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
   }
   .bp-card {
@@ -38,10 +45,12 @@ const { section } = Astro.props;
       border-color var(--bp-motion-fast) var(--bp-ease),
       box-shadow var(--bp-motion-fast) var(--bp-ease);
   }
-  .bp-card:hover {
-    transform: translateY(-4px);
-    border-color: color-mix(in srgb, var(--bp-accent) 42%, transparent);
-    box-shadow: 0 1rem 2.5rem color-mix(in srgb, var(--bp-ink) 8%, transparent);
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .bp-card:hover {
+      transform: translateY(-4px);
+      border-color: color-mix(in srgb, var(--bp-accent) 42%, transparent);
+      box-shadow: var(--bp-shadow-lift);
+    }
   }
   @media (prefers-reduced-motion: reduce) {
     .bp-card:hover {
@@ -51,14 +60,16 @@ const { section } = Astro.props;
   }
   .bp-card-title {
     font-family: var(--bp-display);
-    font-size: 1.25rem;
+    font-weight: 400;
+    font-size: var(--bp-type-card);
     line-height: 1.25;
+    letter-spacing: -0.02em;
     margin: 0;
   }
   .bp-card-body {
     margin: 0.7rem 0 0;
     color: var(--bp-muted);
-    font-size: 0.98rem;
-    line-height: 1.65;
+    font-size: var(--bp-type-body);
+    line-height: var(--bp-leading-body);
   }
 </style>
