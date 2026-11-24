@@ -66,6 +66,13 @@ const pass = (msg) => console.log(`✓ ${msg}`);
     '/contact?package=custom',
   ]);
   assert.equal(await page.locator('#process ol > li').count(), 6);
+  const foundingCopy = await page
+    .locator('#packages p')
+    .filter({ hasText: 'Founding offer:' })
+    .innerText();
+  assert.match(foundingCopy, /slots\. See terms/);
+  const paymentCopy = await page.locator('[data-payment-terms]').innerText();
+  assert.match(paymentCopy, /milestones\. Payment and timeline questions/);
   pass('homepage sections: service links, ten labelled concepts, plan links, six process steps');
 
   // Concept filter (moved to /work)
@@ -697,6 +704,25 @@ const pass = (msg) => console.log(`✓ ${msg}`);
   assert.ok(await demoPlain.locator('section img').first().isVisible(), 'static picture fallback');
   await demoNoJs.close();
   pass('without JavaScript the demo page shows the picture, badge and full walkthrough');
+
+  const noJsContext = await browser.newContext({ javaScriptEnabled: false });
+  await configureStagingAuth(noJsContext);
+  const noJsPage = await noJsContext.newPage();
+  await noJsPage.goto(`${BASE_URL}/pricing#finder`, { waitUntil: 'load' });
+  const finderFallback = noJsPage
+    .locator('noscript p')
+    .filter({ hasText: 'The finder needs JavaScript' });
+  assert.match(
+    await finderFallback.innerText(),
+    /JavaScript\. Message us on WhatsApp and we’ll suggest a package/,
+  );
+  await noJsPage.goto(`${BASE_URL}/contact`, { waitUntil: 'load' });
+  const contactFallback = noJsPage
+    .locator('noscript p')
+    .filter({ hasText: 'email us directly at' });
+  assert.match(await contactFallback.innerText(), /directly at kellyray\.dev@gmail\.com\./);
+  await noJsContext.close();
+  pass('no-JavaScript finder and contact fallbacks have readable word spacing');
 
   const res = await page.goto(`${BASE_URL}/does-not-exist`);
   assert.equal(res.status(), 404);
