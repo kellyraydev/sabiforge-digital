@@ -126,7 +126,10 @@ describe('honesty rules', () => {
     expect(JSON.stringify(whyPoints)).not.toMatch(/most of your customers|checked for speed/i);
   });
 
-  it('does not publish unsupported popularity, privacy, or response-time claims', () => {
+  it('does not publish unsupported popularity, privacy, history, or duration claims', () => {
+    const packagePreview = readFileSync('src/components/home/v2/PackagesPreview.astro', 'utf8');
+    expect(packagePreview).toContain('const FEATURED =');
+    expect(packagePreview).not.toMatch(/\bpopular\b/i);
     const publicCopy = [
       'src/components/home/v2/PackagesPreview.astro',
       'src/pages/about.astro',
