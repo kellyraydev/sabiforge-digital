@@ -117,6 +117,7 @@ export function themeStyle(theme: Theme): string {
 /** Images for every project, globbed eagerly so a present file swaps in with no code change. */
 const projectImages = import.meta.glob<string>('/src/assets/projects/*/*.{webp,jpg,jpeg,png,svg}', {
   eager: true,
+  query: '?url',
   import: 'default',
 });
 
