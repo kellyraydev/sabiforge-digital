@@ -272,8 +272,8 @@ export const whyPoints: { title: string; body: string; icon: IconKey }[] = [
     icon: 'clipboard',
   },
   {
-    title: 'Quality that lasts',
-    body: 'Fast, secure and easy to use on phones, tablets and computers.',
+    title: 'Usability checks',
+    body: 'We review mobile layouts and keyboard access as part of the project.',
     icon: 'shield',
   },
   {

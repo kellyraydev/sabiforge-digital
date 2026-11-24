@@ -123,7 +123,12 @@ describe('honesty rules', () => {
     expect(serviceCardCopy['website-redesign-modernization'].blurb).not.toMatch(
       /secure|running smoothly/i,
     );
-    expect(JSON.stringify(whyPoints)).not.toMatch(/most of your customers|checked for speed/i);
+    expect(JSON.stringify(whyPoints)).not.toMatch(
+      /most of your customers|checked for speed|fast|secure/i,
+    );
+    expect(whyPoints.find((point) => point.title === 'Usability checks')?.body).toMatch(
+      /review mobile layouts and keyboard access/,
+    );
   });
 
   it('does not publish unsupported popularity, privacy, history, or duration claims', () => {
@@ -141,7 +146,7 @@ describe('honesty rules', () => {
       .map((file) => readFileSync(file, 'utf8'))
       .join('\n');
     expect(publicCopy).not.toMatch(
-      /Most popular|private staging|private link|three minutes|new studio|account management/i,
+      /Most popular|private staging|private link|three minutes|new studio|account management|most common cause/i,
     );
     const locationCopy = [
       'src/components/ui/EditorialSignal.astro',

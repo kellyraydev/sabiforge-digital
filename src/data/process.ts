@@ -205,8 +205,7 @@ export const handoverItems = [
 export const timelineFactors = [
   {
     title: 'Content that arrives late',
-    detail:
-      'The most common cause of delay. Real copy and images are needed before design review and again before launch.',
+    detail: 'Approved copy and images are needed before design review and again before launch.',
   },
   {
     title: 'Feedback in pieces',
