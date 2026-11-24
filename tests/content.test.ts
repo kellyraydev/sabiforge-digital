@@ -143,6 +143,14 @@ describe('honesty rules', () => {
     expect(publicCopy).not.toMatch(
       /Most popular|private staging|private link|three minutes|new studio|account management/i,
     );
+    const locationCopy = [
+      'src/components/ui/EditorialSignal.astro',
+      'src/components/hero-lab/HeroPrototype.astro',
+    ]
+      .map((file) => readFileSync(file, 'utf8'))
+      .join('\n');
+    expect(locationCopy).not.toMatch(/LAGOS|06°31|03°22/);
+    expect(locationCopy).toContain("locationLine.split(' · ')[0]");
     expect(concepts.filter((concept) => concept.basis === 'reference')).toHaveLength(2);
     expect(concepts.filter((concept) => concept.basis === 'client')).toHaveLength(1);
     expect(concepts.filter((concept) => concept.basis === 'fictional')).toHaveLength(7);

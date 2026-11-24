@@ -1,4 +1,6 @@
 ---
+import { locationLine } from '@/data/site';
+
 interface Props {
   variant?:
     'work' | 'studio' | 'services' | 'pricing' | 'contact' | 'process' | 'commerce' | 'service';
@@ -73,7 +75,7 @@ const { variant = 'work', label = 'SabiForge Digital visual study' } = Astro.pro
   <span class="signal-orbit signal-orbit-a" aria-hidden="true"></span>
   <span class="signal-orbit signal-orbit-b" aria-hidden="true"></span>
   <span class="signal-index meta" aria-hidden="true">
-    LAGOS / 06°31'N / 03°22'E
+    {locationLine.split(' · ')[0]}
   </span>
 </div>
 
