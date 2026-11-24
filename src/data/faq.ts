@@ -14,8 +14,12 @@ export const pricingFaq: { q: string; a: string }[] = [
     a: 'Revision rounds and timelines depend on the package and how quickly content and feedback arrive. Both are written into your proposal before work begins, so there are no surprises.',
   },
   {
+    q: 'Is the first consultation free?',
+    a: 'Yes. The first conversation about your project is free, on WhatsApp, a call or email. We reply within one working day.',
+  },
+  {
     q: 'How does payment work?',
-    a: 'The payment schedule is set out in your proposal and agreed before the project starts.',
+    a: 'Starter, Business and Online Store are paid in two parts: 50% to start and 50% before launch. Custom Software is paid in stages tied to agreed milestones. The exact schedule is written into your proposal before work begins.',
   },
   {
     q: 'Can I start small and upgrade later?',

@@ -6,7 +6,8 @@
  */
 import { Picture } from 'astro:assets';
 import Button from '@/components/ui/Button.astro';
-import { startProjectHref } from '@/data/site';
+import Icon from '@/components/ui/Icon.astro';
+import { startProjectHref, promises } from '@/data/site';
 import devices from '@/assets/hero/v2-devices-hd.png';
 ---
 
@@ -19,8 +20,8 @@ import devices from '@/assets/hero/v2-devices-hd.png';
         Your business deserves more than <em>just a website.</em>
       </h1>
       <p class="hero-lede" data-reveal style="--reveal-delay:100">
-        We build professional websites, online stores, and custom software that help businesses
-        reach more customers, work smarter, and grow with confidence.
+        Websites, online stores and custom software for Nigerian businesses, built to bring you more
+        customers and save you time.
       </p>
       <div class="hero-actions" data-reveal style="--reveal-delay:180">
         <Button href={startProjectHref} size="lg" icon="arrow-right">
@@ -30,6 +31,14 @@ import devices from '@/assets/hero/v2-devices-hd.png';
           Explore our work
         </Button>
       </div>
+      <ul class="hero-promises" data-reveal style="--reveal-delay:220" data-hero-promises>
+        {Object.values(promises).map((line) => (
+          <li>
+            <Icon name="check" class="size-4 shrink-0 text-mint-300" />
+            {line}
+          </li>
+        ))}
+      </ul>
     </div>
 
     <figure class="hero-visual" data-reveal style="--reveal-delay:120">
@@ -83,6 +92,19 @@ import devices from '@/assets/hero/v2-devices-hd.png';
     font-size: clamp(1.05rem, 2.6vw, 1.25rem);
     line-height: 1.6;
     color: rgb(214 219 242 / 0.82);
+  }
+  .hero-promises {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+    margin-top: 1.5rem;
+    font-size: 0.875rem;
+    color: rgb(233 236 251 / 0.8);
+  }
+  .hero-promises li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
   }
   .hero-actions {
     margin-top: 2.25rem;

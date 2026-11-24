@@ -20,6 +20,15 @@ export const site = {
   social: [] as { label: string; href: string }[],
 } as const;
 
+/**
+ * Service promises (ledger item 20, 23 Nov 2026). One source for every page that states them.
+ */
+export const promises = {
+  consultation: 'Free first consultation',
+  reply: 'Reply within one working day',
+  payment: 'Pay 50% to start, 50% before launch',
+} as const;
+
 export function whatsappLink(
   message = "Hello SabiForge Digital, I'd like to discuss a project.",
 ): string {

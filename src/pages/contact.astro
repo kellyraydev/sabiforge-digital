@@ -14,10 +14,14 @@ const packageOptions = packages.map((p) => ({
   label: p.fromPrice ? `${p.name} (from)` : p.name,
 }));
 const expectations = [
-  { title: 'A personal reply', detail: 'From a person, with questions or suggested next steps.' },
+  {
+    title: 'A personal reply within one working day',
+    detail: 'From a person, with questions or suggested next steps.',
+  },
   {
     title: 'A short conversation',
-    detail: 'On WhatsApp, a call or by email — whichever suits you.',
+    detail:
+      'On WhatsApp, a call or by email — whichever suits you. The first consultation is free.',
   },
   {
     title: 'A written proposal',

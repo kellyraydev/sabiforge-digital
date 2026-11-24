@@ -132,3 +132,22 @@ describe('Big Beerah Collection is client work (ledger 19, 22 Nov)', () => {
     );
   });
 });
+
+describe('ledger 20: delegated service promises (23 Nov 2026)', () => {
+  it('states the agreed promises once, in site data', async () => {
+    const { promises } = await import('../src/data/site');
+    expect(promises).toEqual({
+      consultation: 'Free first consultation',
+      reply: 'Reply within one working day',
+      payment: 'Pay 50% to start, 50% before launch',
+    });
+  });
+
+  it('answers payment and free consultation in the pricing FAQ', async () => {
+    const { pricingFaq } = await import('../src/data/faq');
+    const payment = pricingFaq.find((item) => item.q === 'How does payment work?');
+    expect(payment?.a).toMatch(/50% to start and 50% before launch/);
+    expect(payment?.a).toMatch(/milestones/);
+    expect(pricingFaq.some((item) => /first consultation free/.test(item.q))).toBe(true);
+  });
+});
