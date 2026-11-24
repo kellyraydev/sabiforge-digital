@@ -4,22 +4,22 @@
     {
       "source": "/services/website-care-maintenance",
       "destination": "/services/website-redesign-modernization",
-      "permanent": true
+      "statusCode": 301
     },
     {
       "source": "/services/website-care-maintenance/",
       "destination": "/services/website-redesign-modernization",
-      "permanent": true
+      "statusCode": 301
     },
     {
       "source": "/shopify",
       "destination": "/services/shopify-ecommerce-development",
-      "permanent": true
+      "statusCode": 301
     },
     {
       "source": "/shopify/",
       "destination": "/services/shopify-ecommerce-development",
-      "permanent": true
+      "statusCode": 301
     }
   ]
 }

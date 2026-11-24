@@ -15,7 +15,7 @@ describe('21 November 2026 owner decisions', () => {
     expect(approvedServices).toHaveLength(services.length);
   });
 
-  it('redirects the retired care page and /shopify permanently at the host', () => {
+  it('redirects the retired care page and /shopify with 301 status at the host', () => {
     const config = JSON.parse(readFileSync(new URL('../vercel.json', import.meta.url), 'utf8'));
     const pairs = [
       ['/services/website-care-maintenance', '/services/website-redesign-modernization'],
@@ -23,7 +23,7 @@ describe('21 November 2026 owner decisions', () => {
     ];
     expect(config.redirects).toEqual(
       pairs.flatMap(([source, destination]) =>
-        [source, `${source}/`].map((path) => ({ source: path, destination, permanent: true })),
+        [source, `${source}/`].map((path) => ({ source: path, destination, statusCode: 301 })),
       ),
     );
   });
