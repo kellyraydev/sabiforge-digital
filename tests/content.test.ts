@@ -135,6 +135,7 @@ describe('honesty rules', () => {
     const packagePreview = readFileSync('src/components/home/v2/PackagesPreview.astro', 'utf8');
     expect(packagePreview).toContain('const FEATURED =');
     expect(packagePreview).not.toMatch(/\bpopular\b/i);
+    expect(packagePreview).toContain("first {foundingSlotsLabel()}.{' '}");
     const publicCopy = [
       'src/components/home/v2/PackagesPreview.astro',
       'src/pages/about.astro',
