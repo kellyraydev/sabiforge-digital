@@ -149,6 +149,7 @@ describe('honesty rules', () => {
     expect(publicCopy).not.toMatch(
       /Most popular|private staging|private link|three minutes|new studio|account management|most common cause/i,
     );
+    expect(readFileSync('src/pages/contact.astro', 'utf8')).toContain("directly at{' '}");
     const locationCopy = [
       'src/components/ui/EditorialSignal.astro',
       'src/components/hero-lab/HeroPrototype.astro',
