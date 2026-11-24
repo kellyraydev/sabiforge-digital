@@ -1,0 +1,46 @@
+---
+import type { Section } from '@/lib/blueprint';
+interface Props {
+  section: Extract<Section, { type: 'feature-grid' }>;
+}
+const { section } = Astro.props;
+---
+
+<section class="bp-section">
+  {section.title && <h2 class="bp-section-title">{section.title}</h2>}
+  {section.intro && <p class="bp-section-intro">{section.intro}</p>}
+  <ul class="bp-feature-grid" role="list">
+    {section.items.map((item) => (
+      <li class="bp-card">
+        <h3 class="bp-card-title">{item.title}</h3>
+        <p class="bp-card-body">{item.body}</p>
+      </li>
+    ))}
+  </ul>
+</section>
+<style>
+  .bp-feature-grid {
+    list-style: none;
+    margin: 1.75rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  }
+  .bp-card {
+    background: var(--bp-surface);
+    border-radius: var(--bp-radius);
+    padding: 1.25rem;
+    border: 1px solid color-mix(in srgb, var(--bp-ink) 10%, transparent);
+  }
+  .bp-card-title {
+    font-family: var(--bp-display);
+    font-size: 1.1rem;
+    margin: 0;
+  }
+  .bp-card-body {
+    margin: 0.5rem 0 0;
+    color: var(--bp-muted);
+    font-size: 0.95rem;
+  }
+</style>

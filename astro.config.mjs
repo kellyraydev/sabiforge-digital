@@ -51,11 +51,12 @@ export default defineConfig({
   integrations: [
     react(),
     sitemap({
-      // Exclude all design studies, draft legal pages and generated error routes.
+      // Exclude design studies, project previews, draft legal pages and generated error routes.
       filter: (page) => {
         const pathname = new URL(page).pathname;
         return !(
           /^\/hero-lab(?:\/|$)/i.test(pathname) ||
+          /^\/preview(?:\/|$)/i.test(pathname) ||
           /^\/(?:privacy|terms)\/?$/i.test(pathname) ||
           /^\/(?:404|500|error|errors)(?:\/|$)/i.test(pathname)
         );

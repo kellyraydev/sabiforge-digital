@@ -14,7 +14,10 @@ async function htmlFiles(directory) {
   return files.flat();
 }
 
-const files = await htmlFiles(resolve('dist'));
+const files = (await htmlFiles(resolve('dist'))).filter(
+  // Project previews carry their own noindex chrome and no canonical; checked separately.
+  (file) => !/[/\\]preview[/\\]/.test(file),
+);
 const pendingSlugs = [
   'brand-identity-creative-direction',
   'website-strategy-ux-ui-design',

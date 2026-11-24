@@ -41,7 +41,9 @@ async function walk(directory) {
 }
 
 const files = await walk(dist);
-const htmlFiles = files.filter((file) => file.endsWith('.html'));
+// Project previews (dist/preview/**) are standalone concept mini-sites: always noindex, never in
+// the sitemap, and governed by their own rules, so they are excluded from the production SEO checks.
+const htmlFiles = files.filter((file) => file.endsWith('.html') && !/[/\\]preview[/\\]/.test(file));
 assert.ok(htmlFiles.length > 0, 'production build must contain HTML pages');
 
 function assertOrigin(value, context) {

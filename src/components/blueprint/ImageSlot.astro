@@ -1,0 +1,79 @@
+---
+/**
+ * Renders a project image if present, otherwise a themed placeholder (never a blank box).
+ * The placeholder carries the project name and a note, so a preview reads well before art exists.
+ */
+import { projectImage, type ImageRef } from '@/lib/blueprint';
+
+interface Props {
+  slug: string;
+  image?: ImageRef;
+  projectName: string;
+  ratio?: string;
+  class?: string;
+}
+const { slug, image, projectName, ratio = '4 / 3', class: className } = Astro.props;
+const src = image ? projectImage(slug, image.file) : undefined;
+---
+
+{src ? (
+  <img
+    src={src}
+    alt={image!.alt}
+    loading="lazy"
+    class:list={['bp-img', className]}
+    style={`aspect-ratio:${ratio}`}
+  />
+) : (
+  <div
+    class:list={['bp-img bp-img-placeholder', className]}
+    style={`aspect-ratio:${ratio}`}
+    role="img"
+    aria-label={image ? image.alt : `${projectName} placeholder image`}
+    data-image-placeholder={image?.file ?? 'unnamed'}
+  >
+    <span class="bp-img-watermark">{projectName}</span>
+    <span class="bp-img-note">Image coming soon</span>
+  </div>
+)}
+
+<style>
+  .bp-img {
+    display: block;
+    width: 100%;
+    object-fit: cover;
+    border-radius: var(--bp-radius);
+    background: color-mix(in srgb, var(--bp-accent) 18%, var(--bp-surface));
+  }
+  .bp-img-placeholder {
+    position: relative;
+    display: grid;
+    place-content: center;
+    gap: 0.25rem;
+    text-align: center;
+    background:
+      radial-gradient(
+        120% 120% at 20% 0%,
+        color-mix(in srgb, var(--bp-accent) 35%, transparent),
+        transparent 60%
+      ),
+      linear-gradient(
+        160deg,
+        var(--bp-surface),
+        color-mix(in srgb, var(--bp-accent) 22%, var(--bp-surface))
+      );
+    border: 1px dashed color-mix(in srgb, var(--bp-ink) 20%, transparent);
+  }
+  .bp-img-watermark {
+    font-family: var(--bp-display);
+    font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+    letter-spacing: 0.08em;
+    color: color-mix(in srgb, var(--bp-ink) 70%, transparent);
+  }
+  .bp-img-note {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: color-mix(in srgb, var(--bp-ink) 45%, transparent);
+  }
+</style>

@@ -635,6 +635,23 @@ const pass = (msg) => console.log(`✓ ${msg}`);
   assert.doesNotMatch(await op.innerText(), /₦|warranty included|\+234/i);
   pass('Opeyemi demo: browse, separate sell/swap form, WhatsApp stays disabled');
 
+  // Project blueprint preview (AURA): index gallery, themed mini-site, honesty banner, pages
+  await page.goto(BASE_URL + '/preview', { waitUntil: 'networkidle' });
+  assert.ok((await page.locator('[data-preview-index] > li').count()) >= 1);
+  await page.locator('[data-preview-index] a').first().click();
+  await page.waitForURL(/\/preview\/aura-clothing\/?$/);
+  assert.match(
+    await page.locator('[data-preview-banner]').innerText(),
+    /Fictional brand, not a live client/,
+  );
+  assert.equal(await page.locator('h1').first().innerText(), 'Dress with less.');
+  // Placeholders stand in for missing art (no blank boxes)
+  assert.ok((await page.locator('[data-image-placeholder]').count()) >= 1);
+  await page.getByRole('link', { name: 'Shop', exact: true }).click();
+  await page.waitForURL(/\/preview\/aura-clothing\/shop\/?$/);
+  assert.equal(await page.locator('.bp-product').count(), 8);
+  pass('blueprint preview: gallery, themed mini-site, banner, navigation, placeholders');
+
   // Concept demo shell (T11): badge, way back, lazy island, review mode, no-JS fallback.
   const demoUrl = `${BASE_URL}/work/corporate-digital-modernization/demo`;
   await page.goto(BASE_URL + '/work', { waitUntil: 'networkidle' });

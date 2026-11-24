@@ -1,0 +1,22 @@
+---
+import PreviewLayout from '@/layouts/PreviewLayout.astro';
+import Section from '@/components/blueprint/sections/Section.astro';
+import { blueprints } from '@/data/projects';
+
+export function getStaticPaths() {
+  return blueprints.flatMap((blueprint) =>
+    blueprint.pages.map((page) => ({
+      params: { path: `${blueprint.slug}${page.path === '/' ? '' : page.path}` },
+      props: { blueprint, page },
+    })),
+  );
+}
+
+const { blueprint, page } = Astro.props;
+---
+
+<PreviewLayout blueprint={blueprint} page={page}>
+  {page.sections.map((section) => (
+    <Section slug={blueprint.slug} name={blueprint.name} section={section} />
+  ))}
+</PreviewLayout>

@@ -1,0 +1,210 @@
+---
+/**
+ * Chrome for a blueprint preview: applies the project's theme, renders a persistent SabiForge
+ * honesty banner (so a concept is never mistaken for a real site), then the project's own header,
+ * page content and footer. Previews are noindex, consistent with staging policy.
+ */
+import '@fontsource-variable/inter';
+import { themeStyle, type Blueprint, type BlueprintPage } from '@/lib/blueprint';
+import { CLIENT_LABEL, CONCEPT_LABEL } from '@/data/concepts';
+
+interface Props {
+  blueprint: Blueprint;
+  page: BlueprintPage;
+}
+const { blueprint, page } = Astro.props;
+const nav =
+  blueprint.nav ??
+  blueprint.pages.map((p) => ({ label: p.title.split('—')[0].trim(), to: p.path }));
+const base = `/preview/${blueprint.slug}`;
+const href = (to: string) => `${base}${to === '/' ? '' : to}`;
+
+const banner =
+  blueprint.basis === 'client'
+    ? `${CLIENT_LABEL}: preview of client work, shared with permission.`
+    : blueprint.basis === 'reference'
+      ? `${CONCEPT_LABEL}: uncommissioned concept, not this business’s official website.`
+      : `${CONCEPT_LABEL}: preview of a concept by SabiForge Digital. Fictional brand, not a live client.`;
+---
+
+<!doctype html>
+<html lang="en" data-preview>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>{page.title} · {blueprint.name} preview</title>
+    <meta name="description" content={`${blueprint.tagline} ${banner}`} />
+  </head>
+  <body>
+    <div class="bp-root" style={themeStyle(blueprint.theme)}>
+      <p class="bp-banner" data-preview-banner>
+        <span>{banner}</span>
+        <a href="/work">Back to SabiForge</a>
+      </p>
+
+      <header class="bp-header">
+        <div class="bp-shell bp-header-inner">
+          <a class="bp-brand" href={href('/')}>
+            {blueprint.name}
+          </a>
+          <nav class="bp-nav" aria-label={`${blueprint.name} preview`}>
+            {nav.map((item) => (
+              <a href={href(item.to)} aria-current={item.to === page.path ? 'page' : undefined}>
+                {item.label}
+              </a>
+            ))}
+          </nav>
+        </div>
+      </header>
+
+      <main class="bp-shell">
+        <slot />
+      </main>
+
+      <footer class="bp-footer">
+        <div class="bp-shell">
+          <p>{blueprint.name}</p>
+          <p class="bp-footer-note">
+            Preview built from a SabiForge project blueprint. Not a live site.
+          </p>
+        </div>
+      </footer>
+    </div>
+
+    <style is:global>
+      .bp-root {
+        background: var(--bp-bg);
+        color: var(--bp-ink);
+        font-family: var(--bp-body);
+        min-height: 100dvh;
+      }
+      .bp-shell {
+        width: min(72rem, 100% - 2.5rem);
+        margin-inline: auto;
+      }
+      .bp-banner {
+        margin: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem 1rem;
+        justify-content: center;
+        align-items: center;
+        background: #000417;
+        color: #e9ecfb;
+        font-size: 0.8rem;
+        padding: 0.55rem 1rem;
+        text-align: center;
+      }
+      .bp-banner a {
+        color: #7ff0d6;
+        font-weight: 600;
+      }
+      .bp-header {
+        border-bottom: 1px solid color-mix(in srgb, var(--bp-ink) 10%, transparent);
+        padding: 1rem 0;
+      }
+      .bp-header-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+      .bp-brand {
+        font-family: var(--bp-display);
+        font-size: 1.2rem;
+        letter-spacing: 0.04em;
+        font-weight: 600;
+        text-decoration: none;
+        color: inherit;
+      }
+      .bp-nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.25rem 1rem;
+      }
+      .bp-nav a {
+        color: var(--bp-muted);
+        text-decoration: none;
+        font-size: 0.9rem;
+        padding: 0.4rem 0;
+      }
+      .bp-nav a[aria-current='page'] {
+        color: var(--bp-ink);
+        font-weight: 600;
+      }
+      .bp-section {
+        padding: clamp(1.75rem, 4vw, 3rem) 0;
+      }
+      .bp-section-title {
+        font-family: var(--bp-display);
+        font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+        margin: 0;
+      }
+      .bp-section-intro {
+        margin: 0.75rem 0 0;
+        max-width: 52ch;
+        color: var(--bp-muted);
+      }
+      .bp-eyebrow {
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        font-size: 0.75rem;
+        color: var(--bp-accent);
+        margin: 0;
+        font-weight: 600;
+      }
+      .bp-btn {
+        display: inline-flex;
+        align-items: center;
+        min-height: 2.75rem;
+        padding: 0 1.4rem;
+        border-radius: 999px;
+        font-weight: 600;
+        font-size: 0.95rem;
+        text-decoration: none;
+      }
+      .bp-btn-primary {
+        background: var(--bp-accent);
+        color: var(--bp-accent-ink);
+      }
+      .bp-btn-ghost {
+        border: 1px solid color-mix(in srgb, var(--bp-ink) 30%, transparent);
+        color: var(--bp-ink);
+      }
+      .bp-btn:focus-visible,
+      .bp-nav a:focus-visible,
+      .bp-brand:focus-visible,
+      .bp-banner a:focus-visible {
+        outline: 2px solid var(--bp-accent);
+        outline-offset: 2px;
+      }
+      .bp-footer {
+        margin-top: 2rem;
+        border-top: 1px solid color-mix(in srgb, var(--bp-ink) 10%, transparent);
+        padding: 2rem 0;
+        color: var(--bp-muted);
+      }
+      .bp-footer-note {
+        font-size: 0.82rem;
+        margin-top: 0.25rem;
+      }
+      @media (prefers-reduced-motion: no-preference) {
+        .bp-section,
+        .bp-hero {
+          animation: bp-rise 0.5s ease both;
+        }
+      }
+      @keyframes bp-rise {
+        from {
+          opacity: 0;
+          transform: translateY(0.75rem);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+    </style>
+  </body>
+</html>

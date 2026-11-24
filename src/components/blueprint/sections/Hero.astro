@@ -1,0 +1,71 @@
+---
+import ImageSlot from '@/components/blueprint/ImageSlot.astro';
+import type { Section } from '@/lib/blueprint';
+interface Props {
+  slug: string;
+  name: string;
+  section: Extract<Section, { type: 'hero' }>;
+}
+const { slug, name, section } = Astro.props;
+const href = (to: string) => (to.startsWith('/') ? `/preview/${slug}${to === '/' ? '' : to}` : to);
+---
+
+<section class="bp-hero">
+  <div class="bp-hero-copy">
+    {section.eyebrow && <p class="bp-eyebrow">{section.eyebrow}</p>}
+    <h1 class="bp-hero-title">{section.headline}</h1>
+    {section.sub && <p class="bp-hero-sub">{section.sub}</p>}
+    {(section.cta || section.secondaryCta) && (
+      <div class="bp-hero-actions">
+        {section.cta && (
+          <a class="bp-btn bp-btn-primary" href={href(section.cta.to)}>
+            {section.cta.label}
+          </a>
+        )}
+        {section.secondaryCta && (
+          <a class="bp-btn bp-btn-ghost" href={href(section.secondaryCta.to)}>
+            {section.secondaryCta.label}
+          </a>
+        )}
+      </div>
+    )}
+  </div>
+  <ImageSlot
+    slug={slug}
+    image={section.image}
+    projectName={name}
+    ratio="4 / 5"
+    class="bp-hero-img"
+  />
+</section>
+<style>
+  .bp-hero {
+    display: grid;
+    gap: 2rem;
+    align-items: center;
+    padding: clamp(2rem, 6vw, 4.5rem) 0;
+  }
+  @media (min-width: 900px) {
+    .bp-hero {
+      grid-template-columns: 1.05fr 0.95fr;
+    }
+  }
+  .bp-hero-title {
+    font-family: var(--bp-display);
+    font-size: clamp(2.2rem, 6vw, 3.6rem);
+    line-height: 1.02;
+    margin: 0.4rem 0 0;
+  }
+  .bp-hero-sub {
+    margin-top: 1rem;
+    max-width: 38ch;
+    color: var(--bp-muted);
+    font-size: 1.05rem;
+  }
+  .bp-hero-actions {
+    margin-top: 1.75rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+</style>

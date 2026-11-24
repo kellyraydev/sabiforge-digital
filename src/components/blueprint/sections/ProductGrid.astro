@@ -1,0 +1,60 @@
+---
+import ImageSlot from '@/components/blueprint/ImageSlot.astro';
+import type { Section } from '@/lib/blueprint';
+interface Props {
+  slug: string;
+  name: string;
+  section: Extract<Section, { type: 'product-grid' }>;
+}
+const { slug, name, section } = Astro.props;
+---
+
+<section class="bp-section" data-island={section.island ?? undefined}>
+  {section.title && <h2 class="bp-section-title">{section.title}</h2>}
+  {section.intro && <p class="bp-section-intro">{section.intro}</p>}
+  <ul class="bp-product-grid" role="list">
+    {section.products.map((p) => (
+      <li class="bp-product">
+        <ImageSlot slug={slug} image={p.image} projectName={name} ratio="4 / 5" />
+        <p class="bp-product-name">{p.name}</p>
+        {p.caption && <p class="bp-product-caption">{p.caption}</p>}
+      </li>
+    ))}
+  </ul>
+  {section.island && (
+    <p class="bp-island-note">
+      Interactive {section.island.replace('-', ' ')} mounts here when enabled.
+    </p>
+  )}
+</section>
+<style>
+  .bp-product-grid {
+    list-style: none;
+    margin: 1.75rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 1rem 1.25rem;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (min-width: 720px) {
+    .bp-product-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  .bp-product-name {
+    margin: 0.6rem 0 0;
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+  .bp-product-caption {
+    margin: 0.1rem 0 0;
+    color: var(--bp-muted);
+    font-size: 0.82rem;
+  }
+  .bp-island-note {
+    margin-top: 1.25rem;
+    font-size: 0.8rem;
+    color: var(--bp-muted);
+    font-style: italic;
+  }
+</style>

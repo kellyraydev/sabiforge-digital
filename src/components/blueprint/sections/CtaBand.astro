@@ -1,0 +1,43 @@
+---
+import type { Section } from '@/lib/blueprint';
+interface Props {
+  slug: string;
+  section: Extract<Section, { type: 'cta' }>;
+}
+const { slug, section } = Astro.props;
+const href = (to: string) => (to.startsWith('/') ? `/preview/${slug}${to === '/' ? '' : to}` : to);
+---
+
+<section class="bp-cta">
+  <h2 class="bp-cta-title">{section.headline}</h2>
+  {section.sub && <p class="bp-cta-sub">{section.sub}</p>}
+  {section.cta && (
+    <a class="bp-btn bp-btn-primary" href={href(section.cta.to)}>
+      {section.cta.label}
+    </a>
+  )}
+</section>
+<style>
+  .bp-cta {
+    margin: 2.5rem 0;
+    padding: clamp(2rem, 5vw, 3.5rem);
+    border-radius: var(--bp-radius);
+    text-align: center;
+    background: var(--bp-accent);
+    color: var(--bp-accent-ink);
+  }
+  .bp-cta-title {
+    font-family: var(--bp-display);
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    margin: 0;
+  }
+  .bp-cta-sub {
+    margin: 0.75rem auto 1.5rem;
+    max-width: 46ch;
+    opacity: 0.85;
+  }
+  .bp-cta .bp-btn-primary {
+    background: var(--bp-accent-ink);
+    color: var(--bp-accent);
+  }
+</style>
