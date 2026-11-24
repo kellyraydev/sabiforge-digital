@@ -333,7 +333,7 @@ const pass = (msg) => console.log(`✓ ${msg}`);
   assert.match(await page.locator('body').innerText(), /Concept Project/);
   assert.match(
     await page.locator('body').innerText(),
-    /latest technology and modern design standards/,
+    /design approach and the thinking behind each project/,
   );
   pass('work: ten concept studies are present without the retired studies');
 
